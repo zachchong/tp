@@ -9,6 +9,15 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
+### Yoon Jia Bao
+
+<img src="images/jbyoonn.png" width="200px">
+
+[[github](https://github.com/JBYoonn)]
+[[portfolio](team/jbyoonn.md)]
+
+* Role: Developer, in charge of UI
+
 ### Lucas Ng
 
 <img src="images/lucasn24.png" width="200px">
