@@ -9,12 +9,12 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### Lucas Doe
+### Lucas Ng
 
 <img src="images/lucasn24.png" width="200px">
 
 [[github](http://github.com/lucasn24)]
-[[portfolio](team/johndoe.md)]
+[[portfolio](team/lucasn24.md)]
 
 * Role: Developer
 * Responsibilities: Dev Ops + Threading
