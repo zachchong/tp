@@ -5,11 +5,11 @@ title: About Us
 
 We are a team based in the [School of Computing, National University of Singapore](https://www.comp.nus.edu.sg).
 
-You can reach us at the email `seer[at]comp.nus.edu.sg`
+You can reach us at the email `jiaBaoisFat[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
+### John Pork
 
 <img src="images/johndoe.png" width="200px">
 
@@ -29,7 +29,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Team Lead
 * Responsibilities: UI
 
-### Johnny Doe
+### Johnny Sins Doe
 
 <img src="images/johndoe.png" width="200px">
 
@@ -38,7 +38,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Data
 
-### Jean Doe
+### Jeanington Doe
 
 <img src="images/johndoe.png" width="200px">
 
@@ -48,12 +48,12 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Dev Ops + Threading
 
-### James Doe
+### Kieron Oei
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/kieronoei.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/KieronOei)]
+[[portfolio](team/kieronoei.md)]
 
 * Role: Developer
-* Responsibilities: UI
+* Responsibilities: TBC
