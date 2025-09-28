@@ -289,7 +289,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | user           | search contacts by their roles                                                              | find a person with related role                                           |
 | `*`      | long-time user | archive contacts once a story wraps up                                                      | keep my dashboard uncluttered                                             |
 | `*`      | long-time user | view a timeline of interview minutes for a story                                            | quickly see the sequence of events and conversations                      |
-                                               |
 
 *{More to be added}*
 
