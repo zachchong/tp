@@ -275,14 +275,21 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
+| Priority | As a …         | I want to …                                                                                 | So that I can…                                                            |
+| -------- | -------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `* * *`  | user           | create new contacts with the add contact functions (name, phone, email, organization, role) | retrieve the contact easily when I need them                              |
+| `* * *`  | user           | create a new category                                                                       | group all related contacts and interactions for easy reference.           |
+| `* * *`  | user           | add existing contacts to categories                                                         | group related contacts for easy reference                                 |
+| `* * *`  | user           | log interview dates in the contact                                                          | easily track and know my interview schedule                               |
+| `* * *`  | user           | delete old contacts                                                                         | keep my contact book organised                                            |
+| `* * *`  | user           | remove existing contacts from categories                                                    | keep my contact book organised                                            |
+| `* * *`  | user           | delete interview dates in the contact                                                       | keep my schedule up to date and avoid confusion from outdated information |
+| `* * *`  | user           | search contacts by their names                                                              | quickly find the specific person I’m looking for                          |
+| `* *`    | user           | search contacts by their organisation                                                       | find a person from a specific organisation                                |
+| `* *`    | user           | search contacts by their roles                                                              | find a person with related role                                           |
+| `*`      | long-time user | archive contacts once a story wraps up                                                      | keep my dashboard uncluttered                                             |
+| `*`      | long-time user | view a timeline of interview minutes for a story                                            | quickly see the sequence of events and conversations                      |
+                                               |
 
 *{More to be added}*
 
