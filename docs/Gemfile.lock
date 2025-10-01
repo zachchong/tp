@@ -8,6 +8,8 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.4)
       public_suffix (>= 2.0.2, < 6.0)
+    base64 (0.3.0)
+    bigdecimal (3.2.3)
     coffee-script (2.4.1)
       coffee-script-source
       execjs
@@ -15,6 +17,7 @@ GEM
     colorator (1.1.0)
     commonmarker (0.23.10)
     concurrent-ruby (1.2.2)
+    csv (3.3.5)
     dnsruby (1.70.0)
       simpleidn (~> 0.2.1)
     em-websocket (0.5.3)
@@ -23,14 +26,12 @@ GEM
     ethon (0.16.0)
       ffi (>= 1.15.0)
     eventmachine (1.2.7)
-    eventmachine (1.2.7-x64-mingw32)
     execjs (2.8.1)
     faraday (2.7.5)
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.2)
     ffi (1.15.5)
-    ffi (1.15.5-x64-mingw32)
     forwardable-extended (2.6.0)
     gemoji (3.0.1)
     github-pages (228)
@@ -206,6 +207,7 @@ GEM
     listen (3.8.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
+    logger (1.7.0)
     mercenary (0.3.6)
     mini_portile2 (2.8.9)
     minima (2.5.1)
@@ -250,18 +252,21 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.8.2)
-    unf_ext (0.0.8.2-x64-mingw32)
     unicode-display_width (1.8.0)
     webrick (1.8.2)
 
 PLATFORMS
   ruby
-  x64-mingw32
+  x64-mingw-ucrt
 
 DEPENDENCIES
+  base64
+  bigdecimal
+  csv
   github-pages
   jekyll
+  logger
   webrick
 
 BUNDLED WITH
-   2.1.4
+   2.7.2
