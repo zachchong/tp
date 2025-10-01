@@ -6,6 +6,8 @@
 ## Table of Contents
 - [About](#about)
 - [UI](#ui)
+- [Features](#features)
+- [Commands](#commands)
 - [Acknowledge Source](#acknowledge-source)
 
 ## About
@@ -22,6 +24,56 @@ Ultimately, PressPal aims to reduce cognitive load for reporters, allowing them 
 PressPal features a clean and intuitive user interface designed for ease of use and seamless navigation.
 ![Ui](docs/images/Ui.png)
 
+## Features
+1. Add Contacts
+2. Delete a Contact
+3. Create Category
+4. Add Contact to Category
+5. Remove Contact from Category
+6. Add Interview to Contact
+7. Delete Interview from Contact
+8. Search Contact
+
+## Commands
+### Add Contact
+Create a new contact with essential details.
+
+`contact add n/NAME p/PHONE e/EMAIL o/ORGANIZATION r/ROLE c/CATEGORY(optional)`
+
+### Delete Contact
+Delete an existing contact
+
+`contact delete n/NAME`
+
+### Create Category
+Create a new category to group contacts and interactions
+
+`category create c/CATEGORY_NAME`
+
+### Add Contact to Category
+Group existing contacts to a category
+
+`category add n/CONTACT_NAME c/CATEGORY_NAME`
+
+### Remove Contact from Category
+Remove contact from a category that it is already in
+
+`category remove n/CONTACT_NAME c/CATEGORY_NAME`
+
+### Add Interview to Contact
+Attach an interview date to an existing contact
+
+`interview add n/NAME h/HEADER d/DATE t/TIME`
+
+### Delete Interview from Contact
+Remove an existing interview from a contact
+
+`interview delete n/NAME d/DATE t/TIME`
+
+### Search Contact
+Find existing contacts by searching name
+
+`search n/NAME`
 
 ## Acknowledge Source
 This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org).
