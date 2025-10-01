@@ -5,9 +5,23 @@ title: About Us
 
 We are a team based in the [School of Computing, National University of Singapore](https://www.comp.nus.edu.sg).
 
-You can reach us at the email `seer[at]comp.nus.edu.sg`
+You can reach any one of us at the email:
+* `e1398360[at]u.nus.edu` (Jia Bao)
+* `jessie.chin[at]u.nus.edu` (Jessie)
+* `koei[at]u.nus.edu` (Kieron)
+* `e1406319[at]u.nus.edu` (Lucas)
+* `czh[at]u.nus.edu` (Zach)
 
 ## Project team
+
+### Yoon Jia Bao
+
+<img src="images/jbyoonn.png" width="200px">
+
+[[github](https://github.com/JBYoonn)]
+[[portfolio](team/jbyoonn.md)]
+
+* Role: Developer, in charge of UI
 
 ### Lucas Ng
 
@@ -19,6 +33,13 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Dev Ops + Threading
 
+### Kieron Oei
+
+<img src="images/kieronoei.png" width="200px">
+
+[[github](http://github.com/KieronOei)]
+[[portfolio](team/kieronoei.md)]
+
 ### Zach Chong
 
 <img src="images/zachchong.png" width="200px">
@@ -27,4 +48,4 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[portfolio](team/zachchong.md)]
 
 * Role: Developer
-* Responsibilities: UI
+* Responsibilities: TBC
