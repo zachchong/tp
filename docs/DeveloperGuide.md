@@ -268,7 +268,7 @@ _{Explain here how the data archiving feature will be implemented}_
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value proposition**: PressPal helps reporters manage scattered contacts with speed. It categorizes relationships by role and organization, tracks interviews and notes, and offers reminders for follow-ups. With timeline views, archiving contacts after each news, and smart command suggestions, it streamlines fast entry and retrieval, keeping reporters organized while chasing breaking stories.
+**Value proposition**: PressPal helps reporters manage scattered contacts with speed. It categorises relationships by role and organisation, tracks interviews and notes, and offers reminders for follow-ups. With timeline views, archiving contacts after each news, and smart command suggestions, it streamlines fast entry and retrieval, keeping reporters organised while chasing breaking stories.
 
 
 ### User stories
@@ -277,7 +277,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 | Priority | As a …         | I can …                                                                                 | So that I can…                                                            |
 | -------- | -------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| `* * *`  | user           | create new contacts with the add contact functions (name, phone, email, organization, role) | retrieve the contact easily when I need them                              |
+| `* * *`  | user           | create new contacts with the add contact functions (name, phone, email, organisation, role) | retrieve the contact easily when I need them                              |
 | `* * *`  | user           | create a new category                                                                       | group all related contacts and interactions for easy reference.           |
 | `* * *`  | user           | add existing contacts to categories                                                         | group related contacts for easy reference                                 |
 | `* * *`  | user           | log interview dates in the contact                                                          | easily track and know my interview schedule                               |
