@@ -262,11 +262,16 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+* Primary users:
+   * Breaking-news reporters in Singapore mainstream newsrooms who often handle a large number of contacts from different organisations and roles.
+
+* Context:
+   * They work under tight schedules, sometimes in the newsroom but often on-the-go, needing to recall and update information quickly while balancing multiple developing stories.
+
+* Habits & skills:
+   * Prefer desktop/laptop applications for speed.
+   * Comfortable with command-line input and type quickly, preferring keyboard over mouse-driven interactions.
+   * Used to handling structured yet scattered information (contacts, roles, organisations, interviews).
 
 **Value proposition**: PressPal helps reporters manage scattered contacts with speed. It categorises relationships by role and organisation, tracks interviews and notes, and offers reminders for follow-ups. With timeline views, archiving contacts after each news, and smart command suggestions, it streamlines fast entry and retrieval, keeping reporters organised while chasing breaking stories.
 
