@@ -17,4 +17,4 @@ PressPal is designed to streamline contact and interview management for breaking
   * User Guide:
     * Learning how AI assists me in writing User Guides
   * Developer Guide:
-    * Nothing yet
+    * Updating Glossary
