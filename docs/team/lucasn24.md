@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Jia Bao's Project Portfolio Page
+title: Lucas Ng's Project Portfolio Page
 ---
 
 ### Project: PressPal
