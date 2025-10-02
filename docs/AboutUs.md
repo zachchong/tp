@@ -42,7 +42,7 @@ You can reach any one of us at the email:
 [[portfolio](team/lucasn24.md)]
 
 * Role: Developer
-* Responsibilities: Dev Ops + Threading
+* Responsibilities: TBC
 
 ### Kieron Oei
 
