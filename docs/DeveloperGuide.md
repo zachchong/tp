@@ -656,6 +656,10 @@ An individual or organization entry stored in PressPal, including name, role, an
 **Duplicate contact**
 A contact that shares the same phone number or email as an existing contact in PressPal.
 
+## M
+**Mode of contact**
+A way to reach a contact, such as a phone number or email address.
+
 ## R
 **Reporter**
 The primary user of PressPal who manages contacts, categories, and interview notes.
