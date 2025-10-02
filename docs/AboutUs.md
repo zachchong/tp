@@ -21,7 +21,18 @@ You can reach any one of us at the email:
 [[github](https://github.com/JBYoonn)]
 [[portfolio](team/jbyoonn.md)]
 
-* Role: Developer, in charge of UI
+* Role: Developer
+* Responsibilities: UI
+
+### Jessie Chin
+
+<img src="images/jcc-kh.png" width="200px">
+
+[[github](https://github.com/jcc-kh)]
+[[portfolio](team/jcc-kh.md)]
+
+* Role: Developer
+* Responsibilities: TBC
 
 ### Lucas Ng
 
