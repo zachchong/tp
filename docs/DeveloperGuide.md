@@ -640,26 +640,42 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ---
 
 ## A
-**Account**: A user profile in PressPal that stores a journalist’s credentials, preferences, and contact database.
+**Account**: 
+
+A user profile in PressPal that stores a journalist’s credentials, preferences, and contact database.
 
 ## C
-**Category**: A label or grouping used to organize contacts (e.g., “Politics,” “Health,” “Technology”).
+**Category**: 
 
-**Contact**: An individual or organization entry stored in PressPal, including name, role, and at least one mode of contact (e.g., phone or email).
+A label or grouping used to organize contacts (e.g., “Politics,” “Health,” “Technology”).
+
+**Contact**: 
+
+An individual or organization entry stored in PressPal, including name, role, and at least one mode of contact (e.g., phone or email).
 
 ## D
-**Duplicate contact**: A contact that shares the same phone number or email as an existing contact in PressPal.
+**Duplicate contact**: 
+
+A contact that shares the same phone number or email as an existing contact in PressPal.
 
 ## M
-**Mode of contact**: A way to reach a contact, such as a phone number or email address.
+**Mode of contact**: 
+
+A way to reach a contact, such as a phone number or email address.
 
 ## R
-**Reporter**: The primary user of PressPal who manages contacts, categories, and interview notes.
+**Reporter**: 
 
-**Role**: The position or job title of a contact within their organisation.
+The primary user of PressPal who manages contacts, categories, and interview notes.
+
+**Role**: 
+
+The position or job title of a contact within their organisation.
 
 ## O
-**Organisation**: The company, agency, or institution a contact belongs to.
+**Organisation**: 
+
+The company, agency, or institution a contact belongs to.
 
 
 ## **Appendix: Instructions for manual testing**
