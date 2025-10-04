@@ -1,10 +1,6 @@
 package seedu.address.logic.parser;
 
-import org.junit.jupiter.api.Test;
-
-import seedu.address.logic.Messages;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import seedu.address.logic.commands.AddCommand;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_FRIEND;
@@ -34,6 +30,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.testutil.TypicalPersons.AMY;
+import static seedu.address.testutil.TypicalPersons.BOB;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.logic.Messages;
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.category.Category;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -41,8 +44,6 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.testutil.PersonBuilder;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalPersons.BOB;
 
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
@@ -57,10 +58,12 @@ public class AddCommandParserTest {
 
 
         // multiple tags - all accepted
-        Person expectedPersonMultipleCategories = new PersonBuilder(BOB).withCategories(VALID_CATEGORY_FRIEND, VALID_CATEGORY_HUSBAND)
+        Person expectedPersonMultipleCategories = new PersonBuilder(BOB)
+                .withCategories(VALID_CATEGORY_FRIEND, VALID_CATEGORY_HUSBAND)
                 .build();
         assertParseSuccess(parser,
-                NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + CATEGORY_DESC_HUSBAND + CATEGORY_DESC_FRIEND,
+                NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                        + ADDRESS_DESC_BOB + CATEGORY_DESC_HUSBAND + CATEGORY_DESC_FRIEND,
                 new AddCommand(expectedPersonMultipleCategories));
     }
 
