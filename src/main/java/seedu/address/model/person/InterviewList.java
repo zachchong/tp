@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class InterviewList {
 
-    private final List<String> interviewList;
+    private final List<String> interviewList; // TO BE UPDATED TO USE ACTUAL INTERVIEW CLASS BY v1.3
 
     /**
      * Constructs a {@code InterviewList}.
