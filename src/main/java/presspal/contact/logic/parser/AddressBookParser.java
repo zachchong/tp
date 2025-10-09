@@ -17,6 +17,7 @@ import presspal.contact.logic.commands.ExitCommand;
 import presspal.contact.logic.commands.FindCommand;
 import presspal.contact.logic.commands.HelpCommand;
 import presspal.contact.logic.commands.ListCommand;
+import presspal.contact.logic.commands.AddInterviewCommand;
 import presspal.contact.logic.parser.exceptions.ParseException;
 
 /**
@@ -76,6 +77,9 @@ public class AddressBookParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case AddInterviewCommand.COMMAND_WORD:
+            return new AddInterviewCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);

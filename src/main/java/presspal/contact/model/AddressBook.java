@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import presspal.contact.commons.util.ToStringBuilder;
 import presspal.contact.model.person.Person;
 import presspal.contact.model.person.UniquePersonList;
+import presspal.contact.model.person.Interviews;
 
 /**
  * Wraps all data at the address-book level
@@ -16,6 +17,7 @@ import presspal.contact.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final Interviews interviews;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -26,6 +28,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        interviews = new Interviews(null);
     }
 
     public AddressBook() {}
@@ -92,6 +95,23 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
+    }
+
+    public void removeInterview(String interview) {
+        interviews.remove(interview);
+    }
+
+    public void addInterview(String interview) {
+        interviews.add(interview);
+    }
+
+    public boolean hasInterview(String interview) {
+        requireNonNull(interview);
+        return interviews.contains(interview);
+    }
+
+    public List<String> getInterviewList() {
+        return interviews.getInterviews();
     }
 
     //// util methods
