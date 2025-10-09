@@ -31,6 +31,14 @@ public class InterviewList {
     }
 
     /**
+     * Returns a list of upcoming interviews by comparing current time and time of interview.
+     */
+    public List<String> getUpcomingInterviews() {
+        List<String> upcomingInterviews = new ArrayList<>();
+        return upcomingInterviews; // return an empty list for now. TBC in v1.3
+    }
+
+    /**
      * Adds an interview to the interview list.
      */
     public void add(String interview) {
