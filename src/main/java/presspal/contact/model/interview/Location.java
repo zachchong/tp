@@ -8,7 +8,7 @@ public class Location {
     private String location;
 
     /** Constructs a Location object */
-    public Location(String location){
+    public Location(String location) {
         this.location = location;
     }
 
