@@ -11,27 +11,27 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class InterviewListTest {
-    private InterviewList emptyList;
-    private InterviewList populatedList;
+public class InterviewsTest {
+    private Interviews emptyList;
+    private Interviews populatedList;
     private List<String> sampleInterviews;
 
     @BeforeEach
     public void setUp() {
         sampleInterviews = new ArrayList<>(Arrays.asList("Interview at 2359", "Interview at 1600"));
-        emptyList = new InterviewList(null);
-        populatedList = new InterviewList(sampleInterviews);
+        emptyList = new Interviews(null);
+        populatedList = new Interviews(sampleInterviews);
     }
 
     @Test
     public void constructor_nullList_initializesEmptyList() {
-        InterviewList list = new InterviewList(null);
-        assertTrue(list.getInterviewList().isEmpty());
+        Interviews list = new Interviews(null);
+        assertTrue(list.getInterviews().isEmpty());
     }
 
     @Test
     public void getInterviewList_returnsCorrectList() {
-        assertEquals(sampleInterviews, populatedList.getInterviewList());
+        assertEquals(sampleInterviews, populatedList.getInterviews());
     }
 
     @Test
@@ -64,19 +64,19 @@ public class InterviewListTest {
 
     @Test
     public void equals_differentContents_returnsFalse() {
-        InterviewList differentList = new InterviewList(Arrays.asList("Interview at 1800"));
+        Interviews differentList = new Interviews(Arrays.asList("Interview at 1800"));
         assertFalse(populatedList.equals(differentList));
     }
 
     @Test
     public void equals_sameContents_returnsTrue() {
-        InterviewList sameList = new InterviewList(new ArrayList<>(sampleInterviews));
+        Interviews sameList = new Interviews(new ArrayList<>(sampleInterviews));
         assertTrue(populatedList.equals(sameList));
     }
 
     @Test
     public void hashCode_sameContents_sameHashCode() {
-        InterviewList sameList = new InterviewList(new ArrayList<>(sampleInterviews));
+        Interviews sameList = new Interviews(new ArrayList<>(sampleInterviews));
         assertEquals(populatedList.hashCode(), sameList.hashCode());
     }
 

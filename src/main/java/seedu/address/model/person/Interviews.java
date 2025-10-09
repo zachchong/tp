@@ -6,28 +6,29 @@ import java.util.List;
 /**
  * Represents a Person's list of interviews in the address book.
  */
-public class InterviewList {
+public class Interviews {
 
-    private final List<String> interviewList; // TO BE UPDATED TO USE ACTUAL INTERVIEW CLASS BY v1.3
+    // list of interview(s) for a person
+    private final List<String> interviews; // TO BE UPDATED TO USE ACTUAL INTERVIEW CLASS BY v1.3
 
     /**
-     * Constructs a {@code InterviewList}.
+     * Constructs a {@code Interviews}.
      *
-     * @param interviewList List of initial interviews.
+     * @param interviews List of initial interviews.
      */
-    public InterviewList(List<String> interviewList) {
-        if (interviewList != null) {
-            this.interviewList = interviewList;
+    public Interviews(List<String> interviews) {
+        if (interviews != null) {
+            this.interviews = interviews;
         } else {
-            this.interviewList = new ArrayList<>();
+            this.interviews = new ArrayList<>();
         }
     }
 
     /**
-     * Returns the interview list.
+     * Returns the interviews list.
      */
-    public List<String> getInterviewList() {
-        return interviewList;
+    public List<String> getInterviews() {
+        return interviews;
     }
 
     /**
@@ -42,21 +43,21 @@ public class InterviewList {
      * Adds an interview to the interview list.
      */
     public void add(String interview) {
-        interviewList.add(interview);
+        interviews.add(interview);
     }
 
     /**
      * Removes an interview from the interview list.
      */
     public void remove(String interview) {
-        interviewList.remove(interview);
+        interviews.remove(interview);
     }
 
     /**
      * Returns true if an interview is contained in interview list.
      */
     public boolean contains(String interview) {
-        return interviewList.contains(interview);
+        return interviews.contains(interview);
     }
 
     @Override
@@ -66,22 +67,22 @@ public class InterviewList {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof InterviewList)) {
+        if (!(other instanceof Interviews)) {
             return false;
         }
 
-        InterviewList otherList = (InterviewList) other;
-        return interviewList.equals(otherList.interviewList);
+        Interviews otherList = (Interviews) other;
+        return interviews.equals(otherList.interviews);
     }
 
     @Override
     public int hashCode() {
-        return interviewList.hashCode();
+        return interviews.hashCode();
     }
 
     @Override
     public String toString() {
-        return interviewList.toString();
+        return interviews.toString();
     }
 
 }
