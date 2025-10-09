@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class InterviewList {
 
-    private List<String> interviewList;
+    private final List<String> interviewList;
 
     /**
      * Constructs a {@code InterviewList}.
@@ -17,9 +17,9 @@ public class InterviewList {
      */
     public InterviewList(List<String> interviewList) {
         if (interviewList != null) {
-            interviewList = interviewList;
+            this.interviewList = interviewList;
         } else {
-            interviewList = new ArrayList<>();
+            this.interviewList = new ArrayList<>();
         }
     }
 
@@ -38,10 +38,17 @@ public class InterviewList {
     }
 
     /**
-     * Removes an interview to the interview list.
+     * Removes an interview from the interview list.
      */
     public void remove(String interview) {
         interviewList.remove(interview);
+    }
+
+    /**
+     * Returns true if an interview is contained in interview list.
+     */
+    public boolean contains(String interview) {
+        return interviewList.contains(interview);
     }
 
     @Override
