@@ -6,9 +6,9 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import presspal.contact.commons.util.ToStringBuilder;
+import presspal.contact.model.person.Interviews;
 import presspal.contact.model.person.Person;
 import presspal.contact.model.person.UniquePersonList;
-import presspal.contact.model.person.Interviews;
 
 /**
  * Wraps all data at the address-book level
@@ -97,19 +97,33 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    /**
+     * Removes an interview from the address book.
+     * The interview must exist in the address book.
+     */
     public void removeInterview(String interview) {
         interviews.remove(interview);
     }
 
+    /**
+     * Adds an interview to the address book.
+     * The interview must not already exist in the address book.
+     */
     public void addInterview(String interview) {
         interviews.add(interview);
     }
 
+    /**
+     * Returns true if an interview with the same identity exists in the address book.
+     */
     public boolean hasInterview(String interview) {
         requireNonNull(interview);
         return interviews.contains(interview);
     }
 
+    /**
+     * Returns the list of interviews in the address book.
+     */
     public List<String> getInterviewList() {
         return interviews.getInterviews();
     }

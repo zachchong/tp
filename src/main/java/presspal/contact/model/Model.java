@@ -88,6 +88,6 @@ public interface Model {
     boolean hasInterview(String interview);
 
     void addInterview(String interview);
-    
+
     void deleteInterview(String interview);
 }

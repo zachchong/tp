@@ -128,7 +128,7 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
-     //=========== Interview ==================================================================================
+    //=========== Interview ==================================================================================
 
     @Override
     public boolean hasInterview(String interview) {

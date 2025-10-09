@@ -3,15 +3,17 @@ package presspal.contact.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_DATE;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_HEADER;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_INDEX;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_TIME;
-import static presspal.contact.logic.parser.CliSyntax.PREFIX_INDEX;
 
 import presspal.contact.commons.util.ToStringBuilder;
-import presspal.contact.logic.Messages;
 import presspal.contact.logic.commands.exceptions.CommandException;
 import presspal.contact.model.Model;
 
+/**
+ * Adds an interview to the address book.
+ */
 public class AddInterviewCommand extends Command {
 
     public static final String COMMAND_WORD = "addInterview";
@@ -35,6 +37,10 @@ public class AddInterviewCommand extends Command {
 
     private final String toAdd; // Replace String with Interview when Interview class is created
 
+    /**
+     * Creates an AddInterviewCommand to add the specified interview.
+     * @param interview the interview to add
+     */
     public AddInterviewCommand(String interview) {
         requireNonNull(interview);
         toAdd = interview;
