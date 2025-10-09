@@ -5,8 +5,9 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import presspal.contact.commons.exceptions.DataLoadingException;
-import presspal.contact.model.UserPrefs;
 import presspal.contact.model.ReadOnlyUserPrefs;
+import presspal.contact.model.UserPrefs;
+
 
 /**
  * Represents a storage for {@link UserPrefs}.
