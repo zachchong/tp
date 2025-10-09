@@ -1,7 +1,5 @@
 package presspal.contact.model.interview;
 
-import presspal.contact.model.AddressBook;
-
 /**
  * Represents the location of interview.
  */
