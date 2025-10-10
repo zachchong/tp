@@ -1,10 +1,10 @@
 package presspal.contact.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static presspal.contact.logic.parser.CliSyntax.PREFIX_ORGANISATION;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_NAME;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_ORGANISATION;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_PHONE;
 import static presspal.contact.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -22,9 +22,9 @@ import presspal.contact.logic.Messages;
 import presspal.contact.logic.commands.exceptions.CommandException;
 import presspal.contact.model.Model;
 import presspal.contact.model.category.Category;
-import presspal.contact.model.person.Organisation;
 import presspal.contact.model.person.Email;
 import presspal.contact.model.person.Name;
+import presspal.contact.model.person.Organisation;
 import presspal.contact.model.person.Person;
 import presspal.contact.model.person.Phone;
 
@@ -98,7 +98,8 @@ public class EditCommand extends Command {
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-        Organisation updatedOrganisation = editPersonDescriptor.getOrganisation().orElse(personToEdit.getOrganisation());
+        Organisation updatedOrganisation = editPersonDescriptor.getOrganisation()
+                .orElse(personToEdit.getOrganisation());
         Set<Category> updatedCategories = editPersonDescriptor.getCategories().orElse(personToEdit.getCategories());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedOrganisation, updatedCategories);

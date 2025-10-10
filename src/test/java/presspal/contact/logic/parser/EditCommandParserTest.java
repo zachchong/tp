@@ -1,30 +1,30 @@
 package presspal.contact.logic.parser;
 
 import static presspal.contact.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static presspal.contact.logic.commands.CommandTestUtil.ORGANISATION_DESC_AMY;
-import static presspal.contact.logic.commands.CommandTestUtil.ORGANISATION_DESC_BOB;
 import static presspal.contact.logic.commands.CommandTestUtil.CATEGORY_DESC_FRIEND;
 import static presspal.contact.logic.commands.CommandTestUtil.CATEGORY_DESC_HUSBAND;
 import static presspal.contact.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static presspal.contact.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static presspal.contact.logic.commands.CommandTestUtil.INVALID_ORGANISATION_DESC;
 import static presspal.contact.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
 import static presspal.contact.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static presspal.contact.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static presspal.contact.logic.commands.CommandTestUtil.INVALID_ORGANISATION_DESC;
 import static presspal.contact.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static presspal.contact.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static presspal.contact.logic.commands.CommandTestUtil.ORGANISATION_DESC_AMY;
+import static presspal.contact.logic.commands.CommandTestUtil.ORGANISATION_DESC_BOB;
 import static presspal.contact.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static presspal.contact.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static presspal.contact.logic.commands.CommandTestUtil.VALID_ORGANISATION_AMY;
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_CATEGORY_FRIEND;
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_CATEGORY_HUSBAND;
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static presspal.contact.logic.commands.CommandTestUtil.VALID_ORGANISATION_AMY;
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static presspal.contact.logic.parser.CliSyntax.PREFIX_ORGANISATION;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_ORGANISATION;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_PHONE;
 import static presspal.contact.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static presspal.contact.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -39,9 +39,9 @@ import presspal.contact.logic.Messages;
 import presspal.contact.logic.commands.EditCommand;
 import presspal.contact.logic.commands.EditCommand.EditPersonDescriptor;
 import presspal.contact.model.category.Category;
-import presspal.contact.model.person.Organisation;
 import presspal.contact.model.person.Email;
 import presspal.contact.model.person.Name;
+import presspal.contact.model.person.Organisation;
 import presspal.contact.model.person.Phone;
 import presspal.contact.testutil.EditPersonDescriptorBuilder;
 
@@ -86,7 +86,8 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
         assertParseFailure(parser, "1" + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS); // invalid phone
         assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
-        assertParseFailure(parser, "1" + INVALID_ORGANISATION_DESC, Organisation.MESSAGE_CONSTRAINTS); // invalid organisation
+        assertParseFailure(parser, "1" + INVALID_ORGANISATION_DESC,
+                Organisation.MESSAGE_CONSTRAINTS); // invalid organisation
         assertParseFailure(parser, "1" + INVALID_CATEGORY_DESC, Category.MESSAGE_CONSTRAINTS); // invalid tag
 
         // invalid phone followed by valid email

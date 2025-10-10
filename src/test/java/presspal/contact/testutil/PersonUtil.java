@@ -1,9 +1,9 @@
 package presspal.contact.testutil;
 
-import static presspal.contact.logic.parser.CliSyntax.PREFIX_ORGANISATION;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_NAME;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_ORGANISATION;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import java.util.Set;
@@ -48,7 +48,8 @@ public class PersonUtil {
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
-        descriptor.getOrganisation().ifPresent(organisation -> sb.append(PREFIX_ORGANISATION).append(organisation.value).append(" "));
+        descriptor.getOrganisation().ifPresent(organisation -> sb.append(PREFIX_ORGANISATION)
+                .append(organisation.value).append(" "));
         if (descriptor.getCategories().isPresent()) {
             Set<Category> categories = descriptor.getCategories().get();
             if (categories.isEmpty()) {

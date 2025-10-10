@@ -6,9 +6,9 @@ import java.util.stream.Stream;
 
 import presspal.contact.logic.commands.EditCommand.EditPersonDescriptor;
 import presspal.contact.model.category.Category;
-import presspal.contact.model.person.Organisation;
 import presspal.contact.model.person.Email;
 import presspal.contact.model.person.Name;
+import presspal.contact.model.person.Organisation;
 import presspal.contact.model.person.Person;
 import presspal.contact.model.person.Phone;
 

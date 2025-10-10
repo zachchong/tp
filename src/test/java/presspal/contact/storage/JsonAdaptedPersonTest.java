@@ -12,9 +12,9 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import presspal.contact.commons.exceptions.IllegalValueException;
-import presspal.contact.model.person.Organisation;
 import presspal.contact.model.person.Email;
 import presspal.contact.model.person.Name;
+import presspal.contact.model.person.Organisation;
 import presspal.contact.model.person.Phone;
 
 public class JsonAdaptedPersonTest {

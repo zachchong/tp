@@ -1,32 +1,32 @@
 package presspal.contact.logic.parser;
 
 import static presspal.contact.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static presspal.contact.logic.commands.CommandTestUtil.ORGANISATION_DESC_AMY;
-import static presspal.contact.logic.commands.CommandTestUtil.ORGANISATION_DESC_BOB;
 import static presspal.contact.logic.commands.CommandTestUtil.CATEGORY_DESC_FRIEND;
 import static presspal.contact.logic.commands.CommandTestUtil.CATEGORY_DESC_HUSBAND;
 import static presspal.contact.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static presspal.contact.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static presspal.contact.logic.commands.CommandTestUtil.INVALID_ORGANISATION_DESC;
 import static presspal.contact.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
 import static presspal.contact.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static presspal.contact.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static presspal.contact.logic.commands.CommandTestUtil.INVALID_ORGANISATION_DESC;
 import static presspal.contact.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static presspal.contact.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static presspal.contact.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static presspal.contact.logic.commands.CommandTestUtil.ORGANISATION_DESC_AMY;
+import static presspal.contact.logic.commands.CommandTestUtil.ORGANISATION_DESC_BOB;
 import static presspal.contact.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static presspal.contact.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static presspal.contact.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static presspal.contact.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static presspal.contact.logic.commands.CommandTestUtil.VALID_ORGANISATION_BOB;
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_CATEGORY_FRIEND;
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_CATEGORY_HUSBAND;
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static presspal.contact.logic.commands.CommandTestUtil.VALID_ORGANISATION_BOB;
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static presspal.contact.logic.parser.CliSyntax.PREFIX_ORGANISATION;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_NAME;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_ORGANISATION;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_PHONE;
 import static presspal.contact.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static presspal.contact.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -38,9 +38,9 @@ import org.junit.jupiter.api.Test;
 import presspal.contact.logic.Messages;
 import presspal.contact.logic.commands.AddCommand;
 import presspal.contact.model.category.Category;
-import presspal.contact.model.person.Organisation;
 import presspal.contact.model.person.Email;
 import presspal.contact.model.person.Name;
+import presspal.contact.model.person.Organisation;
 import presspal.contact.model.person.Person;
 import presspal.contact.model.person.Phone;
 import presspal.contact.testutil.PersonBuilder;
@@ -92,7 +92,8 @@ public class AddCommandParserTest {
         assertParseFailure(parser,
                 validExpectedPersonString + PHONE_DESC_AMY + EMAIL_DESC_AMY + NAME_DESC_AMY + ORGANISATION_DESC_AMY
                         + validExpectedPersonString,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_NAME, PREFIX_ORGANISATION, PREFIX_EMAIL, PREFIX_PHONE));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_NAME, PREFIX_ORGANISATION,
+                        PREFIX_EMAIL, PREFIX_PHONE));
 
         // invalid value followed by valid value
 

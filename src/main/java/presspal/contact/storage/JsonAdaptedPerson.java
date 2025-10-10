@@ -11,9 +11,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import presspal.contact.commons.exceptions.IllegalValueException;
 import presspal.contact.model.category.Category;
-import presspal.contact.model.person.Organisation;
 import presspal.contact.model.person.Email;
 import presspal.contact.model.person.Name;
+import presspal.contact.model.person.Organisation;
 import presspal.contact.model.person.Person;
 import presspal.contact.model.person.Phone;
 
@@ -95,7 +95,8 @@ class JsonAdaptedPerson {
         final Email modelEmail = new Email(email);
 
         if (organisation == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Organisation.class.getSimpleName()));
+            throw new IllegalValueException(String
+                    .format(MISSING_FIELD_MESSAGE_FORMAT, Organisation.class.getSimpleName()));
         }
         if (!Organisation.isValidOrganisation(organisation)) {
             throw new IllegalValueException(Organisation.MESSAGE_CONSTRAINTS);

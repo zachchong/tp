@@ -2,10 +2,10 @@ package presspal.contact.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static presspal.contact.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static presspal.contact.logic.parser.CliSyntax.PREFIX_ORGANISATION;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_NAME;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_ORGANISATION;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import java.util.Collection;
@@ -57,7 +57,8 @@ public class EditCommandParser implements Parser<EditCommand> {
             editPersonDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
         }
         if (argMultimap.getValue(PREFIX_ORGANISATION).isPresent()) {
-            editPersonDescriptor.setOrganisation(ParserUtil.parseOrganisation(argMultimap.getValue(PREFIX_ORGANISATION).get()));
+            editPersonDescriptor.setOrganisation(ParserUtil
+                    .parseOrganisation(argMultimap.getValue(PREFIX_ORGANISATION).get()));
         }
         parseCategoriesForEdit(argMultimap.getAllValues(PREFIX_CATEGORY))
                 .ifPresent(editPersonDescriptor::setCategories);

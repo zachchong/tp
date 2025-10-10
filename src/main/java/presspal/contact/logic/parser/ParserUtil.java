@@ -10,9 +10,9 @@ import presspal.contact.commons.core.index.Index;
 import presspal.contact.commons.util.StringUtil;
 import presspal.contact.logic.parser.exceptions.ParseException;
 import presspal.contact.model.category.Category;
-import presspal.contact.model.person.Organisation;
 import presspal.contact.model.person.Email;
 import presspal.contact.model.person.Name;
+import presspal.contact.model.person.Organisation;
 import presspal.contact.model.person.Phone;
 
 /**

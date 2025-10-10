@@ -2,10 +2,10 @@ package presspal.contact.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static presspal.contact.logic.parser.CliSyntax.PREFIX_ORGANISATION;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_NAME;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_ORGANISATION;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_PHONE;
 import static presspal.contact.testutil.Assert.assertThrows;
 
@@ -51,7 +51,7 @@ public class CommandTestUtil {
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_ORGANISATION_DESC = " " + PREFIX_ORGANISATION; // empty string not allowed for organisation
+    public static final String INVALID_ORGANISATION_DESC = " " + PREFIX_ORGANISATION; // empty string not allowed
     public static final String INVALID_CATEGORY_DESC = " " + PREFIX_CATEGORY + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
