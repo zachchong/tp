@@ -92,6 +92,17 @@ public class PersonTest {
     }
 
     @Test
+    public void hashCode_sameValues_sameHashCode() {
+        Person aliceCopy = new PersonBuilder(ALICE).build();
+        // equal objects must have same hashCode
+        assertEquals(ALICE.hashCode(), aliceCopy.hashCode());
+
+        // different object should ideally have a different hashCode (not required by spec,
+        // but helps catch obvious issues). If nondeterministic, remove this assertion.
+        assertFalse(ALICE.hashCode() == BOB.hashCode());
+    }
+
+    @Test
     public void toStringMethod() {
         String expected = Person.class.getCanonicalName() + "{name=" + ALICE.getName() + ", phone=" + ALICE.getPhone()
                 + ", email=" + ALICE.getEmail() + ", organisation=" + ALICE.getOrganisation()
