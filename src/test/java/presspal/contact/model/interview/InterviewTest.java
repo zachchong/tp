@@ -89,4 +89,5 @@ class InterviewTest {
         assertEquals(dateTime, interviewWithNulls.getDateTime(),
                 "DateTime should still be correctly set");
     }
+
 }
