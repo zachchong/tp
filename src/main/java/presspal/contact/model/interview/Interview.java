@@ -67,6 +67,7 @@ public class Interview {
                 ", location=" + location +
                 '}';
     }
+
 }
 
 
