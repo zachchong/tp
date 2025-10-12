@@ -661,7 +661,7 @@ A contact that shares the same phone number or email as an existing contact in P
 ## M
 **Mode of contact**: 
 
-A way to reach a contact, such as a phone number or email address.
+A way to reach a contact, such as a phone number or email organisation.
 
 ## R
 **Reporter**: 
