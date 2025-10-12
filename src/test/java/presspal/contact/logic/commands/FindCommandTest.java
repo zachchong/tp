@@ -8,7 +8,7 @@ import static presspal.contact.logic.commands.CommandTestUtil.assertCommandSucce
 import static presspal.contact.testutil.TypicalPersons.CARL;
 import static presspal.contact.testutil.TypicalPersons.ELLE;
 import static presspal.contact.testutil.TypicalPersons.FIONA;
-import static presspal.contact.testutil.TypicalPersons.getTypicalAddressBook;
+import static presspal.contact.testutil.TypicalPersons.getTypicalContactBook;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -24,8 +24,8 @@ import presspal.contact.model.person.NameContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalContactBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalContactBook(), new UserPrefs());
 
     @Test
     public void equals() {

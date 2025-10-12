@@ -25,10 +25,10 @@ import presspal.contact.logic.commands.exceptions.CommandException;
 import presspal.contact.logic.parser.exceptions.ParseException;
 import presspal.contact.model.Model;
 import presspal.contact.model.ModelManager;
-import presspal.contact.model.ReadOnlyAddressBook;
+import presspal.contact.model.ReadOnlyContactBook;
 import presspal.contact.model.UserPrefs;
 import presspal.contact.model.person.Person;
-import presspal.contact.storage.JsonAddressBookStorage;
+import presspal.contact.storage.JsonContactBookStorage;
 import presspal.contact.storage.JsonUserPrefsStorage;
 import presspal.contact.storage.StorageManager;
 import presspal.contact.testutil.PersonBuilder;
@@ -45,8 +45,8 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonContactBookStorage addressBookStorage =
+                new JsonContactBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
@@ -123,7 +123,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getContactBook(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -150,9 +150,9 @@ public class LogicManagerTest {
         Path prefPath = temporaryFolder.resolve("ExceptionUserPrefs.json");
 
         // Inject LogicManager with an AddressBookStorage that throws the IOException e when saving
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(prefPath) {
+        JsonContactBookStorage addressBookStorage = new JsonContactBookStorage(prefPath) {
             @Override
-            public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath)
+            public void saveContactBook(ReadOnlyContactBook contactBook, Path filePath)
                     throws IOException {
                 throw e;
             }

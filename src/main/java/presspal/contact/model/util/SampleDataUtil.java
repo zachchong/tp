@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import presspal.contact.model.AddressBook;
-import presspal.contact.model.ReadOnlyAddressBook;
+import presspal.contact.model.ContactBook;
+import presspal.contact.model.ReadOnlyContactBook;
 import presspal.contact.model.category.Category;
 import presspal.contact.model.person.Email;
 import presspal.contact.model.person.Name;
@@ -40,8 +40,8 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static ReadOnlyContactBook getSampleContactBook() {
+        ContactBook sampleAb = new ContactBook();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }

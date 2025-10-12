@@ -8,7 +8,7 @@ import presspal.contact.logic.commands.CommandResult;
 import presspal.contact.logic.commands.exceptions.CommandException;
 import presspal.contact.logic.parser.exceptions.ParseException;
 import presspal.contact.model.Model;
-import presspal.contact.model.ReadOnlyAddressBook;
+import presspal.contact.model.ReadOnlyContactBook;
 import presspal.contact.model.person.Person;
 
 /**
@@ -27,9 +27,9 @@ public interface Logic {
     /**
      * Returns the AddressBook.
      *
-     * @see Model#getAddressBook()
+     * @see Model#getContactBook()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyContactBook getContactBook();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
@@ -37,7 +37,7 @@ public interface Logic {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getContactBookFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

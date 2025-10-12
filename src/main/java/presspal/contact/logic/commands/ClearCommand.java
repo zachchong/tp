@@ -2,7 +2,7 @@ package presspal.contact.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import presspal.contact.model.AddressBook;
+import presspal.contact.model.ContactBook;
 import presspal.contact.model.Model;
 
 /**
@@ -17,7 +17,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.setAddressBook(new AddressBook());
+        model.setContactBook(new ContactBook());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

@@ -29,9 +29,9 @@ import presspal.contact.testutil.EditPersonDescriptorBuilder;
 import presspal.contact.testutil.PersonBuilder;
 import presspal.contact.testutil.PersonUtil;
 
-public class AddressBookParserTest {
+public class ContactBookParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final ContactBookParser parser = new ContactBookParser();
 
     @Test
     public void parseCommand_add() throws Exception {

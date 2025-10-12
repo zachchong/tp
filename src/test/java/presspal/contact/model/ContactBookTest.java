@@ -7,7 +7,7 @@ import static presspal.contact.logic.commands.CommandTestUtil.VALID_CATEGORY_HUS
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_ORGANISATION_BOB;
 import static presspal.contact.testutil.Assert.assertThrows;
 import static presspal.contact.testutil.TypicalPersons.ALICE;
-import static presspal.contact.testutil.TypicalPersons.getTypicalAddressBook;
+import static presspal.contact.testutil.TypicalPersons.getTypicalContactBook;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -23,25 +23,25 @@ import presspal.contact.model.person.exceptions.DuplicatePersonException;
 import presspal.contact.testutil.PersonBuilder;
 
 
-public class AddressBookTest {
+public class ContactBookTest {
 
-    private final AddressBook addressBook = new AddressBook();
+    private final ContactBook contactBook = new ContactBook();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getPersonList());
+        assertEquals(Collections.emptyList(), contactBook.getPersonList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.resetData(null));
+        assertThrows(NullPointerException.class, () -> contactBook.resetData(null));
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+    public void resetData_withValidReadOnlyContactBook_replacesData() {
+        ContactBook newData = getTypicalContactBook();
+        contactBook.resetData(newData);
+        assertEquals(newData, contactBook);
     }
 
     @Test
@@ -52,55 +52,55 @@ public class AddressBookTest {
                 .withCategories(VALID_CATEGORY_HUSBAND)
                 .build();
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newPersons);
+        ContactBookStub newData = new ContactBookStub(newPersons);
 
-        assertThrows(DuplicatePersonException.class, () -> addressBook.resetData(newData));
+        assertThrows(DuplicatePersonException.class, () -> contactBook.resetData(newData));
     }
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.hasPerson(null));
+        assertThrows(NullPointerException.class, () -> contactBook.hasPerson(null));
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasPerson(ALICE));
+    public void hasPerson_personNotInContactBook_returnsFalse() {
+        assertFalse(contactBook.hasPerson(ALICE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        assertTrue(addressBook.hasPerson(ALICE));
+    public void hasPerson_personInContactBook_returnsTrue() {
+        contactBook.addPerson(ALICE);
+        assertTrue(contactBook.hasPerson(ALICE));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
+    public void hasPerson_personWithSameIdentityFieldsInContactBook_returnsTrue() {
+        contactBook.addPerson(ALICE);
         Person editedAlice = new PersonBuilder(ALICE)
                 .withOrganisation(VALID_ORGANISATION_BOB)
                 .withCategories(VALID_CATEGORY_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasPerson(editedAlice));
+        assertTrue(contactBook.hasPerson(editedAlice));
     }
 
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getPersonList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> contactBook.getPersonList().remove(0));
     }
 
     @Test
     public void toStringMethod() {
-        String expected = AddressBook.class.getCanonicalName() + "{persons=" + addressBook.getPersonList() + "}";
-        assertEquals(expected, addressBook.toString());
+        String expected = ContactBook.class.getCanonicalName() + "{persons=" + contactBook.getPersonList() + "}";
+        assertEquals(expected, contactBook.toString());
     }
 
     /**
      * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class ContactBookStub implements ReadOnlyContactBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Person> persons) {
+        ContactBookStub(Collection<Person> persons) {
             this.persons.setAll(persons);
         }
 

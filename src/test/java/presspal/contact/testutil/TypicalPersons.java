@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import presspal.contact.model.AddressBook;
+import presspal.contact.model.ContactBook;
 import presspal.contact.model.person.Person;
 
 /**
@@ -65,8 +65,8 @@ public class TypicalPersons {
     /**
      * Returns an {@code AddressBook} with all the typical persons.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static ContactBook getTypicalContactBook() {
+        ContactBook ab = new ContactBook();
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
         }
