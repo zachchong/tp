@@ -1,7 +1,6 @@
 package presspal.contact.model.interview;
 
 import java.time.LocalDateTime;
-import presspal.contact.model.person.Person;
 
 /**
  * Represents an interview session containing details about the header, location,
