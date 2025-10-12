@@ -1,6 +1,7 @@
 package presspal.contact.model.interview;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -85,5 +86,21 @@ class InterviewTest {
         assertEquals(dateTime, interviewWithNulls.getDateTime(),
                 "DateTime should still be correctly set");
     }
+
+    @Test
+    @DisplayName("equals() and hashCode() should work correctly")
+    void testEqualsAndHashCode() {
+        Interview sameInterview = new Interview(header, location, dateTime);
+        Interview diffHeader = new Interview(new Header("Different"), location, dateTime);
+        Interview diffLocation = new Interview(header, new Location("Different"), dateTime);
+        Interview diffDateTime = new Interview(header, location, dateTime.plusDays(1));
+
+        assertEquals(interview, sameInterview);
+        assertNotEquals(interview, diffHeader);
+        assertNotEquals(interview, diffLocation);
+        assertNotEquals(interview, diffDateTime);
+        assertEquals(interview.hashCode(), sameInterview.hashCode());
+    }
+
 
 }

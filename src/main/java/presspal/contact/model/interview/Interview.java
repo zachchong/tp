@@ -1,5 +1,6 @@
 package presspal.contact.model.interview;
 
+import java.util.Objects;
 import java.time.LocalDateTime;
 
 /**
@@ -57,6 +58,28 @@ public class Interview {
      */
     public Location getLocation() {
         return location;
+    }
+
+    /**
+     * Returns true if both Interview objects are the same.
+     *
+     * @return the {@link Location} of the interview
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (!(other instanceof Interview i)) return false;
+        return Objects.equals(header, i.header)
+                && Objects.equals(location, i.location)
+                && Objects.equals(dateTime, i.dateTime);
+    }
+
+    /**
+     * Returns the hash code for this Interview.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(header, location, dateTime);
     }
 
     @Override
