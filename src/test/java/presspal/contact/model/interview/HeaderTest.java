@@ -31,9 +31,8 @@ class HeaderTest {
     @Test
     void testEqualsWithDifferentTypeAndNull() {
         Header header = new Header("A");
-
-        assertNotEquals(header, null);          // covers null branch
-        assertNotEquals(header, "A String");   // covers non-Header object branch
+        assertNotEquals(header, null);
+        assertNotEquals(header, "A String");
     }
 
 
