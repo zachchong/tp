@@ -21,14 +21,14 @@ public class OrganisationTest {
 
     @Test
     public void isValidOrganisation() {
-        // null address
+        // null organisation
         assertThrows(NullPointerException.class, () -> Organisation.isValidOrganisation(null));
 
-        // invalid addresses
+        // invalid organisations
         assertFalse(Organisation.isValidOrganisation("")); // empty string
         assertFalse(Organisation.isValidOrganisation(" ")); // spaces only
 
-        // valid addresses
+        // valid organisations
         assertTrue(Organisation.isValidOrganisation("CAPT"));
         assertTrue(Organisation.isValidOrganisation("A")); // one character
         assertTrue(Organisation.isValidOrganisation("College of Alice & Peter Tan")); // long organisation
