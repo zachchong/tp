@@ -1,5 +1,8 @@
 package presspal.contact.model.interview;
 
+/**
+ * Represents the title and/or description of interview.
+ */
 public class Header {
     /** The textual representation of the interview header. */
     private final String header;
