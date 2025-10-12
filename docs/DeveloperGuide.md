@@ -297,11 +297,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 *{More to be added}*
 
-### Use cases
+## **Use cases**
 
 (For all use cases below, the **System** is the `PressPal` and the **Actor** is the `Reporter`, unless specified otherwise)
 
-# UC1 – Add a contact
+### UC1 – Add a contact
 
 **MSS**
 
@@ -345,7 +345,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Use case ends.  
 
 
-# UC2 – Create a category
+### UC2 – Create a category
 
 **MSS**
 
@@ -378,7 +378,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Use case ends.  
 
 
-# UC3 – Add contact to category
+### UC3 – Add contact to category
 
 **MSS**
 
@@ -420,7 +420,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Use case ends.  
 
 
-# UC4 – Add interview to contact
+### UC4 – Add interview to contact
 
 **MSS**
 
@@ -464,7 +464,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Use case ends.  
 
 
-# UC5 – Delete a contact
+### UC5 – Delete a contact
 
 **MSS**
 
@@ -501,7 +501,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Use case ends.  
 
 
-# UC6 – Remove contact from category
+### UC6 – Remove contact from category
 
 **MSS**
 
@@ -543,7 +543,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Use case ends.  
 
 
-# UC7 – Delete interview from contact
+### UC7 – Delete interview from contact
 
 **MSS**
 
@@ -590,7 +590,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Use case ends.  
 
 
-# UC8 – Search contacts
+### UC8 – Search contacts
 
 **MSS**
 
@@ -623,7 +623,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Use case ends.  
 
 
-### Non-Functional Requirements
+## Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
 2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
@@ -631,7 +631,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 *{More to be added}*
 
-### Glossary
+## Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Private contact detail**: A contact detail that is not meant to be shared with others
@@ -639,12 +639,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-## A
+### A
 **Account**: 
 
 A user profile in PressPal that stores a journalist’s credentials, preferences, and contact database.
 
-## C
+### C
 **Category**: 
 
 A label or grouping used to organize contacts (e.g., “Politics,” “Health,” “Technology”).
@@ -653,17 +653,17 @@ A label or grouping used to organize contacts (e.g., “Politics,” “Health,�
 
 An individual or organization entry stored in PressPal, including name, role, and at least one mode of contact (e.g., phone or email).
 
-## D
+### D
 **Duplicate contact**: 
 
 A contact that shares the same phone number or email as an existing contact in PressPal.
 
-## M
+### M
 **Mode of contact**: 
 
 A way to reach a contact, such as a phone number or email organisation.
 
-## R
+### R
 **Reporter**: 
 
 The primary user of PressPal who manages contacts, categories, and interview notes.
@@ -672,7 +672,7 @@ The primary user of PressPal who manages contacts, categories, and interview not
 
 The position or job title of a contact within their organisation.
 
-## O
+### O
 **Organisation**: 
 
 The company, agency, or institution a contact belongs to.
