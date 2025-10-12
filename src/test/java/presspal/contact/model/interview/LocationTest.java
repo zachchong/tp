@@ -1,6 +1,7 @@
 package presspal.contact.model.interview;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -55,5 +56,20 @@ class LocationTest {
         location.setLocation(null);
         assertNull(location.getLocation(),
                 "Location should allow null values without throwing exceptions");
+    }
+
+    @Test
+    void testEqualsAndHashCode() {
+        Location loc1 = new Location("Zoom");
+        Location loc2 = new Location("Zoom");
+        Location loc3 = new Location("Google Meet");
+
+        // equals
+        assertEquals(loc1, loc2);
+        assertNotEquals(loc1, loc3);
+
+        // hashCode
+        assertEquals(loc1.hashCode(), loc2.hashCode());
+        assertNotEquals(loc1.hashCode(), loc3.hashCode());
     }
 }
