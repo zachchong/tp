@@ -29,6 +29,15 @@ class HeaderTest {
     }
 
     @Test
+    void testEqualsWithDifferentTypeAndNull() {
+        Header header = new Header("A");
+
+        assertNotEquals(null, header);             // covers null branch
+        assertNotEquals("A String", header);      // covers non-Header object branch
+    }
+
+
+    @Test
     void testToString() {
         Header header = new Header("Interview with Alice");
         // Since Header does not override toString, it defaults to Object.toString()

@@ -72,4 +72,13 @@ class LocationTest {
         assertEquals(loc1.hashCode(), loc2.hashCode());
         assertNotEquals(loc1.hashCode(), loc3.hashCode());
     }
+
+    @Test
+    @DisplayName("Equals with null and different type")
+    void testEqualsWithNullAndDifferentType() {
+        Location loc = new Location("Zoom");
+        assertNotEquals(null, loc);
+        assertNotEquals("Zoom String", loc);
+    }
+
 }
