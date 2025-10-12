@@ -22,11 +22,8 @@ class HeaderTest {
         Header h2 = new Header("A");
         Header h3 = new Header("B");
 
-        // equals
         assertEquals(h1, h2);
         assertNotEquals(h1, h3);
-
-        // hashCode consistency
         assertEquals(h1.hashCode(), h2.hashCode());
         assertNotEquals(h1.hashCode(), h3.hashCode());
     }
