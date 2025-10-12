@@ -14,11 +14,6 @@ public class Header {
         this.header = header;
     }
 
-    /** Returns the header as a String */
-    public String getHeader() {
-        return this.header;
-    }
-
     /**
      * Returns true if both Header objects are the same string.
      */
@@ -41,4 +36,13 @@ public class Header {
     public int hashCode() {
         return Objects.hash(header);
     }
+
+    /**
+     * Returns the header string value.
+     */
+    @Override
+    public String toString() {
+        return header;
+    }
+
 }

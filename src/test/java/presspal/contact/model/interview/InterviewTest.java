@@ -96,6 +96,7 @@ class InterviewTest {
         Interview diffDateTime = new Interview(header, location, dateTime.plusDays(1));
 
         // Equal and unequal comparisons
+        assertEquals(interview, interview);
         assertEquals(interview, sameInterview);
         assertNotEquals(interview, diffHeader);
         assertNotEquals(interview, diffLocation);

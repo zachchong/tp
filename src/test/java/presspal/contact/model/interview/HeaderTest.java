@@ -11,12 +11,6 @@ import org.junit.jupiter.api.Test;
 class HeaderTest {
 
     @Test
-    void testConstructorAndGetter() {
-        Header header = new Header("Interview with Alice");
-        assertEquals("Interview with Alice", header.getHeader());
-    }
-
-    @Test
     void testEqualsAndHashCode() {
         Header h1 = new Header("A");
         Header h2 = new Header("A");
@@ -39,8 +33,6 @@ class HeaderTest {
     @Test
     void testToString() {
         Header header = new Header("Interview with Alice");
-        // Since Header does not override toString, it defaults to Object.toString()
-        // We can only check that getHeader() returns the value
-        assertEquals("Interview with Alice", header.getHeader());
+        assertEquals("Interview with Alice", header.toString());
     }
 }
