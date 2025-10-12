@@ -61,11 +61,11 @@ public class Interview {
 
     @Override
     public String toString() {
-        return "Interview{" +
-                "dateTime=" + dateTime +
-                ", header=" + header +
-                ", location=" + location +
-                '}';
+        return "Interview{"
+                + "dateTime=" + dateTime
+                + ", header=" + header
+                + ", location=" + location
+                + '}';
     }
 
 }
