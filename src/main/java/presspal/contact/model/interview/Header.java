@@ -24,8 +24,13 @@ public class Header {
      */
     @Override
     public boolean equals(Object other) {
-        if (this == other) return true;
-        if (!(other instanceof Header h)) return false;
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof Header h)) {
+            return false;
+        }
+
         return Objects.equals(header, h.header);
     }
 
