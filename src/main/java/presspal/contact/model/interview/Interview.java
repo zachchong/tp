@@ -1,7 +1,7 @@
 package presspal.contact.model.interview;
 
-import java.util.Objects;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * Represents an interview session containing details about the header, location,
@@ -67,8 +67,12 @@ public class Interview {
      */
     @Override
     public boolean equals(Object other) {
-        if (this == other) return true;
-        if (!(other instanceof Interview i)) return false;
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof Interview i)) {
+            return false;
+        }
         return Objects.equals(header, i.header)
                 && Objects.equals(location, i.location)
                 && Objects.equals(dateTime, i.dateTime);
