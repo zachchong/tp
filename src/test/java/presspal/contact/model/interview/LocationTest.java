@@ -77,8 +77,8 @@ class LocationTest {
     @DisplayName("Equals with null and different type")
     void testEqualsWithNullAndDifferentType() {
         Location loc = new Location("Zoom");
-        assertNotEquals(null, loc);
-        assertNotEquals("Zoom String", loc);
+        assertNotEquals(loc, null);
+        assertNotEquals(loc, "Zoom String");
     }
 
 }
