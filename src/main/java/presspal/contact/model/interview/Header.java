@@ -7,11 +7,11 @@ import java.util.Objects;
  */
 public class Header {
     /** The textual representation of the interview header. */
-    private final String header;
+    private final String value;
 
     /** Constructs a Header object */
     public Header(String header) {
-        this.header = header;
+        value = header;;
     }
 
     /**
@@ -26,7 +26,7 @@ public class Header {
             return false;
         }
 
-        return Objects.equals(header, h.header);
+        return Objects.equals(value, h.value);
     }
 
     /**
@@ -34,7 +34,7 @@ public class Header {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(header);
+        return Objects.hash(value);
     }
 
     /**
@@ -42,7 +42,7 @@ public class Header {
      */
     @Override
     public String toString() {
-        return header;
+        return value;
     }
 
 }
