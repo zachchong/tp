@@ -66,13 +66,12 @@ class InterviewTest {
 
     @Test
     @DisplayName("toString() should include all key fields")
-    void testToString() {
-        String result = interview.toString();
-        // Basic presence checks to avoid overly brittle tests
-        assertTrue(result.contains("Interview{"), "toString() should start with 'Interview{'");
-        assertTrue(result.contains("dateTime="), "toString() should include dateTime field");
-        assertTrue(result.contains("header="), "toString() should include header field");
-        assertTrue(result.contains("location="), "toString() should include location field");
+    void testToStringIncludesAllFields() {
+        String s = interview.toString();
+        assertTrue(s.contains("Interview{"), "Should start with Interview{");
+        assertTrue(s.contains("header="), "Should include header field");
+        assertTrue(s.contains("location="), "Should include location field");
+        assertTrue(s.contains("dateTime="), "Should include dateTime field");
     }
 
     @Test
