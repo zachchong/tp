@@ -15,7 +15,7 @@ import presspal.contact.commons.util.JsonUtil;
 import presspal.contact.model.ReadOnlyContactBook;
 
 /**
- * A class to access AddressBook data stored as a json file on the hard disk.
+ * A class to access ContactBook data stored as a json file on the hard disk.
  */
 public class JsonContactBookStorage implements ContactBookStorage {
 
@@ -45,14 +45,14 @@ public class JsonContactBookStorage implements ContactBookStorage {
     public Optional<ReadOnlyContactBook> readContactBook(Path filePath) throws DataLoadingException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableContactBook> jsonAddressBook = JsonUtil.readJsonFile(
+        Optional<JsonSerializableContactBook> jsonContactBook = JsonUtil.readJsonFile(
                 filePath, JsonSerializableContactBook.class);
-        if (!jsonAddressBook.isPresent()) {
+        if (!jsonContactBook.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonAddressBook.get().toModelType());
+            return Optional.of(jsonContactBook.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataLoadingException(ive);

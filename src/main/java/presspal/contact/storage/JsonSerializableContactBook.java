@@ -14,9 +14,9 @@ import presspal.contact.model.ReadOnlyContactBook;
 import presspal.contact.model.person.Person;
 
 /**
- * An Immutable AddressBook that is serializable to JSON format.
+ * An Immutable ContactBook that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
+@JsonRootName(value = "contactbook")
 class JsonSerializableContactBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
@@ -24,7 +24,7 @@ class JsonSerializableContactBook {
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given persons.
+     * Constructs a {@code JsonSerializableContactBook} with the given persons.
      */
     @JsonCreator
     public JsonSerializableContactBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
@@ -32,16 +32,16 @@ class JsonSerializableContactBook {
     }
 
     /**
-     * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyContactBook} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableContactBook}.
      */
     public JsonSerializableContactBook(ReadOnlyContactBook source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this address book into the model's {@code AddressBook} object.
+     * Converts this contact book into the model's {@code ContactBook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */

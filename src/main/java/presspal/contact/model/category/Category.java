@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static presspal.contact.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Tag in the address book.
+ * Represents a Tag in the contact book.
  * Guarantees: immutable; name is valid as declared in {@link #isValidCategoryName(String)}
  */
 public class Category {

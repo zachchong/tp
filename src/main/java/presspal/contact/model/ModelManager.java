@@ -14,7 +14,7 @@ import presspal.contact.commons.core.LogsCenter;
 import presspal.contact.model.person.Person;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the contact book data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -24,14 +24,14 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given contactBook and userPrefs.
      */
-    public ModelManager(ReadOnlyContactBook addressBook, ReadOnlyUserPrefs userPrefs) {
-        requireAllNonNull(addressBook, userPrefs);
+    public ModelManager(ReadOnlyContactBook contactBook, ReadOnlyUserPrefs userPrefs) {
+        requireAllNonNull(contactBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with contact book: " + contactBook + " and user prefs " + userPrefs);
 
-        this.contactBook = new ContactBook(addressBook);
+        this.contactBook = new ContactBook(contactBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.contactBook.getPersonList());
     }
@@ -75,7 +75,7 @@ public class ModelManager implements Model {
         userPrefs.setContactBookFilePath(contactBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== ContactBook ================================================================================
 
     @Override
     public void setContactBook(ReadOnlyContactBook contactBook) {
@@ -115,7 +115,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedContactBook}
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {

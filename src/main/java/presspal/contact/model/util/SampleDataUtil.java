@@ -14,7 +14,7 @@ import presspal.contact.model.person.Person;
 import presspal.contact.model.person.Phone;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code ContactBook} with sample data.
  */
 public class SampleDataUtil {
     public static Person[] getSamplePersons() {

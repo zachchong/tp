@@ -20,7 +20,7 @@ import presspal.contact.model.ContactBook;
 import presspal.contact.model.ReadOnlyContactBook;
 
 public class JsonContactBookStorageTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonAddressBookStorageTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonContactBookStorageTest");
 
     @TempDir
     public Path testFolder;
@@ -62,26 +62,26 @@ public class JsonContactBookStorageTest {
 
     @Test
     public void readAndSaveContactBook_allInOrder_success() throws Exception {
-        Path filePath = testFolder.resolve("TempAddressBook.json");
+        Path filePath = testFolder.resolve("TempContactBook.json");
         ContactBook original = getTypicalContactBook();
-        JsonContactBookStorage jsonAddressBookStorage = new JsonContactBookStorage(filePath);
+        JsonContactBookStorage jsonContactBookStorage = new JsonContactBookStorage(filePath);
 
         // Save in new file and read back
-        jsonAddressBookStorage.saveContactBook(original, filePath);
-        ReadOnlyContactBook readBack = jsonAddressBookStorage.readContactBook(filePath).get();
+        jsonContactBookStorage.saveContactBook(original, filePath);
+        ReadOnlyContactBook readBack = jsonContactBookStorage.readContactBook(filePath).get();
         assertEquals(original, new ContactBook(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.addPerson(HOON);
         original.removePerson(ALICE);
-        jsonAddressBookStorage.saveContactBook(original, filePath);
-        readBack = jsonAddressBookStorage.readContactBook(filePath).get();
+        jsonContactBookStorage.saveContactBook(original, filePath);
+        readBack = jsonContactBookStorage.readContactBook(filePath).get();
         assertEquals(original, new ContactBook(readBack));
 
         // Save and read without specifying file path
         original.addPerson(IDA);
-        jsonAddressBookStorage.saveContactBook(original); // file path not specified
-        readBack = jsonAddressBookStorage.readContactBook().get(); // file path not specified
+        jsonContactBookStorage.saveContactBook(original); // file path not specified
+        readBack = jsonContactBookStorage.readContactBook().get(); // file path not specified
         assertEquals(original, new ContactBook(readBack));
 
     }
@@ -92,12 +92,12 @@ public class JsonContactBookStorageTest {
     }
 
     /**
-     * Saves {@code addressBook} at the specified {@code filePath}.
+     * Saves {@code contactBook} at the specified {@code filePath}.
      */
-    private void saveContactBook(ReadOnlyContactBook addressBook, String filePath) {
+    private void saveContactBook(ReadOnlyContactBook contactBook, String filePath) {
         try {
             new JsonContactBookStorage(Paths.get(filePath))
-                    .saveContactBook(addressBook, addToTestDataPathIfNotNull(filePath));
+                    .saveContactBook(contactBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }

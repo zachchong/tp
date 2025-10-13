@@ -10,7 +10,7 @@ import presspal.contact.model.person.Person;
 import presspal.contact.model.person.UniquePersonList;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the contact-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
 public class ContactBook implements ReadOnlyContactBook {
@@ -31,7 +31,7 @@ public class ContactBook implements ReadOnlyContactBook {
     public ContactBook() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an ContactBook using the Persons in the {@code toBeCopied}
      */
     public ContactBook(ReadOnlyContactBook toBeCopied) {
         this();
@@ -49,7 +49,7 @@ public class ContactBook implements ReadOnlyContactBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code ContactBook} with {@code newData}.
      */
     public void resetData(ReadOnlyContactBook newData) {
         requireNonNull(newData);
@@ -60,7 +60,7 @@ public class ContactBook implements ReadOnlyContactBook {
     //// person-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a person with the same identity as {@code person} exists in the contact book.
      */
     public boolean hasPerson(Person person) {
         requireNonNull(person);
@@ -68,8 +68,8 @@ public class ContactBook implements ReadOnlyContactBook {
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a person to the contact book.
+     * The person must not already exist in the contact book.
      */
     public void addPerson(Person p) {
         persons.add(p);
@@ -77,8 +77,8 @@ public class ContactBook implements ReadOnlyContactBook {
 
     /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * {@code target} must exist in the contact book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the contact book.
      */
     public void setPerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
@@ -87,8 +87,8 @@ public class ContactBook implements ReadOnlyContactBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code ContactBook}.
+     * {@code key} must exist in the contact book.
      */
     public void removePerson(Person key) {
         persons.remove(key);

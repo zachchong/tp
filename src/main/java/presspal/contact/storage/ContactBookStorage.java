@@ -19,7 +19,7 @@ public interface ContactBookStorage {
     Path getContactBookFilePath();
 
     /**
-     * Returns AddressBook data as a {@link ReadOnlyContactBook}.
+     * Returns ContactBook data as a {@link ReadOnlyContactBook}.
      * Returns {@code Optional.empty()} if storage file is not found.
      *
      * @throws DataLoadingException if loading the data from storage failed.

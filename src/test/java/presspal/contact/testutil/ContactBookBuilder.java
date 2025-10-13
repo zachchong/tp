@@ -4,9 +4,9 @@ import presspal.contact.model.ContactBook;
 import presspal.contact.model.person.Person;
 
 /**
- * A utility class to help with building Addressbook objects.
+ * A utility class to help with building ContactBook objects.
  * Example usage: <br>
- *     {@code AddressBook ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
+ *     {@code ContactBook ab = new ContactBookBuilder().withPerson("John", "Doe").build();}
  */
 public class ContactBookBuilder {
 
@@ -21,7 +21,7 @@ public class ContactBookBuilder {
     }
 
     /**
-     * Adds a new {@code Person} to the {@code AddressBook} that we are building.
+     * Adds a new {@code Person} to the {@code ContactBook} that we are building.
      */
     public ContactBookBuilder withPerson(Person person) {
         contactBook.addPerson(person);

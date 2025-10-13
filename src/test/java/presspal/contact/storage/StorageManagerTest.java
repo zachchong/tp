@@ -24,9 +24,9 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonContactBookStorage addressBookStorage = new JsonContactBookStorage(getTempFilePath("ab"));
+        JsonContactBookStorage contactBookStorage = new JsonContactBookStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(contactBookStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -51,8 +51,8 @@ public class StorageManagerTest {
     public void contactBookReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
+         * {@link JsonContactBookStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonContactBookStorageTest} class.
          */
         ContactBook original = getTypicalContactBook();
         storageManager.saveContactBook(original);

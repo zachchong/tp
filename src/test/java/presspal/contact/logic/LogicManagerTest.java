@@ -45,10 +45,10 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonContactBookStorage addressBookStorage =
-                new JsonContactBookStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonContactBookStorage contactBookStorage =
+                new JsonContactBookStorage(temporaryFolder.resolve("contactBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(contactBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -149,8 +149,8 @@ public class LogicManagerTest {
     private void assertCommandFailureForExceptionFromStorage(IOException e, String expectedMessage) {
         Path prefPath = temporaryFolder.resolve("ExceptionUserPrefs.json");
 
-        // Inject LogicManager with an AddressBookStorage that throws the IOException e when saving
-        JsonContactBookStorage addressBookStorage = new JsonContactBookStorage(prefPath) {
+        // Inject LogicManager with an ContactBookStorage that throws the IOException e when saving
+        JsonContactBookStorage contactBookStorage = new JsonContactBookStorage(prefPath) {
             @Override
             public void saveContactBook(ReadOnlyContactBook contactBook, Path filePath)
                     throws IOException {
@@ -160,11 +160,11 @@ public class LogicManagerTest {
 
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(contactBookStorage, userPrefsStorage);
 
         logic = new LogicManager(model, storage);
 
-        // Triggers the saveAddressBook method by executing an add command
+        // Triggers the saveContactBook method by executing an add command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
                 + EMAIL_DESC_AMY + ORGANISATION_DESC_AMY;
         Person expectedPerson = new PersonBuilder(AMY).withCategories().build();

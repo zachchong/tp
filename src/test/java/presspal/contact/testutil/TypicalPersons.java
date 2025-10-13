@@ -63,7 +63,7 @@ public class TypicalPersons {
     private TypicalPersons() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code ContactBook} with all the typical persons.
      */
     public static ContactBook getTypicalContactBook() {
         ContactBook ab = new ContactBook();

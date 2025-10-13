@@ -12,7 +12,7 @@ import presspal.contact.model.ReadOnlyUserPrefs;
 import presspal.contact.model.UserPrefs;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of ContactBook data in local storage.
  */
 public class StorageManager implements Storage {
 
@@ -21,7 +21,7 @@ public class StorageManager implements Storage {
     private UserPrefsStorage userPrefsStorage;
 
     /**
-     * Creates a {@code StorageManager} with the given {@code AddressBookStorage} and {@code UserPrefStorage}.
+     * Creates a {@code StorageManager} with the given {@code ContactBookStorage} and {@code UserPrefStorage}.
      */
     public StorageManager(ContactBookStorage contactBookStorage, UserPrefsStorage userPrefsStorage) {
         this.contactBookStorage = contactBookStorage;
@@ -46,7 +46,7 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ ContactBook methods ==============================
 
     @Override
     public Path getContactBookFilePath() {
