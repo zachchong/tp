@@ -11,7 +11,7 @@ public class Header {
 
     /** Constructs a Header object */
     public Header(String header) {
-        value = header;;
+        value = header;
     }
 
     /**
