@@ -1,9 +1,11 @@
 package presspal.contact.model.person;
 
+import static java.util.Objects.requireNonNull;
 import static presspal.contact.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -24,6 +26,7 @@ public class Person {
     // Data fields
     private final Address address;
     private final Set<Category> categories = new HashSet<>();
+    private final Interviews interviews = new Interviews(null);
 
     /**
      * Every field must be present and not null.
@@ -59,6 +62,41 @@ public class Person {
      */
     public Set<Category> getCategories() {
         return Collections.unmodifiableSet(categories);
+    }
+
+    public Interviews getInterviews() {
+        return interviews;
+    }
+
+    /**
+     * Removes an interview from the address book.
+     * The interview must exist in the address book.
+     */
+    public void removeInterview(String interview) {
+        interviews.remove(interview);
+    }
+
+    /**
+     * Adds an interview to the address book.
+     * The interview must not already exist in the address book.
+     */
+    public void addInterview(String interview) {
+        interviews.add(interview);
+    }
+
+    /**
+     * Returns true if an interview with the same identity exists in the address book.
+     */
+    public boolean hasInterview(String interview) {
+        requireNonNull(interview);
+        return interviews.contains(interview);
+    }
+
+    /**
+     * Returns the list of interviews in the address book.
+     */
+    public List<String> getInterviewList() {
+        return interviews.getInterviews();
     }
 
     /**

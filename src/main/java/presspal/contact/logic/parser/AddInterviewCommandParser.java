@@ -9,6 +9,7 @@ import static presspal.contact.logic.parser.CliSyntax.PREFIX_TIME;
 
 import java.util.stream.Stream;
 
+import presspal.contact.commons.core.index.Index;
 import presspal.contact.logic.commands.AddInterviewCommand;
 import presspal.contact.logic.parser.exceptions.ParseException;
 
@@ -37,15 +38,16 @@ public class AddInterviewCommandParser implements Parser<AddInterviewCommand> {
         String time = argMultimap.getValue(PREFIX_TIME).orElse("");
         String location = argMultimap.getValue(PREFIX_LOCATION).orElse("");
         String header = argMultimap.getValue(PREFIX_HEADER).orElse("");
-        String index = argMultimap.getValue(PREFIX_INDEX).orElse("");
         // Leave it as string for now, can create object class if we really want to,
         // depends on interview class
-
-        //Interview interview = new Interview(date, time, location, header, index);
-        // Omit for now since Interview class not created
-
-        return new AddInterviewCommand(date + time + location + header + index);
-        // Replace with interview object when Interview class is created
+        try {
+            Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).orElse("").trim());
+            String interviewString = date + " " + time + " " + location + " " + header;
+            return new AddInterviewCommand(index, interviewString);
+        } catch (presspal.contact.logic.parser.exceptions.ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddInterviewCommand.MESSAGE_USAGE), pe);
+        }
     }
 
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap,

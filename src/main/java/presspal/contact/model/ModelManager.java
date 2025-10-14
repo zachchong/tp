@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static presspal.contact.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -11,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import presspal.contact.commons.core.GuiSettings;
 import presspal.contact.commons.core.LogsCenter;
+import presspal.contact.commons.core.index.Index;
 import presspal.contact.model.person.Person;
 
 /**
@@ -128,24 +130,46 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
-    //=========== Interview ==================================================================================
+    //=========== Interview =====================================================================
 
-    @Override
-    public boolean hasInterview(String interview) {
-        requireNonNull(interview);
-        System.out.println("Checking interview: " + interview); // Debug print
-        System.out.println("Current interviews: " + addressBook.getInterviewList()); // Debug print
-        return addressBook.hasInterview(interview);
+    /**
+     * Helper to get person by Index from the filtered person list. Throws IndexOutOfBoundsException if invalid.
+     */
+    private Person getPersonByIndex(Index index) {
+        requireNonNull(index);
+        int zeroBased = index.getZeroBased();
+        if (zeroBased < 0 || zeroBased >= filteredPersons.size()) {
+            throw new IndexOutOfBoundsException("Index out of bounds: " + index.getOneBased());
+        }
+        return filteredPersons.get(zeroBased);
     }
 
     @Override
-    public void addInterview(String interview) {
-        addressBook.addInterview(interview);
+    public boolean personHasInterview(Index index, String interview) {
+        requireAllNonNull(index, interview);
+        Person target = getPersonByIndex(index);
+        return target.hasInterview(interview);
     }
 
     @Override
-    public void deleteInterview(String interview) {
-        addressBook.removeInterview(interview);
+    public void addInterviewToPerson(Index index, String interview) {
+        requireAllNonNull(index, interview);
+        Person target = getPersonByIndex(index);
+        target.addInterview(interview);
+    }
+
+    @Override
+    public void deleteInterviewFromPerson(Index index, String interview) {
+        requireAllNonNull(index, interview);
+        Person target = getPersonByIndex(index);
+        target.removeInterview(interview);
+    }
+
+    @Override
+    public List<String> getInterviewsFromPerson(Index index) {
+        requireNonNull(index);
+        Person target = getPersonByIndex(index);
+        return target.getInterviewList();
     }
 
     @Override

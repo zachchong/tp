@@ -149,17 +149,22 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasInterview(String interview) {
+        public boolean personHasInterview(presspal.contact.commons.core.index.Index index, String interview) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addInterview(String interview) {
+        public void addInterviewToPerson(presspal.contact.commons.core.index.Index index, String interview) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deleteInterview(String interview) {
+        public void deleteInterviewFromPerson(presspal.contact.commons.core.index.Index index, String interview) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public java.util.List<String> getInterviewsFromPerson(presspal.contact.commons.core.index.Index index) {
             throw new AssertionError("This method should not be called.");
         }
 

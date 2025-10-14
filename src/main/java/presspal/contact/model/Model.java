@@ -1,10 +1,12 @@
 package presspal.contact.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import presspal.contact.commons.core.GuiSettings;
+import presspal.contact.commons.core.index.Index;
 import presspal.contact.model.person.Person;
 
 /**
@@ -85,9 +87,11 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-    boolean hasInterview(String interview);
+    boolean personHasInterview(Index index, String interview); // Change to Interview Class later
 
-    void addInterview(String interview);
+    void addInterviewToPerson(Index index, String interview); // Change to Interview Class later
 
-    void deleteInterview(String interview);
+    void deleteInterviewFromPerson(Index index, String interview); // Change to Interview Class later
+
+    List<String> getInterviewsFromPerson(Index index);
 }
