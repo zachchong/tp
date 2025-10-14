@@ -1,5 +1,9 @@
 package presspal.contact.testutil;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_CATEGORY_FRIEND;
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_CATEGORY_HUSBAND;
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
@@ -10,11 +14,6 @@ import static presspal.contact.logic.commands.CommandTestUtil.VALID_ORGANISATION
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_ORGANISATION_BOB;
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import presspal.contact.model.ContactBook;
 import presspal.contact.model.person.Person;
 
@@ -66,11 +65,11 @@ public class TypicalPersons {
      * Returns an {@code ContactBook} with all the typical persons.
      */
     public static ContactBook getTypicalContactBook() {
-        ContactBook ab = new ContactBook();
+        ContactBook cb = new ContactBook();
         for (Person person : getTypicalPersons()) {
-            ab.addPerson(person);
+            cb.addPerson(person);
         }
-        return ab;
+        return cb;
     }
 
     public static List<Person> getTypicalPersons() {

@@ -50,10 +50,10 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
 * Items in square brackets are optional.<br>
-  e.g `n/NAME [c/CATEGORY]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+  e.g `n/NAME [c/CATEGORY]` can be used as `n/John Doe c/friend` or as `n/John Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[c/CATEGORY]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+  e.g. `[c/CATEGORY]…​` can be used as ` ` (i.e. 0 times), `c/friend`, `c/friend c/family` etc.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -85,7 +85,7 @@ A person can have any number of categories (including 0)
 
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com o/ST, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com o/Reuters p/1234567 t/criminal`
+* `add n/Betsy Crowe c/friend e/betsycrowe@example.com o/Reuters p/1234567 c/criminal`
 
 ### Listing all persons : `list`
 
@@ -103,12 +103,12 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [o/ORGANISATION] [c/CATEGORY]�
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing categories, the existing categories of the person will be removed i.e adding of categories is not cumulative.
-* You can remove all the person’s categories by typing `t/` without
+* You can remove all the person’s categories by typing `c/` without
     specifying any categories after it.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email organisation of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing categories.
+*  `edit 2 n/Betsy Crower c/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing categories.
 
 ### Locating persons by name: `find`
 
@@ -191,7 +191,7 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL o/ORGANISATION [c/CATEGORY]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL o/ORGANISATION [c/CATEGORY]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 c/friend c/colleague`
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [o/ORGANISATION] [c/CATEGORY]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
