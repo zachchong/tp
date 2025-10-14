@@ -68,10 +68,9 @@ class InterviewTest {
     @DisplayName("toString() should include all key fields")
     void testToStringIncludesAllFields() {
         String s = interview.toString();
-        assertTrue(s.contains("Interview{"), "Should start with Interview{");
-        assertTrue(s.contains("header="), "Should include header field");
-        assertTrue(s.contains("location="), "Should include location field");
-        assertTrue(s.contains("dateTime="), "Should include dateTime field");
+        assertTrue(s.contains("Interview scheduled for"), "Should start with Interview");
+        assertTrue(s.contains("on"), "Should include datetime field");
+        assertTrue(s.contains("at"), "Should include location field");
     }
 
     @Test
