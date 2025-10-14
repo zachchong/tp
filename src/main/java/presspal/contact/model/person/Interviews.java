@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents a Person's list of interviews in the address book.
+ * Represents a Person's list of interviews in the contact book.
  */
 public class Interviews {
 

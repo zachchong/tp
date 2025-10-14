@@ -4,9 +4,9 @@ import javafx.collections.ObservableList;
 import presspal.contact.model.person.Person;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of an contact book
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyContactBook {
 
     /**
      * Returns an unmodifiable view of the persons list.

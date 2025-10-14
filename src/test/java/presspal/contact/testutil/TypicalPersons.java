@@ -1,5 +1,6 @@
 package presspal.contact.testutil;
 
+
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_CATEGORY_FRIEND;
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_CATEGORY_HUSBAND;
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import presspal.contact.model.AddressBook;
+import presspal.contact.model.ContactBook;
 import presspal.contact.model.person.Person;
 
 /**
@@ -63,14 +64,14 @@ public class TypicalPersons {
     private TypicalPersons() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code ContactBook} with all the typical persons.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static ContactBook getTypicalContactBook() {
+        ContactBook cb = new ContactBook();
         for (Person person : getTypicalPersons()) {
-            ab.addPerson(person);
+            cb.addPerson(person);
         }
-        return ab;
+        return cb;
     }
 
     public static List<Person> getTypicalPersons() {

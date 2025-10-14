@@ -25,10 +25,10 @@ import presspal.contact.logic.commands.exceptions.CommandException;
 import presspal.contact.logic.parser.exceptions.ParseException;
 import presspal.contact.model.Model;
 import presspal.contact.model.ModelManager;
-import presspal.contact.model.ReadOnlyAddressBook;
+import presspal.contact.model.ReadOnlyContactBook;
 import presspal.contact.model.UserPrefs;
 import presspal.contact.model.person.Person;
-import presspal.contact.storage.JsonAddressBookStorage;
+import presspal.contact.storage.JsonContactBookStorage;
 import presspal.contact.storage.JsonUserPrefsStorage;
 import presspal.contact.storage.StorageManager;
 import presspal.contact.testutil.PersonBuilder;
@@ -45,10 +45,10 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonContactBookStorage contactBookStorage =
+                new JsonContactBookStorage(temporaryFolder.resolve("contactBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(contactBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -123,7 +123,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getContactBook(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -149,10 +149,10 @@ public class LogicManagerTest {
     private void assertCommandFailureForExceptionFromStorage(IOException e, String expectedMessage) {
         Path prefPath = temporaryFolder.resolve("ExceptionUserPrefs.json");
 
-        // Inject LogicManager with an AddressBookStorage that throws the IOException e when saving
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(prefPath) {
+        // Inject LogicManager with an ContactBookStorage that throws the IOException e when saving
+        JsonContactBookStorage contactBookStorage = new JsonContactBookStorage(prefPath) {
             @Override
-            public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath)
+            public void saveContactBook(ReadOnlyContactBook contactBook, Path filePath)
                     throws IOException {
                 throw e;
             }
@@ -160,11 +160,11 @@ public class LogicManagerTest {
 
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(contactBookStorage, userPrefsStorage);
 
         logic = new LogicManager(model, storage);
 
-        // Triggers the saveAddressBook method by executing an add command
+        // Triggers the saveContactBook method by executing an add command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
                 + EMAIL_DESC_AMY + ORGANISATION_DESC_AMY;
         Person expectedPerson = new PersonBuilder(AMY).withCategories().build();

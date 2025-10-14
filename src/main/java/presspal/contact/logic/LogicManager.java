@@ -11,10 +11,10 @@ import presspal.contact.commons.core.LogsCenter;
 import presspal.contact.logic.commands.Command;
 import presspal.contact.logic.commands.CommandResult;
 import presspal.contact.logic.commands.exceptions.CommandException;
-import presspal.contact.logic.parser.AddressBookParser;
+import presspal.contact.logic.parser.ContactBookParser;
 import presspal.contact.logic.parser.exceptions.ParseException;
 import presspal.contact.model.Model;
-import presspal.contact.model.ReadOnlyAddressBook;
+import presspal.contact.model.ReadOnlyContactBook;
 import presspal.contact.model.person.Person;
 import presspal.contact.storage.Storage;
 
@@ -31,7 +31,7 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final ContactBookParser contactBookParser;
 
     /**
      * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
@@ -39,7 +39,7 @@ public class LogicManager implements Logic {
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        contactBookParser = new ContactBookParser();
     }
 
     @Override
@@ -47,11 +47,11 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = contactBookParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveContactBook(model.getContactBook());
         } catch (AccessDeniedException e) {
             throw new CommandException(String.format(FILE_OPS_PERMISSION_ERROR_FORMAT, e.getMessage()), e);
         } catch (IOException ioe) {
@@ -62,8 +62,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyContactBook getContactBook() {
+        return model.getContactBook();
     }
 
     @Override
@@ -72,8 +72,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getContactBookFilePath() {
+        return model.getContactBookFilePath();
     }
 
     @Override

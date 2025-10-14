@@ -86,7 +86,7 @@ public class PersonTest {
         editedAlice = new PersonBuilder(ALICE).withOrganisation(VALID_ORGANISATION_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different tags -> returns false
+        // different categories -> returns false
         editedAlice = new PersonBuilder(ALICE).withCategories(VALID_CATEGORY_HUSBAND).build();
         assertFalse(ALICE.equals(editedAlice));
     }

@@ -7,24 +7,24 @@ import java.util.logging.Logger;
 
 import presspal.contact.commons.core.LogsCenter;
 import presspal.contact.commons.exceptions.DataLoadingException;
-import presspal.contact.model.ReadOnlyAddressBook;
+import presspal.contact.model.ReadOnlyContactBook;
 import presspal.contact.model.ReadOnlyUserPrefs;
 import presspal.contact.model.UserPrefs;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of ContactBook data in local storage.
  */
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private ContactBookStorage contactBookStorage;
     private UserPrefsStorage userPrefsStorage;
 
     /**
-     * Creates a {@code StorageManager} with the given {@code AddressBookStorage} and {@code UserPrefStorage}.
+     * Creates a {@code StorageManager} with the given {@code ContactBookStorage} and {@code UserPrefStorage}.
      */
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
-        this.addressBookStorage = addressBookStorage;
+    public StorageManager(ContactBookStorage contactBookStorage, UserPrefsStorage userPrefsStorage) {
+        this.contactBookStorage = contactBookStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -46,33 +46,33 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ ContactBook methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Path getContactBookFilePath() {
+        return contactBookStorage.getContactBookFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataLoadingException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyContactBook> readContactBook() throws DataLoadingException {
+        return readContactBook(contactBookStorage.getContactBookFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataLoadingException {
+    public Optional<ReadOnlyContactBook> readContactBook(Path filePath) throws DataLoadingException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return contactBookStorage.readContactBook(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveContactBook(ReadOnlyContactBook contactBook) throws IOException {
+        saveContactBook(contactBook, contactBookStorage.getContactBookFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    public void saveContactBook(ReadOnlyContactBook contactBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        contactBookStorage.saveContactBook(contactBook, filePath);
     }
 
 }

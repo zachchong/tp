@@ -2,7 +2,7 @@ package presspal.contact.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static presspal.contact.testutil.TypicalPersons.getTypicalAddressBook;
+import static presspal.contact.testutil.TypicalPersons.getTypicalContactBook;
 
 import java.nio.file.Path;
 
@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import presspal.contact.commons.core.GuiSettings;
-import presspal.contact.model.AddressBook;
-import presspal.contact.model.ReadOnlyAddressBook;
+import presspal.contact.model.ContactBook;
+import presspal.contact.model.ReadOnlyContactBook;
 import presspal.contact.model.UserPrefs;
 
 public class StorageManagerTest {
@@ -24,9 +24,9 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
+        JsonContactBookStorage contactBookStorage = new JsonContactBookStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(contactBookStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -48,21 +48,21 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void contactBookReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
+         * {@link JsonContactBookStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonContactBookStorageTest} class.
          */
-        AddressBook original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
+        ContactBook original = getTypicalContactBook();
+        storageManager.saveContactBook(original);
+        ReadOnlyContactBook retrieved = storageManager.readContactBook().get();
+        assertEquals(original, new ContactBook(retrieved));
     }
 
     @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+    public void getContactBookFilePath() {
+        assertNotNull(storageManager.getContactBookFilePath());
     }
 
 }

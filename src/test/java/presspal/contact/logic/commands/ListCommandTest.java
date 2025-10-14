@@ -3,7 +3,7 @@ package presspal.contact.logic.commands;
 import static presspal.contact.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static presspal.contact.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static presspal.contact.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static presspal.contact.testutil.TypicalPersons.getTypicalAddressBook;
+import static presspal.contact.testutil.TypicalPersons.getTypicalContactBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,8 +22,8 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalContactBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getContactBook(), new UserPrefs());
     }
 
     @Test

@@ -11,7 +11,7 @@ import presspal.contact.commons.util.ToStringBuilder;
 import presspal.contact.model.category.Category;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Person in the contact book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Person {
@@ -54,7 +54,7 @@ public class Person {
     }
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * Returns an immutable category set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Category> getCategories() {

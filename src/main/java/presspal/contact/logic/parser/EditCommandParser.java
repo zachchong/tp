@@ -71,9 +71,9 @@ public class EditCommandParser implements Parser<EditCommand> {
     }
 
     /**
-     * Parses {@code Collection<String> categories} into a {@code Set<Tag>} if {@code categories} is non-empty.
+     * Parses {@code Collection<String> categories} into a {@code Set<Category>} if {@code categories} is non-empty.
      * If {@code categories} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<Tag>} containing zero categories.
+     * {@code Set<Category>} containing zero categories.
      */
     private Optional<Set<Category>> parseCategoriesForEdit(Collection<String> categories) throws ParseException {
         assert categories != null;

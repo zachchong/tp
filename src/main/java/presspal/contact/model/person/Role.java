@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static presspal.contact.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's role in the address book.
+ * Represents a Person's role in the contact book.
  * Guarantees: immutable; is valid as declared in {@link #isValidRole(String)}
  */
 public class Role {

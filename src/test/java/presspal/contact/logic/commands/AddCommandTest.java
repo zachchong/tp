@@ -18,9 +18,9 @@ import javafx.collections.ObservableList;
 import presspal.contact.commons.core.GuiSettings;
 import presspal.contact.logic.Messages;
 import presspal.contact.logic.commands.exceptions.CommandException;
-import presspal.contact.model.AddressBook;
+import presspal.contact.model.ContactBook;
 import presspal.contact.model.Model;
-import presspal.contact.model.ReadOnlyAddressBook;
+import presspal.contact.model.ReadOnlyContactBook;
 import presspal.contact.model.ReadOnlyUserPrefs;
 import presspal.contact.model.person.Person;
 import presspal.contact.testutil.PersonBuilder;
@@ -109,12 +109,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getContactBookFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setContactBookFilePath(Path contactBookFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -124,12 +124,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setContactBook(ReadOnlyContactBook newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyContactBook getContactBook() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -196,8 +196,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyContactBook getContactBook() {
+            return new ContactBook();
         }
     }
 

@@ -35,44 +35,44 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' contact book file path.
      */
-    Path getAddressBookFilePath();
+    Path getContactBookFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' contact book file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setContactBookFilePath(Path contactBookFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces contact book data with the data in {@code contactBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setContactBook(ReadOnlyContactBook contactBook);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the ContactBook */
+    ReadOnlyContactBook getContactBook();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a person with the same identity as {@code person} exists in the contact book.
      */
     boolean hasPerson(Person person);
 
     /**
      * Deletes the given person.
-     * The person must exist in the address book.
+     * The person must exist in the contact book.
      */
     void deletePerson(Person target);
 
     /**
      * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * {@code person} must not already exist in the contact book.
      */
     void addPerson(Person person);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * {@code target} must exist in the contact book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the contact book.
      */
     void setPerson(Person target, Person editedPerson);
 

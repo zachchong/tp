@@ -5,14 +5,14 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import presspal.contact.commons.exceptions.DataLoadingException;
-import presspal.contact.model.ReadOnlyAddressBook;
+import presspal.contact.model.ReadOnlyContactBook;
 import presspal.contact.model.ReadOnlyUserPrefs;
 import presspal.contact.model.UserPrefs;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage {
+public interface Storage extends ContactBookStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataLoadingException;
@@ -21,12 +21,12 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getAddressBookFilePath();
+    Path getContactBookFilePath();
 
     @Override
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataLoadingException;
+    Optional<ReadOnlyContactBook> readContactBook() throws DataLoadingException;
 
     @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    void saveContactBook(ReadOnlyContactBook contactBook) throws IOException;
 
 }

@@ -6,7 +6,7 @@ import static presspal.contact.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import presspal.contact.model.Model;
 
 /**
- * Lists all persons in the address book to the user.
+ * Lists all persons in the contact book to the user.
  */
 public class ListCommand extends Command {
 

@@ -15,15 +15,15 @@ import presspal.contact.commons.util.ConfigUtil;
 import presspal.contact.commons.util.StringUtil;
 import presspal.contact.logic.Logic;
 import presspal.contact.logic.LogicManager;
-import presspal.contact.model.AddressBook;
+import presspal.contact.model.ContactBook;
 import presspal.contact.model.Model;
 import presspal.contact.model.ModelManager;
-import presspal.contact.model.ReadOnlyAddressBook;
+import presspal.contact.model.ReadOnlyContactBook;
 import presspal.contact.model.ReadOnlyUserPrefs;
 import presspal.contact.model.UserPrefs;
 import presspal.contact.model.util.SampleDataUtil;
-import presspal.contact.storage.AddressBookStorage;
-import presspal.contact.storage.JsonAddressBookStorage;
+import presspal.contact.storage.ContactBookStorage;
+import presspal.contact.storage.JsonContactBookStorage;
 import presspal.contact.storage.JsonUserPrefsStorage;
 import presspal.contact.storage.Storage;
 import presspal.contact.storage.StorageManager;
@@ -48,7 +48,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing ContactBook ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -57,8 +57,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        ContactBookStorage contactBookStorage = new JsonContactBookStorage(userPrefs.getContactBookFilePath());
+        storage = new StorageManager(contactBookStorage, userPrefsStorage);
 
         model = initModelManager(storage, userPrefs);
 
@@ -68,26 +68,26 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s contact book and {@code userPrefs}. <br>
+     * The data from the sample contact book will be used instead if {@code storage}'s contact book is not found,
+     * or an empty contact book will be used instead if errors occur when reading {@code storage}'s contact book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        logger.info("Using data file : " + storage.getAddressBookFilePath());
+        logger.info("Using data file : " + storage.getContactBookFilePath());
 
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyContactBook> contactBookOptional;
+        ReadOnlyContactBook initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Creating a new data file " + storage.getAddressBookFilePath()
-                        + " populated with a sample AddressBook.");
+            contactBookOptional = storage.readContactBook();
+            if (!contactBookOptional.isPresent()) {
+                logger.info("Creating a new data file " + storage.getContactBookFilePath()
+                        + " populated with a sample ContactBook.");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = contactBookOptional.orElseGet(SampleDataUtil::getSampleContactBook);
         } catch (DataLoadingException e) {
-            logger.warning("Data file at " + storage.getAddressBookFilePath() + " could not be loaded."
-                    + " Will be starting with an empty AddressBook.");
-            initialData = new AddressBook();
+            logger.warning("Data file at " + storage.getContactBookFilePath() + " could not be loaded."
+                    + " Will be starting with an empty ContactBook.");
+            initialData = new ContactBook();
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -170,13 +170,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting ContactBook " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping AddressBook ] =============================");
+        logger.info("============================ [ Stopping ContactBook ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {
