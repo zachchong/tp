@@ -1,8 +1,10 @@
 package presspal.contact.model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static presspal.contact.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
+import java.util.Objects;
 
 public class UserPrefsTest {
 
@@ -18,4 +20,13 @@ public class UserPrefsTest {
         assertThrows(NullPointerException.class, () -> userPrefs.setContactBookFilePath(null));
     }
 
+    @Test
+    public void testHashCode() {
+        UserPrefs userPrefs = new UserPrefs();
+        userPrefs.setContactBookFilePath(null);
+        userPrefs.setGuiSettings(null);
+
+        assertEquals(userPrefs.hashCode(),
+                Objects.hash(userPrefs.getContactBookFilePath(), userPrefs.getGuiSettings()));
+    }
 }
