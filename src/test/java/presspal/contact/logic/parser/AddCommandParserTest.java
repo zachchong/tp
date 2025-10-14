@@ -57,7 +57,7 @@ public class AddCommandParserTest {
                 + ORGANISATION_DESC_BOB + CATEGORY_DESC_FRIEND, new AddCommand(expectedPerson));
 
 
-        // multiple tags - all accepted
+        // multiple categories - all accepted
         Person expectedPersonMultipleCategories = new PersonBuilder(BOB)
                 .withCategories(VALID_CATEGORY_FRIEND, VALID_CATEGORY_HUSBAND)
                 .build();
@@ -134,7 +134,7 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_optionalFieldsMissing_success() {
-        // zero tags
+        // zero categories
         Person expectedPerson = new PersonBuilder(AMY).withCategories().build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ORGANISATION_DESC_AMY,
                 new AddCommand(expectedPerson));
@@ -183,7 +183,7 @@ public class AddCommandParserTest {
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ORGANISATION_DESC
                 + CATEGORY_DESC_HUSBAND + CATEGORY_DESC_FRIEND, Organisation.MESSAGE_CONSTRAINTS);
 
-        // invalid tag
+        // invalid category
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ORGANISATION_DESC_BOB
                 + INVALID_CATEGORY_DESC + VALID_CATEGORY_FRIEND, Category.MESSAGE_CONSTRAINTS);
 

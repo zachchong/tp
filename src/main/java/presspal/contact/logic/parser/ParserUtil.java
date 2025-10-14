@@ -96,7 +96,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String category} into a {@code Tag}.
+     * Parses a {@code String category} into a {@code Category}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code category} is invalid.
@@ -111,7 +111,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code Collection<String> categories} into a {@code Set<Tag>}.
+     * Parses {@code Collection<String> categories} into a {@code Set<Category>}.
      */
     public static Set<Category> parseCategories(Collection<String> categories) throws ParseException {
         requireNonNull(categories);

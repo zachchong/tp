@@ -52,7 +52,7 @@ public class EditPersonDescriptorTest {
         editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withOrganisation(VALID_ORGANISATION_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
-        // different tags -> returns false
+        // different categories -> returns false
         editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withCategories(VALID_CATEGORY_HUSBAND).build();
         assertFalse(DESC_AMY.equals(editedAmy));
     }
