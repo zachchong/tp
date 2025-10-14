@@ -88,8 +88,8 @@ public class Interview {
 
     @Override
     public String toString() {
-        return "Interview scheduled for "
-                + header
+        return "["
+                + header + "]"
                 + " on " + dateTime
                 + "at" + location;
     }

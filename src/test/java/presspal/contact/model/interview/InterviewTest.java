@@ -3,6 +3,7 @@ package presspal.contact.model.interview;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
@@ -105,6 +106,20 @@ class InterviewTest {
         assertNotEquals(interview, "NotAnInterview");
 
     }
+
+    @Test
+    @DisplayName("Constructor should throw NullPointerException for null input")
+    void constructorNull_throwsException() {
+        assertThrows(NullPointerException.class, () -> new Location(null));
+    }
+
+    @Test
+    @DisplayName("Constructor should throw IllegalArgumentException for invalid input")
+    void constructorInvalid_throwsException() {
+        // Example: blank location string is invalid
+        assertThrows(IllegalArgumentException.class, () -> new Location(""));
+    }
+
 
 
 }

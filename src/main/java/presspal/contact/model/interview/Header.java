@@ -1,5 +1,7 @@
 package presspal.contact.model.interview;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Objects;
 
 /**
@@ -11,7 +13,16 @@ public class Header {
 
     /** Constructs a Header object */
     public Header(String header) {
+        requireNonNull(header);
         value = header;
+    }
+
+    /**
+     * Returns true if a given string is a valid header.
+     * Adjust this logic according to your actual rules.
+     */
+    public static boolean isValidHeader(String test) {
+        return !test.isBlank(); // simple example: header cannot be blank
     }
 
     /**
