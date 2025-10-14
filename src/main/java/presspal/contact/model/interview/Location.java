@@ -1,8 +1,8 @@
 package presspal.contact.model.interview;
 
-import java.util.Objects;
-
 import static java.util.Objects.requireNonNull;
+
+import java.util.Objects;
 
 /**
  * Represents the location of interview.
