@@ -1,6 +1,7 @@
 package presspal.contact.model.interview;
 
 import static java.util.Objects.requireNonNull;
+import static presspal.contact.commons.util.AppUtil.checkArgument;
 
 import java.util.Objects;
 
@@ -9,11 +10,13 @@ import java.util.Objects;
  */
 public class Location {
     /** The textual representation of the interview location. */
+    public static final String MESSAGE_CONSTRAINTS = "Location cannot be blank";
     private String value;
 
     /** Constructs a Location object */
     public Location(String location) {
         requireNonNull(location);
+        checkArgument(isValidLocation(location), MESSAGE_CONSTRAINTS);
         value = location;
     }
 
@@ -28,6 +31,7 @@ public class Location {
     /** Updates the interview location to a new specified value */
     public void setLocation(String newLocation) {
         requireNonNull(newLocation);
+        checkArgument(isValidLocation(newLocation), MESSAGE_CONSTRAINTS);
         value = newLocation;
     }
 

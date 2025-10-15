@@ -44,14 +44,6 @@ class LocationTest {
     }
 
     @Test
-    @DisplayName("Setter should handle empty string as location")
-    void testSetLocationEmptyString() {
-        location.setLocation("");
-        assertEquals("", location.toString(),
-                "Location should support empty string as a valid value");
-    }
-
-    @Test
     @DisplayName("Setter should handle null as location")
     void testSetLocationNull() {
         location.setLocation(null);

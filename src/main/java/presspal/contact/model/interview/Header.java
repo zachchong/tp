@@ -1,6 +1,7 @@
 package presspal.contact.model.interview;
 
 import static java.util.Objects.requireNonNull;
+import static presspal.contact.commons.util.AppUtil.checkArgument;
 
 import java.util.Objects;
 
@@ -9,12 +10,13 @@ import java.util.Objects;
  */
 public class Header {
     /** The textual representation of the interview header. */
+    public static final String MESSAGE_CONSTRAINTS = "Header cannot be blank";
     private final String value;
 
     /** Constructs a Header object */
     public Header(String header) {
         requireNonNull(header);
-        isValidHeader(header);
+        checkArgument(isValidHeader(header), MESSAGE_CONSTRAINTS);
         value = header;
     }
 
