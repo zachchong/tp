@@ -49,7 +49,7 @@ public class CommandTestUtil {
     public static final String ORGANISATION_DESC_AMY = " " + PREFIX_ORGANISATION + VALID_ORGANISATION_AMY;
     public static final String ORGANISATION_DESC_BOB = " " + PREFIX_ORGANISATION + VALID_ORGANISATION_BOB;
     public static final String ROLE_DESC_AMY = " " + PREFIX_ROLE + VALID_ROLE_AMY;
-    public static final String ROLE_DESC_BOB = " " + PREFIX_ROLE + VALID_NAME_BOB;
+    public static final String ROLE_DESC_BOB = " " + PREFIX_ROLE + VALID_ROLE_BOB;
     public static final String CATEGORY_DESC_FRIEND = " " + PREFIX_CATEGORY + VALID_CATEGORY_FRIEND;
     public static final String CATEGORY_DESC_HUSBAND = " " + PREFIX_CATEGORY + VALID_CATEGORY_HUSBAND;
 
