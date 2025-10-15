@@ -305,7 +305,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. Reporter requests to add a contact with name, at least one mode of contact (phone or email), organisation and role. 
+1. Reporter requests to add a contact with name, at least one mode of contact (phone or email), organisation and role.
 2. PressPal validates all provided fields.
 3. PressPal creates the contact and confirms.
 
@@ -316,7 +316,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 1a. Reporter includes only some fields.
   * 1a1. PressPal requests the missing fields.
   * 1a2. Reporter provides them.
-    Use case resumes at step 2. 
+    Use case resumes at step 2.
 
 * 2a. PressPal detects an invalid field (e.g., name/phone/email format).
   * 2a1. PressPal requests the corrected value and explains the issue.
@@ -640,40 +640,40 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ---
 
 ### A
-**Account**: 
+**Account**:
 
 A user profile in PressPal that stores a journalist’s credentials, preferences, and contact database.
 
 ### C
-**Category**: 
+**Category**:
 
 A label or grouping used to organize contacts (e.g., “Politics,” “Health,” “Technology”).
 
-**Contact**: 
+**Contact**:
 
 An individual or organization entry stored in PressPal, including name, role, and at least one mode of contact (e.g., phone or email).
 
 ### D
-**Duplicate contact**: 
+**Duplicate contact**:
 
 A contact that shares the same phone number or email as an existing contact in PressPal.
 
 ### M
-**Mode of contact**: 
+**Mode of contact**:
 
 A way to reach a contact, such as a phone number or email organisation.
 
 ### R
-**Reporter**: 
+**Reporter**:
 
 The primary user of PressPal who manages contacts, categories, and interview notes.
 
-**Role**: 
+**Role**:
 
 The position or job title of a contact within their organisation.
 
 ### O
-**Organisation**: 
+**Organisation**:
 
 The company, agency, or institution a contact belongs to.
 
