@@ -3,8 +3,6 @@ package presspal.contact.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import org.junit.jupiter.api.Test;
-
 import static presspal.contact.logic.commands.CommandTestUtil.DESC_AMY;
 import static presspal.contact.logic.commands.CommandTestUtil.DESC_BOB;
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_CATEGORY_HUSBAND;
@@ -13,6 +11,9 @@ import static presspal.contact.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_ORGANISATION_BOB;
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_ROLE_BOB;
+
+import org.junit.jupiter.api.Test;
+
 import presspal.contact.logic.commands.EditCommand.EditPersonDescriptor;
 import presspal.contact.testutil.EditPersonDescriptorBuilder;
 

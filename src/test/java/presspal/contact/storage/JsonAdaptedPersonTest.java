@@ -12,7 +12,11 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import presspal.contact.commons.exceptions.IllegalValueException;
-import presspal.contact.model.person.*;
+import presspal.contact.model.person.Email;
+import presspal.contact.model.person.Name;
+import presspal.contact.model.person.Organisation;
+import presspal.contact.model.person.Phone;
+import presspal.contact.model.person.Role;
 
 public class JsonAdaptedPersonTest {
     private static final String INVALID_NAME = "R@chel";

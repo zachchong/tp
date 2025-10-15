@@ -4,7 +4,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 import presspal.contact.model.category.Category;
-import presspal.contact.model.person.*;
+import presspal.contact.model.person.Email;
+import presspal.contact.model.person.Name;
+import presspal.contact.model.person.Organisation;
+import presspal.contact.model.person.Person;
+import presspal.contact.model.person.Phone;
+import presspal.contact.model.person.Role;
 import presspal.contact.model.util.SampleDataUtil;
 
 /**

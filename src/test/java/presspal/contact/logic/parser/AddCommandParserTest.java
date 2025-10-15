@@ -1,10 +1,6 @@
 package presspal.contact.logic.parser;
 
-import org.junit.jupiter.api.Test;
-
-import presspal.contact.logic.Messages;
 import static presspal.contact.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import presspal.contact.logic.commands.AddCommand;
 import static presspal.contact.logic.commands.CommandTestUtil.CATEGORY_DESC_FRIEND;
 import static presspal.contact.logic.commands.CommandTestUtil.CATEGORY_DESC_HUSBAND;
 import static presspal.contact.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
@@ -39,6 +35,13 @@ import static presspal.contact.logic.parser.CliSyntax.PREFIX_PHONE;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_ROLE;
 import static presspal.contact.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static presspal.contact.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static presspal.contact.testutil.TypicalPersons.AMY;
+import static presspal.contact.testutil.TypicalPersons.BOB;
+
+import org.junit.jupiter.api.Test;
+
+import presspal.contact.logic.Messages;
+import presspal.contact.logic.commands.AddCommand;
 import presspal.contact.model.category.Category;
 import presspal.contact.model.person.Email;
 import presspal.contact.model.person.Name;
@@ -47,8 +50,7 @@ import presspal.contact.model.person.Person;
 import presspal.contact.model.person.Phone;
 import presspal.contact.model.person.Role;
 import presspal.contact.testutil.PersonBuilder;
-import static presspal.contact.testutil.TypicalPersons.AMY;
-import static presspal.contact.testutil.TypicalPersons.BOB;
+
 
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
@@ -163,59 +165,64 @@ public class AddCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
 
         // missing name prefix
-        assertParseFailure(parser, VALID_NAME_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ORGANISATION_DESC_BOB + ROLE_DESC_BOB,
+        assertParseFailure(parser,
+                VALID_NAME_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ORGANISATION_DESC_BOB + ROLE_DESC_BOB,
                 expectedMessage);
 
         // missing phone prefix
-        assertParseFailure(parser, NAME_DESC_BOB + VALID_PHONE_BOB + EMAIL_DESC_BOB + ORGANISATION_DESC_BOB + ROLE_DESC_BOB,
+        assertParseFailure(parser,
+                NAME_DESC_BOB + VALID_PHONE_BOB + EMAIL_DESC_BOB + ORGANISATION_DESC_BOB + ROLE_DESC_BOB,
                 expectedMessage);
 
         // missing email prefix
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + VALID_EMAIL_BOB + ORGANISATION_DESC_BOB + ROLE_DESC_BOB,
+        assertParseFailure(parser,
+                NAME_DESC_BOB + PHONE_DESC_BOB + VALID_EMAIL_BOB + ORGANISATION_DESC_BOB + ROLE_DESC_BOB,
                 expectedMessage);
 
         // missing organisation prefix
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + VALID_ORGANISATION_BOB + ROLE_DESC_BOB,
+        assertParseFailure(parser,
+                NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + VALID_ORGANISATION_BOB + ROLE_DESC_BOB,
                 expectedMessage);
 
         // missing role prefix
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ORGANISATION_DESC_BOB + VALID_ROLE_BOB,
+        assertParseFailure(parser,
+                NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ORGANISATION_DESC_BOB + VALID_ROLE_BOB,
                 expectedMessage);
 
         // all prefixes missing
-        assertParseFailure(parser, VALID_NAME_BOB + VALID_PHONE_BOB + VALID_EMAIL_BOB + VALID_ORGANISATION_BOB + VALID_ROLE_BOB,
+        assertParseFailure(parser,
+                VALID_NAME_BOB + VALID_PHONE_BOB + VALID_EMAIL_BOB + VALID_ORGANISATION_BOB + VALID_ROLE_BOB,
                 expectedMessage);
     }
 
     @Test
     public void parse_invalidValue_failure() {
         // invalid name
-        assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + ORGANISATION_DESC_BOB + ROLE_DESC_BOB
-                + CATEGORY_DESC_HUSBAND + CATEGORY_DESC_FRIEND, Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + ORGANISATION_DESC_BOB
+                + ROLE_DESC_BOB + CATEGORY_DESC_HUSBAND + CATEGORY_DESC_FRIEND, Name.MESSAGE_CONSTRAINTS);
 
         // invalid phone
-        assertParseFailure(parser, NAME_DESC_BOB + INVALID_PHONE_DESC + EMAIL_DESC_BOB + ORGANISATION_DESC_BOB + ROLE_DESC_BOB
-                + CATEGORY_DESC_HUSBAND + CATEGORY_DESC_FRIEND, Phone.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, NAME_DESC_BOB + INVALID_PHONE_DESC + EMAIL_DESC_BOB + ORGANISATION_DESC_BOB
+                + ROLE_DESC_BOB + CATEGORY_DESC_HUSBAND + CATEGORY_DESC_FRIEND, Phone.MESSAGE_CONSTRAINTS);
 
         // invalid email
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC + ORGANISATION_DESC_BOB + ROLE_DESC_BOB
-                + CATEGORY_DESC_HUSBAND + CATEGORY_DESC_FRIEND, Email.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC + ORGANISATION_DESC_BOB
+                + ROLE_DESC_BOB + CATEGORY_DESC_HUSBAND + CATEGORY_DESC_FRIEND, Email.MESSAGE_CONSTRAINTS);
 
         // invalid organisation
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ORGANISATION_DESC + ROLE_DESC_BOB
-                + CATEGORY_DESC_HUSBAND + CATEGORY_DESC_FRIEND, Organisation.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ORGANISATION_DESC
+                + ROLE_DESC_BOB + CATEGORY_DESC_HUSBAND + CATEGORY_DESC_FRIEND, Organisation.MESSAGE_CONSTRAINTS);
 
         // invalid role
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ORGANISATION_DESC_BOB + INVALID_ROLE_DESC
-                + CATEGORY_DESC_HUSBAND + CATEGORY_DESC_FRIEND, Role.MESSAGE_CONSTRAINTS);
-        
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ORGANISATION_DESC_BOB
+                + INVALID_ROLE_DESC + CATEGORY_DESC_HUSBAND + CATEGORY_DESC_FRIEND, Role.MESSAGE_CONSTRAINTS);
         // invalid category
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ORGANISATION_DESC_BOB + ROLE_DESC_BOB
-                + INVALID_CATEGORY_DESC + VALID_CATEGORY_FRIEND, Category.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ORGANISATION_DESC_BOB
+                + ROLE_DESC_BOB + INVALID_CATEGORY_DESC + VALID_CATEGORY_FRIEND, Category.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ORGANISATION_DESC + ROLE_DESC_BOB,
-                Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                        + INVALID_ORGANISATION_DESC + ROLE_DESC_BOB, Name.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB

@@ -1,13 +1,18 @@
 package presspal.contact.testutil;
 
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_NAME;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_ORGANISATION;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_PHONE;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_ROLE;
+
 import java.util.Set;
 
 import presspal.contact.logic.commands.AddCommand;
 import presspal.contact.logic.commands.EditCommand.EditPersonDescriptor;
 import presspal.contact.model.category.Category;
 import presspal.contact.model.person.Person;
-
-import static presspal.contact.logic.parser.CliSyntax.*;
 
 /**
  * A utility class for Person.

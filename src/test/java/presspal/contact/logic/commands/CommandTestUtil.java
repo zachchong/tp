@@ -1,25 +1,25 @@
 package presspal.contact.logic.commands;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import presspal.contact.commons.core.index.Index;
-import presspal.contact.logic.commands.exceptions.CommandException;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_NAME;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_ORGANISATION;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_PHONE;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_ROLE;
+import static presspal.contact.testutil.Assert.assertThrows;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import presspal.contact.commons.core.index.Index;
+import presspal.contact.logic.commands.exceptions.CommandException;
 import presspal.contact.model.ContactBook;
 import presspal.contact.model.Model;
 import presspal.contact.model.person.NameContainsKeywordsPredicate;
 import presspal.contact.model.person.Person;
-import static presspal.contact.testutil.Assert.assertThrows;
 import presspal.contact.testutil.EditPersonDescriptorBuilder;
 
 /**
