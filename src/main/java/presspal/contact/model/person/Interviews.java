@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import presspal.contact.model.interview.Interview;
 
@@ -13,7 +14,7 @@ import presspal.contact.model.interview.Interview;
 public class Interviews {
 
     // list of interview(s) for a person
-    private final List<Interview> interviews; // TO BE UPDATED TO USE ACTUAL INTERVIEW CLASS BY v1.3
+    private final List<Interview> interviews;
 
     /**
      * Constructs a {@code Interviews}.
@@ -21,11 +22,7 @@ public class Interviews {
      * @param interviews List of initial interviews.
      */
     public Interviews(List<Interview> interviews) {
-        if (interviews != null) {
-            this.interviews = interviews;
-        } else {
-            this.interviews = new ArrayList<>();
-        }
+        this.interviews = Objects.requireNonNullElseGet(interviews, ArrayList::new);
     }
 
     /**
