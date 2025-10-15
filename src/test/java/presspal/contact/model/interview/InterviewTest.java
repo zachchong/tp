@@ -82,8 +82,8 @@ class InterviewTest {
         assertThrows(NullPointerException.class, () -> new Interview(new Header("Interview"), null, dateTime));
 
         // Null dateTime
-        assertThrows(NullPointerException.class,
-                () -> new Interview(new Header("Interview"), new Location("NUS"), null));
+        assertThrows(NullPointerException.class, () ->
+                new Interview(new Header("Interview"), new Location("NUS"), null));
 
         // All null
         assertThrows(NullPointerException.class, () -> new Interview(null, null, null));
