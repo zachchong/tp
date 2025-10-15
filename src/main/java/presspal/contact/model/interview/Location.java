@@ -17,6 +17,9 @@ public class Location {
         value = location;
     }
 
+    /**
+     * Returns true if a given string is a valid location.
+     */
     public static boolean isValidLocation(String loc) {
         // implemented for future refinement use case
         return loc != null && !loc.isBlank();
