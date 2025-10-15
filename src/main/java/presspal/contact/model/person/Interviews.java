@@ -3,20 +3,22 @@ package presspal.contact.model.person;
 import java.util.ArrayList;
 import java.util.List;
 
+import presspal.contact.model.interview.Interview;
+
 /**
  * Represents a Person's list of interviews in the contact book.
  */
 public class Interviews {
 
     // list of interview(s) for a person
-    private final List<String> interviews; // TO BE UPDATED TO USE ACTUAL INTERVIEW CLASS BY v1.3
+    private final List<Interview> interviews; // TO BE UPDATED TO USE ACTUAL INTERVIEW CLASS BY v1.3
 
     /**
      * Constructs a {@code Interviews}.
      *
      * @param interviews List of initial interviews.
      */
-    public Interviews(List<String> interviews) {
+    public Interviews(List<Interview> interviews) {
         if (interviews != null) {
             this.interviews = interviews;
         } else {
@@ -27,36 +29,36 @@ public class Interviews {
     /**
      * Returns the interviews list.
      */
-    public List<String> getInterviews() {
+    public List<Interview> getInterviews() {
         return interviews;
     }
 
     /**
      * Returns a list of upcoming interviews by comparing current time and time of interview.
      */
-    public List<String> getUpcomingInterviews() {
-        List<String> upcomingInterviews = new ArrayList<>();
+    public List<Interview> getUpcomingInterviews() {
+        List<Interview> upcomingInterviews = new ArrayList<>();
         return upcomingInterviews; // return an empty list for now. TBC in v1.3
     }
 
     /**
      * Adds an interview to the interview list.
      */
-    public void add(String interview) {
+    public void add(Interview interview) {
         interviews.add(interview);
     }
 
     /**
      * Removes an interview from the interview list.
      */
-    public void remove(String interview) {
+    public void remove(Interview interview) {
         interviews.remove(interview);
     }
 
     /**
      * Returns true if an interview is contained in interview list.
      */
-    public boolean contains(String interview) {
+    public boolean contains(Interview interview) {
         return interviews.contains(interview);
     }
 
