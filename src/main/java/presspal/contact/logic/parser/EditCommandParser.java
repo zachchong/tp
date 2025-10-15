@@ -7,6 +7,7 @@ import static presspal.contact.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_NAME;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_ORGANISATION;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_PHONE;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_ROLE;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -33,7 +34,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE,
-                        PREFIX_EMAIL, PREFIX_ORGANISATION, PREFIX_CATEGORY);
+                        PREFIX_EMAIL, PREFIX_ORGANISATION, PREFIX_ROLE, PREFIX_CATEGORY);
 
         Index index;
 
@@ -43,7 +44,8 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ORGANISATION);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE,
+                PREFIX_EMAIL, PREFIX_ORGANISATION, PREFIX_ROLE);
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 
@@ -59,6 +61,10 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_ORGANISATION).isPresent()) {
             editPersonDescriptor.setOrganisation(ParserUtil
                     .parseOrganisation(argMultimap.getValue(PREFIX_ORGANISATION).get()));
+        }
+        if (argMultimap.getValue(PREFIX_ROLE).isPresent()) {
+            editPersonDescriptor.setRole(ParserUtil
+                    .parseRole(argMultimap.getValue(PREFIX_ROLE).get()));
         }
         parseCategoriesForEdit(argMultimap.getAllValues(PREFIX_CATEGORY))
                 .ifPresent(editPersonDescriptor::setCategories);

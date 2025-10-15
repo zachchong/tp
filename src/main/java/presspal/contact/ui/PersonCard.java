@@ -37,6 +37,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label organisation;
     @FXML
+    private Label role;
+    @FXML
     private Label email;
     @FXML
     private FlowPane categories;
@@ -51,6 +53,7 @@ public class PersonCard extends UiPart<Region> {
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);
         organisation.setText(person.getOrganisation().value);
+        role.setText(person.getRole().value);
         email.setText(person.getEmail().value);
         person.getCategories().stream()
                 .sorted(Comparator.comparing(category -> category.categoryName))

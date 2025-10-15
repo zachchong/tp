@@ -9,6 +9,7 @@ import presspal.contact.model.person.Name;
 import presspal.contact.model.person.Organisation;
 import presspal.contact.model.person.Person;
 import presspal.contact.model.person.Phone;
+import presspal.contact.model.person.Role;
 import presspal.contact.model.util.SampleDataUtil;
 
 /**
@@ -20,11 +21,13 @@ public class PersonBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ORGANISATION = "NUS";
+    public static final String DEFAULT_ROLE = "student";
 
     private Name name;
     private Phone phone;
     private Email email;
     private Organisation organisation;
+    private Role role;
     private Set<Category> categories;
 
     /**
@@ -35,6 +38,7 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         organisation = new Organisation(DEFAULT_ORGANISATION);
+        role = new Role(DEFAULT_ROLE);
         categories = new HashSet<>();
     }
 
@@ -46,6 +50,7 @@ public class PersonBuilder {
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         organisation = personToCopy.getOrganisation();
+        role = personToCopy.getRole();
         categories = new HashSet<>(personToCopy.getCategories());
     }
 
@@ -74,6 +79,14 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code Role} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withRole(String role) {
+        this.role = new Role(role);
+        return this;
+    }
+
+    /**
      * Sets the {@code Phone} of the {@code Person} that we are building.
      */
     public PersonBuilder withPhone(String phone) {
@@ -90,7 +103,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, email, organisation, categories);
+        return new Person(name, phone, email, organisation, role, categories);
     }
 
 }

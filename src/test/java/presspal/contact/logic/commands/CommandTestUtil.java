@@ -7,6 +7,7 @@ import static presspal.contact.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_NAME;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_ORGANISATION;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_PHONE;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_ROLE;
 import static presspal.contact.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -34,6 +35,8 @@ public class CommandTestUtil {
     public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_ORGANISATION_AMY = "NUS";
     public static final String VALID_ORGANISATION_BOB = "CAPT";
+    public static final String VALID_ROLE_AMY = "STUDENT";
+    public static final String VALID_ROLE_BOB = "CLASSMATE";
     public static final String VALID_CATEGORY_HUSBAND = "husband";
     public static final String VALID_CATEGORY_FRIEND = "friend";
 
@@ -45,6 +48,8 @@ public class CommandTestUtil {
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
     public static final String ORGANISATION_DESC_AMY = " " + PREFIX_ORGANISATION + VALID_ORGANISATION_AMY;
     public static final String ORGANISATION_DESC_BOB = " " + PREFIX_ORGANISATION + VALID_ORGANISATION_BOB;
+    public static final String ROLE_DESC_AMY = " " + PREFIX_ROLE + VALID_ROLE_AMY;
+    public static final String ROLE_DESC_BOB = " " + PREFIX_ROLE + VALID_ROLE_BOB;
     public static final String CATEGORY_DESC_FRIEND = " " + PREFIX_CATEGORY + VALID_CATEGORY_FRIEND;
     public static final String CATEGORY_DESC_HUSBAND = " " + PREFIX_CATEGORY + VALID_CATEGORY_HUSBAND;
 
@@ -52,6 +57,7 @@ public class CommandTestUtil {
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ORGANISATION_DESC = " " + PREFIX_ORGANISATION; // empty string not allowed
+    public static final String INVALID_ROLE_DESC = " " + PREFIX_ROLE;
     public static final String INVALID_CATEGORY_DESC =
         " " + PREFIX_CATEGORY + "hubby*"; // '*' not allowed in categories
 
@@ -62,11 +68,19 @@ public class CommandTestUtil {
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
 
     static {
-        DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withOrganisation(VALID_ORGANISATION_AMY)
+        DESC_AMY = new EditPersonDescriptorBuilder()
+                .withName(VALID_NAME_AMY)
+                .withPhone(VALID_PHONE_AMY)
+                .withEmail(VALID_EMAIL_AMY)
+                .withOrganisation(VALID_ORGANISATION_AMY)
+                .withRole(VALID_ROLE_AMY)
                 .withCategories(VALID_CATEGORY_FRIEND).build();
-        DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withOrganisation(VALID_ORGANISATION_BOB)
+        DESC_BOB = new EditPersonDescriptorBuilder()
+                .withName(VALID_NAME_BOB)
+                .withPhone(VALID_PHONE_BOB)
+                .withEmail(VALID_EMAIL_BOB)
+                .withOrganisation(VALID_ORGANISATION_BOB)
+                .withRole(VALID_ROLE_BOB)
                 .withCategories(VALID_CATEGORY_HUSBAND, VALID_CATEGORY_FRIEND).build();
     }
 

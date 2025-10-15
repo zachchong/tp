@@ -19,17 +19,20 @@ import presspal.contact.model.person.Email;
 import presspal.contact.model.person.Name;
 import presspal.contact.model.person.Organisation;
 import presspal.contact.model.person.Phone;
+import presspal.contact.model.person.Role;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ORGANISATION = " ";
+    private static final String INVALID_ROLE = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_CATEGORY = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
     private static final String VALID_ORGANISATION = "123 Main Street #0505";
+    private static final String VALID_ROLE = "Student";
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_CATEGORY_1 = "friend";
     private static final String VALID_CATEGORY_2 = "neighbour";
@@ -123,6 +126,29 @@ public class ParserUtilTest {
         String organisationWithWhitespace = WHITESPACE + VALID_ORGANISATION + WHITESPACE;
         Organisation expectedOrganisation = new Organisation(VALID_ORGANISATION);
         assertEquals(expectedOrganisation, ParserUtil.parseOrganisation(organisationWithWhitespace));
+    }
+
+    @Test
+    public void parseRole_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseRole((String) null));
+    }
+
+    @Test
+    public void parseRole_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseRole(INVALID_ROLE));
+    }
+
+    @Test
+    public void parseRole_validValueWithoutWhitespace_returnsRole() throws Exception {
+        Role expectedRole = new Role(VALID_ROLE);
+        assertEquals(expectedRole, ParserUtil.parseRole(VALID_ROLE));
+    }
+
+    @Test
+    public void parseRole_validValueWithWhitespace_returnsTrimmedRole() throws Exception {
+        String roleWithWhitespace = WHITESPACE + VALID_ROLE + WHITESPACE;
+        Role expectedRole = new Role(VALID_ROLE);
+        assertEquals(expectedRole, ParserUtil.parseRole(roleWithWhitespace));
     }
 
     @Test

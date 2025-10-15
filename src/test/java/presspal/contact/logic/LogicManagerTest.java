@@ -7,6 +7,7 @@ import static presspal.contact.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static presspal.contact.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static presspal.contact.logic.commands.CommandTestUtil.ORGANISATION_DESC_AMY;
 import static presspal.contact.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static presspal.contact.logic.commands.CommandTestUtil.ROLE_DESC_AMY;
 import static presspal.contact.testutil.Assert.assertThrows;
 import static presspal.contact.testutil.TypicalPersons.AMY;
 
@@ -166,7 +167,7 @@ public class LogicManagerTest {
 
         // Triggers the saveContactBook method by executing an add command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
-                + EMAIL_DESC_AMY + ORGANISATION_DESC_AMY;
+                + EMAIL_DESC_AMY + ORGANISATION_DESC_AMY + ROLE_DESC_AMY;
         Person expectedPerson = new PersonBuilder(AMY).withCategories().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedPerson);

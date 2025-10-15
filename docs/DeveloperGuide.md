@@ -305,322 +305,322 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. Reporter requests to add a contact with name, at least one mode of contact (phone or email), organisation and role.  
-2. PressPal validates all provided fields.  
-3. PressPal creates the contact and confirms.  
+1. Reporter requests to add a contact with name, at least one mode of contact (phone or email), organisation and role.
+2. PressPal validates all provided fields.
+3. PressPal creates the contact and confirms.
 
-   Use case ends.  
+   Use case ends.
 
 **Extensions**
 
-* 1a. Reporter includes only some fields.  
-  * 1a1. PressPal requests the missing fields.  
-  * 1a2. Reporter provides them.  
-    Use case resumes at step 2.  
+* 1a. Reporter includes only some fields.
+  * 1a1. PressPal requests the missing fields.
+  * 1a2. Reporter provides them.
+    Use case resumes at step 2.
 
-* 2a. PressPal detects an invalid field (e.g., name/phone/email format).  
-  * 2a1. PressPal requests the corrected value and explains the issue.  
-  * 2a2. Reporter enters a corrected value.  
-    Steps 2a1–2a2 repeat until all values are valid.  
-    Use case resumes at step 2.  
+* 2a. PressPal detects an invalid field (e.g., name/phone/email format).
+  * 2a1. PressPal requests the corrected value and explains the issue.
+  * 2a2. Reporter enters a corrected value.
+    Steps 2a1–2a2 repeat until all values are valid.
+    Use case resumes at step 2.
 
-* 2b. PressPal detects that the phone or email already exists.  
-  * 2b1. PressPal informs that a duplicate contact exists.  
-  * 2b2. Reporter chooses to cancel.  
-    Use case ends.  
+* 2b. PressPal detects that the phone or email already exists.
+  * 2b1. PressPal informs that a duplicate contact exists.
+  * 2b2. Reporter chooses to cancel.
+    Use case ends.
 
-* 2c. PressPal detects missing mode of contact.  
-  * 2c1. PressPal requests at least one mode of contact (phone or email).  
-  * 2c2. Reporter provides one.  
-    Use case resumes at step 2.  
+* 2c. PressPal detects missing mode of contact.
+  * 2c1. PressPal requests at least one mode of contact (phone or email).
+  * 2c2. Reporter provides one.
+    Use case resumes at step 2.
 
-* 2d. PressPal detects a repeated parameter.  
-  * 2d1. PressPal requests a single value for the repeated parameter.  
-  * 2d2. Reporter provides the single value.  
-    Use case resumes at step 2.  
+* 2d. PressPal detects a repeated parameter.
+  * 2d1. PressPal requests a single value for the repeated parameter.
+  * 2d2. Reporter provides the single value.
+    Use case resumes at step 2.
 
-* *a. At any time, Reporter chooses to cancel.  
-  * *a1. PressPal requests to confirm the cancellation.  
-  * *a2. Reporter confirms the cancellation.  
-    Use case ends.  
+* *a. At any time, Reporter chooses to cancel.
+  * *a1. PressPal requests to confirm the cancellation.
+  * *a2. Reporter confirms the cancellation.
+    Use case ends.
 
 
 ### UC2 – Create a category
 
 **MSS**
 
-1. Reporter requests to create a category with a name.  
-2. PressPal validates the category name.  
-3. PressPal creates the category and confirms.  
+1. Reporter requests to create a category with a name.
+2. PressPal validates the category name.
+3. PressPal creates the category and confirms.
 
-   Use case ends.  
+   Use case ends.
 
 **Extensions**
 
-* 1a. Reporter omits the category name.  
-  * 1a1. PressPal requests the category name.  
-  * 1a2. Reporter provides it.  
-    Use case resumes at step 2.  
+* 1a. Reporter omits the category name.
+  * 1a1. PressPal requests the category name.
+  * 1a2. Reporter provides it.
+    Use case resumes at step 2.
 
-* 2a. PressPal detects an invalid name (e.g., empty or only symbols).  
-  * 2a1. PressPal requests a valid name and explains the issue.  
-  * 2a2. Reporter enters a valid name.  
-    Steps 2a1–2a2 repeat until valid.  
-    Use case resumes at step 2.  
+* 2a. PressPal detects an invalid name (e.g., empty or only symbols).
+  * 2a1. PressPal requests a valid name and explains the issue.
+  * 2a2. Reporter enters a valid name.
+    Steps 2a1–2a2 repeat until valid.
+    Use case resumes at step 2.
 
-* 2b. PressPal detects that the category already exists (case-insensitive).  
-  * 2b1. PressPal informs that the category already exists.  
-    Use case ends.  
+* 2b. PressPal detects that the category already exists (case-insensitive).
+  * 2b1. PressPal informs that the category already exists.
+    Use case ends.
 
-* *a. At any time, Reporter chooses to cancel.  
-  * *a1. PressPal requests to confirm the cancellation.  
-  * *a2. Reporter confirms the cancellation.  
-    Use case ends.  
+* *a. At any time, Reporter chooses to cancel.
+  * *a1. PressPal requests to confirm the cancellation.
+  * *a2. Reporter confirms the cancellation.
+    Use case ends.
 
 
 ### UC3 – Add contact to category
 
 **MSS**
 
-1. Reporter requests to add a contact to a category.  
-2. PressPal validates that the contact and category exist.  
-3. PressPal links the contact to the category and confirms.  
+1. Reporter requests to add a contact to a category.
+2. PressPal validates that the contact and category exist.
+3. PressPal links the contact to the category and confirms.
 
-   Use case ends.  
+   Use case ends.
 
 **Extensions**
 
-* 1a. Reporter provides only one of the required items (contact or category).  
-  * 1a1. PressPal requests the missing item.  
-  * 1a2. Reporter provides it.  
-    Use case resumes at step 2.  
+* 1a. Reporter provides only one of the required items (contact or category).
+  * 1a1. PressPal requests the missing item.
+  * 1a2. Reporter provides it.
+    Use case resumes at step 2.
 
-* 2a. Category not found.  
-  * 2a1. PressPal informs that the category does not exist and requests a valid one.  
-  * 2a2. Reporter provides it.  
-    Use case resumes at step 2.  
+* 2a. Category not found.
+  * 2a1. PressPal informs that the category does not exist and requests a valid one.
+  * 2a2. Reporter provides it.
+    Use case resumes at step 2.
 
-* 2b. Contact not found.  
-  * 2b1. PressPal informs that the contact does not exist and requests a valid one.  
-  * 2b2. Reporter provides it.  
-    Use case resumes at step 2.  
+* 2b. Contact not found.
+  * 2b1. PressPal informs that the contact does not exist and requests a valid one.
+  * 2b2. Reporter provides it.
+    Use case resumes at step 2.
 
-* 2c. Multiple contacts match the name.  
-  * 2c1. PressPal lists matches and requests disambiguation.  
-  * 2c2. Reporter selects one.  
-    Use case resumes at step 2.  
+* 2c. Multiple contacts match the name.
+  * 2c1. PressPal lists matches and requests disambiguation.
+  * 2c2. Reporter selects one.
+    Use case resumes at step 2.
 
-* 2d. Contact is already in the category.  
-  * 2d1. PressPal informs that the link already exists.  
-    Use case ends.  
+* 2d. Contact is already in the category.
+  * 2d1. PressPal informs that the link already exists.
+    Use case ends.
 
-* *a. At any time, Reporter chooses to cancel.  
-  * *a1. PressPal requests to confirm the cancellation.  
-  * *a2. Reporter confirms the cancellation.  
-    Use case ends.  
+* *a. At any time, Reporter chooses to cancel.
+  * *a1. PressPal requests to confirm the cancellation.
+  * *a2. Reporter confirms the cancellation.
+    Use case ends.
 
 
 ### UC4 – Add interview to contact
 
 **MSS**
 
-1. Reporter requests to add an interview to a contact with header, date, and time.  
-2. PressPal validates the contact, header, and timestamp.  
-3. PressPal records the interview on the contact’s timeline and confirms.  
+1. Reporter requests to add an interview to a contact with header, date, and time.
+2. PressPal validates the contact, header, and timestamp.
+3. PressPal records the interview on the contact’s timeline and confirms.
 
-   Use case ends.  
+   Use case ends.
 
 **Extensions**
 
-* 1a. Reporter includes only some fields.  
-  * 1a1. PressPal requests the missing fields.  
-  * 1a2. Reporter provides them.  
-    Use case resumes at step 2.  
+* 1a. Reporter includes only some fields.
+  * 1a1. PressPal requests the missing fields.
+  * 1a2. Reporter provides them.
+    Use case resumes at step 2.
 
-* 2a. Invalid date/time format or nonsensical timestamp.  
-  * 2a1. PressPal explains required formats and requests correction.  
-  * 2a2. Reporter provides corrected values.  
-    Repeat until valid.  
-    Use case resumes at step 2.  
+* 2a. Invalid date/time format or nonsensical timestamp.
+  * 2a1. PressPal explains required formats and requests correction.
+  * 2a2. Reporter provides corrected values.
+    Repeat until valid.
+    Use case resumes at step 2.
 
-* 2b. Contact not found.  
-  * 2b1. PressPal informs that no such contact exists and requests a valid one.  
-  * 2b2. Reporter provides it.  
-    Use case resumes at step 2.  
+* 2b. Contact not found.
+  * 2b1. PressPal informs that no such contact exists and requests a valid one.
+  * 2b2. Reporter provides it.
+    Use case resumes at step 2.
 
-* 2c. Multiple contacts match the name.  
-  * 2c1. PressPal lists matches and requests disambiguation.  
-  * 2c2. Reporter selects one.  
-    Use case resumes at step 2.  
+* 2c. Multiple contacts match the name.
+  * 2c1. PressPal lists matches and requests disambiguation.
+  * 2c2. Reporter selects one.
+    Use case resumes at step 2.
 
-* 2d. Duplicate timestamp detected.  
-  * 2d1. PressPal warns and requests a decision.  
-  * 2d2. Reporter chooses to proceed → Use case resumes at step 3.  
-  * 2d3. Reporter cancels → Use case ends.  
+* 2d. Duplicate timestamp detected.
+  * 2d1. PressPal warns and requests a decision.
+  * 2d2. Reporter chooses to proceed → Use case resumes at step 3.
+  * 2d3. Reporter cancels → Use case ends.
 
-* *a. At any time, Reporter chooses to cancel.  
-  * *a1. PressPal requests to confirm the cancellation.  
-  * *a2. Reporter confirms the cancellation.  
-    Use case ends.  
+* *a. At any time, Reporter chooses to cancel.
+  * *a1. PressPal requests to confirm the cancellation.
+  * *a2. Reporter confirms the cancellation.
+    Use case ends.
 
 
 ### UC5 – Delete a contact
 
 **MSS**
 
-1. Reporter requests to delete a contact.  
-2. PressPal validates the specified contact.  
-3. PressPal deletes the contact and confirms.  
+1. Reporter requests to delete a contact.
+2. PressPal validates the specified contact.
+3. PressPal deletes the contact and confirms.
 
-   Use case ends.  
+   Use case ends.
 
 **Extensions**
 
-* 1a. Reporter does not specify the contact.  
-  * 1a1. PressPal requests the contact.  
-  * 1a2. Reporter provides it.  
-    Use case resumes at step 2.  
+* 1a. Reporter does not specify the contact.
+  * 1a1. PressPal requests the contact.
+  * 1a2. Reporter provides it.
+    Use case resumes at step 2.
 
-* 2a. Invalid name format or contact not found.  
-  * 2a1. PressPal explains the issue and requests a valid contact.  
-  * 2a2. Reporter provides one.  
-    Use case resumes at step 2.  
+* 2a. Invalid name format or contact not found.
+  * 2a1. PressPal explains the issue and requests a valid contact.
+  * 2a2. Reporter provides one.
+    Use case resumes at step 2.
 
-* 2b. Multiple contacts match the name.  
-  * 2b1. PressPal lists matches and requests disambiguation.  
-  * 2b2. Reporter selects one.  
-    Use case resumes at step 2.  
+* 2b. Multiple contacts match the name.
+  * 2b1. PressPal lists matches and requests disambiguation.
+  * 2b2. Reporter selects one.
+    Use case resumes at step 2.
 
-* 3a. Storage error occurs during deletion.  
-  * 3a1. PressPal reports the failure and retains the contact.  
-    Use case ends.  
+* 3a. Storage error occurs during deletion.
+  * 3a1. PressPal reports the failure and retains the contact.
+    Use case ends.
 
-* *a. At any time, Reporter chooses to cancel.  
-  * *a1. PressPal requests to confirm the cancellation.  
-  * *a2. Reporter confirms the cancellation.  
-    Use case ends.  
+* *a. At any time, Reporter chooses to cancel.
+  * *a1. PressPal requests to confirm the cancellation.
+  * *a2. Reporter confirms the cancellation.
+    Use case ends.
 
 
 ### UC6 – Remove contact from category
 
 **MSS**
 
-1. Reporter requests to remove a contact from a category.  
-2. PressPal validates the contact, category, and that a link exists.  
-3. PressPal removes the link and confirms.  
+1. Reporter requests to remove a contact from a category.
+2. PressPal validates the contact, category, and that a link exists.
+3. PressPal removes the link and confirms.
 
-   Use case ends.  
+   Use case ends.
 
 **Extensions**
 
-* 1a. Reporter provides only one of the required items.  
-  * 1a1. PressPal requests the missing item.  
-  * 1a2. Reporter provides it.  
-    Use case resumes at step 2.  
+* 1a. Reporter provides only one of the required items.
+  * 1a1. PressPal requests the missing item.
+  * 1a2. Reporter provides it.
+    Use case resumes at step 2.
 
-* 2a. Category not found.  
-  * 2a1. PressPal informs and requests a valid one.  
-  * 2a2. Reporter provides it.  
-    Use case resumes at step 2.  
+* 2a. Category not found.
+  * 2a1. PressPal informs and requests a valid one.
+  * 2a2. Reporter provides it.
+    Use case resumes at step 2.
 
-* 2b. Contact not found.  
-  * 2b1. PressPal informs and requests a valid one.  
-  * 2b2. Reporter provides it.  
-    Use case resumes at step 2.  
+* 2b. Contact not found.
+  * 2b1. PressPal informs and requests a valid one.
+  * 2b2. Reporter provides it.
+    Use case resumes at step 2.
 
-* 2c. Multiple contacts match the name.  
-  * 2c1. PressPal lists matches and requests disambiguation.  
-  * 2c2. Reporter selects one.  
-    Use case resumes at step 2.  
+* 2c. Multiple contacts match the name.
+  * 2c1. PressPal lists matches and requests disambiguation.
+  * 2c2. Reporter selects one.
+    Use case resumes at step 2.
 
-* 2d. Contact is not in the specified category.  
-  * 2d1. PressPal informs that no link exists.  
-    Use case ends.  
+* 2d. Contact is not in the specified category.
+  * 2d1. PressPal informs that no link exists.
+    Use case ends.
 
-* *a. At any time, Reporter chooses to cancel.  
-  * *a1. PressPal requests to confirm the cancellation.  
-  * *a2. Reporter confirms the cancellation.  
-    Use case ends.  
+* *a. At any time, Reporter chooses to cancel.
+  * *a1. PressPal requests to confirm the cancellation.
+  * *a2. Reporter confirms the cancellation.
+    Use case ends.
 
 
 ### UC7 – Delete interview from contact
 
 **MSS**
 
-1. Reporter requests to delete an interview from a contact using date and time.  
-2. PressPal validates the contact and the timestamp.  
-3. PressPal deletes the interview entry and confirms.  
+1. Reporter requests to delete an interview from a contact using date and time.
+2. PressPal validates the contact and the timestamp.
+3. PressPal deletes the interview entry and confirms.
 
-   Use case ends.  
+   Use case ends.
 
 **Extensions**
 
-* 1a. Reporter omits required details (contact or date/time).  
-  * 1a1. PressPal requests missing details.  
-  * 1a2. Reporter provides them.  
-    Use case resumes at step 2.  
+* 1a. Reporter omits required details (contact or date/time).
+  * 1a1. PressPal requests missing details.
+  * 1a2. Reporter provides them.
+    Use case resumes at step 2.
 
-* 2a. Invalid date/time format.  
-  * 2a1. PressPal explains required formats and requests correction.  
-  * 2a2. Reporter provides corrected values.  
-    Repeat until valid.  
-    Use case resumes at step 2.  
+* 2a. Invalid date/time format.
+  * 2a1. PressPal explains required formats and requests correction.
+  * 2a2. Reporter provides corrected values.
+    Repeat until valid.
+    Use case resumes at step 2.
 
-* 2b. Contact not found.  
-  * 2b1. PressPal informs and requests a valid one.  
-  * 2b2. Reporter provides it.  
-    Use case resumes at step 2.  
+* 2b. Contact not found.
+  * 2b1. PressPal informs and requests a valid one.
+  * 2b2. Reporter provides it.
+    Use case resumes at step 2.
 
-* 2c. Multiple contacts match the name.  
-  * 2c1. PressPal lists matches and requests disambiguation.  
-  * 2c2. Reporter selects one.  
-    Use case resumes at step 2.  
+* 2c. Multiple contacts match the name.
+  * 2c1. PressPal lists matches and requests disambiguation.
+  * 2c2. Reporter selects one.
+    Use case resumes at step 2.
 
-* 2d. Interview at given timestamp not found.  
-  * 2d1. PressPal informs that no such interview exists.  
-    Use case ends.  
+* 2d. Interview at given timestamp not found.
+  * 2d1. PressPal informs that no such interview exists.
+    Use case ends.
 
-* 3a. Storage error during deletion.  
-  * 3a1. PressPal reports the failure and retains the interview.  
-    Use case ends.  
+* 3a. Storage error during deletion.
+  * 3a1. PressPal reports the failure and retains the interview.
+    Use case ends.
 
-* *a. At any time, Reporter chooses to cancel.  
-  * *a1. PressPal requests to confirm the cancellation.  
-  * *a2. Reporter confirms the cancellation.  
-    Use case ends.  
+* *a. At any time, Reporter chooses to cancel.
+  * *a1. PressPal requests to confirm the cancellation.
+  * *a2. Reporter confirms the cancellation.
+    Use case ends.
 
 
 ### UC8 – Search contacts
 
 **MSS**
 
-1. Reporter requests to search contacts by name.  
-2. PressPal validates the query.  
-3. PressPal displays the matching contacts.  
+1. Reporter requests to search contacts by name.
+2. PressPal validates the query.
+3. PressPal displays the matching contacts.
 
-   Use case ends.  
+   Use case ends.
 
 **Extensions**
 
-* 1a. Reporter omits the search query.  
-  * 1a1. PressPal requests a query.  
-  * 1a2. Reporter provides it.  
-    Use case resumes at step 2.  
+* 1a. Reporter omits the search query.
+  * 1a1. PressPal requests a query.
+  * 1a2. Reporter provides it.
+    Use case resumes at step 2.
 
-* 2a. Query contains invalid characters or is empty after normalization.  
-  * 2a1. PressPal requests a valid query and explains the issue.  
-  * 2a2. Reporter provides one.  
-    Repeat until valid.  
-    Use case resumes at step 2.  
+* 2a. Query contains invalid characters or is empty after normalization.
+  * 2a1. PressPal requests a valid query and explains the issue.
+  * 2a2. Reporter provides one.
+    Repeat until valid.
+    Use case resumes at step 2.
 
-* 3a. No results found.  
-  * 3a1. PressPal informs that no contacts match.  
-    Use case ends.  
+* 3a. No results found.
+  * 3a1. PressPal informs that no contacts match.
+    Use case ends.
 
-* *a. At any time, Reporter chooses to cancel.  
-  * *a1. PressPal requests to confirm the cancellation.  
-  * *a2. Reporter confirms the cancellation.  
-    Use case ends.  
+* *a. At any time, Reporter chooses to cancel.
+  * *a1. PressPal requests to confirm the cancellation.
+  * *a2. Reporter confirms the cancellation.
+    Use case ends.
 
 
 ## Non-Functional Requirements
@@ -640,40 +640,40 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ---
 
 ### A
-**Account**: 
+**Account**:
 
 A user profile in PressPal that stores a journalist’s credentials, preferences, and contact database.
 
 ### C
-**Category**: 
+**Category**:
 
 A label or grouping used to organize contacts (e.g., “Politics,” “Health,” “Technology”).
 
-**Contact**: 
+**Contact**:
 
 An individual or organization entry stored in PressPal, including name, role, and at least one mode of contact (e.g., phone or email).
 
 ### D
-**Duplicate contact**: 
+**Duplicate contact**:
 
 A contact that shares the same phone number or email as an existing contact in PressPal.
 
 ### M
-**Mode of contact**: 
+**Mode of contact**:
 
 A way to reach a contact, such as a phone number or email organisation.
 
 ### R
-**Reporter**: 
+**Reporter**:
 
 The primary user of PressPal who manages contacts, categories, and interview notes.
 
-**Role**: 
+**Role**:
 
 The position or job title of a contact within their organisation.
 
 ### O
-**Organisation**: 
+**Organisation**:
 
 The company, agency, or institution a contact belongs to.
 

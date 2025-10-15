@@ -21,7 +21,7 @@ Given below are my contributions to the project.
 * **Code contributed**: [RepoSense link]()
 
 * **Project management**:
-    * ALL ARE TBC 
+    * ALL ARE TBC
     * Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 
 * **Enhancements to existing features**:
@@ -36,7 +36,7 @@ Given below are my contributions to the project.
         * Update the Gemfile and Gemfile.lock to enable local testing using Ruby and Bundler
 
 * **Community**:
-    * ALL ARE TBC 
+    * ALL ARE TBC
     * PRs reviewed (with non-trivial review comments): [\#12](), [\#32](), [\#19](), [\#42]()
     * Contributed to forum discussions (examples: [1](), [2](), [3](), [4]())
     * Reported bugs and suggestions for other teams in the class (examples: [1](), [2](), [3]())

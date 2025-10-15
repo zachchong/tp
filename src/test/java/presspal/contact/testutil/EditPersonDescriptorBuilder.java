@@ -11,7 +11,7 @@ import presspal.contact.model.person.Name;
 import presspal.contact.model.person.Organisation;
 import presspal.contact.model.person.Person;
 import presspal.contact.model.person.Phone;
-
+import presspal.contact.model.person.Role;
 /**
  * A utility class to help with building EditPersonDescriptor objects.
  */
@@ -36,6 +36,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setPhone(person.getPhone());
         descriptor.setEmail(person.getEmail());
         descriptor.setOrganisation(person.getOrganisation());
+        descriptor.setRole(person.getRole());
         descriptor.setCategories(person.getCategories());
     }
 
@@ -71,6 +72,13 @@ public class EditPersonDescriptorBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Role} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withRole(String role) {
+        descriptor.setRole(new Role(role));
+        return this;
+    }
     /**
      * Parses the {@code categories} into a {@code Set<Category>} and set it to the {@code EditPersonDescriptor}
      * that we are building.

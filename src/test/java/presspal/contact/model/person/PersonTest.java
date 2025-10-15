@@ -8,6 +8,7 @@ import static presspal.contact.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_ORGANISATION_BOB;
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static presspal.contact.logic.commands.CommandTestUtil.VALID_ROLE_BOB;
 import static presspal.contact.testutil.Assert.assertThrows;
 import static presspal.contact.testutil.TypicalPersons.ALICE;
 import static presspal.contact.testutil.TypicalPersons.BOB;
@@ -15,7 +16,6 @@ import static presspal.contact.testutil.TypicalPersons.BOB;
 import org.junit.jupiter.api.Test;
 
 import presspal.contact.testutil.PersonBuilder;
-
 
 public class PersonTest {
 
@@ -34,8 +34,12 @@ public class PersonTest {
         assertFalse(ALICE.isSamePerson(null));
 
         // same name, all other attributes different -> returns true
-        Person editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
-                .withOrganisation(VALID_ORGANISATION_BOB).withCategories(VALID_CATEGORY_HUSBAND).build();
+        Person editedAlice = new PersonBuilder(ALICE)
+                .withPhone(VALID_PHONE_BOB)
+                .withEmail(VALID_EMAIL_BOB)
+                .withOrganisation(VALID_ORGANISATION_BOB)
+                .withRole(VALID_ROLE_BOB)
+                .withCategories(VALID_CATEGORY_HUSBAND).build();
         assertTrue(ALICE.isSamePerson(editedAlice));
 
         // different name, all other attributes same -> returns false
@@ -86,6 +90,10 @@ public class PersonTest {
         editedAlice = new PersonBuilder(ALICE).withOrganisation(VALID_ORGANISATION_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
+        // different role -> returns false
+        editedAlice = new PersonBuilder(ALICE).withRole(VALID_ROLE_BOB).build();
+        assertFalse(ALICE.equals(editedAlice));
+
         // different categories -> returns false
         editedAlice = new PersonBuilder(ALICE).withCategories(VALID_CATEGORY_HUSBAND).build();
         assertFalse(ALICE.equals(editedAlice));
@@ -104,8 +112,12 @@ public class PersonTest {
 
     @Test
     public void toStringMethod() {
-        String expected = Person.class.getCanonicalName() + "{name=" + ALICE.getName() + ", phone=" + ALICE.getPhone()
-                + ", email=" + ALICE.getEmail() + ", organisation=" + ALICE.getOrganisation()
+        String expected = Person.class.getCanonicalName()
+                + "{name=" + ALICE.getName()
+                + ", phone=" + ALICE.getPhone()
+                + ", email=" + ALICE.getEmail()
+                + ", organisation=" + ALICE.getOrganisation()
+                + ", role=" + ALICE.getRole()
                 + ", categories=" + ALICE.getCategories() + "}";
         assertEquals(expected, ALICE.toString());
     }

@@ -6,6 +6,7 @@ import static presspal.contact.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_NAME;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_ORGANISATION;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_PHONE;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_ROLE;
 import static presspal.contact.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -27,6 +28,7 @@ import presspal.contact.model.person.Name;
 import presspal.contact.model.person.Organisation;
 import presspal.contact.model.person.Person;
 import presspal.contact.model.person.Phone;
+import presspal.contact.model.person.Role;
 
 /**
  * Edits the details of an existing person in the contact book.
@@ -43,6 +45,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ORGANISATION + "ORGANISATION] "
+            + "[" + PREFIX_ROLE + "ROLE] "
             + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -100,9 +103,10 @@ public class EditCommand extends Command {
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Organisation updatedOrganisation = editPersonDescriptor.getOrganisation()
                 .orElse(personToEdit.getOrganisation());
+        Role updatedRole = editPersonDescriptor.getRole().orElse(personToEdit.getRole());
         Set<Category> updatedCategories = editPersonDescriptor.getCategories().orElse(personToEdit.getCategories());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedOrganisation, updatedCategories);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedOrganisation, updatedRole, updatedCategories);
     }
 
     @Override
@@ -138,6 +142,7 @@ public class EditCommand extends Command {
         private Phone phone;
         private Email email;
         private Organisation organisation;
+        private Role role;
         private Set<Category> categories;
 
         public EditPersonDescriptor() {}
@@ -151,6 +156,7 @@ public class EditCommand extends Command {
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setOrganisation(toCopy.organisation);
+            setRole(toCopy.role);
             setCategories(toCopy.categories);
         }
 
@@ -158,7 +164,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, organisation, categories);
+            return CollectionUtil.isAnyNonNull(name, phone, email, organisation, role, categories);
         }
 
         public void setName(Name name) {
@@ -193,6 +199,13 @@ public class EditCommand extends Command {
             return Optional.ofNullable(organisation);
         }
 
+        public void setRole(Role role) {
+            this.role = role;
+        }
+
+        public Optional<Role> getRole() {
+            return Optional.ofNullable(role);
+        }
         /**
          * Sets {@code categories} to this object's {@code categories}.
          * A defensive copy of {@code categories} is used internally.
@@ -226,6 +239,7 @@ public class EditCommand extends Command {
                     && Objects.equals(phone, otherEditPersonDescriptor.phone)
                     && Objects.equals(email, otherEditPersonDescriptor.email)
                     && Objects.equals(organisation, otherEditPersonDescriptor.organisation)
+                    && Objects.equals(role, otherEditPersonDescriptor.role)
                     && Objects.equals(categories, otherEditPersonDescriptor.categories);
         }
 
@@ -236,6 +250,7 @@ public class EditCommand extends Command {
                     .add("phone", phone)
                     .add("email", email)
                     .add("organisation", organisation)
+                    .add("role", role)
                     .add("categories", categories)
                     .toString();
         }
