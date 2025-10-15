@@ -24,14 +24,14 @@ class LocationTest {
     @Test
     @DisplayName("Constructor should correctly initialize location")
     void testConstructorInitializesLocation() {
-        assertEquals("NUS Enterprise", location,
+        assertEquals("NUS Enterprise", location.toString(),
                 "Constructor should set the correct location value");
     }
 
     @Test
     @DisplayName("Getter should return the current location value")
     void testGetLocation() {
-        assertEquals("NUS Enterprise", location,
+        assertEquals("NUS Enterprise", location.toString(),
                 "getLocation() should return the stored location string");
     }
 
@@ -39,7 +39,7 @@ class LocationTest {
     @DisplayName("Setter should update the location value")
     void testSetLocation() {
         location.setLocation("Zoom Meeting");
-        assertEquals("Zoom Meeting", location,
+        assertEquals("Zoom Meeting", location.toString(),
                 "setLocation() should update the location value correctly");
     }
 
@@ -47,7 +47,7 @@ class LocationTest {
     @DisplayName("Setter should handle empty string as location")
     void testSetLocationEmptyString() {
         location.setLocation("");
-        assertEquals("", location,
+        assertEquals("", location.toString(),
                 "Location should support empty string as a valid value");
     }
 
@@ -55,7 +55,7 @@ class LocationTest {
     @DisplayName("Setter should handle null as location")
     void testSetLocationNull() {
         location.setLocation(null);
-        assertNull(location,
+        assertNull(location.toString(),
                 "Location should allow null values without throwing exceptions");
     }
 

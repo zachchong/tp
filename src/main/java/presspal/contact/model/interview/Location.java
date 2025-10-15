@@ -17,6 +17,11 @@ public class Location {
         value = location;
     }
 
+    public static boolean isValidLocation(String loc) {
+        // implemented for future refinement use case
+        return loc != null && !loc.isBlank();
+    }
+
     /** Updates the interview location to a new specified value */
     public void setLocation(String newLocation) {
         requireNonNull(newLocation);

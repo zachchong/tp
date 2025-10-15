@@ -1,5 +1,7 @@
 package presspal.contact.model.interview;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -28,9 +30,9 @@ public class Interview {
      * @param dateTime the {@link LocalDateTime} representing when the interview is scheduled
      */
     public Interview(Header header, Location location, LocalDateTime dateTime) {
-        this.header = header;
-        this.location = location;
-        this.dateTime = dateTime;
+        this.header = requireNonNull(header, "Header cannot be null");
+        this.location = requireNonNull(location, "Location cannot be null");
+        this.dateTime = requireNonNull(dateTime, "DateTime cannot be null");
     }
 
     /**
