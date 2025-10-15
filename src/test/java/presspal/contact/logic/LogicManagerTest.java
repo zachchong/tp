@@ -1,25 +1,23 @@
 package presspal.contact.logic;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static presspal.contact.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
-import static presspal.contact.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static presspal.contact.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static presspal.contact.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static presspal.contact.logic.commands.CommandTestUtil.ORGANISATION_DESC_AMY;
-import static presspal.contact.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static presspal.contact.testutil.Assert.assertThrows;
-import static presspal.contact.testutil.TypicalPersons.AMY;
-
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.Path;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import static presspal.contact.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static presspal.contact.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import presspal.contact.logic.commands.AddCommand;
 import presspal.contact.logic.commands.CommandResult;
+import static presspal.contact.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
+import static presspal.contact.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static presspal.contact.logic.commands.CommandTestUtil.ORGANISATION_DESC_AMY;
+import static presspal.contact.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static presspal.contact.logic.commands.CommandTestUtil.ROLE_DESC_AMY;
 import presspal.contact.logic.commands.ListCommand;
 import presspal.contact.logic.commands.exceptions.CommandException;
 import presspal.contact.logic.parser.exceptions.ParseException;
@@ -31,7 +29,9 @@ import presspal.contact.model.person.Person;
 import presspal.contact.storage.JsonContactBookStorage;
 import presspal.contact.storage.JsonUserPrefsStorage;
 import presspal.contact.storage.StorageManager;
+import static presspal.contact.testutil.Assert.assertThrows;
 import presspal.contact.testutil.PersonBuilder;
+import static presspal.contact.testutil.TypicalPersons.AMY;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy IO exception");
@@ -166,7 +166,7 @@ public class LogicManagerTest {
 
         // Triggers the saveContactBook method by executing an add command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
-                + EMAIL_DESC_AMY + ORGANISATION_DESC_AMY;
+                + EMAIL_DESC_AMY + ORGANISATION_DESC_AMY + ROLE_DESC_AMY;
         Person expectedPerson = new PersonBuilder(AMY).withCategories().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedPerson);

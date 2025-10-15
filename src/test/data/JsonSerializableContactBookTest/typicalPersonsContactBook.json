@@ -5,42 +5,49 @@
     "phone" : "94351253",
     "email" : "alice@example.com",
     "organisation" : "NUS",
+    "role": "Student",
     "categories" : [ "friends" ]
   }, {
     "name" : "Benson Meier",
     "phone" : "98765432",
     "email" : "johnd@example.com",
     "organisation" : "NTU",
+    "role": "Student",
     "categories" : [ "owesMoney", "friends" ]
   }, {
     "name" : "Carl Kurz",
     "phone" : "95352563",
     "email" : "heinz@example.com",
     "organisation" : "SMU",
+    "role": "TA",
     "categories" : [ ]
   }, {
     "name" : "Daniel Meier",
     "phone" : "87652533",
     "email" : "cornelia@example.com",
     "organisation" : "NTU",
+    "role": "Student",
     "categories" : [ "friends" ]
   }, {
     "name" : "Elle Meyer",
     "phone" : "9482224",
     "email" : "werner@example.com",
     "organisation" : "CAPT",
+    "role": "TA",
     "categories" : [ ]
   }, {
     "name" : "Fiona Kunz",
     "phone" : "9482427",
     "email" : "lydia@example.com",
     "organisation" : "RC4",
+    "role": "RF",
     "categories" : [ ]
   }, {
     "name" : "George Best",
     "phone" : "9482442",
     "email" : "anna@example.com",
     "organisation" : "CAPT",
+    "role": "Student",
     "categories" : [ ]
   } ]
 }

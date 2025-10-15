@@ -1,15 +1,16 @@
 package presspal.contact.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+
+import presspal.contact.commons.util.ToStringBuilder;
+import presspal.contact.logic.Messages;
+import presspal.contact.logic.commands.exceptions.CommandException;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_NAME;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_ORGANISATION;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_PHONE;
-
-import presspal.contact.commons.util.ToStringBuilder;
-import presspal.contact.logic.Messages;
-import presspal.contact.logic.commands.exceptions.CommandException;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_ROLE;
 import presspal.contact.model.Model;
 import presspal.contact.model.person.Person;
 
@@ -26,12 +27,15 @@ public class AddCommand extends Command {
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_ORGANISATION + "ORGANISATION "
+            + PREFIX_ROLE + "ROLE "
             + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
+            + PREFIX_ROLE + "Student "
             + PREFIX_ORGANISATION + "NUS "
+            
             + PREFIX_CATEGORY + "friends "
             + PREFIX_CATEGORY + "owesMoney";
 

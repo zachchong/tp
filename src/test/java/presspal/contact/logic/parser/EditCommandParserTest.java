@@ -1,5 +1,9 @@
 package presspal.contact.logic.parser;
 
+import org.junit.jupiter.api.Test;
+
+import presspal.contact.commons.core.index.Index;
+import presspal.contact.logic.Messages;
 import static presspal.contact.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static presspal.contact.logic.commands.CommandTestUtil.CATEGORY_DESC_FRIEND;
 import static presspal.contact.logic.commands.CommandTestUtil.CATEGORY_DESC_HUSBAND;
@@ -10,11 +14,14 @@ import static presspal.contact.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC
 import static presspal.contact.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static presspal.contact.logic.commands.CommandTestUtil.INVALID_ORGANISATION_DESC;
 import static presspal.contact.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static presspal.contact.logic.commands.CommandTestUtil.INVALID_ROLE_DESC;
 import static presspal.contact.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static presspal.contact.logic.commands.CommandTestUtil.ORGANISATION_DESC_AMY;
 import static presspal.contact.logic.commands.CommandTestUtil.ORGANISATION_DESC_BOB;
 import static presspal.contact.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static presspal.contact.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static presspal.contact.logic.commands.CommandTestUtil.ROLE_DESC_AMY;
+import static presspal.contact.logic.commands.CommandTestUtil.ROLE_DESC_BOB;
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_CATEGORY_FRIEND;
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_CATEGORY_HUSBAND;
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
@@ -22,28 +29,26 @@ import static presspal.contact.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_ORGANISATION_AMY;
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static presspal.contact.logic.commands.CommandTestUtil.VALID_ROLE_AMY;
+import presspal.contact.logic.commands.EditCommand;
+import presspal.contact.logic.commands.EditCommand.EditPersonDescriptor;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_ORGANISATION;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_PHONE;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_ROLE;
 import static presspal.contact.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static presspal.contact.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static presspal.contact.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static presspal.contact.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static presspal.contact.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
-
-import org.junit.jupiter.api.Test;
-
-import presspal.contact.commons.core.index.Index;
-import presspal.contact.logic.Messages;
-import presspal.contact.logic.commands.EditCommand;
-import presspal.contact.logic.commands.EditCommand.EditPersonDescriptor;
 import presspal.contact.model.category.Category;
 import presspal.contact.model.person.Email;
 import presspal.contact.model.person.Name;
 import presspal.contact.model.person.Organisation;
 import presspal.contact.model.person.Phone;
+import presspal.contact.model.person.Role;
 import presspal.contact.testutil.EditPersonDescriptorBuilder;
+import static presspal.contact.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static presspal.contact.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static presspal.contact.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 
 public class EditCommandParserTest {
 
@@ -88,6 +93,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
         assertParseFailure(parser, "1" + INVALID_ORGANISATION_DESC,
                 Organisation.MESSAGE_CONSTRAINTS); // invalid organisation
+        assertParseFailure(parser, "1" + INVALID_ROLE_DESC, Role.MESSAGE_CONSTRAINTS); // invalid role
         assertParseFailure(parser, "1" + INVALID_CATEGORY_DESC, Category.MESSAGE_CONSTRAINTS); // invalid category
 
         // invalid phone followed by valid email
@@ -103,7 +109,7 @@ public class EditCommandParserTest {
                 Category.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ORGANISATION_AMY
+        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ORGANISATION_AMY + VALID_ROLE_AMY
                 + VALID_PHONE_AMY, Name.MESSAGE_CONSTRAINTS);
     }
 
@@ -111,10 +117,14 @@ public class EditCommandParserTest {
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_PERSON;
         String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + CATEGORY_DESC_HUSBAND
-                + EMAIL_DESC_AMY + ORGANISATION_DESC_AMY + NAME_DESC_AMY + CATEGORY_DESC_FRIEND;
+                + EMAIL_DESC_AMY + ORGANISATION_DESC_AMY + ROLE_DESC_AMY + NAME_DESC_AMY + CATEGORY_DESC_FRIEND;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY).withOrganisation(VALID_ORGANISATION_AMY)
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
+                .withName(VALID_NAME_AMY)
+                .withPhone(VALID_PHONE_BOB)
+                .withEmail(VALID_EMAIL_AMY)
+                .withOrganisation(VALID_ORGANISATION_AMY)
+                .withRole(VALID_ROLE_AMY)
                 .withCategories(VALID_CATEGORY_HUSBAND, VALID_CATEGORY_FRIEND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -160,6 +170,12 @@ public class EditCommandParserTest {
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
+        // role
+        userInput = targetIndex.getOneBased() + ROLE_DESC_AMY;
+        descriptor = new EditPersonDescriptorBuilder().withRole(VALID_ROLE_AMY).build();
+        expectedCommand = new EditCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
         // categories
         userInput = targetIndex.getOneBased() + CATEGORY_DESC_FRIEND;
         descriptor = new EditPersonDescriptorBuilder().withCategories(VALID_CATEGORY_FRIEND).build();
@@ -184,19 +200,19 @@ public class EditCommandParserTest {
         assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PHONE));
 
         // mulltiple valid fields repeated
-        userInput = targetIndex.getOneBased() + PHONE_DESC_AMY + ORGANISATION_DESC_AMY + EMAIL_DESC_AMY
-                + CATEGORY_DESC_FRIEND + PHONE_DESC_AMY + ORGANISATION_DESC_AMY + EMAIL_DESC_AMY + CATEGORY_DESC_FRIEND
-                + PHONE_DESC_BOB + ORGANISATION_DESC_BOB + EMAIL_DESC_BOB + CATEGORY_DESC_HUSBAND;
+        userInput = targetIndex.getOneBased() + PHONE_DESC_AMY + ORGANISATION_DESC_AMY + ROLE_DESC_AMY + EMAIL_DESC_AMY
+                + CATEGORY_DESC_FRIEND + PHONE_DESC_AMY + ORGANISATION_DESC_AMY + ROLE_DESC_AMY + EMAIL_DESC_AMY + CATEGORY_DESC_FRIEND
+                + PHONE_DESC_BOB + ORGANISATION_DESC_BOB + ROLE_DESC_BOB + EMAIL_DESC_BOB + CATEGORY_DESC_HUSBAND;
 
         assertParseFailure(parser, userInput,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ORGANISATION));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ORGANISATION, PREFIX_ROLE));
 
         // multiple invalid values
-        userInput = targetIndex.getOneBased() + INVALID_PHONE_DESC + INVALID_ORGANISATION_DESC + INVALID_EMAIL_DESC
-                + INVALID_PHONE_DESC + INVALID_ORGANISATION_DESC + INVALID_EMAIL_DESC;
+        userInput = targetIndex.getOneBased() + INVALID_PHONE_DESC + INVALID_ORGANISATION_DESC + INVALID_ROLE_DESC + INVALID_EMAIL_DESC
+                + INVALID_PHONE_DESC + INVALID_ORGANISATION_DESC + INVALID_ROLE_DESC + INVALID_EMAIL_DESC;
 
         assertParseFailure(parser, userInput,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ORGANISATION));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ORGANISATION, PREFIX_ROLE));
     }
 
     @Test

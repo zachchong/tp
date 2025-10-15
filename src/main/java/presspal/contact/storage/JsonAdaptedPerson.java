@@ -16,6 +16,7 @@ import presspal.contact.model.person.Name;
 import presspal.contact.model.person.Organisation;
 import presspal.contact.model.person.Person;
 import presspal.contact.model.person.Phone;
+import presspal.contact.model.person.Role;
 
 /**
  * Jackson-friendly version of {@link Person}.
@@ -28,6 +29,7 @@ class JsonAdaptedPerson {
     private final String phone;
     private final String email;
     private final String organisation;
+    private final String role;
     private final List<JsonAdaptedCategory> categories = new ArrayList<>();
 
     /**
@@ -36,11 +38,12 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("organisation") String organisation,
-            @JsonProperty("categories") List<JsonAdaptedCategory> categories) {
+            @JsonProperty("role") String role, @JsonProperty("categories") List<JsonAdaptedCategory> categories) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.organisation = organisation;
+        this.role = role;
         if (categories != null) {
             this.categories.addAll(categories);
         }
@@ -54,6 +57,7 @@ class JsonAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         organisation = source.getOrganisation().value;
+        role = source.getRole().value;
         categories.addAll(source.getCategories().stream()
                 .map(JsonAdaptedCategory::new)
                 .collect(Collectors.toList()));
@@ -103,8 +107,17 @@ class JsonAdaptedPerson {
         }
         final Organisation modelOrganisation = new Organisation(organisation);
 
+        if (role == null) {
+            throw new IllegalValueException(String
+                    .format(MISSING_FIELD_MESSAGE_FORMAT, Role.class.getSimpleName()));
+        }
+        if (!Role.isValidRole(role)) {
+            throw new IllegalValueException(Role.MESSAGE_CONSTRAINTS);
+        }
+        final Role modelRole = new Role(role);
+
         final Set<Category> modelCategories = new HashSet<>(personCategories);
-        return new Person(modelName, modelPhone, modelEmail, modelOrganisation, modelCategories);
+        return new Person(modelName, modelPhone, modelEmail, modelOrganisation, modelRole, modelCategories);
     }
 
 }

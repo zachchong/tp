@@ -43,6 +43,8 @@ public class Messages {
                 .append(person.getEmail())
                 .append("; Organisation: ")
                 .append(person.getOrganisation())
+                .append("; Role: ")
+                .append(person.getRole())
                 .append("; Categories: ");
         person.getCategories().forEach(builder::append);
         return builder.toString();

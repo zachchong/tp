@@ -10,10 +10,7 @@ import presspal.contact.commons.core.index.Index;
 import presspal.contact.commons.util.StringUtil;
 import presspal.contact.logic.parser.exceptions.ParseException;
 import presspal.contact.model.category.Category;
-import presspal.contact.model.person.Email;
-import presspal.contact.model.person.Name;
-import presspal.contact.model.person.Organisation;
-import presspal.contact.model.person.Phone;
+import presspal.contact.model.person.*;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -95,6 +92,20 @@ public class ParserUtil {
         return new Email(trimmedEmail);
     }
 
+    /**
+     * Parses a {@code String role} into an {@code Role}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code role} is invalid.
+     */
+    public static Role parseRole(String role) throws ParseException {
+        requireNonNull(role);
+        String trimmedRole = role.trim();
+        if (!Role.isValidRole(trimmedRole)) {
+            throw new ParseException(Role.MESSAGE_CONSTRAINTS);
+        }
+        return new Role(trimmedRole);
+    }
     /**
      * Parses a {@code String category} into a {@code Category}.
      * Leading and trailing whitespaces will be trimmed.

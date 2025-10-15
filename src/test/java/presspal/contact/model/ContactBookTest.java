@@ -1,26 +1,25 @@
 package presspal.contact.model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static presspal.contact.logic.commands.CommandTestUtil.VALID_CATEGORY_HUSBAND;
-import static presspal.contact.logic.commands.CommandTestUtil.VALID_ORGANISATION_BOB;
-import static presspal.contact.testutil.Assert.assertThrows;
-import static presspal.contact.testutil.TypicalPersons.ALICE;
-import static presspal.contact.testutil.TypicalPersons.getTypicalContactBook;
-
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import static presspal.contact.logic.commands.CommandTestUtil.VALID_CATEGORY_HUSBAND;
+import static presspal.contact.logic.commands.CommandTestUtil.VALID_ORGANISATION_BOB;
 import presspal.contact.model.person.Person;
 import presspal.contact.model.person.exceptions.DuplicatePersonException;
+import static presspal.contact.testutil.Assert.assertThrows;
 import presspal.contact.testutil.PersonBuilder;
+import static presspal.contact.testutil.TypicalPersons.ALICE;
+import static presspal.contact.testutil.TypicalPersons.getTypicalContactBook;
 
 
 public class ContactBookTest {

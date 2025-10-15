@@ -1,12 +1,11 @@
 package presspal.contact.model.person;
 
-import static presspal.contact.commons.util.CollectionUtil.requireAllNonNull;
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import static presspal.contact.commons.util.CollectionUtil.requireAllNonNull;
 import presspal.contact.commons.util.ToStringBuilder;
 import presspal.contact.model.category.Category;
 
@@ -23,17 +22,19 @@ public class Person {
 
     // Data fields
     private final Organisation organisation;
+    private final Role role;
     private final Set<Category> categories = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Organisation organisation, Set<Category> categories) {
-        requireAllNonNull(name, phone, email, organisation, categories);
+    public Person(Name name, Phone phone, Email email, Organisation organisation, Role role, Set<Category> categories) {
+        requireAllNonNull(name, phone, email, organisation, role, categories);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.organisation = organisation;
+        this.role = role;
         this.categories.addAll(categories);
     }
 
@@ -51,6 +52,10 @@ public class Person {
 
     public Organisation getOrganisation() {
         return organisation;
+    }
+
+    public Role getRole() {
+        return role;
     }
 
     /**
@@ -94,13 +99,14 @@ public class Person {
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
                 && organisation.equals(otherPerson.organisation)
+                && role.equals(otherPerson.role)
                 && categories.equals(otherPerson.categories);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, organisation, categories);
+        return Objects.hash(name, phone, email, organisation, role, categories);
     }
 
     @Override
@@ -110,6 +116,7 @@ public class Person {
                 .add("phone", phone)
                 .add("email", email)
                 .add("organisation", organisation)
+                .add("role", role)
                 .add("categories", categories)
                 .toString();
     }
