@@ -11,7 +11,7 @@ import presspal.contact.model.interview.Interview;
 /**
  * Represents a Person's list of interviews in the contact book.
  */
-public class Interviews {
+public class InterviewList {
 
     // list of interview(s) for a person
     private final List<Interview> interviews;
@@ -21,7 +21,7 @@ public class Interviews {
      *
      * @param interviews List of initial interviews.
      */
-    public Interviews(List<Interview> interviews) {
+    public InterviewList(List<Interview> interviews) {
         this.interviews = Objects.requireNonNullElseGet(interviews, ArrayList::new);
     }
 
@@ -37,7 +37,7 @@ public class Interviews {
      */
     public List<Interview> getUpcomingInterviews() {
         List<Interview> upcomingInterviews = new ArrayList<>();
-        return upcomingInterviews; // return an empty list for now. TBC in v1.3
+        return upcomingInterviews; // return an empty list for now. TBC in v1.4
     }
 
     /**
@@ -70,11 +70,11 @@ public class Interviews {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof Interviews)) {
+        if (!(other instanceof InterviewList)) {
             return false;
         }
 
-        Interviews otherList = (Interviews) other;
+        InterviewList otherList = (InterviewList) other;
         return interviews.equals(otherList.interviews);
     }
 
