@@ -1,10 +1,18 @@
 package presspal.contact.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_NAME;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_ORGANISATION;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_PHONE;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_ROLE;
+import static presspal.contact.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import static java.util.Objects.requireNonNull;
 import java.util.Optional;
 import java.util.Set;
 
@@ -13,14 +21,7 @@ import presspal.contact.commons.util.CollectionUtil;
 import presspal.contact.commons.util.ToStringBuilder;
 import presspal.contact.logic.Messages;
 import presspal.contact.logic.commands.exceptions.CommandException;
-import static presspal.contact.logic.parser.CliSyntax.PREFIX_CATEGORY;
-import static presspal.contact.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static presspal.contact.logic.parser.CliSyntax.PREFIX_NAME;
-import static presspal.contact.logic.parser.CliSyntax.PREFIX_ORGANISATION;
-import static presspal.contact.logic.parser.CliSyntax.PREFIX_PHONE;
-import static presspal.contact.logic.parser.CliSyntax.PREFIX_ROLE;
 import presspal.contact.model.Model;
-import static presspal.contact.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import presspal.contact.model.category.Category;
 import presspal.contact.model.person.Email;
 import presspal.contact.model.person.Name;

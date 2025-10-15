@@ -1,11 +1,12 @@
 package presspal.contact.model.person;
 
+import static presspal.contact.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import static presspal.contact.commons.util.CollectionUtil.requireAllNonNull;
 import presspal.contact.commons.util.ToStringBuilder;
 import presspal.contact.model.category.Category;
 

@@ -14,7 +14,12 @@ import java.util.stream.Stream;
 import presspal.contact.logic.commands.AddCommand;
 import presspal.contact.logic.parser.exceptions.ParseException;
 import presspal.contact.model.category.Category;
-import presspal.contact.model.person.*;
+import presspal.contact.model.person.Email;
+import presspal.contact.model.person.Name;
+import presspal.contact.model.person.Organisation;
+import presspal.contact.model.person.Person;
+import presspal.contact.model.person.Phone;
+import presspal.contact.model.person.Role;
 
 /**
  * Parses input arguments and creates a new AddCommand object
