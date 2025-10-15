@@ -44,14 +44,6 @@ class LocationTest {
     }
 
     @Test
-    @DisplayName("Setter should handle null as location")
-    void testSetLocationNull() {
-        location.setLocation(null);
-        assertNull(location.toString(),
-                "Location should allow null values without throwing exceptions");
-    }
-
-    @Test
     void testEqualsAndHashCode() {
         Location loc1 = new Location("Zoom");
         Location loc2 = new Location("Zoom");

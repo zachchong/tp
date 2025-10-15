@@ -74,15 +74,19 @@ class InterviewTest {
     }
 
     @Test
-    @DisplayName("Constructor should allow null header or location")
-    void testConstructorAllowsNulls() {
-        Interview interviewWithNulls = new Interview(null, null, dateTime);
-        assertNull(interviewWithNulls.getHeader(),
-                "Header should be allowed to be null");
-        assertNull(interviewWithNulls.getLocation(),
-                "Location should be allowed to be null");
-        assertEquals(dateTime, interviewWithNulls.getDateTime(),
-                "DateTime should still be correctly set");
+    @DisplayName("Constructor should throw NullPointerException for null header or location")
+    void constructorNullHeaderOrLocation_throwsException() {
+        // Null header
+        assertThrows(NullPointerException.class, () -> new Interview(null, new Location("NUS"), dateTime));
+
+        // Null location
+        assertThrows(NullPointerException.class, () -> new Interview(new Header("Interview"), null, dateTime));
+
+        // Null dateTime
+        assertThrows(NullPointerException.class, () -> new Interview(new Header("Interview"), new Location("NUS"), null));
+
+        // All null
+        assertThrows(NullPointerException.class, () -> new Interview(null, null, null));
     }
 
     @Test
