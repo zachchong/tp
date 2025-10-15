@@ -17,9 +17,9 @@ import presspal.contact.model.interview.Header;
 import presspal.contact.model.interview.Interview;
 import presspal.contact.model.interview.Location;
 
-public class InterviewsTest {
-    private Interviews emptyList;
-    private Interviews populatedList;
+public class InterviewListTest {
+    private InterviewList emptyList;
+    private InterviewList populatedList;
     private List<Interview> sampleInterviews;
 
     private static Interview interview(String header, String location, LocalDateTime dateTime) {
@@ -32,13 +32,13 @@ public class InterviewsTest {
                 interview("Interview at 2359", "Room A", LocalDateTime.of(2025, 1, 1, 23, 59)),
                 interview("Interview at 1600", "Room B", LocalDateTime.of(2025, 1, 2, 16, 0))
         ));
-        emptyList = new Interviews(null);
-        populatedList = new Interviews(sampleInterviews);
+        emptyList = new InterviewList(null);
+        populatedList = new InterviewList(sampleInterviews);
     }
 
     @Test
     public void constructor_nullList_initializesEmptyList() {
-        Interviews list = new Interviews(null);
+        InterviewList list = new InterviewList(null);
         assertTrue(list.getInterviews().isEmpty());
     }
 
@@ -84,7 +84,7 @@ public class InterviewsTest {
 
     @Test
     public void equals_differentContents_returnsFalse() {
-        Interviews differentList = new Interviews(Arrays.asList(
+        InterviewList differentList = new InterviewList(Arrays.asList(
                 interview("Interview at 1800", "Room Z", LocalDateTime.of(2025, 1, 5, 18, 0))
         ));
         assertFalse(populatedList.equals(differentList));
@@ -97,7 +97,7 @@ public class InterviewsTest {
                 interview("Interview at 2359", "Room A", LocalDateTime.of(2025, 1, 1, 23, 59)),
                 interview("Interview at 1600", "Room B", LocalDateTime.of(2025, 1, 2, 16, 0))
         );
-        Interviews sameList = new Interviews(new ArrayList<>(sameValues));
+        InterviewList sameList = new InterviewList(new ArrayList<>(sameValues));
         assertTrue(populatedList.equals(sameList));
     }
 
@@ -107,7 +107,7 @@ public class InterviewsTest {
                 interview("Interview at 2359", "Room A", LocalDateTime.of(2025, 1, 1, 23, 59)),
                 interview("Interview at 1600", "Room B", LocalDateTime.of(2025, 1, 2, 16, 0))
         );
-        Interviews sameList = new Interviews(new ArrayList<>(sameValues));
+        InterviewList sameList = new InterviewList(new ArrayList<>(sameValues));
         assertEquals(populatedList.hashCode(), sameList.hashCode());
     }
 
@@ -126,20 +126,20 @@ public class InterviewsTest {
 
     @Test
     public void toString_emptyList_returnsNoInterviewsScheduledMessage() {
-        Interviews empty = new Interviews(null);
+        InterviewList empty = new InterviewList(null);
         String expected = "No interviews scheduled.";
         assertEquals(expected, empty.toString());
     }
 
     @Test
     public void add_nullInterview_throwsNullPointerException() {
-        Interviews list = new Interviews(null);
+        InterviewList list = new InterviewList(null);
         assertThrows(NullPointerException.class, () -> list.add(null));
     }
 
     @Test
     public void remove_nullInterview_throwsNullPointerException() {
-        Interviews list = new Interviews(null);
+        InterviewList list = new InterviewList(null);
         assertThrows(NullPointerException.class, () -> list.remove(null));
     }
 
