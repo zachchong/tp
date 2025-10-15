@@ -2,6 +2,7 @@ package presspal.contact.model.person;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
@@ -118,9 +119,28 @@ public class InterviewsTest {
         assertEquals(expected, populatedList.toString());
     }
 
-
     @Test
     public void getUpcomingInterviews_returnsEmptyListForNow() {
         assertTrue(populatedList.getUpcomingInterviews().isEmpty());
     }
+
+    @Test
+    public void toString_emptyList_returnsNoInterviewsScheduledMessage() {
+        Interviews empty = new Interviews(null);
+        String expected = "No interviews scheduled.";
+        assertEquals(expected, empty.toString());
+    }
+
+    @Test
+    public void add_nullInterview_throwsNullPointerException() {
+        Interviews list = new Interviews(null);
+        assertThrows(NullPointerException.class, () -> list.add(null));
+    }
+
+    @Test
+    public void remove_nullInterview_throwsNullPointerException() {
+        Interviews list = new Interviews(null);
+        assertThrows(NullPointerException.class, () -> list.remove(null));
+    }
+
 }

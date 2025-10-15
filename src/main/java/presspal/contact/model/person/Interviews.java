@@ -1,5 +1,7 @@
 package presspal.contact.model.person;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +47,7 @@ public class Interviews {
      * Adds an interview to the interview list.
      */
     public void add(Interview interview) {
+        requireNonNull(interview, "Interview cannot be null");
         interviews.add(interview);
     }
 
@@ -52,6 +55,7 @@ public class Interviews {
      * Removes an interview from the interview list.
      */
     public void remove(Interview interview) {
+        requireNonNull(interview, "Interview cannot be null");
         interviews.remove(interview);
     }
 
