@@ -1,0 +1,101 @@
+package presspal.contact.model.interview;
+
+import static java.util.Objects.requireNonNull;
+
+import java.time.LocalDateTime;
+import java.util.Objects;
+
+/**
+ * Represents an interview session containing details about the header, location,
+ * and scheduled date and time.
+ *
+ * <p>This class provides accessors to retrieve contact details (via the Header),
+ * the interview's metadata, and its scheduled time.</p>
+ */
+public class Interview {
+    /** The scheduled date and time of the interview. */
+    private final LocalDateTime dateTime;
+
+    /** The header information of the interview, including contact details. */
+    private final Header header;
+
+    /** The location details where the interview will be held. */
+    private final Location location;
+
+    /**
+     * Constructs an {@code Interview} object with the given header, location, and date-time.
+     *
+     * @param header   the {@link Header} containing interview contact details and summary info
+     * @param location the {@link Location} specifying where the interview will take place
+     * @param dateTime the {@link LocalDateTime} representing when the interview is scheduled
+     */
+    public Interview(Header header, Location location, LocalDateTime dateTime) {
+        this.header = requireNonNull(header, "Header cannot be null");
+        this.location = requireNonNull(location, "Location cannot be null");
+        this.dateTime = requireNonNull(dateTime, "DateTime cannot be null");
+    }
+
+    /**
+     * Returns the header information of this interview.
+     *
+     * @return the {@link Header} of this interview
+     */
+    public Header getHeader() {
+        return header;
+    }
+
+    /**
+     * Returns the scheduled date and time of the interview.
+     *
+     * @return the {@link LocalDateTime} when the interview is scheduled
+     */
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    /**
+     * Returns the location of this interview.
+     *
+     * @return the {@link Location} of the interview
+     */
+    public Location getLocation() {
+        return location;
+    }
+
+    /**
+     * Returns true if both Interview objects are the same.
+     *
+     * @return the {@link Location} of the interview
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof Interview i)) {
+            return false;
+        }
+        return Objects.equals(header, i.header)
+                && Objects.equals(location, i.location)
+                && Objects.equals(dateTime, i.dateTime);
+    }
+
+    /**
+     * Returns the hash code for this Interview.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(header, location, dateTime);
+    }
+
+    @Override
+    public String toString() {
+        return "["
+                + header + "]"
+                + " on " + dateTime
+                + "at" + location;
+    }
+
+}
+
+

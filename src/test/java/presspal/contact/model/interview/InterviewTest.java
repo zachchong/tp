@@ -1,59 +1,128 @@
 package presspal.contact.model.interview;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests for the {@link Location} class.
+ * Unit tests for {@link Interview}.
  */
-class LocationTest {
+class InterviewTest {
 
+    private Interview interview;
+    private Header header;
     private Location location;
+    private LocalDateTime dateTime;
 
     @BeforeEach
     void setUp() {
+        // Create Header and Location
+        header = new Header("Interview with Alice");
         location = new Location("NUS Enterprise");
+        dateTime = LocalDateTime.of(2025, 10, 15, 14, 30);
+
+        // Construct Interview
+        interview = new Interview(header, location, dateTime);
     }
 
     @Test
-    @DisplayName("Constructor should correctly initialize location")
-    void testConstructorInitializesLocation() {
-        assertEquals("NUS Enterprise", location.getLocation(),
-                "Constructor should set the correct location value");
+    @DisplayName("Constructor should correctly initialize all fields")
+    void testConstructorInitializesFields() {
+        assertEquals(header, interview.getHeader(),
+                "Constructor should correctly set the header");
+        assertEquals(location, interview.getLocation(),
+                "Constructor should correctly set the location");
+        assertEquals(dateTime, interview.getDateTime(),
+                "Constructor should correctly set the dateTime");
     }
 
     @Test
-    @DisplayName("Getter should return the current location value")
+    @DisplayName("Getter should return the header value")
+    void testGetHeader() {
+        assertEquals(header, interview.getHeader(),
+                "getHeader() should return the same Header passed to the constructor");
+    }
+
+    @Test
+    @DisplayName("Getter should return the location value")
     void testGetLocation() {
-        assertEquals("NUS Enterprise", location.getLocation(),
-                "getLocation() should return the stored location string");
+        assertEquals(location, interview.getLocation(),
+                "getLocation() should return the same Location passed to the constructor");
     }
 
     @Test
-    @DisplayName("Setter should update the location value")
-    void testSetLocation() {
-        location.setLocation("Zoom Meeting");
-        assertEquals("Zoom Meeting", location.getLocation(),
-                "setLocation() should update the location value correctly");
+    @DisplayName("Getter should return the date and time value")
+    void testGetDateTime() {
+        assertEquals(dateTime, interview.getDateTime(),
+                "getDateTime() should return the same LocalDateTime passed to the constructor");
     }
 
     @Test
-    @DisplayName("Setter should handle empty string as location")
-    void testSetLocationEmptyString() {
-        location.setLocation("");
-        assertEquals("", location.getLocation(),
-                "Location should support empty string as a valid value");
+    @DisplayName("toString() should include all key fields")
+    void testToStringIncludesAllFields() {
+        String s = interview.toString();
+        assertTrue(s.contains("on"), "Should include datetime field");
+        assertTrue(s.contains("at"), "Should include location field");
     }
 
     @Test
-    @DisplayName("Setter should handle null as location")
-    void testSetLocationNull() {
-        location.setLocation(null);
-        assertNull(location.getLocation(),
-                "Location should allow null values without throwing exceptions");
+    @DisplayName("Constructor should throw NullPointerException for null header or location")
+    void constructorNullHeaderOrLocation_throwsException() {
+        // Null header
+        assertThrows(NullPointerException.class, () -> new Interview(null, new Location("NUS"), dateTime));
+
+        // Null location
+        assertThrows(NullPointerException.class, () -> new Interview(new Header("Interview"), null, dateTime));
+
+        // Null dateTime
+        assertThrows(NullPointerException.class, () ->
+                new Interview(new Header("Interview"), new Location("NUS"), null));
+
+        // All null
+        assertThrows(NullPointerException.class, () -> new Interview(null, null, null));
     }
+
+    @Test
+    @DisplayName("equals() and hashCode() should work correctly")
+    void testEqualsAndHashCode() {
+        Interview sameInterview = new Interview(header, location, dateTime);
+        Interview diffHeader = new Interview(new Header("Different"), location, dateTime);
+        Interview diffLocation = new Interview(header, new Location("Different"), dateTime);
+        Interview diffDateTime = new Interview(header, location, dateTime.plusDays(1));
+
+        // Equal and unequal comparisons
+        assertEquals(interview, interview);
+        assertEquals(interview, sameInterview);
+        assertNotEquals(interview, diffHeader);
+        assertNotEquals(interview, diffLocation);
+        assertNotEquals(interview, diffDateTime);
+        assertEquals(interview.hashCode(), sameInterview.hashCode());
+
+        assertNotEquals(interview, null);
+        assertNotEquals(interview, "NotAnInterview");
+
+    }
+
+    @Test
+    @DisplayName("Constructor should throw NullPointerException for null input")
+    void constructorNull_throwsException() {
+        assertThrows(NullPointerException.class, () -> new Location(null));
+    }
+
+    @Test
+    @DisplayName("Constructor should throw IllegalArgumentException for invalid input")
+    void constructorInvalid_throwsException() {
+        // Example: blank location string is invalid
+        assertThrows(IllegalArgumentException.class, () -> new Location(""));
+    }
+
+
+
 }
