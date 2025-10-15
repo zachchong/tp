@@ -111,11 +111,13 @@ public class InterviewsTest {
     }
 
     @Test
-    public void toString_returnsCorrectFormat() {
-        // toString() delegates to the underlying list's toString(), which uses Interview.toString()
-        String expected = sampleInterviews.toString();
+    public void toString_returnsNumberedList() {
+        String expected = "1. " + sampleInterviews.get(0)
+                + System.lineSeparator()
+                + "2. " + sampleInterviews.get(1);
         assertEquals(expected, populatedList.toString());
     }
+
 
     @Test
     public void getUpcomingInterviews_returnsEmptyListForNow() {

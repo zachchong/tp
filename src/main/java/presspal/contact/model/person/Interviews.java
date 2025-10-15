@@ -84,7 +84,17 @@ public class Interviews {
 
     @Override
     public String toString() {
-        return interviews.toString();
+        if (interviews.isEmpty()) {
+            return "No interviews scheduled.";
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < interviews.size(); i++) {
+            sb.append(i + 1)
+                    .append(". ")
+                    .append(interviews.get(i))
+                    .append(System.lineSeparator());
+        }
+        return sb.toString().trim();
     }
 
 }
