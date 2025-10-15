@@ -1,8 +1,11 @@
 package presspal.contact.model.interview;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -40,6 +43,20 @@ class LocationTest {
         location.setLocation("Zoom Meeting");
         assertEquals("Zoom Meeting", location.toString(),
                 "setLocation() should update the location value correctly");
+    }
+
+    @Test
+    void isValidLocation() {
+        // null location
+        assertFalse(Location.isValidLocation(null));
+
+        // blank location
+        assertFalse(Location.isValidLocation(""));
+        assertFalse(Location.isValidLocation("   "));
+
+        // valid locations
+        assertTrue(Location.isValidLocation("NUS Enterprise"));
+        assertTrue(Location.isValidLocation("Zoom Meeting"));
     }
 
     @Test

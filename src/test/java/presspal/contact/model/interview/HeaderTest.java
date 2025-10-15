@@ -1,8 +1,10 @@
 package presspal.contact.model.interview;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,6 +25,21 @@ class HeaderTest {
         assertEquals(h1.hashCode(), h2.hashCode());
         assertNotEquals(h1.hashCode(), h3.hashCode());
     }
+
+    @Test
+    void isValidHeader() {
+        // null header
+        assertFalse(Header.isValidHeader(null));
+
+        // blank header
+        assertFalse(Header.isValidHeader(""));
+        assertFalse(Header.isValidHeader("   "));
+
+        // valid headers
+        assertTrue(Header.isValidHeader("Interview with Alice"));
+        assertTrue(Header.isValidHeader("Meeting"));
+    }
+
 
     @Test
     void testEqualsWithDifferentTypeAndNull() {
