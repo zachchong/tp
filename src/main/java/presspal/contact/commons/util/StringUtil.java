@@ -8,7 +8,9 @@ import java.io.StringWriter;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.Arrays;
 
 /**
@@ -89,7 +91,11 @@ public class StringUtil {
     public static boolean isValidTime(String s) {
         requireNonNull(s);
         try {
-            LocalTime.parse(s, DateTimeFormatter.ofPattern("HH:mm"));
+            DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+                .appendPattern("HH:mm")
+                .toFormatter()
+                .withResolverStyle(ResolverStyle.STRICT); // enforce valid ranges
+            LocalTime.parse(s, formatter);
             return true;
         } catch (DateTimeParseException e) {
             return false;
