@@ -44,6 +44,15 @@ class InterviewTest {
     }
 
     @Test
+    @DisplayName("toString() should include all key fields")
+    void testToStringIncludesAllFields() {
+        String s = interview.toString();
+        assertTrue(s.contains("on"), "Should include datetime field");
+        assertTrue(s.contains("at"), "Should include location field");
+    }
+
+
+    @Test
     @DisplayName("Getter should return the header value")
     void testGetHeader() {
         assertEquals(header, interview.getHeader(),
@@ -62,14 +71,6 @@ class InterviewTest {
     void testGetDateTime() {
         assertEquals(dateTime, interview.getDateTime(),
                 "getDateTime() should return the same LocalDateTime passed to the constructor");
-    }
-
-    @Test
-    @DisplayName("toString() should include all key fields")
-    void testToStringIncludesAllFields() {
-        String s = interview.toString();
-        assertTrue(s.contains("on"), "Should include datetime field");
-        assertTrue(s.contains("at"), "Should include location field");
     }
 
     @Test

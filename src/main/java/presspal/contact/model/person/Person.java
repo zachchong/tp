@@ -5,10 +5,12 @@ import static presspal.contact.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 import presspal.contact.commons.util.ToStringBuilder;
 import presspal.contact.model.category.Category;
+import presspal.contact.model.interview.Interview;
 
 /**
  * Represents a Person in the contact book.
@@ -75,6 +77,14 @@ public class Person {
      */
     public InterviewList getInterviews() {
         return interviews;
+    }
+
+    /**
+     * Returns an Optional containing the next upcoming interview if it exists.
+     * If there are no upcoming interviews, returns an empty Optional.
+     */
+    public Optional<Interview> getNextUpcomingInterview() {
+        return interviews.getNextUpcoming();
     }
 
     /**

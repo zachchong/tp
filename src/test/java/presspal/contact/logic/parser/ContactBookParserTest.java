@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static presspal.contact.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static presspal.contact.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_INDEX;
 import static presspal.contact.testutil.Assert.assertThrows;
 import static presspal.contact.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static presspal.contact.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
@@ -25,7 +26,7 @@ import presspal.contact.logic.commands.EditCommand.EditPersonDescriptor;
 import presspal.contact.logic.commands.ExitCommand;
 import presspal.contact.logic.commands.FindCommand;
 import presspal.contact.logic.commands.HelpCommand;
-import presspal.contact.logic.commands.ListCommand;
+import presspal.contact.logic.commands.ListInterviewCommand;
 import presspal.contact.logic.parser.exceptions.ParseException;
 import presspal.contact.model.person.NameContainsKeywordsPredicate;
 import presspal.contact.model.person.Person;
@@ -88,9 +89,10 @@ public class ContactBookParserTest {
     }
 
     @Test
-    public void parseCommand_list() throws Exception {
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+    public void parseCommand_listInterview() throws Exception {
+        ListInterviewCommand command = (ListInterviewCommand) parser.parseCommand(
+                ListInterviewCommand.COMMAND_WORD + " " + PREFIX_INDEX + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new ListInterviewCommand(INDEX_FIRST_PERSON), command);
     }
 
     @Test
