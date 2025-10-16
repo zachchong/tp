@@ -42,6 +42,8 @@ public class PersonCard extends UiPart<Region> {
     private Label email;
     @FXML
     private FlowPane categories;
+    @FXML
+    private Label interview;
 
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
@@ -58,5 +60,6 @@ public class PersonCard extends UiPart<Region> {
         person.getCategories().stream()
                 .sorted(Comparator.comparing(category -> category.categoryName))
                 .forEach(category -> categories.getChildren().add(new Label(category.categoryName)));
+        interview.setText(person.getNextUpcomingInterview().map(Object::toString).orElse(""));
     }
 }

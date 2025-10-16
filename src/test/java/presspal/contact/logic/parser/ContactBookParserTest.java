@@ -9,6 +9,7 @@ import static presspal.contact.testutil.Assert.assertThrows;
 import static presspal.contact.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static presspal.contact.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import presspal.contact.logic.commands.AddCommand;
+import presspal.contact.logic.commands.AddInterviewCommand;
 import presspal.contact.logic.commands.ClearCommand;
 import presspal.contact.logic.commands.DeleteCommand;
 import presspal.contact.logic.commands.DeleteInterviewCommand;
@@ -29,6 +31,7 @@ import presspal.contact.logic.parser.exceptions.ParseException;
 import presspal.contact.model.person.NameContainsKeywordsPredicate;
 import presspal.contact.model.person.Person;
 import presspal.contact.testutil.EditPersonDescriptorBuilder;
+import presspal.contact.testutil.InterviewBuilder;
 import presspal.contact.testutil.PersonBuilder;
 import presspal.contact.testutil.PersonUtil;
 
@@ -95,7 +98,7 @@ public class ContactBookParserTest {
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
         assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
-            -> parser.parseCommand(""));
+                -> parser.parseCommand(""));
     }
 
     @Test
@@ -110,5 +113,21 @@ public class ContactBookParserTest {
                         + INDEX_FIRST_PERSON.getOneBased() + " "
                         + INDEX_SECOND_PERSON.getOneBased()); // person=1, interview=2
         assertEquals(new DeleteInterviewCommand(INDEX_FIRST_PERSON, INDEX_SECOND_PERSON), command);
+    }
+
+    @Test
+    public void parseCommand_addInterview() throws Exception {
+        AddInterviewCommand command = (AddInterviewCommand) parser.parseCommand(
+                AddInterviewCommand.COMMAND_WORD + " "
+                        + "i/" + INDEX_FIRST_PERSON.getOneBased()
+                        + " " + "h/Sample Interview A"
+                        + " " + "d/2024-10-10"
+                        + " " + "t/14:00"
+                        + " " + "l/Sample Location A");
+        assertEquals(new AddInterviewCommand(new InterviewBuilder()
+                .withHeader("Sample Interview A")
+                .withLocation("Sample Location A")
+                .withDate(LocalDateTime.parse("2024-10-10T14:00"))
+                .build(), INDEX_FIRST_PERSON), command);
     }
 }

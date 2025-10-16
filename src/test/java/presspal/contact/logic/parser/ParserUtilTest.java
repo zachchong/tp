@@ -6,6 +6,7 @@ import static presspal.contact.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static presspal.contact.testutil.Assert.assertThrows;
 import static presspal.contact.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -15,6 +16,8 @@ import org.junit.jupiter.api.Test;
 
 import presspal.contact.logic.parser.exceptions.ParseException;
 import presspal.contact.model.category.Category;
+import presspal.contact.model.interview.Header;
+import presspal.contact.model.interview.Location;
 import presspal.contact.model.person.Email;
 import presspal.contact.model.person.Name;
 import presspal.contact.model.person.Organisation;
@@ -36,6 +39,14 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_CATEGORY_1 = "friend";
     private static final String VALID_CATEGORY_2 = "neighbour";
+    private static final String VALID_HEADER = "Interview with ABC Corp";
+    private static final String INVALID_HEADER = " ";
+    private static final String VALID_LOCATION = "123 Business St, #02-25";
+    private static final String INVALID_LOCATION = " ";
+    private static final String VALID_DATE = "2025-09-12";
+    private static final String VALID_TIME = "15:30";
+    private static final String INVALID_DATE = "12-09-2025"; // wrong format
+    private static final String INVALID_TIME = "3pm"; // wrong format
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -220,5 +231,55 @@ public class ParserUtilTest {
                 new HashSet<Category>(Arrays.asList(new Category(VALID_CATEGORY_1), new Category(VALID_CATEGORY_2)));
 
         assertEquals(expectedCategorySet, actualCategorySet);
+    }
+
+    @Test
+    public void parseHeader_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseHeader((String) null));
+    }
+
+    @Test
+    public void parseHeader_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseHeader(INVALID_HEADER));
+    }
+
+    @Test
+    public void parseHeader_validValue_returnsHeader() throws Exception {
+        Header expected = new Header(VALID_HEADER);
+        assertEquals(expected, ParserUtil.parseHeader(VALID_HEADER));
+    }
+
+    @Test
+    public void parseLocation_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseLocation((String) null));
+    }
+
+    @Test
+    public void parseLocation_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseLocation(INVALID_LOCATION));
+    }
+
+    @Test
+    public void parseLocation_validValue_returnsLocation() throws Exception {
+        Location expected = new Location(VALID_LOCATION);
+        assertEquals(expected, ParserUtil.parseLocation(VALID_LOCATION));
+    }
+
+    @Test
+    public void parseLocalDateTime_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseLocalDateTime(null, VALID_TIME));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseLocalDateTime(VALID_DATE, null));
+    }
+
+    @Test
+    public void parseLocalDateTime_invalidDateOrTime_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseLocalDateTime(INVALID_DATE, VALID_TIME));
+        assertThrows(ParseException.class, () -> ParserUtil.parseLocalDateTime(VALID_DATE, INVALID_TIME));
+    }
+
+    @Test
+    public void parseLocalDateTime_validValue_returnsLocalDateTime() throws Exception {
+        LocalDateTime expected = LocalDateTime.parse(VALID_DATE + "T" + VALID_TIME);
+        assertEquals(expected, ParserUtil.parseLocalDateTime(VALID_DATE, VALID_TIME));
     }
 }
