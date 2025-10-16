@@ -19,13 +19,14 @@ public class ListInterviewCommand extends Command {
 
     public static final String COMMAND_WORD = "listInterview";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the contact book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Shows all the interviews of the person in the contact book. "
             + "Parameters: "
             + PREFIX_INDEX + "INDEX "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_INDEX + "1 ";
 
-    public static final String MESSAGE_SUCCESS = "Here is all the interview for this person: \n";
+    public static final String MESSAGE_SUCCESS = "Showing Interviews for %1$s:\n %2$s";
 
     private final Index targetIndex;
 
@@ -46,7 +47,8 @@ public class ListInterviewCommand extends Command {
 
         //get the list of person
         Person personToViewInterviews = lastShownList.get(targetIndex.getZeroBased());
-        return new CommandResult(String.format(MESSAGE_SUCCESS, personToViewInterviews.getInterviews().toString()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS,
+                personToViewInterviews.getName(), personToViewInterviews.getInterviews().getNumberedInterviews()));
     }
 
     @Override
