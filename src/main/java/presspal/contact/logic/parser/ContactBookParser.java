@@ -62,8 +62,9 @@ public class ContactBookParser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+
         case ListInterviewCommand.COMMAND_WORD:
-            return new ListInterviewCommand();
+            return new ListInterviewCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

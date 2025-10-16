@@ -25,6 +25,7 @@ public class Person {
     private final Organisation organisation;
     private final Role role;
     private final Set<Category> categories = new HashSet<>();
+    private final InterviewList interviews = new InterviewList(null);
 
     /**
      * Every field must be present and not null.
@@ -65,6 +66,10 @@ public class Person {
      */
     public Set<Category> getCategories() {
         return Collections.unmodifiableSet(categories);
+    }
+
+    public InterviewList getInterviews() {
+        return interviews;
     }
 
     /**
