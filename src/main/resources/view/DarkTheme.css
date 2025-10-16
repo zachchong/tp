@@ -132,6 +132,36 @@
     -fx-text-fill: #010504;
 }
 
+.green-box-label {
+    -fx-background-color: #4CAF50; /* Material Green */
+    -fx-padding: 0 5 0 5; /* Top, Right, Bottom, Left Padding */
+    -fx-alignment: center;
+    -fx-border-radius: 15;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13px;
+    -fx-text-fill: #010504;
+}
+
+.purple-box-label {
+    -fx-background-color: #6744cb; /* Material Green */
+    -fx-padding: 0 5 0 5; /* Top, Right, Bottom, Left Padding */
+    -fx-alignment: center;
+    -fx-border-radius: 15;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13px;
+    -fx-text-fill: #010504;
+}
+
+.pink-box-label {
+    -fx-background-color: #c799ef; /* Material Green */
+    -fx-padding: 0 5 0 5; /* Top, Right, Bottom, Left Padding */
+    -fx-alignment: center;
+    -fx-border-radius: 15;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13px;
+    -fx-text-fill: #010504;
+}
+
 .stack-pane {
      -fx-background-color: derive(#1d1d1d, 20%);
 }
