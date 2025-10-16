@@ -7,7 +7,9 @@ title: User Guide
 - [About](#about)
 - [Quick Start](#quick-start)
 - [Features](#features)
-- [Commands](#commands)
+- [FAQ](#faq)
+- [Known Issues](#known-issues)
+- [Commands](#command-summary)
 
 ## About
 
