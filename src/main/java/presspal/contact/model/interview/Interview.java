@@ -3,7 +3,6 @@ package presspal.contact.model.interview;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 /**
@@ -91,10 +90,10 @@ public class Interview {
 
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        String formatted = dateTime.format(formatter);
-
-        return header + ": " + formatted + " " + location;
+        return "["
+                + header + "]"
+                + " on " + dateTime
+                + " at " + location;
     }
 
 }

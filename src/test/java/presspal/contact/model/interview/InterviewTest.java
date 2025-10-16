@@ -3,6 +3,7 @@ package presspal.contact.model.interview;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
 
@@ -41,6 +42,15 @@ class InterviewTest {
         assertEquals(dateTime, interview.getDateTime(),
                 "Constructor should correctly set the dateTime");
     }
+
+    @Test
+    @DisplayName("toString() should include all key fields")
+    void testToStringIncludesAllFields() {
+        String s = interview.toString();
+        assertTrue(s.contains("on"), "Should include datetime field");
+        assertTrue(s.contains("at"), "Should include location field");
+    }
+
 
     @Test
     @DisplayName("Getter should return the header value")
