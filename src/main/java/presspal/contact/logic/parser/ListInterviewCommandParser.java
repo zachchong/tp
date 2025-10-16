@@ -9,8 +9,11 @@ import presspal.contact.commons.core.index.Index;
 import presspal.contact.logic.commands.ListInterviewCommand;
 import presspal.contact.logic.parser.exceptions.ParseException;
 
-public class ListInterviewCommandParser implements Parser<ListInterviewCommand>{
-    
+/**
+ * Lists all interviews in the person in the contact book to the user.
+ */
+public class ListInterviewCommandParser implements Parser<ListInterviewCommand> {
+
     /**
      * Parses the given {@code String} of arguments in the context of the ListInterviewCommand
      * and returns an ListInterviewCommand object for execution.
@@ -26,7 +29,6 @@ public class ListInterviewCommandParser implements Parser<ListInterviewCommand>{
 
         //get the index for the person
         Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
-        
         //return ListInterviewCommand with the index of Person
         return new ListInterviewCommand(index);
     }

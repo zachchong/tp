@@ -2,13 +2,11 @@ package presspal.contact.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_INDEX;
-import static presspal.contact.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 
-import javax.annotation.processing.Messager;
-
 import presspal.contact.commons.core.index.Index;
+import presspal.contact.commons.util.ToStringBuilder;
 import presspal.contact.logic.Messages;
 import presspal.contact.logic.commands.exceptions.CommandException;
 import presspal.contact.model.Model;
@@ -27,7 +25,7 @@ public class ListInterviewCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_INDEX + "1 ";
 
-    public static final String MESSAGE_SUCCESS = "Listed all the interview for this person";
+    public static final String MESSAGE_SUCCESS = "Here is all the interview for this person: \n";
 
     private final Index targetIndex;
 
@@ -38,14 +36,37 @@ public class ListInterviewCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        //get updated list
         List<Person> lastShownList = model.getFilteredPersonList();
 
+        //check if the index is within the list
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
+        //get the list of person
         Person personToViewInterviews = lastShownList.get(targetIndex.getZeroBased());
-        
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(personToDelete)));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, personToViewInterviews.getInterviews().toString()));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof ListInterviewCommand)) {
+            return false;
+        }
+
+        ListInterviewCommand listInterviewCommand = (ListInterviewCommand) other;
+        return this.targetIndex.equals(listInterviewCommand.targetIndex);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("targetIndex", targetIndex)
+                .toString();
     }
 }
