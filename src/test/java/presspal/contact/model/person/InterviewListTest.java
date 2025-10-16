@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -79,7 +80,7 @@ public class InterviewListTest {
 
     @Test
     public void equals_differentType_returnsFalse() {
-        assertFalse(populatedList.equals("not an Interviews"));
+        assertFalse(populatedList.equals("not an InterviewList"));
     }
 
     @Test
@@ -112,23 +113,22 @@ public class InterviewListTest {
     }
 
     @Test
-    public void toString_returnsNumberedList() {
-        String expected = "1. " + sampleInterviews.get(0)
-                + System.lineSeparator()
-                + "2. " + sampleInterviews.get(1);
+    public void toString_returnsCommaSeparatedList() {
+        String expected = sampleInterviews.stream()
+                .map(Interview::toString)
+                .collect(Collectors.joining(","));
         assertEquals(expected, populatedList.toString());
+    }
+
+    @Test
+    public void toString_emptyList_returnsEmptyString() {
+        InterviewList empty = new InterviewList(null);
+        assertEquals("", empty.toString());
     }
 
     @Test
     public void getUpcomingInterviews_returnsEmptyListForNow() {
         assertTrue(populatedList.getUpcomingInterviews().isEmpty());
-    }
-
-    @Test
-    public void toString_emptyList_returnsNoInterviewsScheduledMessage() {
-        InterviewList empty = new InterviewList(null);
-        String expected = "No interviews scheduled.";
-        assertEquals(expected, empty.toString());
     }
 
     @Test
@@ -143,4 +143,11 @@ public class InterviewListTest {
         assertThrows(NullPointerException.class, () -> list.remove(null));
     }
 
+    @Test
+    public void getNumberedInterviews_returnsNumberedList() {
+        String expected = "1. " + sampleInterviews.get(0)
+                + System.lineSeparator()
+                + "2. " + sampleInterviews.get(1);
+        assertEquals(expected, populatedList.getNumberedInterviews());
+    }
 }
