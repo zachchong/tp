@@ -81,7 +81,7 @@ public class ContactBookParser {
 
         case AddInterviewCommand.COMMAND_WORD:
             return new AddInterviewCommandParser().parse(arguments);
-            
+
         case DeleteInterviewCommand.COMMAND_WORD:
             return new DeleteInterviewCommandParser().parse(arguments);
 
