@@ -2,6 +2,7 @@ package presspal.contact.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,6 +11,8 @@ import presspal.contact.commons.core.index.Index;
 import presspal.contact.commons.util.StringUtil;
 import presspal.contact.logic.parser.exceptions.ParseException;
 import presspal.contact.model.category.Category;
+import presspal.contact.model.interview.Header;
+import presspal.contact.model.interview.Location;
 import presspal.contact.model.person.Email;
 import presspal.contact.model.person.Name;
 import presspal.contact.model.person.Organisation;
@@ -33,6 +36,53 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses {@code String header} into an {@code Header} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the given {@code header} is invalid.
+     */
+    public static Header parseHeader(String header) throws ParseException {
+        requireNonNull(header);
+        String trimmedHeader = header.trim();
+        if (!Header.isValidHeader(trimmedHeader)) {
+            throw new ParseException(Header.MESSAGE_CONSTRAINTS);
+        }
+        return new Header(header);
+    }
+
+    /**
+     * Parses {@code String date} and {@code String time} into a {@code LocalDateTime} and returns it.
+     * Leading and trailing whitespaces will be trimmed.
+     * @throws ParseException if the given {@code date} or {@code time} is invalid.
+     */
+    public static LocalDateTime parseLocalDateTime(String date, String time) throws ParseException {
+        requireNonNull(date);
+        requireNonNull(time);
+        String trimmedDate = date.trim();
+        String trimmedTime = time.trim();
+        if (!StringUtil.isValidDate(trimmedDate)) {
+            throw new ParseException("Date is not in the correct format! Please use yyyy-MM-dd");
+        }
+        if (!StringUtil.isValidTime(trimmedTime)) {
+            throw new ParseException("Time is not in the correct format! Please use HH:mm");
+        }
+        return LocalDateTime.parse(trimmedDate + "T" + trimmedTime);
+    }
+
+    /**
+     * Parses {@code String location} into an {@code Location} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the given {@code location} is invalid.
+     */
+    public static Location parseLocation(String location) throws ParseException {
+        requireNonNull(location);
+        String trimmedLocation = location.trim();
+        if (!Location.isValidLocation(trimmedLocation)) {
+            throw new ParseException(Location.MESSAGE_CONSTRAINTS);
+        }
+        return new Location(trimmedLocation);
     }
 
     /**

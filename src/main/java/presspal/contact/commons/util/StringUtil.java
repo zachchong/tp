@@ -5,6 +5,10 @@ import static presspal.contact.commons.util.AppUtil.checkArgument;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
 /**
@@ -62,6 +66,32 @@ public class StringUtil {
             int value = Integer.parseInt(s);
             return value > 0 && !s.startsWith("+"); // "+1" is successfully parsed by Integer#parseInt(String)
         } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
+
+    /**
+     * Returns true if the {@code s} represents a date in yyyy-MM-dd format.
+     */
+    public static boolean isValidDate(String s) {
+        requireNonNull(s);
+        try {
+            LocalDate.parse(s, DateTimeFormatter.ISO_LOCAL_DATE);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
+
+    /**
+     * Returns true if the {@code s} represents a time in HH:mm format (24-hour).
+     */
+    public static boolean isValidTime(String s) {
+        requireNonNull(s);
+        try {
+            LocalTime.parse(s, DateTimeFormatter.ofPattern("HH:mm"));
+            return true;
+        } catch (DateTimeParseException e) {
             return false;
         }
     }
