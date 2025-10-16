@@ -12,6 +12,7 @@ import presspal.contact.logic.commands.AddCommand;
 import presspal.contact.logic.commands.ClearCommand;
 import presspal.contact.logic.commands.Command;
 import presspal.contact.logic.commands.DeleteCommand;
+import presspal.contact.logic.commands.DeleteInterviewCommand;
 import presspal.contact.logic.commands.EditCommand;
 import presspal.contact.logic.commands.ExitCommand;
 import presspal.contact.logic.commands.FindCommand;
@@ -76,6 +77,9 @@ public class ContactBookParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case DeleteInterviewCommand.COMMAND_WORD:
+            return new DeleteInterviewCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
