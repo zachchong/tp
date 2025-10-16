@@ -12,5 +12,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_ORGANISATION = new Prefix("o/");
     public static final Prefix PREFIX_PHONE = new Prefix("p/");
     public static final Prefix PREFIX_ROLE = new Prefix("r/");
+    public static final Prefix PREFIX_INDEX = new Prefix("i/");
 
 }
