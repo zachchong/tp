@@ -140,4 +140,42 @@ public class StringUtilTest {
         assertThrows(NullPointerException.class, () -> StringUtil.getDetails(null));
     }
 
+    //---------------- Tests for isValidDate and isValidTime --------------------------------------
+
+    @Test
+    public void isValidDate_validAndInvalidCases() {
+        // valid dates
+        assertTrue(StringUtil.isValidDate("2024-01-01"));
+        assertTrue(StringUtil.isValidDate("1999-12-31"));
+
+        // invalid dates
+        assertFalse(StringUtil.isValidDate(""));
+        assertFalse(StringUtil.isValidDate("2024/01/01"));
+        assertFalse(StringUtil.isValidDate("01-01-2024"));
+        assertFalse(StringUtil.isValidDate("2024-13-01")); // invalid month
+        assertFalse(StringUtil.isValidDate("2024-00-10")); // invalid month
+        assertFalse(StringUtil.isValidDate("2024-02-30")); // invalid day
+    }
+
+    @Test
+    public void isValidTime_validAndInvalidCases() {
+        // valid times
+        assertTrue(StringUtil.isValidTime("00:00"));
+        assertTrue(StringUtil.isValidTime("09:05"));
+        assertTrue(StringUtil.isValidTime("23:59"));
+
+        // invalid times
+        assertFalse(StringUtil.isValidTime(""));
+        assertFalse(StringUtil.isValidTime("24:00")); // hour out of range
+        assertFalse(StringUtil.isValidTime("12:60")); // minute out of range
+        assertFalse(StringUtil.isValidTime("12.00"));
+        assertFalse(StringUtil.isValidTime("1200"));
+    }
+
+    @Test
+    public void isValidDateTime_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> StringUtil.isValidDate(null));
+        assertThrows(NullPointerException.class, () -> StringUtil.isValidTime(null));
+    }
+
 }
