@@ -44,7 +44,7 @@ Create a new contact with essential details.
 ### Delete Contact
 Delete an existing contact
 
-`delete CONTACT_INDEX`
+`delete PERSON_INDEX`
 
 ### Create Category (WIP)
 Create a new category to group contacts and interactions
@@ -54,22 +54,22 @@ Create a new category to group contacts and interactions
 ### Add Contact to Category (WIP)
 Group existing contacts to a category
 
-`category add n/CONTACT_NAME c/CATEGORY_NAME`
+`category add n/PERSON_NAME c/CATEGORY_NAME`
 
 ### Remove Contact from Category (WIP)
 Remove contact from a category that it is already in
 
-`category remove n/CONTACT_NAME c/CATEGORY_NAME`
+`category remove n/PERSON_NAME c/CATEGORY_NAME`
 
 ### Add Interview to Contact
 Attach an interview date to an existing contact
 
-`addInterview i/CONTACT_INDEX h/HEADER d/DATE t/TIME l/LOCATION`
+`addInterview i/PERSON_INDEX h/HEADER d/DATE t/TIME l/LOCATION`
 
 ### Delete Interview from Contact
 Remove an existing interview from a contact
 
-`deleteInterview CONTACT_INDEX INTERVIEW_INDEX`
+`deleteInterview PERSON_INDEX INTERVIEW_INDEX`
 
 ### Search Contact
 Find existing contacts by searching name
@@ -79,7 +79,7 @@ Find existing contacts by searching name
 ### List interviews for a Contact
 List all interviews for a contact
 
-`listInterview i/CONTACT_INDEX`
+`listInterview i/PERSON_INDEX`
 
 ## Acknowledge Source
 This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org).
