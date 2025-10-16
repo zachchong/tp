@@ -99,8 +99,7 @@ public class CommandTestUtil {
     /**
      * Executes the given {@code command}, confirms that <br>
      * - contact book, filtered person list and selected person in {@code actualModel} match those in
-     * {@code expectedModel} <br>
-     * 
+     * {@code expectedModel}
      */
     public static void assertCommandSuccess(Command command,
                                             Model actualModel,
