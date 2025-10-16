@@ -4,7 +4,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import presspal.contact.model.category.Category;
+import presspal.contact.model.interview.Interview;
 import presspal.contact.model.person.Email;
+import presspal.contact.model.person.InterviewList;
 import presspal.contact.model.person.Name;
 import presspal.contact.model.person.Organisation;
 import presspal.contact.model.person.Person;
@@ -29,6 +31,7 @@ public class PersonBuilder {
     private Organisation organisation;
     private Role role;
     private Set<Category> categories;
+    private InterviewList interviews;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -40,6 +43,7 @@ public class PersonBuilder {
         organisation = new Organisation(DEFAULT_ORGANISATION);
         role = new Role(DEFAULT_ROLE);
         categories = new HashSet<>();
+        interviews = new InterviewList(null);
     }
 
     /**
@@ -67,6 +71,14 @@ public class PersonBuilder {
      */
     public PersonBuilder withCategories(String ... categories) {
         this.categories = SampleDataUtil.getCategorySet(categories);
+        return this;
+    }
+
+    /**
+     * Parses the {@code header, location} into a {@code InterviewList} and set it to the {@code Person} that we are building.
+     */
+    public PersonBuilder withInterviews(String header, String location) {
+        this.interviews = SampleDataUtil.getInterviewList(header, location);
         return this;
     }
 
@@ -103,7 +115,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, email, organisation, role, categories);
+        return new Person(name, phone, email, organisation, role, categories, interviews);
     }
 
 }

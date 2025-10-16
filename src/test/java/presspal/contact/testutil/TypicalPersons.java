@@ -29,39 +29,48 @@ public class TypicalPersons {
             .withOrganisation("NUS").withRole("Student")
             .withEmail("alice@example.com")
             .withPhone("94351253")
-            .withCategories("friends").build();
+            .withCategories("friends")
+            .withInterviews("Google Interview", "2025-10-20T14:00").build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
             .withOrganisation("NTU").withRole("Student")
             .withEmail("johnd@example.com").withPhone("98765432")
-            .withCategories("owesMoney", "friends").build();
+            .withCategories("owesMoney", "friends")
+            .withInterviews("Facebook Interview", "2025-10-21T10:30").build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
-            .withEmail("heinz@example.com").withOrganisation("SMU").withRole("TA").build();
+            .withEmail("heinz@example.com").withOrganisation("SMU").withRole("TA")
+            .withInterviews("Amazon Interview", "2025-11-05T09:00").build();
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withPhone("87652533")
             .withEmail("cornelia@example.com")
-            .withOrganisation("NTU").withRole("Student").withCategories("friends").build();
+            .withOrganisation("NTU").withRole("Student").withCategories("friends")
+            .withInterviews("Microsoft Interview", "2025-10-22T15:00").build();
     public static final Person ELLE = new PersonBuilder().withName("Elle Meyer").withPhone("9482224")
-            .withEmail("werner@example.com").withOrganisation("CAPT").withRole("TA").build();
+            .withEmail("werner@example.com").withOrganisation("CAPT").withRole("TA")
+            .withInterviews("Apple Interview", "2025-10-23T11:00").build();
     public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz").withPhone("9482427")
-            .withEmail("lydia@example.com").withOrganisation("RC4").withRole("RF").build();
+            .withEmail("lydia@example.com").withOrganisation("RC4").withRole("RF")
+            .withInterviews("Goldman Interview", "2025-10-24T13:30").build();
     public static final Person GEORGE = new PersonBuilder().withName("George Best").withPhone("9482442")
-            .withEmail("anna@example.com").withOrganisation("CAPT").withRole("Student").build();
+            .withEmail("anna@example.com").withOrganisation("CAPT").withRole("Student")
+            .withInterviews("Uber Interview", "2025-10-25T16:00").build();
 
     // Manually added
     public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")
-            .withEmail("stefan@example.com").withOrganisation("NUSC").withRole("Student").build();
+            .withEmail("stefan@example.com").withOrganisation("NUSC").withRole("Student")
+            .withInterviews("Stripe Interview", "2025-10-26T09:30").build();
     public static final Person IDA = new PersonBuilder().withName("Ida Mueller").withPhone("8482131")
-            .withEmail("hans@example.com").withOrganisation("NUSC").withRole("Student").build();
+            .withEmail("hans@example.com").withOrganisation("NUSC").withRole("Student")
+            .withInterviews("Oracle Interview", "2025-10-27T14:00").build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
             .withEmail(VALID_EMAIL_AMY).withOrganisation(VALID_ORGANISATION_AMY)
             .withRole(VALID_ROLE_AMY).withCategories(VALID_CATEGORY_FRIEND)
-            .build();
+            .withInterviews("Sample Interview A", "2025-10-28T10:00").build();
     public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
             .withEmail(VALID_EMAIL_BOB)
             .withOrganisation(VALID_ORGANISATION_BOB)
             .withRole(VALID_ROLE_BOB).withCategories(VALID_CATEGORY_HUSBAND, VALID_CATEGORY_FRIEND)
-            .build();
+            .withInterviews("Sample Interview B", "2025-10-29T15:30").build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 

@@ -24,6 +24,7 @@ import presspal.contact.logic.commands.exceptions.CommandException;
 import presspal.contact.model.Model;
 import presspal.contact.model.category.Category;
 import presspal.contact.model.person.Email;
+import presspal.contact.model.person.InterviewList;
 import presspal.contact.model.person.Name;
 import presspal.contact.model.person.Organisation;
 import presspal.contact.model.person.Person;
@@ -105,8 +106,9 @@ public class EditCommand extends Command {
                 .orElse(personToEdit.getOrganisation());
         Role updatedRole = editPersonDescriptor.getRole().orElse(personToEdit.getRole());
         Set<Category> updatedCategories = editPersonDescriptor.getCategories().orElse(personToEdit.getCategories());
+        InterviewList interviews = personToEdit.getInterviews();
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedOrganisation, updatedRole, updatedCategories);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedOrganisation, updatedRole, updatedCategories, interviews);
     }
 
     @Override
