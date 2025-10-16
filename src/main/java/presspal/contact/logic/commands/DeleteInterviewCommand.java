@@ -2,7 +2,6 @@ package presspal.contact.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import presspal.contact.commons.core.index.Index;
@@ -17,7 +16,7 @@ import presspal.contact.model.person.Person;
 /**
  * Deletes an interview identified using its displayed index from a person's interview list in the contact book.
  */
-public class DeleteInterviewCommand extends Command{
+public class DeleteInterviewCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteInterview";
 

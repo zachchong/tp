@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static presspal.contact.logic.commands.CommandTestUtil.assertCommandFailure;
-import static presspal.contact.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static presspal.contact.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static presspal.contact.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static presspal.contact.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
