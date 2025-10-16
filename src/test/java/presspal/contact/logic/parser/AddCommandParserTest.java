@@ -5,6 +5,7 @@ import static presspal.contact.logic.commands.CommandTestUtil.CATEGORY_DESC_FRIE
 import static presspal.contact.logic.commands.CommandTestUtil.CATEGORY_DESC_HUSBAND;
 import static presspal.contact.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static presspal.contact.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+import static presspal.contact.logic.commands.CommandTestUtil.INTERVIEW_HEADER_DESC_A;
 import static presspal.contact.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
 import static presspal.contact.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static presspal.contact.logic.commands.CommandTestUtil.INVALID_NAME_DESC;

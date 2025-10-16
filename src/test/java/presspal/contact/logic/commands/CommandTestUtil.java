@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_HEADER;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_NAME;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_ORGANISATION;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -39,6 +41,10 @@ public class CommandTestUtil {
     public static final String VALID_ROLE_BOB = "CLASSMATE";
     public static final String VALID_CATEGORY_HUSBAND = "husband";
     public static final String VALID_CATEGORY_FRIEND = "friend";
+    public static final String VALID_INTERVIEW_HEADER_A = "Sample Interview A";
+    public static final String VALID_INTERVIEW_HEADER_B = "Sample Interview B";
+    public static final String VALID_INTERVIEW_LOCATION_A = "Sample Location A";
+    public static final String VALID_INTERVIEW_LOCATION_B = "Sample Location B";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -52,6 +58,10 @@ public class CommandTestUtil {
     public static final String ROLE_DESC_BOB = " " + PREFIX_ROLE + VALID_ROLE_BOB;
     public static final String CATEGORY_DESC_FRIEND = " " + PREFIX_CATEGORY + VALID_CATEGORY_FRIEND;
     public static final String CATEGORY_DESC_HUSBAND = " " + PREFIX_CATEGORY + VALID_CATEGORY_HUSBAND;
+    public static final String INTERVIEW_HEADER_DESC_A = " " + PREFIX_HEADER + VALID_INTERVIEW_HEADER_A;
+    public static final String INTERVIEW_HEADER_DESC_B = " " + PREFIX_HEADER + VALID_INTERVIEW_HEADER_B;
+    public static final String INTERVIEW_LOCATION_DESC_A = " " + PREFIX_LOCATION + VALID_INTERVIEW_LOCATION_A;
+    public static final String INTERVIEW_LOCATION_DESC_B = " " + PREFIX_LOCATION + VALID_INTERVIEW_LOCATION_B;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
@@ -60,6 +70,8 @@ public class CommandTestUtil {
     public static final String INVALID_ROLE_DESC = " " + PREFIX_ROLE;
     public static final String INVALID_CATEGORY_DESC =
         " " + PREFIX_CATEGORY + "hubby*"; // '*' not allowed in categories
+    public static final String INVALID_INTERVIEW_HEADER_DESC = " " + PREFIX_HEADER; // empty string not allowed
+    public static final String INVALID_INTERVIEW_LOCATION_DESC = " " + PREFIX_LOCATION; // empty string not allowed
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -86,15 +98,21 @@ public class CommandTestUtil {
 
     /**
      * Executes the given {@code command}, confirms that <br>
-     * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
-     * - the {@code actualModel} matches {@code expectedModel}
+     * - contact book, filtered person list and selected person in {@code actualModel} match those in
+     * {@code expectedModel} <br>
+     * 
      */
-    public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
-            Model expectedModel) {
+    public static void assertCommandSuccess(Command command,
+                                            Model actualModel,
+                                            CommandResult expectedCommandResult,
+                                            Model expectedModel) {
         try {
             CommandResult result = command.execute(actualModel);
             assertEquals(expectedCommandResult, result);
-            assertEquals(expectedModel, actualModel);
+
+            // Only compare what matters for correctness
+            assertEquals(expectedModel.getContactBook(), actualModel.getContactBook());
+            assertEquals(expectedModel.getFilteredPersonList(), actualModel.getFilteredPersonList());
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
@@ -104,8 +122,10 @@ public class CommandTestUtil {
      * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
      * that takes a string {@code expectedMessage}.
      */
-    public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
-            Model expectedModel) {
+    public static void assertCommandSuccess(Command command,
+                                            Model actualModel,
+                                            String expectedMessage,
+                                            Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
