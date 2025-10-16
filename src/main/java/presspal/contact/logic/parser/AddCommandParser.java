@@ -15,6 +15,7 @@ import presspal.contact.logic.commands.AddCommand;
 import presspal.contact.logic.parser.exceptions.ParseException;
 import presspal.contact.model.category.Category;
 import presspal.contact.model.person.Email;
+import presspal.contact.model.person.InterviewList;
 import presspal.contact.model.person.Name;
 import presspal.contact.model.person.Organisation;
 import presspal.contact.model.person.Person;
@@ -49,8 +50,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         Organisation organisation = ParserUtil.parseOrganisation(argMultimap.getValue(PREFIX_ORGANISATION).get());
         Role role = ParserUtil.parseRole(argMultimap.getValue(PREFIX_ROLE).get());
         Set<Category> categoryList = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
+        InterviewList interviews = new InterviewList(null);
 
-        Person person = new Person(name, phone, email, organisation, role, categoryList);
+        Person person = new Person(name, phone, email, organisation, role, categoryList, interviews);
 
         return new AddCommand(person);
     }

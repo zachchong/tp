@@ -63,6 +63,23 @@ public class InterviewList {
         return interviews.contains(interview);
     }
 
+    /**
+     * Returns a numbered list of interviews as a string.
+     */
+    public String getNumberedInterviews() {
+        if (interviews.isEmpty()) {
+            return "No interviews scheduled.";
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < interviews.size(); i++) {
+            sb.append(i + 1)
+                    .append(". ")
+                    .append(interviews.get(i))
+                    .append(System.lineSeparator());
+        }
+        return sb.toString().trim();
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -85,17 +102,9 @@ public class InterviewList {
 
     @Override
     public String toString() {
-        if (interviews.isEmpty()) {
-            return "No interviews scheduled.";
-        }
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < interviews.size(); i++) {
-            sb.append(i + 1)
-                    .append(". ")
-                    .append(interviews.get(i))
-                    .append(System.lineSeparator());
-        }
-        return sb.toString().trim();
+        return String.join(",",
+                interviews.stream()
+                        .map(Interview::toString)
+                        .toList());
     }
-
 }

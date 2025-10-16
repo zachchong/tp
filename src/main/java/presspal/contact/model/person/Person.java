@@ -25,19 +25,21 @@ public class Person {
     private final Organisation organisation;
     private final Role role;
     private final Set<Category> categories = new HashSet<>();
-    private final InterviewList interviews = new InterviewList(null);
+    private final InterviewList interviews;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Organisation organisation, Role role, Set<Category> categories) {
-        requireAllNonNull(name, phone, email, organisation, role, categories);
+    public Person(Name name, Phone phone, Email email, Organisation organisation, Role role,
+                  Set<Category> categories, InterviewList interviews) {
+        requireAllNonNull(name, phone, email, organisation, role, categories, interviews);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.organisation = organisation;
         this.role = role;
         this.categories.addAll(categories);
+        this.interviews = interviews;
     }
 
     public Name getName() {
@@ -68,6 +70,9 @@ public class Person {
         return Collections.unmodifiableSet(categories);
     }
 
+    /**
+     * Returns an InterviewList.
+     */
     public InterviewList getInterviews() {
         return interviews;
     }
@@ -106,13 +111,14 @@ public class Person {
                 && email.equals(otherPerson.email)
                 && organisation.equals(otherPerson.organisation)
                 && role.equals(otherPerson.role)
-                && categories.equals(otherPerson.categories);
+                && categories.equals(otherPerson.categories)
+                && interviews.equals(otherPerson.interviews);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, organisation, role, categories);
+        return Objects.hash(name, phone, email, organisation, role, categories, interviews);
     }
 
     @Override
@@ -124,6 +130,7 @@ public class Person {
                 .add("organisation", organisation)
                 .add("role", role)
                 .add("categories", categories)
+                .add("interviews", interviews)
                 .toString();
     }
 
