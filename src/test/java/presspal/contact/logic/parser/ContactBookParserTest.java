@@ -6,6 +6,7 @@ import static presspal.contact.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static presspal.contact.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static presspal.contact.testutil.Assert.assertThrows;
 import static presspal.contact.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static presspal.contact.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import presspal.contact.logic.commands.AddCommand;
 import presspal.contact.logic.commands.ClearCommand;
 import presspal.contact.logic.commands.DeleteCommand;
+import presspal.contact.logic.commands.DeleteInterviewCommand;
 import presspal.contact.logic.commands.EditCommand;
 import presspal.contact.logic.commands.EditCommand.EditPersonDescriptor;
 import presspal.contact.logic.commands.ExitCommand;
@@ -97,5 +99,14 @@ public class ContactBookParserTest {
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
+    }
+
+    @Test
+    public void parseCommand_deleteInterview() throws Exception {
+        DeleteInterviewCommand command = (DeleteInterviewCommand) parser.parseCommand(
+                DeleteInterviewCommand.COMMAND_WORD + " "
+                        + INDEX_FIRST_PERSON.getOneBased() + " "
+                        + INDEX_SECOND_PERSON.getOneBased()); // person=1, interview=2
+        assertEquals(new DeleteInterviewCommand(INDEX_FIRST_PERSON, INDEX_SECOND_PERSON), command);
     }
 }
