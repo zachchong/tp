@@ -2,9 +2,12 @@ package presspal.contact.model.person;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import presspal.contact.model.interview.Interview;
 
@@ -38,6 +41,17 @@ public class InterviewList {
     public List<Interview> getUpcomingInterviews() {
         List<Interview> upcomingInterviews = new ArrayList<>();
         return upcomingInterviews; // return an empty list for now. TBC in v1.4
+    }
+
+    /**
+     * Returns the next upcoming interview by comparing current time and time of interview.
+     * If there are no upcoming interviews, returns an empty Optional.
+     */
+    public Optional<Interview> getNextUpcoming() {
+        LocalDateTime now = LocalDateTime.now();
+        return interviews.stream()
+                .filter(iv -> iv.getDateTime().isAfter(now))
+                .min(Comparator.comparing(Interview::getDateTime));
     }
 
     /**
