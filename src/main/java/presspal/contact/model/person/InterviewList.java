@@ -102,11 +102,9 @@ public class InterviewList {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < interviews.size(); i++) {
-            sb.append(interviews.get(i)).append(System.lineSeparator());
-        }
-        return sb.toString().trim();
+        return String.join(",",
+                interviews.stream()
+                        .map(Interview::toString)
+                        .toList());
     }
-
 }
