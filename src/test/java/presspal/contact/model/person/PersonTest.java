@@ -39,7 +39,9 @@ public class PersonTest {
                 .withEmail(VALID_EMAIL_BOB)
                 .withOrganisation(VALID_ORGANISATION_BOB)
                 .withRole(VALID_ROLE_BOB)
-                .withCategories(VALID_CATEGORY_HUSBAND).build();
+                .withCategories(VALID_CATEGORY_HUSBAND)
+                .withInterviews("Google Interview", "2025-12-12T12:00")
+                .build();
         assertTrue(ALICE.isSamePerson(editedAlice));
 
         // different name, all other attributes same -> returns false
@@ -96,6 +98,10 @@ public class PersonTest {
 
         // different categories -> returns false
         editedAlice = new PersonBuilder(ALICE).withCategories(VALID_CATEGORY_HUSBAND).build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // different interviews -> returns false
+        editedAlice = new PersonBuilder(ALICE).withInterviews("Some interview", "Some location").build();
         assertFalse(ALICE.equals(editedAlice));
     }
 
