@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -149,5 +150,27 @@ public class InterviewListTest {
                 + System.lineSeparator()
                 + "2. " + sampleInterviews.get(1);
         assertEquals(expected, populatedList.getNumberedInterviews());
+    }
+
+    @Test
+    public void getNextUpcoming_mixedPastAndFuture_returnsSoonestFuture() {
+        Interview past = interview("Past", "Room P", LocalDateTime.now().minusDays(1));
+        Interview soon = interview("Soon", "Room S", LocalDateTime.now().plusDays(1));
+        Interview later = interview("Later", "Room L", LocalDateTime.now().plusDays(10));
+
+        InterviewList list = new InterviewList(Arrays.asList(past, later, soon));
+        Optional<Interview> next = list.getNextUpcoming();
+
+        assertTrue(next.isPresent());
+        assertEquals("Soon", next.get().getHeader().toString());
+    }
+
+    @Test
+    public void getNextUpcoming_noFuture_returnsEmptyOptional() {
+        Interview past1 = interview("Past1", "Room P1", LocalDateTime.now().minusDays(2));
+        Interview past2 = interview("Past2", "Room P2", LocalDateTime.now().minusHours(1));
+
+        InterviewList list = new InterviewList(Arrays.asList(past1, past2));
+        assertTrue(list.getNextUpcoming().isEmpty());
     }
 }

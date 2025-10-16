@@ -13,8 +13,11 @@ import static presspal.contact.testutil.Assert.assertThrows;
 import static presspal.contact.testutil.TypicalPersons.ALICE;
 import static presspal.contact.testutil.TypicalPersons.BOB;
 
+import java.time.LocalDateTime;
+
 import org.junit.jupiter.api.Test;
 
+import presspal.contact.testutil.InterviewBuilder;
 import presspal.contact.testutil.PersonBuilder;
 
 public class PersonTest {
@@ -40,7 +43,14 @@ public class PersonTest {
                 .withOrganisation(VALID_ORGANISATION_BOB)
                 .withRole(VALID_ROLE_BOB)
                 .withCategories(VALID_CATEGORY_HUSBAND)
-                .withInterviews("Google Interview", "2025-12-12T12:00")
+                // was: .withInterviews("Google Interview", "2025-12-12T12:00")
+                .withInterviews(
+                        new InterviewBuilder()
+                                .withHeader("Google Interview")
+                                .withLocation("Google HQ")
+                                .withDate(LocalDateTime.parse("2025-12-12T12:00"))
+                                .build()
+                )
                 .build();
         assertTrue(ALICE.isSamePerson(editedAlice));
 
@@ -101,7 +111,13 @@ public class PersonTest {
         assertFalse(ALICE.equals(editedAlice));
 
         // different interviews -> returns false
-        editedAlice = new PersonBuilder(ALICE).withInterviews("Some interview", "Some location").build();
+        editedAlice = new PersonBuilder(ALICE)
+                .withInterviews(
+                        new InterviewBuilder()
+                                .withHeader("Some interview")
+                                .withLocation("Some location")
+                                .build()
+                ).build();
         assertFalse(ALICE.equals(editedAlice));
     }
 
