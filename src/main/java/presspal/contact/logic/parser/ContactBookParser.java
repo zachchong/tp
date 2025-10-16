@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 import presspal.contact.commons.core.LogsCenter;
 import presspal.contact.logic.commands.AddCommand;
+import presspal.contact.logic.commands.AddInterviewCommand;
 import presspal.contact.logic.commands.ClearCommand;
 import presspal.contact.logic.commands.Command;
 import presspal.contact.logic.commands.DeleteCommand;
@@ -81,6 +82,9 @@ public class ContactBookParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case AddInterviewCommand.COMMAND_WORD:
+            return new AddInterviewCommandParser().parse(arguments);
 
         case DeleteInterviewCommand.COMMAND_WORD:
             return new DeleteInterviewCommandParser().parse(arguments);
