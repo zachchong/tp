@@ -39,6 +39,17 @@ public class AddInterviewCommandTest {
             String expectedMessage = String.format(AddInterviewCommand.MESSAGE_ADD_INTERVIEW_SUCCESS,
                     builder.build(), target);
             assertEquals(expectedMessage, result.getFeedbackToUser());
+
+            // now delete the interview we just added (it should be the last interview)
+            Person targetAfterAdd = expectedModel.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+            int lastIndex = targetAfterAdd.getInterviews().getInterviews().size();
+            DeleteInterviewCommand deleteCmd = new DeleteInterviewCommand(
+                INDEX_FIRST_PERSON, Index.fromOneBased(lastIndex));
+            CommandResult deleteResult = deleteCmd.execute(expectedModel);
+            Person editedAfterDelete = expectedModel.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+            String expectedDeleteMessage = String.format(DeleteInterviewCommand.MESSAGE_DELETE_INTERVIEW_SUCCESS,
+                    lastIndex, presspal.contact.logic.Messages.format(editedAfterDelete));
+            assertEquals(expectedDeleteMessage, deleteResult.getFeedbackToUser());
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
