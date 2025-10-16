@@ -1,10 +1,10 @@
 package presspal.contact.storage;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import presspal.contact.commons.exceptions.IllegalValueException;
 import presspal.contact.model.interview.Header;

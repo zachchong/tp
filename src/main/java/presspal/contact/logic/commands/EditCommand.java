@@ -108,7 +108,8 @@ public class EditCommand extends Command {
         Set<Category> updatedCategories = editPersonDescriptor.getCategories().orElse(personToEdit.getCategories());
         InterviewList interviews = editPersonDescriptor.getInterviews().orElse(personToEdit.getInterviews());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedOrganisation, updatedRole, updatedCategories, interviews);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedOrganisation,
+                updatedRole, updatedCategories, interviews);
     }
 
     @Override

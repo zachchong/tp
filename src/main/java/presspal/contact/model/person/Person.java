@@ -9,7 +9,6 @@ import java.util.Set;
 
 import presspal.contact.commons.util.ToStringBuilder;
 import presspal.contact.model.category.Category;
-import presspal.contact.model.interview.Interview;
 
 /**
  * Represents a Person in the contact book.
@@ -31,7 +30,8 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Organisation organisation, Role role, Set<Category> categories, InterviewList interviews) {
+    public Person(Name name, Phone phone, Email email, Organisation organisation, Role role,
+                  Set<Category> categories, InterviewList interviews) {
         requireAllNonNull(name, phone, email, organisation, role, categories, interviews);
         this.name = name;
         this.phone = phone;
