@@ -93,7 +93,7 @@ public class Interview {
         return "["
                 + header + "]"
                 + " on " + dateTime
-                + "at" + location;
+                + " at " + location;
     }
 
 }

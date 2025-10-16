@@ -24,6 +24,7 @@ import presspal.contact.logic.commands.exceptions.CommandException;
 import presspal.contact.model.Model;
 import presspal.contact.model.category.Category;
 import presspal.contact.model.person.Email;
+import presspal.contact.model.person.InterviewList;
 import presspal.contact.model.person.Name;
 import presspal.contact.model.person.Organisation;
 import presspal.contact.model.person.Person;
@@ -105,8 +106,10 @@ public class EditCommand extends Command {
                 .orElse(personToEdit.getOrganisation());
         Role updatedRole = editPersonDescriptor.getRole().orElse(personToEdit.getRole());
         Set<Category> updatedCategories = editPersonDescriptor.getCategories().orElse(personToEdit.getCategories());
+        InterviewList interviews = editPersonDescriptor.getInterviews().orElse(personToEdit.getInterviews());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedOrganisation, updatedRole, updatedCategories);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedOrganisation,
+                updatedRole, updatedCategories, interviews);
     }
 
     @Override
@@ -144,6 +147,7 @@ public class EditCommand extends Command {
         private Organisation organisation;
         private Role role;
         private Set<Category> categories;
+        private InterviewList interviews;
 
         public EditPersonDescriptor() {}
 
@@ -158,6 +162,7 @@ public class EditCommand extends Command {
             setOrganisation(toCopy.organisation);
             setRole(toCopy.role);
             setCategories(toCopy.categories);
+            setInterviews(toCopy.interviews);
         }
 
         /**
@@ -195,6 +200,10 @@ public class EditCommand extends Command {
             this.organisation = organisation;
         }
 
+        public void setInterviews(InterviewList interviews) {
+            this.interviews = interviews;
+        }
+
         public Optional<Organisation> getOrganisation() {
             return Optional.ofNullable(organisation);
         }
@@ -221,6 +230,10 @@ public class EditCommand extends Command {
          */
         public Optional<Set<Category>> getCategories() {
             return (categories != null) ? Optional.of(Collections.unmodifiableSet(categories)) : Optional.empty();
+        }
+
+        public Optional<InterviewList> getInterviews() {
+            return Optional.ofNullable(interviews);
         }
 
         @Override
