@@ -107,7 +107,7 @@ Format: `list`
 
 Edits an existing person in the contact book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [o/ORGANISATION] [c/CATEGORY]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [o/ORGANISATION] [r/ROLE] [c/CATEGORY]…​`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -154,6 +154,42 @@ Examples:
 
 ### Adding an interview to a contact : `addInterview`
 
+Adds an interview to a contact in the contact book.
+
+Format: `addInterview i/INDEX h/HEADER d/DATE t/TIME l/LOCATION`
+
+* Adds an interview to the contact at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* The `DATE` must be in the format `YYYY-MM-DD`. e.g. `2025-10-10`
+* The `TIME` must be in the format `HH:MM`. e.g. `14:30`
+* The `LOCATION` can be any string of characters.
+* The `HEADER` can be any string of characters.
+
+Examples:
+* `addInterview i/1 h/Interview with ABC Corp d/2024-10-10 t/14:00 l/123, Business St, #02-25` adds an interview with header `Interview with ABC Corp`, date `2024-10-10`, time `14:00` and location `123, Business St, #02-25` to the 1st contact in the contact book.
+
+### Deleting an interview from a contact : `deleteInterview`
+
+Deletes an interview from a contact in the contact book.
+
+Format: `deleteInterview PERSON_INDEX INTERVIEW_INDEX`
+
+* Deletes the interview at the specified `INTERVIEW_INDEX` from the contact at the specified `PERSON_INDEX`. The indices refer to the index numbers shown in the displayed person list and interview list respectively. The indices **must be positive integers** 1, 2, 3, …​
+
+Examples:
+* `deleteInterview 1 2` deletes the 2nd interview from the 1st contact in the contact book.
+
+### Listing all interviews of a contact : `listInterview`
+
+Lists all interviews of a contact in the contact book.
+
+Format: `listInterview i/INDEX`
+
+* Lists all interviews of the contact at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* If the contact has no interviews, a message indicating so will be shown instead.
+
+![empty interview](images/emptyInterviewExample.png)
+![filled interview](images/filledInterviewExample.png)
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the contact book.
@@ -179,10 +215,6 @@ If your changes to the data file makes its format invalid, ContactBook will disc
 Furthermore, certain edits can cause the ContactBook to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
 
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
@@ -203,10 +235,14 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL o/ORGANISATION [c/CATEGORY]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 c/friend c/colleague`
+**Add** | `add n/NAME p/PHONE e/EMAIL o/ORGANISATION r/ROLE [c/CATEGORY]…​` <br> e.g., `add n/John Doe p/98765432 e/johnd@example.com o/NUS r/Student c/friends c/owesMoney`
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [o/ORGANISATION] [c/CATEGORY]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [o/ORGANISATION] [r/ROLE] [c/CATEGORY]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list`
+**AddInterview** | `addInterview i/INDEX h/HEADER d/DATE t/TIME l/LOCATION` <br> e.g., `addInterview i/1 h/Interview with ABC Corp d/2024-10-10 t/14:00 l/123, Business St, #02-25`
+**DeleteInterview** | `deleteInterview PERSON_INDEX INTERVIEW_INDEX` <br> e.g., `deleteInterview 1 2`
+**ListInterview** | `listInterview i/INDEX` <br> e.g., `listInterview i/1`
+**Exit** | `exit
 **Help** | `help`
