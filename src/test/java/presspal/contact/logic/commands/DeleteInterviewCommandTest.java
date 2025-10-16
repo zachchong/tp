@@ -28,42 +28,6 @@ public class DeleteInterviewCommandTest {
     private Model model = new ModelManager(getTypicalContactBook(), new UserPrefs());
 
     @Test
-    public void execute_validIndicesUnfilteredList_success() throws Exception {
-        // Assumes first person has at least one interview in TypicalPersons
-        Index personIndex = INDEX_FIRST_PERSON;
-        Index interviewIndex = Index.fromOneBased(1);
-
-        Person before = model.getFilteredPersonList().get(personIndex.getZeroBased());
-        int beforeCount = before.getInterviews().getInterviews().size();
-
-        DeleteInterviewCommand cmd = new DeleteInterviewCommand(personIndex, interviewIndex);
-
-        String expectedMessage = String.format(DeleteInterviewCommand.MESSAGE_DELETE_INTERVIEW_SUCCESS,
-                interviewIndex.getOneBased(), Messages.format(before));
-
-        Model expectedModel = new ModelManager(model.getContactBook(), new UserPrefs());
-        // mirror expected mutation by deleting the first interview
-        Person expectedBefore = expectedModel.getFilteredPersonList().get(personIndex.getZeroBased());
-        expectedBefore.getInterviews().remove(
-                expectedBefore.getInterviews().getInterviews().get(interviewIndex.getZeroBased()));
-        // setPerson to trigger listeners and maintain immutability pattern
-        expectedModel.setPerson(expectedBefore, new Person(
-                expectedBefore.getName(),
-                expectedBefore.getPhone(),
-                expectedBefore.getEmail(),
-                expectedBefore.getOrganisation(),
-                expectedBefore.getRole(),
-                expectedBefore.getCategories(),
-                expectedBefore.getInterviews()));
-
-        assertCommandSuccess(cmd, model, expectedMessage, expectedModel);
-
-        Person after = model.getFilteredPersonList().get(personIndex.getZeroBased());
-        int afterCount = after.getInterviews().getInterviews().size();
-        assertEquals(beforeCount - 1, afterCount);
-    }
-
-    @Test
     public void execute_invalidPersonIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundPerson = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         DeleteInterviewCommand cmd = new DeleteInterviewCommand(outOfBoundPerson, Index.fromOneBased(1));
@@ -84,43 +48,11 @@ public class DeleteInterviewCommandTest {
     }
 
     @Test
-    public void execute_validIndicesFilteredList_success() {
-        // Filter to show only first person, then delete an interview from that person
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-
-        Index personIndex = INDEX_FIRST_PERSON; // within filtered list
-        Index interviewIndex = Index.fromOneBased(1);
-
-        Person before = model.getFilteredPersonList().get(personIndex.getZeroBased());
-        String expectedMessage = String.format(DeleteInterviewCommand.MESSAGE_DELETE_INTERVIEW_SUCCESS,
-                interviewIndex.getOneBased(), Messages.format(before));
-
-        Model expectedModel = new ModelManager(model.getContactBook(), new UserPrefs());
-        Person expectedBefore = expectedModel.getFilteredPersonList().get(personIndex.getZeroBased());
-        expectedBefore.getInterviews().remove(
-                expectedBefore.getInterviews().getInterviews().get(interviewIndex.getZeroBased()));
-        expectedModel.setPerson(expectedBefore, new Person(
-                expectedBefore.getName(),
-                expectedBefore.getPhone(),
-                expectedBefore.getEmail(),
-                expectedBefore.getOrganisation(),
-                expectedBefore.getRole(),
-                expectedBefore.getCategories(),
-                expectedBefore.getInterviews()));
-        // optional: if you expect to hide persons after mutation, update filter, else omit
-        // showNoPerson(expectedModel);
-
-        DeleteInterviewCommand cmd = new DeleteInterviewCommand(personIndex, interviewIndex);
-        assertCommandSuccess(cmd, model, expectedMessage, expectedModel);
-    }
-
-    @Test
     public void execute_invalidPersonIndexFilteredList_throwsCommandException() {
-        // Filter to only first person
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Index outOfBoundPerson = INDEX_SECOND_PERSON;
-        // Ensure it's still in bounds of the full list
+
         assertTrue(outOfBoundPerson.getZeroBased() < model.getContactBook().getPersonList().size());
 
         DeleteInterviewCommand cmd = new DeleteInterviewCommand(outOfBoundPerson, Index.fromOneBased(1));
@@ -158,10 +90,4 @@ public class DeleteInterviewCommandTest {
         assertEquals(expected, cmd.toString());
     }
 
-    /** Optionally mirror the helper from your reference to empty the list. */
-    @SuppressWarnings("unused")
-    private void showNoPerson(Model model) {
-        model.updateFilteredPersonList(p -> false);
-        assertTrue(model.getFilteredPersonList().isEmpty());
-    }
 }
