@@ -38,6 +38,8 @@ public class DeleteInterviewCommand extends Command {
      * a specified {@code Person}.
      */
     public DeleteInterviewCommand(Index personIndex, Index interviewIndex) {
+        requireNonNull(personIndex);
+        requireNonNull(interviewIndex);
         this.personIndex = personIndex;
         this.interviewIndex = interviewIndex;
     }
