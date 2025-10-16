@@ -1,7 +1,10 @@
 package presspal.contact.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static presspal.contact.logic.commands.CommandTestUtil.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static presspal.contact.logic.commands.CommandTestUtil.assertCommandFailure;
+import static presspal.contact.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static presspal.contact.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static presspal.contact.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static presspal.contact.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
@@ -14,14 +17,24 @@ import presspal.contact.logic.Messages;
 import presspal.contact.model.Model;
 import presspal.contact.model.ModelManager;
 import presspal.contact.model.UserPrefs;
+import presspal.contact.model.person.Person;
 
 public class ListInterviewCommandTest {
 
     private Model model = new ModelManager(getTypicalContactBook(), new UserPrefs());
 
-    //execute_validIndexUnfilteredList_success
+    @Test
+    public void execute_validIndexUnfilteredList_success() {
+        Person personToShowInterview = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        ListInterviewCommand listInterviewCommand = new ListInterviewCommand(INDEX_FIRST_PERSON);
 
-    //execute_validIndexFilteredList_success
+        String expectedMessage = String.format(ListInterviewCommand.MESSAGE_SUCCESS,
+                personToShowInterview.getName(), personToShowInterview.getInterviews().getNumberedInterviews());
+
+        ModelManager expectedModel = new ModelManager(model.getContactBook(), new UserPrefs());
+
+        assertCommandSuccess(listInterviewCommand, model, expectedMessage, expectedModel);
+    }
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
