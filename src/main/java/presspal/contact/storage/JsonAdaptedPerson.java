@@ -32,7 +32,7 @@ class JsonAdaptedPerson {
     private final String organisation;
     private final String role;
     private final List<JsonAdaptedCategory> categories = new ArrayList<>();
-    private final JsonAdaptedInterviewList interviews;
+    private final List<JsonAdaptedInterview> interviews = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -41,7 +41,7 @@ class JsonAdaptedPerson {
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("organisation") String organisation,
             @JsonProperty("role") String role, @JsonProperty("categories") List<JsonAdaptedCategory> categories,
-                             @JsonProperty("interviews") JsonAdaptedInterviewList interviews) {
+                             @JsonProperty("interviews") List<JsonAdaptedInterview> interviews) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -50,7 +50,9 @@ class JsonAdaptedPerson {
         if (categories != null) {
             this.categories.addAll(categories);
         }
-        this.interviews = interviews;
+        if (interviews != null) {
+            this.interviews.addAll(interviews);
+        }
     }
 
     /**
@@ -65,7 +67,8 @@ class JsonAdaptedPerson {
         categories.addAll(source.getCategories().stream()
                 .map(JsonAdaptedCategory::new)
                 .collect(Collectors.toList()));
-        interviews = new JsonAdaptedInterviewList(source.getInterviews());
+        source.getInterviews().getInterviews()
+                .forEach(i -> this.interviews.add(new JsonAdaptedInterview(i)));
     }
 
     /**
@@ -123,11 +126,9 @@ class JsonAdaptedPerson {
 
         final Set<Category> modelCategories = new HashSet<>(personCategories);
 
-        final InterviewList modelInterviewList;
-        if (interviews == null) {
-            modelInterviewList = new InterviewList(null);
-        } else {
-            modelInterviewList = interviews.toModelType();
+        final InterviewList modelInterviewList = new InterviewList(null);
+        for (JsonAdaptedInterview ji : interviews) {
+            modelInterviewList.add(ji.toModelType());
         }
 
         return new Person(modelName, modelPhone, modelEmail, modelOrganisation, modelRole, modelCategories,

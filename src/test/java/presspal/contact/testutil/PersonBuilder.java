@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import presspal.contact.model.category.Category;
-import presspal.contact.model.interview.Interview;
 import presspal.contact.model.person.Email;
 import presspal.contact.model.person.InterviewList;
 import presspal.contact.model.person.Name;
@@ -77,7 +76,8 @@ public class PersonBuilder {
     }
 
     /**
-     * Parses the {@code header, location} into a {@code InterviewList} and set it to the {@code Person} that we are building.
+     * Parses the {@code header, location} into a {@code InterviewList} and
+     * set it to the {@code Person} that we are building.
      */
     public PersonBuilder withInterviews(String header, String location) {
         this.interviews = SampleDataUtil.getInterviewList(header, location);
