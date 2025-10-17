@@ -31,7 +31,7 @@ import presspal.contact.testutil.AddCatDescriptorBuilder;
  */
 public class AddCategoryCommandTest {
 
-    private Model model = new ModelManager(getTypicalContactBook(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalContactBook(), new UserPrefs());
 
     @Test
     public void execute_unfilteredList_success() {
