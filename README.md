@@ -27,13 +27,10 @@ PressPal features a clean and intuitive user interface designed for ease of use 
 ## Features
 1. Add Contacts
 2. Delete a Contact
-3. Create Category (WIP)
-4. Add Contact to Category (WIP)
-5. Remove Contact from Category (WIP)
-6. Add Interview to Contact
-7. Delete Interview from Contact
-8. Search Contact
-9. List interviews for a Contact
+3. Add Interview to Contact
+4. Delete Interview from Contact
+5. Find Contact
+6. List interviews for a Contact
 
 ## Commands
 ### Add Contact
@@ -46,21 +43,6 @@ Delete an existing contact
 
 `delete PERSON_INDEX`
 
-### Create Category (WIP)
-Create a new category to group contacts and interactions
-
-`category create c/CATEGORY_NAME`
-
-### Add Contact to Category (WIP)
-Group existing contacts to a category
-
-`category add n/PERSON_NAME c/CATEGORY_NAME`
-
-### Remove Contact from Category (WIP)
-Remove contact from a category that it is already in
-
-`category remove n/PERSON_NAME c/CATEGORY_NAME`
-
 ### Add Interview to Contact
 Attach an interview date to an existing contact
 
@@ -71,10 +53,10 @@ Remove an existing interview from a contact
 
 `deleteInterview PERSON_INDEX INTERVIEW_INDEX`
 
-### Search Contact
+### Find Contact
 Find existing contacts by searching name
 
-`search n/NAME`
+`find n/NAME`
 
 ### List interviews for a Contact
 List all interviews for a contact
