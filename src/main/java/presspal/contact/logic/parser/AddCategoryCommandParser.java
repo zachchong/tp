@@ -7,7 +7,6 @@ import static presspal.contact.logic.parser.CliSyntax.PREFIX_INDEX;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
