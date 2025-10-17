@@ -54,14 +54,6 @@ public class PersonUtil {
         descriptor.getOrganisation().ifPresent(organisation -> sb.append(PREFIX_ORGANISATION)
                 .append(organisation.value).append(" "));
         descriptor.getRole().ifPresent(role -> sb.append(PREFIX_ROLE).append(role.value).append(" "));
-        if (descriptor.getCategories().isPresent()) {
-            Set<Category> categories = descriptor.getCategories().get();
-            if (categories.isEmpty()) {
-                sb.append(PREFIX_CATEGORY);
-            } else {
-                categories.forEach(s -> sb.append(PREFIX_CATEGORY).append(s.categoryName).append(" "));
-            }
-        }
         return sb.toString();
     }
 

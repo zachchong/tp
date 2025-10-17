@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static presspal.contact.logic.commands.CommandTestUtil.DESC_AMY;
 import static presspal.contact.logic.commands.CommandTestUtil.DESC_BOB;
-import static presspal.contact.logic.commands.CommandTestUtil.VALID_CATEGORY_HUSBAND;
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_ORGANISATION_BOB;
@@ -56,10 +55,6 @@ public class EditPersonDescriptorTest {
         // different role -> returns false
         editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withRole(VALID_ROLE_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
-
-        // different categories -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withCategories(VALID_CATEGORY_HUSBAND).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
     }
 
     @Test
@@ -70,8 +65,7 @@ public class EditPersonDescriptorTest {
                 + editPersonDescriptor.getPhone().orElse(null) + ", email="
                 + editPersonDescriptor.getEmail().orElse(null) + ", organisation="
                 + editPersonDescriptor.getOrganisation().orElse(null) + ", role="
-                + editPersonDescriptor.getRole().orElse(null) + ", categories="
-                + editPersonDescriptor.getCategories().orElse(null) + "}";
+                + editPersonDescriptor.getRole().orElse(null) + "}";
         assertEquals(expected, editPersonDescriptor.toString());
     }
 }

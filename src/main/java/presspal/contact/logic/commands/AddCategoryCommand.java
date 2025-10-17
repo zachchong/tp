@@ -84,6 +84,10 @@ public class AddCategoryCommand extends Command {
                 editedPerson.getName(), editedPerson.getCategories()));
     }
 
+    /**
+     * Creates and returns a {@code Person} with the details of {@code personToAddCat}
+     * edited with {@code addCatDescriptor}.
+     */
     public static Person createNewPerson(Person personToAddCat, AddCatDescriptor addCatDescriptor) {
         assert personToAddCat != null;
         Set<Category> updatedCategories = new HashSet<>(personToAddCat.getCategories());

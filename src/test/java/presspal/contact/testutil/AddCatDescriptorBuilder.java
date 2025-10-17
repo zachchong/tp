@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import presspal.contact.logic.commands.AddCategoryCommand.AddCatDescriptor;
-import presspal.contact.logic.commands.EditCommand;
 import presspal.contact.model.category.Category;
 import presspal.contact.model.person.Person;
 

@@ -2,7 +2,15 @@ package presspal.contact.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static presspal.contact.logic.parser.CliSyntax.*;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_HEADER;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_INDEX;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_NAME;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_ORGANISATION;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_PHONE;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_ROLE;
 import static presspal.contact.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -84,15 +92,13 @@ public class CommandTestUtil {
                 .withPhone(VALID_PHONE_AMY)
                 .withEmail(VALID_EMAIL_AMY)
                 .withOrganisation(VALID_ORGANISATION_AMY)
-                .withRole(VALID_ROLE_AMY)
-                .withCategories(VALID_CATEGORY_FRIEND).build();
+                .withRole(VALID_ROLE_AMY).build();
         DESC_BOB = new EditPersonDescriptorBuilder()
                 .withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB)
                 .withEmail(VALID_EMAIL_BOB)
                 .withOrganisation(VALID_ORGANISATION_BOB)
-                .withRole(VALID_ROLE_BOB)
-                .withCategories(VALID_CATEGORY_HUSBAND, VALID_CATEGORY_FRIEND).build();
+                .withRole(VALID_ROLE_BOB).build();
         ADD_CATEGORY_DESC_AMY = new AddCatDescriptorBuilder()
                 .withCategories(VALID_CATEGORY_FRIEND).build();
         ADD_CATEGORY_DESC_BOB = new AddCatDescriptorBuilder()

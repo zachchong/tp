@@ -16,9 +16,9 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import presspal.contact.logic.commands.AddCommand;
 import presspal.contact.logic.commands.AddCategoryCommand;
 import presspal.contact.logic.commands.AddCategoryCommand.AddCatDescriptor;
+import presspal.contact.logic.commands.AddCommand;
 import presspal.contact.logic.commands.AddInterviewCommand;
 import presspal.contact.logic.commands.ClearCommand;
 import presspal.contact.logic.commands.DeleteCommand;
@@ -32,7 +32,11 @@ import presspal.contact.logic.commands.ListInterviewCommand;
 import presspal.contact.logic.parser.exceptions.ParseException;
 import presspal.contact.model.person.NameContainsKeywordsPredicate;
 import presspal.contact.model.person.Person;
-import presspal.contact.testutil.*;
+import presspal.contact.testutil.AddCatDescriptorBuilder;
+import presspal.contact.testutil.EditPersonDescriptorBuilder;
+import presspal.contact.testutil.InterviewBuilder;
+import presspal.contact.testutil.PersonBuilder;
+import presspal.contact.testutil.PersonUtil;
 
 public class ContactBookParserTest {
 
