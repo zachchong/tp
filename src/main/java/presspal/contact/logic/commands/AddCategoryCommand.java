@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Set;
 
 import presspal.contact.commons.core.index.Index;
-import presspal.contact.commons.util.CollectionUtil;
 import presspal.contact.commons.util.ToStringBuilder;
 import presspal.contact.logic.Messages;
 import presspal.contact.logic.commands.exceptions.CommandException;
@@ -43,7 +42,6 @@ public class AddCategoryCommand extends Command {
 
     public static final String MESSAGE_ADDCAT_SUCCESS =
             "Added Successfully. This is the updated Category of %1$s:\n%2$s";
-    public static final String MESSAGE_NOT_ADDED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_CAT = "This person already has this category";
 
     private final Index index;
@@ -142,12 +140,6 @@ public class AddCategoryCommand extends Command {
             this.categories = addCatDescriptor.categories;
         }
 
-        /**
-         * Returns true if at least one field is edited.
-         */
-        public boolean isCategoryEdited() {
-            return CollectionUtil.isAnyNonNull(categories);
-        }
         /**
          * Sets {@code categories} to this object's {@code categories}.
          * A defensive copy of {@code categories} is used internally.

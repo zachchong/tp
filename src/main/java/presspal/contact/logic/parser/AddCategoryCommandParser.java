@@ -43,12 +43,9 @@ public class AddCategoryCommandParser implements Parser<AddCategoryCommand> {
 
         AddCatDescriptor addCatDescriptor = new AddCatDescriptor();
 
-        parseCategoriesForEdit(argMultimap.getAllValues(PREFIX_CATEGORY))
-                .ifPresent(addCatDescriptor::setCategories);
+        Set<Category> catToBeAdded = parseCategoriesForEdit(argMultimap.getAllValues(PREFIX_CATEGORY));
+        addCatDescriptor.setCategories(catToBeAdded);
 
-        if (!addCatDescriptor.isCategoryEdited()) {
-            throw new ParseException(AddCategoryCommand.MESSAGE_NOT_ADDED);
-        }
         return new AddCategoryCommand(index, addCatDescriptor);
     }
 
@@ -57,16 +54,12 @@ public class AddCategoryCommandParser implements Parser<AddCategoryCommand> {
      * If {@code categories} contain only one element which is an empty string, it will be parsed into a
      * {@code Set<Category>} containing zero categories.
      */
-    private Optional<Set<Category>> parseCategoriesForEdit(Collection<String> categories) throws ParseException {
+    private Set<Category> parseCategoriesForEdit(Collection<String> categories) throws ParseException {
         assert categories != null;
-
-        if (categories.isEmpty()) {
-            return Optional.empty();
-        }
         Collection<String> categorySet = categories.size() == 1 && categories.contains("")
                 ? Collections.emptySet()
                 : categories;
-        return Optional.of(ParserUtil.parseCategories(categorySet));
+        return ParserUtil.parseCategories(categorySet);
     }
 
     /**

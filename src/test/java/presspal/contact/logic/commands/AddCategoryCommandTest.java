@@ -75,6 +75,23 @@ public class AddCategoryCommandTest {
     }
 
     @Test
+    public void execute_duplicateCategory_failure() {
+        // person currently at index 0 in the list
+        Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+
+        AddCatDescriptor descriptor = new AddCatDescriptorBuilder()
+                .withCategories(VALID_CATEGORY_FRIEND).build();
+        AddCategoryCommand addCategoryCommand = new AddCategoryCommand(INDEX_FIRST_PERSON, descriptor);
+
+        // First, add the category successfully
+        Person editedPerson = AddCategoryCommand.createNewPerson(personToEdit, descriptor);
+        model.setPerson(personToEdit, editedPerson);
+
+        // Attempt to add the same category again
+        assertCommandFailure(addCategoryCommand, model, AddCategoryCommand.MESSAGE_DUPLICATE_CAT);
+    }
+
+    @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         AddCatDescriptor descriptor = new AddCatDescriptorBuilder().withCategories(VALID_CATEGORY_FRIEND).build();
