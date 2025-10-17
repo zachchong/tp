@@ -40,8 +40,7 @@ public class AddCategoryCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_CATEGORY + "friends";
 
-    public static final String MESSAGE_ADDCAT_SUCCESS =
-            "Added Successfully. This is the updated Category of %1$s:\n%2$s";
+    public static final String MESSAGE_ADDCAT_SUCCESS = "The Category %1$s is successfully added to %2$s";
     public static final String MESSAGE_DUPLICATE_CAT = "This person already has this category";
 
     private final Index index;
@@ -79,7 +78,7 @@ public class AddCategoryCommand extends Command {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         return new CommandResult(String.format(MESSAGE_ADDCAT_SUCCESS,
-                editedPerson.getName(), editedPerson.getCategories()));
+                addCatDescriptor.getCategoriesAsString(), editedPerson.getName()));
     }
 
     /**
@@ -145,16 +144,28 @@ public class AddCategoryCommand extends Command {
          * A defensive copy of {@code categories} is used internally.
          */
         public void setCategories(Set<Category> categories) {
-            this.categories = (categories != null) ? new HashSet<>(categories) : null;
+            this.categories = new HashSet<>(categories);
         }
 
         /**
          * Returns an unmodifiable category set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code categories} is null.
+         * Returns {@code categories} is non-null.
          */
         public Set<Category> getCategories() {
             return Collections.unmodifiableSet(categories);
+        }
+
+        public String getCategoriesAsString() {
+            StringBuilder sb = new StringBuilder();
+            java.util.Iterator<Category> iterator = categories.iterator();
+            while (iterator.hasNext()) {
+                sb.append("[").append(iterator.next().categoryName).append("]");
+                if (iterator.hasNext()) {
+                    sb.append(", ");
+                }
+            }
+            return sb.toString();
         }
 
         @Override

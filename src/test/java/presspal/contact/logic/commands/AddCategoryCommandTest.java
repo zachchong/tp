@@ -45,7 +45,7 @@ public class AddCategoryCommandTest {
         Person editedPerson = AddCategoryCommand.createNewPerson(personToEdit, descriptor);
 
         String expectedMessage = String.format(AddCategoryCommand.MESSAGE_ADDCAT_SUCCESS,
-                        editedPerson.getName(), editedPerson.getCategories());
+                descriptor.getCategoriesAsString(), editedPerson.getName());
 
         Model expectedModel = new ModelManager(model.getContactBook(), new UserPrefs());
         expectedModel.setPerson(personToEdit, editedPerson);
@@ -66,7 +66,7 @@ public class AddCategoryCommandTest {
         Person editedPerson = AddCategoryCommand.createNewPerson(personInFilteredList, descriptor);
 
         String expectedMessage = String.format(AddCategoryCommand.MESSAGE_ADDCAT_SUCCESS,
-                editedPerson.getName(), editedPerson.getCategories());
+                descriptor.getCategoriesAsString(), editedPerson.getName());
 
         Model expectedModel = new ModelManager(new ContactBook(model.getContactBook()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
