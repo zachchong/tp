@@ -84,7 +84,7 @@ public class AddCategoryCommand extends Command {
                 editedPerson.getName(), editedPerson.getCategories()));
     }
 
-    private static Person createNewPerson(Person personToAddCat, AddCatDescriptor addCatDescriptor) {
+    public static Person createNewPerson(Person personToAddCat, AddCatDescriptor addCatDescriptor) {
         assert personToAddCat != null;
         Set<Category> updatedCategories = new HashSet<>(personToAddCat.getCategories());
 
@@ -159,6 +159,28 @@ public class AddCategoryCommand extends Command {
          */
         public Set<Category> getCategories() {
             return Collections.unmodifiableSet(categories);
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            if (other == this) {
+                return true;
+            }
+
+            if (!(other instanceof AddCatDescriptor)) {
+                return false;
+            }
+
+            AddCatDescriptor otherDescriptor = (AddCatDescriptor) other;
+
+            return getCategories().equals(otherDescriptor.getCategories());
+        }
+
+        @Override
+        public String toString() {
+            return new ToStringBuilder(this)
+                    .add("categories", categories)
+                    .toString();
         }
     }
 }

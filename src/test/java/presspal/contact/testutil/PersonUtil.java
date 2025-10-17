@@ -9,6 +9,7 @@ import static presspal.contact.logic.parser.CliSyntax.PREFIX_ROLE;
 
 import java.util.Set;
 
+import presspal.contact.logic.commands.AddCategoryCommand.AddCatDescriptor;
 import presspal.contact.logic.commands.AddCommand;
 import presspal.contact.logic.commands.EditCommand.EditPersonDescriptor;
 import presspal.contact.model.category.Category;
@@ -60,6 +61,17 @@ public class PersonUtil {
             } else {
                 categories.forEach(s -> sb.append(PREFIX_CATEGORY).append(s.categoryName).append(" "));
             }
+        }
+        return sb.toString();
+    }
+
+    public static String getAddCatDescriptorDetails(AddCatDescriptor descriptor) {
+        StringBuilder sb = new StringBuilder();
+        Set<Category> categories = descriptor.getCategories();
+        if (categories.isEmpty()) {
+            sb.append(PREFIX_CATEGORY);
+        } else {
+            categories.forEach(s -> sb.append(PREFIX_CATEGORY).append(s.categoryName).append(" "));
         }
         return sb.toString();
     }
