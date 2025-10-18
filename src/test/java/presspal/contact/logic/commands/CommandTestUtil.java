@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_HEADER;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_INDEX;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_NAME;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_ORGANISATION;
@@ -22,6 +23,7 @@ import presspal.contact.model.ContactBook;
 import presspal.contact.model.Model;
 import presspal.contact.model.person.NameContainsKeywordsPredicate;
 import presspal.contact.model.person.Person;
+import presspal.contact.testutil.AddCatDescriptorBuilder;
 import presspal.contact.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -62,6 +64,8 @@ public class CommandTestUtil {
     public static final String INTERVIEW_HEADER_DESC_B = " " + PREFIX_HEADER + VALID_INTERVIEW_HEADER_B;
     public static final String INTERVIEW_LOCATION_DESC_A = " " + PREFIX_LOCATION + VALID_INTERVIEW_LOCATION_A;
     public static final String INTERVIEW_LOCATION_DESC_B = " " + PREFIX_LOCATION + VALID_INTERVIEW_LOCATION_B;
+    public static final String INDEX_DESC_A = " " + PREFIX_INDEX + "1";
+    public static final String INDEX_DESC_B = " " + PREFIX_INDEX + "2";
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
@@ -72,12 +76,15 @@ public class CommandTestUtil {
         " " + PREFIX_CATEGORY + "hubby*"; // '*' not allowed in categories
     public static final String INVALID_INTERVIEW_HEADER_DESC = " " + PREFIX_HEADER; // empty string not allowed
     public static final String INVALID_INTERVIEW_LOCATION_DESC = " " + PREFIX_LOCATION; // empty string not allowed
+    public static final String INVALID_INDEX_DESC = " " + PREFIX_INDEX + "-5"; // negative index not allowed
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    public static final AddCategoryCommand.AddCatDescriptor ADD_CATEGORY_DESC_AMY;
+    public static final AddCategoryCommand.AddCatDescriptor ADD_CATEGORY_DESC_BOB;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder()
@@ -85,14 +92,16 @@ public class CommandTestUtil {
                 .withPhone(VALID_PHONE_AMY)
                 .withEmail(VALID_EMAIL_AMY)
                 .withOrganisation(VALID_ORGANISATION_AMY)
-                .withRole(VALID_ROLE_AMY)
-                .withCategories(VALID_CATEGORY_FRIEND).build();
+                .withRole(VALID_ROLE_AMY).build();
         DESC_BOB = new EditPersonDescriptorBuilder()
                 .withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB)
                 .withEmail(VALID_EMAIL_BOB)
                 .withOrganisation(VALID_ORGANISATION_BOB)
-                .withRole(VALID_ROLE_BOB)
+                .withRole(VALID_ROLE_BOB).build();
+        ADD_CATEGORY_DESC_AMY = new AddCatDescriptorBuilder()
+                .withCategories(VALID_CATEGORY_FRIEND).build();
+        ADD_CATEGORY_DESC_BOB = new AddCatDescriptorBuilder()
                 .withCategories(VALID_CATEGORY_HUSBAND, VALID_CATEGORY_FRIEND).build();
     }
 

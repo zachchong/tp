@@ -1,7 +1,6 @@
 package presspal.contact.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static presspal.contact.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_NAME;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_ORGANISATION;
@@ -9,8 +8,6 @@ import static presspal.contact.logic.parser.CliSyntax.PREFIX_PHONE;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_ROLE;
 import static presspal.contact.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -46,8 +43,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ORGANISATION + "ORGANISATION] "
-            + "[" + PREFIX_ROLE + "ROLE] "
-            + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
+            + "[" + PREFIX_ROLE + "ROLE]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
@@ -105,11 +101,11 @@ public class EditCommand extends Command {
         Organisation updatedOrganisation = editPersonDescriptor.getOrganisation()
                 .orElse(personToEdit.getOrganisation());
         Role updatedRole = editPersonDescriptor.getRole().orElse(personToEdit.getRole());
-        Set<Category> updatedCategories = editPersonDescriptor.getCategories().orElse(personToEdit.getCategories());
+        Set<Category> currentCategories = personToEdit.getCategories();
         InterviewList interviews = editPersonDescriptor.getInterviews().orElse(personToEdit.getInterviews());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedOrganisation,
-                updatedRole, updatedCategories, interviews);
+                updatedRole, currentCategories, interviews);
     }
 
     @Override
@@ -146,14 +142,12 @@ public class EditCommand extends Command {
         private Email email;
         private Organisation organisation;
         private Role role;
-        private Set<Category> categories;
         private InterviewList interviews;
 
         public EditPersonDescriptor() {}
 
         /**
          * Copy constructor.
-         * A defensive copy of {@code categories} is used internally.
          */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setName(toCopy.name);
@@ -161,7 +155,6 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setOrganisation(toCopy.organisation);
             setRole(toCopy.role);
-            setCategories(toCopy.categories);
             setInterviews(toCopy.interviews);
         }
 
@@ -169,7 +162,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, organisation, role, categories);
+            return CollectionUtil.isAnyNonNull(name, phone, email, organisation, role);
         }
 
         public void setName(Name name) {
@@ -215,22 +208,6 @@ public class EditCommand extends Command {
         public Optional<Role> getRole() {
             return Optional.ofNullable(role);
         }
-        /**
-         * Sets {@code categories} to this object's {@code categories}.
-         * A defensive copy of {@code categories} is used internally.
-         */
-        public void setCategories(Set<Category> categories) {
-            this.categories = (categories != null) ? new HashSet<>(categories) : null;
-        }
-
-        /**
-         * Returns an unmodifiable category set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code categories} is null.
-         */
-        public Optional<Set<Category>> getCategories() {
-            return (categories != null) ? Optional.of(Collections.unmodifiableSet(categories)) : Optional.empty();
-        }
 
         public Optional<InterviewList> getInterviews() {
             return Optional.ofNullable(interviews);
@@ -252,8 +229,7 @@ public class EditCommand extends Command {
                     && Objects.equals(phone, otherEditPersonDescriptor.phone)
                     && Objects.equals(email, otherEditPersonDescriptor.email)
                     && Objects.equals(organisation, otherEditPersonDescriptor.organisation)
-                    && Objects.equals(role, otherEditPersonDescriptor.role)
-                    && Objects.equals(categories, otherEditPersonDescriptor.categories);
+                    && Objects.equals(role, otherEditPersonDescriptor.role);
         }
 
         @Override
@@ -264,7 +240,6 @@ public class EditCommand extends Command {
                     .add("email", email)
                     .add("organisation", organisation)
                     .add("role", role)
-                    .add("categories", categories)
                     .toString();
         }
     }

@@ -1,11 +1,6 @@
 package presspal.contact.testutil;
 
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import presspal.contact.logic.commands.EditCommand.EditPersonDescriptor;
-import presspal.contact.model.category.Category;
 import presspal.contact.model.person.Email;
 import presspal.contact.model.person.Name;
 import presspal.contact.model.person.Organisation;
@@ -37,7 +32,6 @@ public class EditPersonDescriptorBuilder {
         descriptor.setEmail(person.getEmail());
         descriptor.setOrganisation(person.getOrganisation());
         descriptor.setRole(person.getRole());
-        descriptor.setCategories(person.getCategories());
     }
 
     /**
@@ -77,15 +71,6 @@ public class EditPersonDescriptorBuilder {
      */
     public EditPersonDescriptorBuilder withRole(String role) {
         descriptor.setRole(new Role(role));
-        return this;
-    }
-    /**
-     * Parses the {@code categories} into a {@code Set<Category>} and set it to the {@code EditPersonDescriptor}
-     * that we are building.
-     */
-    public EditPersonDescriptorBuilder withCategories(String... categories) {
-        Set<Category> categorySet = Stream.of(categories).map(Category::new).collect(Collectors.toSet());
-        descriptor.setCategories(categorySet);
         return this;
     }
 
