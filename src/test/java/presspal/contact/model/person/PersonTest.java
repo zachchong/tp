@@ -69,6 +69,34 @@ public class PersonTest {
     }
 
     @Test
+    public void constructor_nullPhoneAndEmail_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> new PersonBuilder()
+                .withPhone(null)
+                .withEmail(null)
+                .build());
+    }
+
+    @Test
+    public void constructor_onlyPhoneProvided_success() {
+        Person person = new PersonBuilder()
+                .withEmail(null)
+                .withPhone(VALID_PHONE_BOB)
+                .build();
+        assertEquals(VALID_PHONE_BOB, person.getPhone().value);
+        assertEquals(null, person.getEmail());
+    }
+
+    @Test
+    public void constructor_onlyEmailProvided_success() {
+        Person person = new PersonBuilder()
+                .withPhone(null)
+                .withEmail(VALID_EMAIL_BOB)
+                .build();
+        assertEquals(VALID_EMAIL_BOB, person.getEmail().value);
+        assertEquals(null, person.getPhone());
+    }
+
+    @Test
     public void equals() {
         // same values -> returns true
         Person aliceCopy = new PersonBuilder(ALICE).build();

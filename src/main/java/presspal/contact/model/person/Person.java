@@ -34,7 +34,13 @@ public class Person {
      */
     public Person(Name name, Phone phone, Email email, Organisation organisation, Role role,
                   Set<Category> categories, InterviewList interviews) {
-        requireAllNonNull(name, phone, email, organisation, role, categories, interviews);
+        requireAllNonNull(name, organisation, role, categories, interviews);
+
+        // enforce at least one compulsory contact field
+        if (phone == null && email == null) {
+            throw new IllegalArgumentException("At least one of phone or email must be provided.");
+        }
+
         this.name = name;
         this.phone = phone;
         this.email = email;
