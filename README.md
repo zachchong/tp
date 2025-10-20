@@ -54,9 +54,9 @@ Remove an existing interview from a contact
 `deleteInterview PERSON_INDEX INTERVIEW_INDEX`
 
 ### Find Contact
-Find existing contacts by searching name
+Find existing contacts by searching through name, organisation, role or categories.
 
-`find n/NAME`
+`find KEYWORD [MORE_KEYWORDS]`
 
 ### List interviews for a Contact
 List all interviews for a contact
