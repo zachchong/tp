@@ -120,8 +120,8 @@ public class Person {
         }
         Person otherPerson = (Person) other;
         return name.equals(otherPerson.name)
-                && Objects.equals(phone, otherPerson.phone)   // safe for null
-                && Objects.equals(email, otherPerson.email)   // safe for null
+                && Objects.equals(phone, otherPerson.phone)
+                && Objects.equals(email, otherPerson.email)
                 && organisation.equals(otherPerson.organisation)
                 && role.equals(otherPerson.role)
                 && categories.equals(otherPerson.categories)
