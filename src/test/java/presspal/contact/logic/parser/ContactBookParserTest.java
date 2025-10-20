@@ -30,8 +30,8 @@ import presspal.contact.logic.commands.FindCommand;
 import presspal.contact.logic.commands.HelpCommand;
 import presspal.contact.logic.commands.ListInterviewCommand;
 import presspal.contact.logic.parser.exceptions.ParseException;
-import presspal.contact.model.person.NameContainsKeywordsPredicate;
 import presspal.contact.model.person.Person;
+import presspal.contact.model.person.PersonContainsKeywordsPredicate;
 import presspal.contact.testutil.AddCatDescriptorBuilder;
 import presspal.contact.testutil.EditPersonDescriptorBuilder;
 import presspal.contact.testutil.InterviewBuilder;
@@ -92,7 +92,7 @@ public class ContactBookParserTest {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        assertEquals(new FindCommand(new PersonContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test
