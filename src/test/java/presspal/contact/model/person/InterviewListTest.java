@@ -146,9 +146,9 @@ public class InterviewListTest {
 
     @Test
     public void getNumberedInterviews_returnsNumberedList() {
-        String expected = "1. " + sampleInterviews.get(0)
+        String expected = "1. " + sampleInterviews.get(0).getDisplayString()
                 + System.lineSeparator()
-                + "2. " + sampleInterviews.get(1);
+                + "2. " + sampleInterviews.get(1).getDisplayString();
         assertEquals(expected, populatedList.getNumberedInterviews());
     }
 

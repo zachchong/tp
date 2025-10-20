@@ -1,6 +1,7 @@
 package presspal.contact.model.interview;
 
 import static java.util.Objects.requireNonNull;
+import static presspal.contact.commons.core.Config.DISPLAY_DATE_TIME_FORMATTER;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -51,6 +52,19 @@ public class Interview {
      */
     public LocalDateTime getDateTime() {
         return dateTime;
+    }
+    /**
+     * Returns UI-friendly representation using the central Config formatter.
+     *
+     * @return a formatted {@code String} like "[Header] on &lt;date-time&gt; at &lt;location&gt;"
+     *         where the date-time is formatted with
+     *         {@link presspal.contact.commons.core.Config#DISPLAY_DATE_TIME_FORMATTER}
+     */
+    public String getDisplayString() {
+        return "["
+                + header + "]"
+                + " on " + dateTime.format(DISPLAY_DATE_TIME_FORMATTER)
+                + " at " + location;
     }
 
     /**
