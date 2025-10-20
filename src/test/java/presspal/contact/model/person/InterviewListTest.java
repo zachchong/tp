@@ -151,6 +151,11 @@ public class InterviewListTest {
                 + "2. " + sampleInterviews.get(1).getDisplayString();
         assertEquals(expected, populatedList.getNumberedInterviews());
     }
+    @Test
+    public void getNumberedInterviews_emptyList_returnsNoInterviewsMessage() {
+        InterviewList empty = new InterviewList(null);
+        assertEquals("No interviews scheduled.", empty.getNumberedInterviews());
+    }
 
     @Test
     public void getNextUpcoming_mixedPastAndFuture_returnsSoonestFuture() {
