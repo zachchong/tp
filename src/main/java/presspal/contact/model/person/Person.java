@@ -115,25 +115,22 @@ public class Person {
         if (other == this) {
             return true;
         }
-
-        // instanceof handles nulls
         if (!(other instanceof Person)) {
             return false;
         }
-
         Person otherPerson = (Person) other;
         return name.equals(otherPerson.name)
-                && phone.equals(otherPerson.phone)
-                && email.equals(otherPerson.email)
+                && Objects.equals(phone, otherPerson.phone)   // safe for null
+                && Objects.equals(email, otherPerson.email)   // safe for null
                 && organisation.equals(otherPerson.organisation)
                 && role.equals(otherPerson.role)
                 && categories.equals(otherPerson.categories)
                 && interviews.equals(otherPerson.interviews);
     }
 
+
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(name, phone, email, organisation, role, categories, interviews);
     }
 
@@ -141,8 +138,8 @@ public class Person {
     public String toString() {
         return new ToStringBuilder(this)
                 .add("name", name)
-                .add("phone", phone)
-                .add("email", email)
+                .add("phone", phone != null ? phone : "")
+                .add("email", email != null ? email : "")
                 .add("organisation", organisation)
                 .add("role", role)
                 .add("categories", categories)
