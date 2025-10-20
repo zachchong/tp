@@ -20,8 +20,8 @@ import presspal.contact.commons.core.index.Index;
 import presspal.contact.logic.commands.exceptions.CommandException;
 import presspal.contact.model.ContactBook;
 import presspal.contact.model.Model;
-import presspal.contact.model.person.PersonContainsKeywordsPredicate;
 import presspal.contact.model.person.Person;
+import presspal.contact.model.person.PersonContainsKeywordsPredicate;
 import presspal.contact.testutil.EditPersonDescriptorBuilder;
 
 /**
