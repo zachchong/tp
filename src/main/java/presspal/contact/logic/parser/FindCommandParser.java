@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import presspal.contact.logic.commands.FindCommand;
 import presspal.contact.logic.parser.exceptions.ParseException;
-import presspal.contact.model.person.NameContainsKeywordsPredicate;
+import presspal.contact.model.person.PersonContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -27,7 +27,7 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        return new FindCommand(new PersonContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
     }
 
 }

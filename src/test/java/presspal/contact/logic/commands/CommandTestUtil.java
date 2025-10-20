@@ -20,7 +20,7 @@ import presspal.contact.commons.core.index.Index;
 import presspal.contact.logic.commands.exceptions.CommandException;
 import presspal.contact.model.ContactBook;
 import presspal.contact.model.Model;
-import presspal.contact.model.person.NameContainsKeywordsPredicate;
+import presspal.contact.model.person.PersonContainsKeywordsPredicate;
 import presspal.contact.model.person.Person;
 import presspal.contact.testutil.EditPersonDescriptorBuilder;
 
@@ -154,7 +154,7 @@ public class CommandTestUtil {
 
         Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
         final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredPersonList(new PersonContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPersonList().size());
     }

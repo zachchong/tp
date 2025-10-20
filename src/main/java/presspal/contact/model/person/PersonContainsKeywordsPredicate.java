@@ -7,7 +7,8 @@ import presspal.contact.commons.util.StringUtil;
 import presspal.contact.commons.util.ToStringBuilder;
 
 /**
- * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code Person}'s {@code Name} or {@code Organisation} or {@code Role} or {@code Category}
+ * matches any of the keywords given.
  */
 public class PersonContainsKeywordsPredicate implements Predicate<Person> {
     private final List<String> keywords;
@@ -18,8 +19,13 @@ public class PersonContainsKeywordsPredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
-        return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword));
+        return keywords.stream().anyMatch(keyword ->
+                StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword)
+                || StringUtil.containsWordIgnoreCase(person.getOrganisation().toString(), keyword)
+                || StringUtil.containsWordIgnoreCase(person.getRole().toString(), keyword)
+                || person.getCategories().stream().anyMatch(
+                        category -> StringUtil.containsWordIgnoreCase(category.categoryName, keyword))
+        );
     }
 
     @Override

@@ -5,24 +5,26 @@ import static java.util.Objects.requireNonNull;
 import presspal.contact.commons.util.ToStringBuilder;
 import presspal.contact.logic.Messages;
 import presspal.contact.model.Model;
-import presspal.contact.model.person.NameContainsKeywordsPredicate;
+import presspal.contact.model.person.PersonContainsKeywordsPredicate;
 
 /**
- * Finds and lists all persons in contact book whose name contains any of the argument keywords.
+ * Finds and lists all persons in contact book whose name, organisation, role or categories
+ * contains any of the argument keywords.
  * Keyword matching is case-insensitive.
  */
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose "
+            + "name, organisation, role or categories contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
-    private final NameContainsKeywordsPredicate predicate;
+    private final PersonContainsKeywordsPredicate predicate;
 
-    public FindCommand(NameContainsKeywordsPredicate predicate) {
+    public FindCommand(PersonContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 
