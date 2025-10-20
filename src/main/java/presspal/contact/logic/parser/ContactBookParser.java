@@ -8,6 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import presspal.contact.commons.core.LogsCenter;
+import presspal.contact.logic.commands.AddCategoryCommand;
 import presspal.contact.logic.commands.AddCommand;
 import presspal.contact.logic.commands.AddInterviewCommand;
 import presspal.contact.logic.commands.ClearCommand;
@@ -58,6 +59,9 @@ public class ContactBookParser {
 
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
+
+        case AddCategoryCommand.COMMAND_WORD:
+            return new AddCategoryCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);

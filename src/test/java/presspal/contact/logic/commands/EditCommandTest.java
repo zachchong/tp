@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static presspal.contact.logic.commands.CommandTestUtil.DESC_AMY;
 import static presspal.contact.logic.commands.CommandTestUtil.DESC_BOB;
-import static presspal.contact.logic.commands.CommandTestUtil.VALID_CATEGORY_HUSBAND;
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static presspal.contact.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -49,7 +48,7 @@ public class EditCommandTest {
                 editedBase.getEmail(),
                 editedBase.getOrganisation(),
                 editedBase.getRole(),
-                editedBase.getCategories(),
+                personToEdit.getCategories(),
                 personToEdit.getInterviews() // retain the original interviews
         );
 
@@ -73,11 +72,10 @@ public class EditCommandTest {
         Person lastPerson = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
 
         PersonBuilder personInList = new PersonBuilder(lastPerson);
-        Person editedPerson = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-                .withCategories(VALID_CATEGORY_HUSBAND).build();
+        Person editedPerson = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB).build();
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withCategories(VALID_CATEGORY_HUSBAND).build();
+                .withPhone(VALID_PHONE_BOB).build();
         EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
