@@ -7,10 +7,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import presspal.contact.model.interview.Interview;
 import presspal.contact.model.person.Person;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * A UI component that displays information of a {@code Person}.
  */
 public class PersonCard extends UiPart<Region> {
 
@@ -60,6 +61,6 @@ public class PersonCard extends UiPart<Region> {
         person.getCategories().stream()
                 .sorted(Comparator.comparing(category -> category.categoryName))
                 .forEach(category -> categories.getChildren().add(new Label(category.categoryName)));
-        interview.setText(person.getNextUpcomingInterview().map(Object::toString).orElse(""));
+        interview.setText(person.getNextUpcomingInterview().map(Interview::getDisplayString).orElse(""));
     }
 }
