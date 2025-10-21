@@ -193,12 +193,12 @@ Examples:
 
 Deletes an interview from a contact in the contact book.
 
-Format: `deleteInterview PERSON_INDEX INTERVIEW_INDEX`
+Format: `deleteInterview i/PERSON_INDEX i/INTERVIEW_INDEX`
 
 * Deletes the interview at the specified `INTERVIEW_INDEX` from the contact at the specified `PERSON_INDEX`. The indices refer to the index numbers shown in the displayed person list and interview list respectively. The indices **must be positive integers** 1, 2, 3, …​
 
 Examples:
-* `deleteInterview 1 2` deletes the 2nd interview from the 1st contact in the contact book.
+* `deleteInterview i/1 i/2` deletes the 2nd interview from the 1st contact in the contact book.
 
 ### Listing all interviews of a contact : `listInterview`
 
@@ -297,7 +297,7 @@ Action | Format, Examples
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James NUS Student`
 **List** | `list`
 **AddInterview** | `addInterview i/INDEX h/HEADER d/DATE t/TIME l/LOCATION` <br> e.g., `addInterview i/1 h/Interview with ABC Corp d/2024-10-10 t/14:00 l/123, Business St, #02-25`
-**DeleteInterview** | `deleteInterview PERSON_INDEX INTERVIEW_INDEX` <br> e.g., `deleteInterview 1 2`
+**DeleteInterview** | `deleteInterview i/PERSON_INDEX i/INTERVIEW_INDEX` <br> e.g., `deleteInterview i/1 i/2`
 **ListInterview** | `listInterview i/INDEX` <br> e.g., `listInterview i/1`
 **AddCat** | `addCat i/INDEX [c/CATEGORY]...`<br>e.g., `addCat i/1 c/emergency` |
 **DeleteCat** | `deleteCat i/INDEX [c/CATEGORY]...`<br>e.g., `deleteCat i/1 c/emergency` |
