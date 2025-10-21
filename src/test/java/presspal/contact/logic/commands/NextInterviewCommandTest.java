@@ -2,14 +2,14 @@ package presspal.contact.logic.commands;
 
 import java.time.LocalDateTime;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static presspal.contact.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static presspal.contact.testutil.TypicalPersons.ALICE;
 import static presspal.contact.testutil.TypicalPersons.BOB;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import presspal.contact.logic.commands.exceptions.CommandException;
 import presspal.contact.model.Model;
