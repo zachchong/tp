@@ -1,11 +1,7 @@
 package presspal.contact.logic.parser;
 
-import static presspal.contact.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static presspal.contact.logic.parser.CliSyntax.PREFIX_INDEX;
-
 import java.util.stream.Stream;
 
-import presspal.contact.commons.core.index.Index;
 import presspal.contact.logic.commands.NextInterviewCommand;
 import presspal.contact.logic.parser.exceptions.ParseException;
 

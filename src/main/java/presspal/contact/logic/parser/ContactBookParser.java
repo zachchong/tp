@@ -94,7 +94,7 @@ public class ContactBookParser {
         case DeleteInterviewCommand.COMMAND_WORD:
             return new DeleteInterviewCommandParser().parse(arguments);
 
-            case NextInterviewCommand.COMMAND_WORD:
+        case NextInterviewCommand.COMMAND_WORD:
             return new NextInterviewCommandParser().parse(arguments);
 
         default:
