@@ -1,21 +1,22 @@
 package presspal.contact.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static presspal.contact.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static presspal.contact.testutil.TypicalPersons.ALICE;
-import static presspal.contact.testutil.TypicalPersons.BOB;
+import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import presspal.contact.logic.Messages;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static presspal.contact.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static presspal.contact.testutil.TypicalPersons.ALICE;
+import static presspal.contact.testutil.TypicalPersons.BOB;
+
+import presspal.contact.logic.commands.exceptions.CommandException;
 import presspal.contact.model.Model;
 import presspal.contact.model.ModelManager;
 import presspal.contact.model.UserPrefs;
 import presspal.contact.model.person.Person;
 import presspal.contact.testutil.PersonBuilder;
-
-import java.time.LocalDateTime;
 
 /**
  * Contains integration tests and unit tests for {@code NextInterviewCommand}.
@@ -38,6 +39,13 @@ public class NextInterviewCommandTest {
         model = new ModelManager();
         model.addPerson(aliceWithUpcomingInterview);
         model.addPerson(bobWithLaterInterview);
+    }
+
+    @Test
+    public void execute_emptyModel_throwsCommandException() {
+        model = new ModelManager(); // empty contact book
+        NextInterviewCommand command = new NextInterviewCommand();
+        assertThrows(CommandException.class, () -> command.execute(model));
     }
 
     @Test
