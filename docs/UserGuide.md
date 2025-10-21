@@ -301,6 +301,6 @@ Action | Format, Examples
 **ListInterview** | `listInterview i/INDEX` <br> e.g., `listInterview i/1`
 **AddCat** | `addCat i/INDEX [c/CATEGORY]...`<br>e.g., `addCat i/1 c/emergency` |
 **DeleteCat** | `deleteCat i/INDEX [c/CATEGORY]...`<br>e.g., `deleteCat i/1 c/emergency` |
-**NextInterview** | `nextInterview`<br>e.g., `nextInterview` |
+**NextInterview** | `nextInterview` |
 **Exit** | `exit`
 **Help** | `help`
