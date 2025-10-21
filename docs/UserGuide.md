@@ -130,19 +130,21 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 The `find` command searches through multiple attributes of each person in your contact list:
 
-Name — Matches the person’s full name.
-e.g. `find John` returns all persons whose name contains the full word “John”.
+- **Name** — Matches the person's full name.  
+  e.g. `find John` returns all persons whose name contains the full word "John".
 
-Organisation — Matches the organisation field.
-e.g. `find NUS` returns all persons whose organisation is “NUS”.
+- **Organisation** — Matches the organisation field.  
+  e.g. `find NUS` returns all persons whose organisation is "NUS".
 
-Role — Matches the role field.
-e.g. `find Engineer` returns all persons whose role contains “Engineer”.
+- **Role** — Matches the role field.  
+  e.g. `find Engineer` returns all persons whose role contains "Engineer".
 
-Categories — Matches any category tags assigned to the person.
-e.g. `find friends` returns all persons tagged under “friends”.
+- **Categories** — Matches any category tags assigned to the person.  
+  e.g. `find friends` returns all persons tagged under "friends".
 
 A person will appear in the results if any of the given keywords match any of the above fields.
+
+#### Important Notes
 
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
@@ -151,7 +153,8 @@ A person will appear in the results if any of the given keywords match any of th
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
-Examples:
+#### Examples
+
 * `find John` returns `john` and `John Doe`
 * `find bernice charlotte` returns `Bernice Yu`, `Charlotte Oliveiro`<br>
   ![result for 'find bernice charlotte'](images/findBerniceCharlotteResult.png)
