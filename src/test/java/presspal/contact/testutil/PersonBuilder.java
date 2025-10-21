@@ -1,5 +1,6 @@
 package presspal.contact.testutil;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -92,6 +93,15 @@ public class PersonBuilder {
         this.interviews = SampleDataUtil.getInterviewList(header, location);
         return this;
     }
+
+    /**
+     * Convenience overload for getting upcoming Interviews.
+     */
+    public PersonBuilder withInterviews(String header, String location, LocalDateTime dateTime) {
+        this.interviews = SampleDataUtil.getInterviewList(header, location, dateTime);
+        return this;
+    }
+
 
     /**
      * Sets the {@code Organisation} of the {@code Person} that we are building.
