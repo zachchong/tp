@@ -25,12 +25,6 @@ public class NextInterviewCommandParser implements Parser<NextInterviewCommand> 
         return new NextInterviewCommand();
     }
 
-    /**
-     * Returns true if the given prefix has a non-empty value in the argument map.
-     */
-    private static boolean isPrefixPresent(ArgumentMultimap argumentMultimap, Prefix prefix) {
-        return Stream.of(prefix).allMatch(p -> argumentMultimap.getValue(p).isPresent());
-    }
 }
 
 
