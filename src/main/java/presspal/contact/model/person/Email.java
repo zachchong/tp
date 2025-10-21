@@ -1,6 +1,5 @@
 package presspal.contact.model.person;
 
-import static java.util.Objects.requireNonNull;
 import static presspal.contact.commons.util.AppUtil.checkArgument;
 
 /**
