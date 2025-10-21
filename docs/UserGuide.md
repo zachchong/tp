@@ -238,7 +238,7 @@ Examples:
 
 ### Display the upcoming interview : `nextInterview`
 
-Displays the next scheduled interview for the reporter among all interviews in the contact book..
+Displays the next scheduled interview for the reporter among all interviews in the contact book.
 
 Format: `nextInterview`
 
