@@ -173,4 +173,46 @@ public class PersonTest {
                 + "}";
         assertEquals(expected, ALICE.toString());
     }
+
+    @Test
+    public void toStringMethod_handlesNullPhoneAndEmail() {
+        // Person with both phone and email null
+        Person person = new PersonBuilder()
+                .withPhone(null)
+                .withEmail(null)
+                .build();
+
+        String expected = Person.class.getCanonicalName()
+                + "{name=" + person.getName()
+                + ", phone=" + ""
+                + ", email=" + ""
+                + ", organisation=" + person.getOrganisation()
+                + ", role=" + person.getRole()
+                + ", categories=" + person.getCategories()
+                + ", interviews=" + person.getInterviews()
+                + "}";
+
+        assertEquals(expected, person.toString());
+    }
+
+    @Test
+    public void toStringMethod_withPhoneAndEmail() {
+        // Person with both phone and email
+        Person person = new PersonBuilder()
+                .withPhone("12345")
+                .withEmail("test@example.com")
+                .build();
+
+        String expected = Person.class.getCanonicalName()
+                + "{name=" + person.getName()
+                + ", phone=" + person.getPhone()
+                + ", email=" + person.getEmail()
+                + ", organisation=" + person.getOrganisation()
+                + ", role=" + person.getRole()
+                + ", categories=" + person.getCategories()
+                + ", interviews=" + person.getInterviews()
+                + "}";
+
+        assertEquals(expected, person.toString());
+    }
 }

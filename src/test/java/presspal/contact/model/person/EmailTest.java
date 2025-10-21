@@ -15,6 +15,13 @@ public class EmailTest {
     }
 
     @Test
+    public void constructor_nullEmail_allowed() {
+        // should not throw
+        Email email = new Email(null);
+        assertTrue(email.value == null);
+    }
+
+    @Test
     public void isValidEmail() {
         // blank email
         assertFalse(Email.isValidEmail("")); // empty string

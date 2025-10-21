@@ -15,6 +15,13 @@ public class PhoneTest {
     }
 
     @Test
+    public void constructor_nullPhone_allowed() {
+        // should not throw
+        Phone phone = new Phone(null);
+        assertTrue(phone.value == null);
+    }
+
+    @Test
     public void isValidPhone() {
         // invalid phone numbers
         assertFalse(Phone.isValidPhone("")); // empty string
