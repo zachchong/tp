@@ -197,7 +197,7 @@ public class PersonTest {
     public void toStringMethod_handlesNullEmail() {
         // Person with both phone and email null
         Person person = new PersonBuilder()
-                .withPhone(null)
+                .withEmail(null)
                 .build();
 
         String expected = Person.class.getCanonicalName()
