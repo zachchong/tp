@@ -113,7 +113,7 @@ public class PersonBuilder {
      * Sets the {@code Phone} of the {@code Person} that we are building.
      */
     public PersonBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
+        this.phone = (phone == null) ? null : new Phone(phone);
         return this;
     }
 
@@ -121,7 +121,7 @@ public class PersonBuilder {
      * Sets the {@code Email} of the {@code Person} that we are building.
      */
     public PersonBuilder withEmail(String email) {
-        this.email = new Email(email);
+        this.email = (email == null) ? null : new Email(email);
         return this;
     }
 
