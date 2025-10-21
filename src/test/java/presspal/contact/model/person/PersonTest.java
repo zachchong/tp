@@ -175,17 +175,15 @@ public class PersonTest {
     }
 
     @Test
-    public void toStringMethod_handlesNullPhoneAndEmail() {
+    public void toStringMethod_handlesNullPhone() {
         // Person with both phone and email null
         Person person = new PersonBuilder()
                 .withPhone(null)
-                .withEmail(null)
                 .build();
 
         String expected = Person.class.getCanonicalName()
                 + "{name=" + person.getName()
-                + ", phone=" + ""
-                + ", email=" + ""
+                + ", phone=" + ", email=" + person.getEmail()
                 + ", organisation=" + person.getOrganisation()
                 + ", role=" + person.getRole()
                 + ", categories=" + person.getCategories()
@@ -196,18 +194,16 @@ public class PersonTest {
     }
 
     @Test
-    public void toStringMethod_withPhoneAndEmail() {
-        // Person with both phone and email
+    public void toStringMethod_handlesNullEmail() {
+        // Person with both phone and email null
         Person person = new PersonBuilder()
-                .withPhone("12345")
-                .withEmail("test@example.com")
+                .withPhone(null)
                 .build();
 
         String expected = Person.class.getCanonicalName()
                 + "{name=" + person.getName()
                 + ", phone=" + person.getPhone()
-                + ", email=" + person.getEmail()
-                + ", organisation=" + person.getOrganisation()
+                + ", email=" + ", organisation=" + person.getOrganisation()
                 + ", role=" + person.getRole()
                 + ", categories=" + person.getCategories()
                 + ", interviews=" + person.getInterviews()
