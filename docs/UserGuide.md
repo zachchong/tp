@@ -299,5 +299,8 @@ Action | Format, Examples
 **AddInterview** | `addInterview i/INDEX h/HEADER d/DATE t/TIME l/LOCATION` <br> e.g., `addInterview i/1 h/Interview with ABC Corp d/2024-10-10 t/14:00 l/123, Business St, #02-25`
 **DeleteInterview** | `deleteInterview PERSON_INDEX INTERVIEW_INDEX` <br> e.g., `deleteInterview 1 2`
 **ListInterview** | `listInterview i/INDEX` <br> e.g., `listInterview i/1`
+**AddCat** | `addCat i/INDEX [c/CATEGORY]...`<br>e.g., `addCat i/1 c/emergency` |
+**DeleteCat** | `deleteCat i/INDEX [c/CATEGORY]...`<br>e.g., `deleteCat i/1 c/emergency` |
+**NextInterview** | `nextInterview`<br>e.g., `nextInterview` |
 **Exit** | `exit
 **Help** | `help`
