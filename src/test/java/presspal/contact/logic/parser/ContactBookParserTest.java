@@ -146,11 +146,11 @@ public class ContactBookParserTest {
 
     @Test
     public void parseCommand_nextInterview() throws Exception {
-        assertTrue(parser.parseCommand("nextInterview") instanceof
-                presspal.contact.logic.commands.NextInterviewCommand);
-        assertTrue(parser.parseCommand("nextInterview  ") instanceof
-                presspal.contact.logic.commands.NextInterviewCommand);
-        assertTrue(parser.parseCommand(" nextInterview") instanceof
-                presspal.contact.logic.commands.NextInterviewCommand);
+        assertTrue(parser.parseCommand("nextInterview")
+                instanceof presspal.contact.logic.commands.NextInterviewCommand);
+        assertTrue(parser.parseCommand("nextInterview  ")
+                instanceof presspal.contact.logic.commands.NextInterviewCommand);
+        assertTrue(parser.parseCommand(" nextInterview")
+                instanceof presspal.contact.logic.commands.NextInterviewCommand);
     }
 }
