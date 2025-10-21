@@ -158,7 +158,7 @@ A person will appear in the results if any of the given keywords match any of th
 * `find John` returns `john` and `John Doe`
 * `find bernice charlotte` returns `Bernice Yu`, `Charlotte Oliveiro`<br>
   ![result for 'find bernice charlotte'](images/findBerniceCharlotteResult.png)
-* `find NUS colleagues` returns all persons whose organisation is NUS or whose role is colleagues
+* `find NUS colleagues` returns all persons whose organisation is NUS or whose category is colleagues
 
 ### Deleting a person : `delete`
 
@@ -302,5 +302,5 @@ Action | Format, Examples
 **AddCat** | `addCat i/INDEX [c/CATEGORY]...`<br>e.g., `addCat i/1 c/emergency` |
 **DeleteCat** | `deleteCat i/INDEX [c/CATEGORY]...`<br>e.g., `deleteCat i/1 c/emergency` |
 **NextInterview** | `nextInterview`<br>e.g., `nextInterview` |
-**Exit** | `exit
+**Exit** | `exit`
 **Help** | `help`
