@@ -8,7 +8,6 @@ import java.util.Optional;
 import presspal.contact.commons.util.ToStringBuilder;
 import presspal.contact.logic.Messages;
 import presspal.contact.logic.commands.exceptions.CommandException;
-import presspal.contact.model.ContactBook;
 import presspal.contact.model.Model;
 import presspal.contact.model.interview.Interview;
 import presspal.contact.model.person.Person;

@@ -1,7 +1,5 @@
 package presspal.contact.logic.parser;
 
-import java.util.stream.Stream;
-
 import presspal.contact.logic.commands.NextInterviewCommand;
 import presspal.contact.logic.parser.exceptions.ParseException;
 
