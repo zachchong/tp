@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static presspal.contact.logic.commands.CommandTestUtil.ADD_CATEGORY_DESC_AMY;
 import static presspal.contact.logic.commands.CommandTestUtil.ADD_CATEGORY_DESC_BOB;
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_CATEGORY_FRIEND;
-import static presspal.contact.logic.commands.CommandTestUtil.VALID_CATEGORY_HUSBAND;
 import static presspal.contact.logic.commands.CommandTestUtil.assertCommandFailure;
 import static presspal.contact.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static presspal.contact.logic.commands.CommandTestUtil.showPersonAtIndex;
@@ -77,7 +76,8 @@ public class DeleteCategoryCommandTest {
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        EditCategoryDescriptor descriptor = new EditCategoryDescriptorBuilder().withCategories(VALID_CATEGORY_FRIEND).build();
+        EditCategoryDescriptor descriptor = new EditCategoryDescriptorBuilder()
+                .withCategories(VALID_CATEGORY_FRIEND).build();
         DeleteCategoryCommand deleteCategoryCommand = new DeleteCategoryCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(deleteCategoryCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);

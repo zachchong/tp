@@ -38,7 +38,8 @@ public class AddCategoryCommandTest {
         // person currently at index 0 in the list
         Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
 
-        EditCategoryDescriptor descriptor = new EditCategoryDescriptorBuilder().withCategories(VALID_CATEGORY_HUSBAND).build();
+        EditCategoryDescriptor descriptor = new EditCategoryDescriptorBuilder()
+                .withCategories(VALID_CATEGORY_HUSBAND).build();
         AddCategoryCommand addCategoryCommand = new AddCategoryCommand(INDEX_FIRST_PERSON, descriptor);
 
         // build a target person with new category added
@@ -59,7 +60,8 @@ public class AddCategoryCommandTest {
 
         Person personInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
 
-        EditCategoryDescriptor descriptor = new EditCategoryDescriptorBuilder().withCategories(VALID_CATEGORY_HUSBAND).build();
+        EditCategoryDescriptor descriptor = new EditCategoryDescriptorBuilder()
+                .withCategories(VALID_CATEGORY_HUSBAND).build();
         AddCategoryCommand addCategoryCommand = new AddCategoryCommand(INDEX_FIRST_PERSON, descriptor);
 
         // build a target person with new category added
@@ -94,7 +96,8 @@ public class AddCategoryCommandTest {
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        EditCategoryDescriptor descriptor = new EditCategoryDescriptorBuilder().withCategories(VALID_CATEGORY_FRIEND).build();
+        EditCategoryDescriptor descriptor = new EditCategoryDescriptorBuilder()
+                .withCategories(VALID_CATEGORY_FRIEND).build();
         AddCategoryCommand addCategoryCommand = new AddCategoryCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(addCategoryCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
