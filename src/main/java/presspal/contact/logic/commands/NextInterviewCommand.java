@@ -39,16 +39,26 @@ public class NextInterviewCommand extends Command {
             throw new CommandException(Messages.MESSAGE_NO_PERSONS);
         }
 
-        // Get first person in filtered list
-        Person personToView = lastShownList.get(0);
-        Optional<Interview> nextInterview = personToView.getNextUpcomingInterview();
+        Person personWithNextInterview = null;
+        Interview earliestInterview = null;
 
-        if (nextInterview.isEmpty()) {
-            return new CommandResult(String.format(MESSAGE_NO_UPCOMING, personToView.getName()));
+        for (Person person : lastShownList) {
+            Optional<Interview> nextInterviewOpt = person.getNextUpcomingInterview();
+            if (nextInterviewOpt.isPresent()) {
+                Interview interview = nextInterviewOpt.get();
+                if (earliestInterview == null || interview.getDateTime().isBefore(earliestInterview.getDateTime())) {
+                    earliestInterview = interview;
+                    personWithNextInterview = person;
+                }
+            }
+        }
+
+        if (earliestInterview == null) {
+            return new CommandResult("No upcoming interviews found for any person.");
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS,
-                personToView.getName(), nextInterview.get()));
+                personWithNextInterview.getName(), earliestInterview));
     }
 
     @Override

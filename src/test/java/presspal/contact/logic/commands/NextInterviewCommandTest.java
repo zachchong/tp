@@ -55,26 +55,27 @@ public class NextInterviewCommandTest {
 
         CommandResult result = command.execute(model);
 
+        // Alice has the earliest interview (tomorrow)
+        Person expectedPerson = aliceWithUpcomingInterview;
         String expectedMessage = String.format(
                 NextInterviewCommand.MESSAGE_SUCCESS,
-                aliceWithUpcomingInterview.getName(),
-                aliceWithUpcomingInterview.getNextUpcomingInterview().get()
+                expectedPerson.getName(),
+                expectedPerson.getNextUpcomingInterview().get()
         );
 
         assertEquals(expectedMessage, result.getFeedbackToUser());
     }
 
     @Test
-    public void execute_firstPersonNoUpcomingInterview_returnsNoUpcomingMessage() throws Exception {
-        // Replace first person with someone who has no interviews
-        Person personWithoutInterview = new PersonBuilder().withName("Charlie").build();
-        model.setPerson(model.getFilteredPersonList().get(0), personWithoutInterview);
+    public void execute_noUpcomingInterviews_returnsNoUpcomingMessage() throws Exception {
+        // Replace all persons with no interviews
+        Person person1 = new PersonBuilder().withName("Charlie").build();
+        Person person2 = new PersonBuilder().withName("David").build();
+        model.setPerson(model.getFilteredPersonList().get(0), person1);
+        model.setPerson(model.getFilteredPersonList().get(1), person2);
 
         NextInterviewCommand command = new NextInterviewCommand();
-        String expectedMessage = String.format(
-                NextInterviewCommand.MESSAGE_NO_UPCOMING,
-                personWithoutInterview.getName()
-        );
+        String expectedMessage = "No upcoming interviews found for any person.";
 
         Model expectedModel = new ModelManager(model.getContactBook(), new UserPrefs());
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
