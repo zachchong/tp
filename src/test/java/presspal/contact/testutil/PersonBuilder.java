@@ -87,7 +87,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Convenience overload for simple string calls.
+     * Convenience overload for getting upcoming interviews with just header and location.
      */
     public PersonBuilder withInterviews(String header, String location) {
         this.interviews = SampleDataUtil.getInterviewList(header, location);
@@ -95,7 +95,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Convenience overload for getting upcoming Interviews.
+     * Convenience overload for getting upcoming Interviews with header, location and dateTime.
      */
     public PersonBuilder withInterviews(String header, String location, LocalDateTime dateTime) {
         this.interviews = SampleDataUtil.getInterviewList(header, location, dateTime);
