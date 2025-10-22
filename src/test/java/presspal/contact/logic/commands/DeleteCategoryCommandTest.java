@@ -101,6 +101,17 @@ public class DeleteCategoryCommandTest {
     }
 
     @Test
+    public void execute_categoryNotFound_failure() {
+        Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+
+        EditCategoryDescriptor descriptor = new EditCategoryDescriptorBuilder()
+                .withCategories("notPresentCategory").build();
+        DeleteCategoryCommand deleteCategoryCommand = new DeleteCategoryCommand(INDEX_FIRST_PERSON, descriptor);
+
+        assertCommandFailure(deleteCategoryCommand, model, DeleteCategoryCommand.MESSAGE_CAT_NOT_FOUND);
+    }
+
+    @Test
     public void equals() {
         final DeleteCategoryCommand standardCommand =
                 new DeleteCategoryCommand(INDEX_FIRST_PERSON, ADD_CATEGORY_DESC_AMY);
