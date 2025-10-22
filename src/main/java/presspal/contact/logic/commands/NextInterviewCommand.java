@@ -2,6 +2,7 @@ package presspal.contact.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,7 +14,7 @@ import presspal.contact.model.interview.Interview;
 import presspal.contact.model.person.Person;
 
 /**
- * Shows the next upcoming interview of the first person in the filtered list.
+ * Displays the next scheduled interview for the reporter among all interviews in the contact book.
  */
 public class NextInterviewCommand extends Command {
 
@@ -41,14 +42,17 @@ public class NextInterviewCommand extends Command {
 
         Person personWithNextInterview = null;
         Interview earliestInterview = null;
+        LocalDateTime now = LocalDateTime.now();
 
         for (Person person : lastShownList) {
             Optional<Interview> nextInterviewOpt = person.getNextUpcomingInterview();
             if (nextInterviewOpt.isPresent()) {
                 Interview interview = nextInterviewOpt.get();
-                if (earliestInterview == null || interview.getDateTime().isBefore(earliestInterview.getDateTime())) {
-                    earliestInterview = interview;
-                    personWithNextInterview = person;
+                if (!interview.getDateTime().isBefore(now)) {
+                    if (earliestInterview == null || interview.getDateTime().isBefore(earliestInterview.getDateTime())) {
+                        earliestInterview = interview;
+                        personWithNextInterview = person;
+                    }
                 }
             }
         }

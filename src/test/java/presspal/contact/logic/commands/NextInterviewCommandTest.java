@@ -5,6 +5,7 @@ import static presspal.contact.logic.commands.CommandTestUtil.assertCommandSucce
 import static presspal.contact.testutil.Assert.assertThrows;
 import static presspal.contact.testutil.TypicalPersons.ALICE;
 import static presspal.contact.testutil.TypicalPersons.BOB;
+import static presspal.contact.testutil.TypicalPersons.CARL;
 
 import java.time.LocalDateTime;
 
@@ -27,6 +28,7 @@ public class NextInterviewCommandTest {
     private Model model;
     private Person aliceWithUpcomingInterview;
     private Person bobWithLaterInterview;
+    private Person carlWithPastInterview;
 
     @BeforeEach
     public void setUp() {
@@ -36,10 +38,14 @@ public class NextInterviewCommandTest {
         bobWithLaterInterview = new PersonBuilder(BOB)
                 .withInterviews("Meta Interview", "Meta HQ", LocalDateTime.now().plusDays(3))
                 .build();
+        carlWithPastInterview = new PersonBuilder(CARL)
+                .withInterviews("Amazon Interview", "Amazon Office", LocalDateTime.now().minusDays(2))
+                .build();
 
         model = new ModelManager();
         model.addPerson(aliceWithUpcomingInterview);
         model.addPerson(bobWithLaterInterview);
+        model.addPerson(carlWithPastInterview);
     }
 
     @Test
