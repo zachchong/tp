@@ -98,4 +98,5 @@ public class NextInterviewCommandTest {
         // null -> returns false
         assertEquals(false, command1.equals(null));
     }
+
 }
