@@ -6,6 +6,8 @@ import static presspal.contact.testutil.Assert.assertThrows;
 import static presspal.contact.testutil.TypicalPersons.ALICE;
 import static presspal.contact.testutil.TypicalPersons.BOB;
 
+import java.time.LocalDateTime;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,6 +17,7 @@ import presspal.contact.model.ModelManager;
 import presspal.contact.model.UserPrefs;
 import presspal.contact.model.person.Person;
 import presspal.contact.testutil.PersonBuilder;
+
 
 /**
  * Contains integration tests and unit tests for {@code NextInterviewCommand}.
