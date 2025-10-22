@@ -136,7 +136,6 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
 Examples:
-
 * `find John` returns `john` and `John Doe`
 * `find bernice charlotte` returns `Bernice Yu`, `Charlotte Oliveiro`<br>
   ![result for 'find bernice charlotte'](images/findBerniceCharlotteResult.png)
