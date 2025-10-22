@@ -82,6 +82,18 @@ public class ContactBookParserTest {
     }
 
     @Test
+    public void parseCommand_deleteCategory() throws Exception {
+        Person person = new PersonBuilder().build();
+        EditCategoryDescriptor descriptor = new EditCategoryDescriptorBuilder(person).build();
+        presspal.contact.logic.commands.DeleteCategoryCommand command =
+                (presspal.contact.logic.commands.DeleteCategoryCommand) parser.parseCommand(
+                presspal.contact.logic.commands.DeleteCategoryCommand.COMMAND_WORD + " "
+                        + PREFIX_INDEX + INDEX_FIRST_PERSON.getOneBased()
+                        + " " + PersonUtil.getEditCategoryDescriptorDetails(descriptor));
+        assertEquals(new presspal.contact.logic.commands.DeleteCategoryCommand(INDEX_FIRST_PERSON, descriptor), command);
+    }
+
+    @Test
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
