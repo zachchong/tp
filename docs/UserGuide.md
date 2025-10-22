@@ -189,9 +189,9 @@ Format: `listInterview i/INDEX`
 ![empty interview](images/emptyInterviewExample.png)
 ![filled interview](images/filledInterviewExample.png)
 
-### Add a person to one or more categories : `addCat`
+### Add category(s) to a person : `addCat`
 
-Add a person identified by the index number used in the displayed person list to one or more categories.
+Add category(s) to a person identified by the index number used in the displayed person list.
 
 Format: `addCat i/INDEX [c/CATEGORY]...`
 
@@ -201,9 +201,9 @@ Examples:
 * `addCat i/1 c/emergency` Adds the person with index 1 to the category `emergency`
 * `addCat i/2 c/emergency c/singapore` Adds the person with index 2 to the categories `emergency` and `singapore`
 
-### Delete a person from one or more categories : `deleteCat`
+### Delete category(s) from a person : `deleteCat`
 
-Delete a person identified by the index number used in the displayed person list from one or more categories.
+Delete category(s) from a person identified by the index number used in the displayed person list.
 
 Format: `deleteCat i/INDEX [c/CATEGORY]...`
 
