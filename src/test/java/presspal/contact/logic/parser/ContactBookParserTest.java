@@ -90,7 +90,8 @@ public class ContactBookParserTest {
                 presspal.contact.logic.commands.DeleteCategoryCommand.COMMAND_WORD + " "
                         + PREFIX_INDEX + INDEX_FIRST_PERSON.getOneBased()
                         + " " + PersonUtil.getEditCategoryDescriptorDetails(descriptor));
-        assertEquals(new presspal.contact.logic.commands.DeleteCategoryCommand(INDEX_FIRST_PERSON, descriptor), command);
+        assertEquals(new presspal.contact.logic.commands.DeleteCategoryCommand(INDEX_FIRST_PERSON, descriptor),
+                command);
     }
 
     @Test
