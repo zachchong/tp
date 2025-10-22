@@ -195,11 +195,11 @@ Add category(s) to a person identified by the index number used in the displayed
 
 Format: `addCat i/INDEX [c/CATEGORY]...`
 
-* If the person already belongs to category A, any attempt to add the person to category A again will be rejected with an error message.
+* If category A is already added to a person, any attempt to add category A again to the person will be rejected with an error message.
 
 Examples:
-* `addCat i/1 c/emergency` Adds the person with index 1 to the category `emergency`
-* `addCat i/2 c/emergency c/singapore` Adds the person with index 2 to the categories `emergency` and `singapore`
+* `addCat i/1 c/emergency` Adds the category `emergency` to the person with index 1
+* `addCat i/2 c/emergency c/singapore` Adds the categories `emergency` and `singapore` to the person with index 2
 
 ### Delete category(s) from a person : `deleteCat`
 
@@ -207,11 +207,9 @@ Delete category(s) from a person identified by the index number used in the disp
 
 Format: `deleteCat i/INDEX [c/CATEGORY]...`
 
-* If the person does not belong to category A, any attempt to delete the person from category A will be rejected with an error message.
-
 Examples:
-* `deleteCat i/1 c/emergency` Deletes the person with index 1 from the category `emergency`
-* `deleteCat i/2 c/emergency c/singapore` Deletes the person with index 2 from the categories `emergency` and `singapore`
+* `deleteCat i/1 c/emergency` Deletes the category `emergency` from the person with index 1
+* `deleteCat i/2 c/emergency c/singapore` Deletes the categories `emergency` and `singapore` from the person with index 2
 
 ### Display the upcoming interview : `nextInterview`
 
