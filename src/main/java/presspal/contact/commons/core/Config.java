@@ -2,6 +2,7 @@ package presspal.contact.commons.core;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.logging.Level;
 
@@ -13,7 +14,9 @@ import presspal.contact.commons.util.ToStringBuilder;
 public class Config {
 
     public static final Path DEFAULT_CONFIG_FILE = Paths.get("config.json");
-
+    public static final String DISPLAY_DATE_TIME_PATTERN = "dd MMM yyyy h:mma"; // Example: 01 Jan 2024 3:30PM
+    public static final DateTimeFormatter DISPLAY_DATE_TIME_FORMATTER = DateTimeFormatter
+            .ofPattern(DISPLAY_DATE_TIME_PATTERN);
     // Config values customizable through config file
     private Level logLevel = Level.INFO;
     private Path userPrefsFilePath = Paths.get("preferences.json");
