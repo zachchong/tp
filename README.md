@@ -26,14 +26,15 @@ PressPal features a clean and intuitive user interface designed for ease of use 
 
 ## Features
 1. Add Contacts
-2. Delete a Contact
-3. Add Interview to Contact
-4. Delete Interview from Contact
-5. Find Contact
-6. List interviews for a Contact
-7. Add Category to Contact
-8. Delete Category from Contact
-9. Display upcoming Interview
+2. Delete Contact
+3. Edit Contact
+4. Add Interview to Contact
+5. Delete Interview from Contact
+6. Find Contact
+7. List interviews for a Contact
+8. Add Category to Contact
+9. Delete Category from Contact
+10. Display upcoming Interview
 
 ## Commands
 ### Add Contact
@@ -45,6 +46,11 @@ Create a new contact with essential details.
 Delete an existing contact
 
 `delete PERSON_INDEX`
+
+### Edit Contact
+Edit an existing contact
+
+`edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [o/ORGANISATION] [r/ROLE]`
 
 ### Add Interview to Contact
 Attach an interview date to an existing contact
@@ -67,12 +73,12 @@ List all interviews for a contact
 `listInterview i/PERSON_INDEX`
 
 ### Add Category to Contact
-Add a person identified by the index number used in the displayed person list to one or more categories.
+Add category(s) to a person identified by the index number used in the displayed person list
 
 `addCat i/INDEX [c/CATEGORY]...`
 
 ### Delete Category from Contact
-Delete a person identified by the index number used in the displayed person list from one or more categories.
+Delete category(s) to a person identified by the index number used in the displayed person list
 
 `deleteCat i/INDEX [c/CATEGORY]...`
 
