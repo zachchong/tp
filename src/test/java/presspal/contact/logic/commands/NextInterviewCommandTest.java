@@ -1,7 +1,6 @@
 package presspal.contact.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import static presspal.contact.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static presspal.contact.testutil.Assert.assertThrows;
 import static presspal.contact.testutil.TypicalPersons.ALICE;
