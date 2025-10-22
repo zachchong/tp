@@ -78,7 +78,7 @@ Add category(s) to a person identified by the index number used in the displayed
 `addCat i/INDEX [c/CATEGORY]...`
 
 ### Delete Category from Contact
-Delete category(s) to a person identified by the index number used in the displayed person list
+Delete category(s) from a person identified by the index number used in the displayed person list
 
 `deleteCat i/INDEX [c/CATEGORY]...`
 
