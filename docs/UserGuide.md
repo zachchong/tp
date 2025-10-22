@@ -122,29 +122,11 @@ Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email organisation of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower c/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing categories.
 
-### Locating persons by name, organisation, role, or categories: `find`
+### Locating persons by name, organisation, role, or categories : `find`
 
 Finds persons whose name, organisation, role or categories contain any of the given keywords.
 
 Format: `find KEYWORD [MORE_KEYWORDS]`
-
-The `find` command searches through multiple attributes of each person in your contact list:
-
-- **Name** — Matches the person's full name.  
-  e.g. `find John` returns all persons whose name contains the full word "John".
-
-- **Organisation** — Matches the organisation field.  
-  e.g. `find NUS` returns all persons whose organisation is "NUS".
-
-- **Role** — Matches the role field.  
-  e.g. `find Engineer` returns all persons whose role contains "Engineer".
-
-- **Categories** — Matches any category tags assigned to the person.  
-  e.g. `find friends` returns all persons tagged under "friends".
-
-A person will appear in the results if any of the given keywords match any of the above fields.
-
-#### Important Notes
 
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
@@ -153,12 +135,12 @@ A person will appear in the results if any of the given keywords match any of th
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
-#### Examples
+Examples:
 
 * `find John` returns `john` and `John Doe`
 * `find bernice charlotte` returns `Bernice Yu`, `Charlotte Oliveiro`<br>
   ![result for 'find bernice charlotte'](images/findBerniceCharlotteResult.png)
-* `find NUS colleagues` returns all persons whose organisation is NUS or whose category is colleagues
+* `find NUS colleagues` Returns all persons whose details match the keyword of `NUS` or `colleagues`
 
 ### Deleting a person : `delete`
 
@@ -198,7 +180,7 @@ Format: `deleteInterview i/PERSON_INDEX i/INTERVIEW_INDEX`
 * Deletes the interview at the specified `INTERVIEW_INDEX` from the contact at the specified `PERSON_INDEX`. The indices refer to the index numbers shown in the displayed person list and interview list respectively. The indices **must be positive integers** 1, 2, 3, …​
 
 Examples:
-* `deleteInterview i/1 i/2` deletes the 2nd interview from the 1st contact in the contact book.
+* `deleteInterview i/1 i/2` Deletes the 2nd interview from the 1st contact in the contact book.
 
 ### Listing all interviews of a contact : `listInterview`
 
@@ -221,8 +203,8 @@ Format: `addCat i/INDEX [c/CATEGORY]...`
 * If the person already belongs to category A, any attempt to add the person to category A again will be rejected with an error message.
 
 Examples:
-* `addCat i/1 c/emergency` adds the person with index 1 to the category "emergency."
-* `addCat i/2 c/emergency c/singapore` adds the person with index 2 to the categories “emergency” and “singapore.”
+* `addCat i/1 c/emergency` Adds the person with index 1 to the category `emergency`
+* `addCat i/2 c/emergency c/singapore` Adds the person with index 2 to the categories `emergency` and `singapore`
 
 ### Delete a person from one or more categories : `deleteCat`
 
@@ -233,8 +215,8 @@ Format: `deleteCat i/INDEX [c/CATEGORY]...`
 * If the person does not belong to category A, any attempt to delete the person from category A will be rejected with an error message.
 
 Examples:
-* `deleteCat i/1 c/emergency` deletes the person with index 1 from the category "emergency."
-* `deleteCat i/2 c/emergency c/singapore` deletes the person with index 2 from the categories “emergency” and “singapore.”
+* `deleteCat i/1 c/emergency` Deletes the person with index 1 from the category `emergency`
+* `deleteCat i/2 c/emergency c/singapore` Deletes the person with index 2 from the categories `emergency` and `singapore`
 
 ### Display the upcoming interview : `nextInterview`
 
@@ -243,7 +225,7 @@ Displays the next scheduled interview for the reporter among all interviews in t
 Format: `nextInterview`
 
 Examples:
-* `nextInterview` displays the most upcoming scheduled interview "[Meta Interview] on 15 Oct 2050 2:30PM at Meta HQ."
+* `nextInterview` Displays the most upcoming scheduled interview "[Meta Interview] on 15 Oct 2050 2:30PM at Meta HQ."
 
 ### Clearing all entries : `clear`
 
