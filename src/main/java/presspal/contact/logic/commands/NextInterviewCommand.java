@@ -49,7 +49,8 @@ public class NextInterviewCommand extends Command {
             if (nextInterviewOpt.isPresent()) {
                 Interview interview = nextInterviewOpt.get();
                 if (!interview.getDateTime().isBefore(now)) {
-                    if (earliestInterview == null || interview.getDateTime().isBefore(earliestInterview.getDateTime())) {
+                    if (earliestInterview == null || interview.getDateTime()
+                            .isBefore(earliestInterview.getDateTime())) {
                         earliestInterview = interview;
                         personWithNextInterview = person;
                     }
