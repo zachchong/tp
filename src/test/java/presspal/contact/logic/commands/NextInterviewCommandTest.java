@@ -1,10 +1,9 @@
 package presspal.contact.logic.commands;
 
-import java.time.LocalDateTime;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import static presspal.contact.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static presspal.contact.testutil.Assert.assertThrows;
 import static presspal.contact.testutil.TypicalPersons.ALICE;
 import static presspal.contact.testutil.TypicalPersons.BOB;
 
