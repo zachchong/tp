@@ -143,4 +143,14 @@ public class ContactBookParserTest {
                 .withDate(LocalDateTime.parse("2024-10-10T14:00"))
                 .build(), INDEX_FIRST_PERSON), command);
     }
+
+    @Test
+    public void parseCommand_nextInterview() throws Exception {
+        assertTrue(parser.parseCommand("nextInterview")
+                instanceof presspal.contact.logic.commands.NextInterviewCommand);
+        assertTrue(parser.parseCommand("nextInterview  ")
+                instanceof presspal.contact.logic.commands.NextInterviewCommand);
+        assertTrue(parser.parseCommand(" nextInterview")
+                instanceof presspal.contact.logic.commands.NextInterviewCommand);
+    }
 }
