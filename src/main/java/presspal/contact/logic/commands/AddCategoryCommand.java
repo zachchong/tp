@@ -24,8 +24,6 @@ import presspal.contact.model.person.Person;
 import presspal.contact.model.person.Phone;
 import presspal.contact.model.person.Role;
 
-
-
 /**
  * Add the categories to an existing person in the contact book.
  */
@@ -44,18 +42,18 @@ public class AddCategoryCommand extends Command {
     public static final String MESSAGE_DUPLICATE_CAT = "This person already has this category";
 
     private final Index index;
-    private final AddCatDescriptor addCatDescriptor;
+    private final EditCategoryDescriptor editCategoryDescriptor;
 
     /**
      * @param index of the person in the filtered person list to edit
-     * @param addCatDescriptor details to edit the person with
+     * @param editCategoryDescriptor details to edit the person with
      */
-    public AddCategoryCommand(Index index, AddCatDescriptor addCatDescriptor) {
+    public AddCategoryCommand(Index index, EditCategoryDescriptor editCategoryDescriptor) {
         requireNonNull(index);
-        requireNonNull(addCatDescriptor);
+        requireNonNull(editCategoryDescriptor);
 
         this.index = index;
-        this.addCatDescriptor = addCatDescriptor;
+        this.editCategoryDescriptor = editCategoryDescriptor;
     }
 
     @Override
@@ -68,7 +66,7 @@ public class AddCategoryCommand extends Command {
         }
 
         Person personToAddCat = lastShownList.get(index.getZeroBased());
-        Person editedPerson = createNewPerson(personToAddCat, addCatDescriptor);
+        Person editedPerson = createNewPerson(personToAddCat, editCategoryDescriptor);
 
         if (personToAddCat.getCategories().equals(editedPerson.getCategories())) {
             throw new CommandException(MESSAGE_DUPLICATE_CAT);
@@ -78,14 +76,14 @@ public class AddCategoryCommand extends Command {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         return new CommandResult(String.format(MESSAGE_ADDCAT_SUCCESS,
-                addCatDescriptor.getCategoriesAsString(), editedPerson.getName()));
+                editCategoryDescriptor.getCategoriesAsString(), editedPerson.getName()));
     }
 
     /**
      * Creates and returns a {@code Person} with the details of {@code personToAddCat}
-     * edited with {@code addCatDescriptor}.
+     * edited with {@code editCategoryDescriptor}.
      */
-    public static Person createNewPerson(Person personToAddCat, AddCatDescriptor addCatDescriptor) {
+    public static Person createNewPerson(Person personToAddCat, EditCategoryDescriptor editCategoryDescriptor) {
         assert personToAddCat != null;
         Set<Category> updatedCategories = new HashSet<>(personToAddCat.getCategories());
 
@@ -94,7 +92,7 @@ public class AddCategoryCommand extends Command {
         Email email = personToAddCat.getEmail();
         Organisation organisation = personToAddCat.getOrganisation();
         Role role = personToAddCat.getRole();
-        Set<Category> newCategory = addCatDescriptor.getCategories();
+        Set<Category> newCategory = editCategoryDescriptor.getCategories();
         if (!newCategory.isEmpty()) {
             updatedCategories.addAll(newCategory);
         }
@@ -115,28 +113,28 @@ public class AddCategoryCommand extends Command {
 
         AddCategoryCommand otherAddCategoryCommand = (AddCategoryCommand) other;
         return index.equals(otherAddCategoryCommand.index)
-                && addCatDescriptor.equals(otherAddCategoryCommand.addCatDescriptor);
+                && editCategoryDescriptor.equals(otherAddCategoryCommand.editCategoryDescriptor);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("index", index)
-                .add("addCatDescriptor", addCatDescriptor)
+                .add("editCategoryDescriptor", editCategoryDescriptor)
                 .toString();
     }
 
     /**
      * Stores the categories to edit the person with.
      */
-    public static class AddCatDescriptor {
+    public static class EditCategoryDescriptor {
         private Set<Category> categories;
 
-        public AddCatDescriptor() {
+        public EditCategoryDescriptor() {
         }
 
-        public AddCatDescriptor(AddCatDescriptor addCatDescriptor) {
-            this.categories = addCatDescriptor.categories;
+        public EditCategoryDescriptor(EditCategoryDescriptor editCategoryDescriptor) {
+            this.categories = editCategoryDescriptor.categories;
         }
 
         /**
@@ -174,11 +172,11 @@ public class AddCategoryCommand extends Command {
                 return true;
             }
 
-            if (!(other instanceof AddCatDescriptor)) {
+            if (!(other instanceof EditCategoryDescriptor)) {
                 return false;
             }
 
-            AddCatDescriptor otherDescriptor = (AddCatDescriptor) other;
+            EditCategoryDescriptor otherDescriptor = (EditCategoryDescriptor) other;
 
             return getCategories().equals(otherDescriptor.getCategories());
         }

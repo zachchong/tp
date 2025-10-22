@@ -26,10 +26,8 @@ import presspal.contact.model.UserPrefs;
 import presspal.contact.model.person.Person;
 import presspal.contact.testutil.EditCategoryDescriptorBuilder;
 
-/**
- * Contains integration tests (interaction with the Model) and unit tests for AddCategoryCommand.
- */
-public class AddCategoryCommandTest {
+
+public class DeleteCategoryCommandTest {
 
     private final Model model = new ModelManager(getTypicalContactBook(), new UserPrefs());
 
@@ -38,19 +36,20 @@ public class AddCategoryCommandTest {
         // person currently at index 0 in the list
         Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
 
-        EditCategoryDescriptor descriptor = new EditCategoryDescriptorBuilder().withCategories(VALID_CATEGORY_HUSBAND).build();
-        AddCategoryCommand addCategoryCommand = new AddCategoryCommand(INDEX_FIRST_PERSON, descriptor);
+        EditCategoryDescriptor descriptor = new EditCategoryDescriptorBuilder()
+                .withCategories("friends").build();
+        DeleteCategoryCommand deleteCategoryCommand = new DeleteCategoryCommand(INDEX_FIRST_PERSON, descriptor);
 
         // build a target person with new category added
-        Person editedPerson = AddCategoryCommand.createNewPerson(personToEdit, descriptor);
+        Person editedPerson = DeleteCategoryCommand.createNewPerson(personToEdit, descriptor);
 
-        String expectedMessage = String.format(AddCategoryCommand.MESSAGE_ADDCAT_SUCCESS,
+        String expectedMessage = String.format(DeleteCategoryCommand.MESSAGE_DELETECAT_SUCCESS,
                 descriptor.getCategoriesAsString(), editedPerson.getName());
 
         Model expectedModel = new ModelManager(model.getContactBook(), new UserPrefs());
         expectedModel.setPerson(personToEdit, editedPerson);
 
-        assertCommandSuccess(addCategoryCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteCategoryCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -59,45 +58,29 @@ public class AddCategoryCommandTest {
 
         Person personInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
 
-        EditCategoryDescriptor descriptor = new EditCategoryDescriptorBuilder().withCategories(VALID_CATEGORY_HUSBAND).build();
-        AddCategoryCommand addCategoryCommand = new AddCategoryCommand(INDEX_FIRST_PERSON, descriptor);
+        EditCategoryDescriptor descriptor = new EditCategoryDescriptorBuilder()
+                .withCategories("friends").build();
+        DeleteCategoryCommand deleteCategoryCommand = new DeleteCategoryCommand(INDEX_FIRST_PERSON, descriptor);
 
         // build a target person with new category added
-        Person editedPerson = AddCategoryCommand.createNewPerson(personInFilteredList, descriptor);
+        Person editedPerson = DeleteCategoryCommand.createNewPerson(personInFilteredList, descriptor);
 
-        String expectedMessage = String.format(AddCategoryCommand.MESSAGE_ADDCAT_SUCCESS,
+        String expectedMessage = String.format(DeleteCategoryCommand.MESSAGE_DELETECAT_SUCCESS,
                 descriptor.getCategoriesAsString(), editedPerson.getName());
 
         Model expectedModel = new ModelManager(new ContactBook(model.getContactBook()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
 
-        assertCommandSuccess(addCategoryCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
-    public void execute_duplicateCategory_failure() {
-        // person currently at index 0 in the list
-        Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-
-        EditCategoryDescriptor descriptor = new EditCategoryDescriptorBuilder()
-                .withCategories(VALID_CATEGORY_FRIEND).build();
-        AddCategoryCommand addCategoryCommand = new AddCategoryCommand(INDEX_FIRST_PERSON, descriptor);
-
-        // First, add the category successfully
-        Person editedPerson = AddCategoryCommand.createNewPerson(personToEdit, descriptor);
-        model.setPerson(personToEdit, editedPerson);
-
-        // Attempt to add the same category again
-        assertCommandFailure(addCategoryCommand, model, AddCategoryCommand.MESSAGE_DUPLICATE_CAT);
+        assertCommandSuccess(deleteCategoryCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         EditCategoryDescriptor descriptor = new EditCategoryDescriptorBuilder().withCategories(VALID_CATEGORY_FRIEND).build();
-        AddCategoryCommand addCategoryCommand = new AddCategoryCommand(outOfBoundIndex, descriptor);
+        DeleteCategoryCommand deleteCategoryCommand = new DeleteCategoryCommand(outOfBoundIndex, descriptor);
 
-        assertCommandFailure(addCategoryCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCategoryCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     /**
@@ -111,21 +94,21 @@ public class AddCategoryCommandTest {
         // ensures that outOfBoundIndex is still in bounds of contact book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getContactBook().getPersonList().size());
 
-        AddCategoryCommand addCategoryCommand = new AddCategoryCommand(outOfBoundIndex,
+        DeleteCategoryCommand deleteCategoryCommand = new DeleteCategoryCommand(outOfBoundIndex,
                 new EditCategoryDescriptorBuilder().withCategories(VALID_CATEGORY_FRIEND).build());
 
-        assertCommandFailure(addCategoryCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCategoryCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        final AddCategoryCommand standardCommand =
-                new AddCategoryCommand(INDEX_FIRST_PERSON, ADD_CATEGORY_DESC_AMY);
+        final DeleteCategoryCommand standardCommand =
+                new DeleteCategoryCommand(INDEX_FIRST_PERSON, ADD_CATEGORY_DESC_AMY);
 
         // same values -> returns true
         EditCategoryDescriptor copyDescriptor = new EditCategoryDescriptor(ADD_CATEGORY_DESC_AMY);
-        AddCategoryCommand commandWithSameValues =
-                new AddCategoryCommand(INDEX_FIRST_PERSON, copyDescriptor);
+        DeleteCategoryCommand commandWithSameValues =
+                new DeleteCategoryCommand(INDEX_FIRST_PERSON, copyDescriptor);
         assertEquals(standardCommand, commandWithSameValues);
 
         // same object -> returns true
@@ -138,18 +121,18 @@ public class AddCategoryCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new AddCategoryCommand(INDEX_SECOND_PERSON, ADD_CATEGORY_DESC_AMY)));
+        assertFalse(standardCommand.equals(new DeleteCategoryCommand(INDEX_SECOND_PERSON, ADD_CATEGORY_DESC_AMY)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new AddCategoryCommand(INDEX_FIRST_PERSON, ADD_CATEGORY_DESC_BOB)));
+        assertFalse(standardCommand.equals(new DeleteCategoryCommand(INDEX_FIRST_PERSON, ADD_CATEGORY_DESC_BOB)));
     }
 
     @Test
     public void toStringMethod() {
         Index index = Index.fromOneBased(1);
         EditCategoryDescriptor descriptor = new EditCategoryDescriptor();
-        AddCategoryCommand command = new AddCategoryCommand(index, descriptor);
-        String expectedString = AddCategoryCommand.class.getCanonicalName()
+        DeleteCategoryCommand command = new DeleteCategoryCommand(index, descriptor);
+        String expectedString = DeleteCategoryCommand.class.getCanonicalName()
                 + "{index=" + index + ", editCategoryDescriptor=" + descriptor + "}";
 
         assertEquals(expectedString, command.toString());

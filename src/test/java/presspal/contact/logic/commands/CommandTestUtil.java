@@ -23,7 +23,7 @@ import presspal.contact.model.ContactBook;
 import presspal.contact.model.Model;
 import presspal.contact.model.person.NameContainsKeywordsPredicate;
 import presspal.contact.model.person.Person;
-import presspal.contact.testutil.AddCatDescriptorBuilder;
+import presspal.contact.testutil.EditCategoryDescriptorBuilder;
 import presspal.contact.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -83,8 +83,8 @@ public class CommandTestUtil {
 
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
-    public static final AddCategoryCommand.AddCatDescriptor ADD_CATEGORY_DESC_AMY;
-    public static final AddCategoryCommand.AddCatDescriptor ADD_CATEGORY_DESC_BOB;
+    public static final AddCategoryCommand.EditCategoryDescriptor ADD_CATEGORY_DESC_AMY;
+    public static final AddCategoryCommand.EditCategoryDescriptor ADD_CATEGORY_DESC_BOB;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder()
@@ -99,9 +99,9 @@ public class CommandTestUtil {
                 .withEmail(VALID_EMAIL_BOB)
                 .withOrganisation(VALID_ORGANISATION_BOB)
                 .withRole(VALID_ROLE_BOB).build();
-        ADD_CATEGORY_DESC_AMY = new AddCatDescriptorBuilder()
+        ADD_CATEGORY_DESC_AMY = new EditCategoryDescriptorBuilder()
                 .withCategories(VALID_CATEGORY_FRIEND).build();
-        ADD_CATEGORY_DESC_BOB = new AddCatDescriptorBuilder()
+        ADD_CATEGORY_DESC_BOB = new EditCategoryDescriptorBuilder()
                 .withCategories(VALID_CATEGORY_HUSBAND, VALID_CATEGORY_FRIEND).build();
     }
 
