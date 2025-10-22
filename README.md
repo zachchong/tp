@@ -31,6 +31,9 @@ PressPal features a clean and intuitive user interface designed for ease of use 
 4. Delete Interview from Contact
 5. Find Contact
 6. List interviews for a Contact
+7. Add Category to Contact
+8. Delete Category from Contact
+9. Display upcoming Interview
 
 ## Commands
 ### Add Contact
@@ -51,7 +54,7 @@ Attach an interview date to an existing contact
 ### Delete Interview from Contact
 Remove an existing interview from a contact
 
-`deleteInterview PERSON_INDEX INTERVIEW_INDEX`
+`deleteInterview i/PERSON_INDEX i/INTERVIEW_INDEX`
 
 ### Find Contact
 Find existing contacts by searching through name, organisation, role or categories.
@@ -62,6 +65,21 @@ Find existing contacts by searching through name, organisation, role or categori
 List all interviews for a contact
 
 `listInterview i/PERSON_INDEX`
+
+### Add Category to Contact
+Add a person identified by the index number used in the displayed person list to one or more categories.
+
+`addCat i/INDEX [c/CATEGORY]...`
+
+### Delete Category from Contact
+Delete a person identified by the index number used in the displayed person list from one or more categories.
+
+`deleteCat i/INDEX [c/CATEGORY]...`
+
+### Display upcoming Interview
+Displays the next scheduled interview for the reporter among all interviews in the contact book.
+
+`nextInterview`
 
 ## Acknowledge Source
 This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org).
