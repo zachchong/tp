@@ -108,7 +108,10 @@ public class DeleteCategoryCommandTest {
                 .withCategories("notPresentCategory").build();
         DeleteCategoryCommand deleteCategoryCommand = new DeleteCategoryCommand(INDEX_FIRST_PERSON, descriptor);
 
-        assertCommandFailure(deleteCategoryCommand, model, DeleteCategoryCommand.MESSAGE_CAT_NOT_FOUND);
+        String expectedMessage = String.format(DeleteCategoryCommand.MESSAGE_CAT_NOT_FOUND,
+                descriptor.getCategories());
+
+        assertCommandFailure(deleteCategoryCommand, model, expectedMessage);
     }
 
     @Test
