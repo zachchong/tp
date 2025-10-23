@@ -109,20 +109,17 @@ Format: `list`
 
 Edits an existing person in the contact book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [o/ORGANISATION] [r/ROLE] [c/CATEGORY]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [o/ORGANISATION] [r/ROLE]​`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing categories, the existing categories of the person will be removed i.e adding of categories is not cumulative.
-* You can remove all the person’s categories by typing `c/` without
-    specifying any categories after it.
+* Unable to delete both phone number and email, as at least one mode of contact must remain.
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email organisation of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower c/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing categories.
+*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 
-### Locating persons by name: `find`
+### Locating persons by name, organisation, role, or categories : `find`
 
 Finds persons whose name, organisation, role or categories contain any of the given keywords.
 
@@ -130,7 +127,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name, organisation, role and categories are searched.
+* Only the name, organisation, role and categories are searched. Other fields such as phone or email are not included.
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
@@ -139,6 +136,7 @@ Examples:
 * `find John` returns `john` and `John Doe`
 * `find bernice charlotte` returns `Bernice Yu`, `Charlotte Oliveiro`<br>
   ![result for 'find bernice charlotte'](images/findBerniceCharlotteResult.png)
+* `find NUS colleagues` Returns all persons whose details match the keyword of `NUS` or `colleagues`
 
 ### Deleting a person : `delete`
 
@@ -173,12 +171,12 @@ Examples:
 
 Deletes an interview from a contact in the contact book.
 
-Format: `deleteInterview PERSON_INDEX INTERVIEW_INDEX`
+Format: `deleteInterview i/PERSON_INDEX i/INTERVIEW_INDEX`
 
 * Deletes the interview at the specified `INTERVIEW_INDEX` from the contact at the specified `PERSON_INDEX`. The indices refer to the index numbers shown in the displayed person list and interview list respectively. The indices **must be positive integers** 1, 2, 3, …​
 
 Examples:
-* `deleteInterview 1 2` deletes the 2nd interview from the 1st contact in the contact book.
+* `deleteInterview i/1 i/2` Deletes the 2nd interview from the 1st contact in the contact book.
 
 ### Listing all interviews of a contact : `listInterview`
 
@@ -191,6 +189,37 @@ Format: `listInterview i/INDEX`
 
 ![empty interview](images/emptyInterviewExample.png)
 ![filled interview](images/filledInterviewExample.png)
+
+### Add category(s) to a person : `addCat`
+
+Add category(s) to a person identified by the index number used in the displayed person list.
+
+Format: `addCat i/INDEX [c/CATEGORY]...`
+
+* If category A is already added to a person, any attempt to add category A again to the person will be rejected with an error message.
+
+Examples:
+* `addCat i/1 c/emergency` Adds the category `emergency` to the person with index 1
+* `addCat i/2 c/emergency c/singapore` Adds the categories `emergency` and `singapore` to the person with index 2
+
+### Delete category(s) from a person : `deleteCat`
+
+Delete category(s) from a person identified by the index number used in the displayed person list.
+
+Format: `deleteCat i/INDEX [c/CATEGORY]...`
+
+Examples:
+* `deleteCat i/1 c/emergency` Deletes the category `emergency` from the person with index 1
+* `deleteCat i/2 c/emergency c/singapore` Deletes the categories `emergency` and `singapore` from the person with index 2
+
+### Display the upcoming interview : `nextInterview`
+
+Displays the next scheduled interview that occurs at or after the current date and time, excluding any interviews already in the past.
+
+Format: `nextInterview`
+
+Examples:
+* `nextInterview` Displays the most upcoming scheduled interview "[Meta Interview] on 15 Oct 2050 2:30PM at Meta HQ."
 
 ### Clearing all entries : `clear`
 
@@ -240,11 +269,14 @@ Action | Format, Examples
 **Add** | `add n/NAME p/PHONE e/EMAIL o/ORGANISATION r/ROLE [c/CATEGORY]…​` <br> e.g., `add n/John Doe p/98765432 e/johnd@example.com o/NUS r/Student c/friends c/owesMoney`
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [o/ORGANISATION] [r/ROLE] [c/CATEGORY]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [o/ORGANISATION] [r/ROLE]​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James NUS Student`
 **List** | `list`
 **AddInterview** | `addInterview i/INDEX h/HEADER d/DATE t/TIME l/LOCATION` <br> e.g., `addInterview i/1 h/Interview with ABC Corp d/2024-10-10 t/14:00 l/123, Business St, #02-25`
-**DeleteInterview** | `deleteInterview PERSON_INDEX INTERVIEW_INDEX` <br> e.g., `deleteInterview 1 2`
+**DeleteInterview** | `deleteInterview i/PERSON_INDEX i/INTERVIEW_INDEX` <br> e.g., `deleteInterview i/1 i/2`
 **ListInterview** | `listInterview i/INDEX` <br> e.g., `listInterview i/1`
-**Exit** | `exit
+**AddCat** | `addCat i/INDEX [c/CATEGORY]...`<br>e.g., `addCat i/1 c/emergency` |
+**DeleteCat** | `deleteCat i/INDEX [c/CATEGORY]...`<br>e.g., `deleteCat i/1 c/emergency` |
+**NextInterview** | `nextInterview` |
+**Exit** | `exit`
 **Help** | `help`
