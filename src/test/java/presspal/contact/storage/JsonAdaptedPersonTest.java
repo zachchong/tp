@@ -7,6 +7,7 @@ import static presspal.contact.testutil.Assert.assertThrows;
 import static presspal.contact.testutil.TypicalPersons.BENSON;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,8 +15,10 @@ import org.junit.jupiter.api.Test;
 
 import presspal.contact.commons.exceptions.IllegalValueException;
 import presspal.contact.model.person.Email;
+import presspal.contact.model.person.InterviewList;
 import presspal.contact.model.person.Name;
 import presspal.contact.model.person.Organisation;
+import presspal.contact.model.person.Person;
 import presspal.contact.model.person.Phone;
 import presspal.contact.model.person.Role;
 
@@ -140,5 +143,68 @@ public class JsonAdaptedPersonTest {
                         VALID_ORGANISATION, VALID_ROLE, invalidCategories, VALID_INTERVIEWS);
         assertThrows(IllegalValueException.class, person::toModelType);
     }
+    @Test
+    public void constructorFromPerson_nullPhone_roundTripRetainsNullPhone() throws Exception {
+        Person source = new Person(
+                new Name(VALID_NAME),
+                null,
+                new Email(VALID_EMAIL),
+                new Organisation(VALID_ORGANISATION),
+                new Role(VALID_ROLE),
+                Collections.emptySet(),
+                new InterviewList(null)
+        );
+        JsonAdaptedPerson adapted = new JsonAdaptedPerson(source);
+        Person restored = adapted.toModelType();
+        assertNull(restored.getPhone());
+        assertEquals(new Email(VALID_EMAIL), restored.getEmail());
+    }
 
+    @Test
+    public void constructorFromPerson_nullEmail_roundTripRetainsNullEmail() throws Exception {
+        Person source = new Person(
+                new Name(VALID_NAME),
+                new Phone(VALID_PHONE),
+                null,
+                new Organisation(VALID_ORGANISATION),
+                new Role(VALID_ROLE),
+                Collections.emptySet(),
+                new InterviewList(null)
+        );
+        JsonAdaptedPerson adapted = new JsonAdaptedPerson(source);
+        Person restored = adapted.toModelType();
+        assertEquals(new Phone(VALID_PHONE), restored.getPhone());
+        assertNull(restored.getEmail());
+    }
+    @Test
+    public void toModelType_blankPhone_treatedAsNullPhoneWithValidEmail() throws Exception {
+        JsonAdaptedPerson person = new JsonAdaptedPerson(
+                VALID_NAME,
+                "  ", // blank phone -> treated as null
+                VALID_EMAIL,
+                VALID_ORGANISATION,
+                VALID_ROLE,
+                VALID_CATEGORIES,
+                VALID_INTERVIEWS
+        );
+        Person model = person.toModelType();
+        assertNull(model.getPhone());
+        assertEquals(new Email(VALID_EMAIL), model.getEmail());
+    }
+
+    @Test
+    public void toModelType_blankEmail_treatedAsNullEmailWithValidPhone() throws Exception {
+        JsonAdaptedPerson person = new JsonAdaptedPerson(
+                VALID_NAME,
+                VALID_PHONE,
+                " ", // blank email -> treated as null
+                VALID_ORGANISATION,
+                VALID_ROLE,
+                VALID_CATEGORIES,
+                VALID_INTERVIEWS
+        );
+        Person model = person.toModelType();
+        assertEquals(new Phone(VALID_PHONE), model.getPhone());
+        assertNull(model.getEmail());
+    }
 }

@@ -224,4 +224,38 @@ public class AddCommandParserTest {
                         + ORGANISATION_DESC_BOB + ROLE_DESC_BOB + CATEGORY_DESC_HUSBAND + CATEGORY_DESC_FRIEND,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
+
+    @Test
+    public void parse_onlyPhoneProvided_success() {
+        String input = NAME_DESC_BOB + PHONE_DESC_BOB + ORGANISATION_DESC_BOB + ROLE_DESC_BOB;
+
+        Person expected = new Person(
+                new Name(VALID_NAME_BOB),
+                new Phone(VALID_PHONE_BOB),
+                null,
+                new Organisation(VALID_ORGANISATION_BOB),
+                new Role(VALID_ROLE_BOB),
+                java.util.Collections.emptySet(),
+                new presspal.contact.model.person.InterviewList(null)
+        );
+
+        assertParseSuccess(parser, input, new AddCommand(expected));
+    }
+
+    @Test
+    public void parse_onlyEmailProvided_success() {
+        String input = NAME_DESC_BOB + EMAIL_DESC_BOB + ORGANISATION_DESC_BOB + ROLE_DESC_BOB;
+
+        Person expected = new Person(
+                new Name(VALID_NAME_BOB),
+                null,
+                new Email(VALID_EMAIL_BOB),
+                new Organisation(VALID_ORGANISATION_BOB),
+                new Role(VALID_ROLE_BOB),
+                java.util.Collections.emptySet(),
+                new presspal.contact.model.person.InterviewList(null)
+        );
+
+        assertParseSuccess(parser, input, new AddCommand(expected));
+    }
 }
