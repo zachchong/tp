@@ -11,29 +11,30 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import presspal.contact.commons.core.index.Index;
-import presspal.contact.logic.commands.AddCategoryCommand;
 import presspal.contact.logic.commands.AddCategoryCommand.EditCategoryDescriptor;
+import presspal.contact.logic.commands.DeleteCategoryCommand;
 import presspal.contact.logic.parser.exceptions.ParseException;
 import presspal.contact.model.category.Category;
 
 /**
- * Parses input arguments and creates a new AddCategoryCommand object
+ * Parses input arguments and creates a new DeleteCategoryCommand object
  */
-public class AddCategoryCommandParser implements Parser<AddCategoryCommand> {
-
+public class DeleteCategoryCommandParser implements Parser<DeleteCategoryCommand> {
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCatergoryCommand
-     * and returns an AddCatergoryCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the DeleteCatergoryCommand
+     * and returns a DeleteCatergoryCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddCategoryCommand parse(String args) throws ParseException {
+    @Override
+    public DeleteCategoryCommand parse(String args) throws ParseException {
         requireNonNull(args);
 
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_INDEX, PREFIX_CATEGORY);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_INDEX, PREFIX_CATEGORY) || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCategoryCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DeleteCategoryCommand.MESSAGE_USAGE));
         }
 
         Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
@@ -42,10 +43,10 @@ public class AddCategoryCommandParser implements Parser<AddCategoryCommand> {
 
         EditCategoryDescriptor editCategoryDescriptor = new EditCategoryDescriptor();
 
-        Set<Category> catToBeAdded = parseCategoriesForEdit(argMultimap.getAllValues(PREFIX_CATEGORY));
-        editCategoryDescriptor.setCategories(catToBeAdded);
+        Set<Category> catToBeDeleted = parseCategoriesForEdit(argMultimap.getAllValues(PREFIX_CATEGORY));
+        editCategoryDescriptor.setCategories(catToBeDeleted);
 
-        return new AddCategoryCommand(index, editCategoryDescriptor);
+        return new DeleteCategoryCommand(index, editCategoryDescriptor);
     }
 
     /**
