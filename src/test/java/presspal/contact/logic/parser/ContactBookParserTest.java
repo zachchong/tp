@@ -136,8 +136,8 @@ public class ContactBookParserTest {
     public void parseCommand_deleteInterview() throws Exception {
         DeleteInterviewCommand command = (DeleteInterviewCommand) parser.parseCommand(
                 DeleteInterviewCommand.COMMAND_WORD + " "
-                        + INDEX_FIRST_PERSON.getOneBased() + " "
-                        + INDEX_SECOND_PERSON.getOneBased()); // person=1, interview=2
+                        + PREFIX_INDEX + INDEX_FIRST_PERSON.getOneBased() + " "
+                        + PREFIX_INDEX + INDEX_SECOND_PERSON.getOneBased()); // person=1, interview=2
         assertEquals(new DeleteInterviewCommand(INDEX_FIRST_PERSON, INDEX_SECOND_PERSON), command);
     }
 
