@@ -30,7 +30,7 @@ public class DeleteCategoryCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteCat";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes the categories of the person identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Delete category(s) from a Person identified "
             + "by the index number used in the displayed person list. \n"
             + "Parameters: " + PREFIX_INDEX + "INDEX "
             + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
@@ -38,7 +38,7 @@ public class DeleteCategoryCommand extends Command {
             + PREFIX_CATEGORY + "friends";
 
     public static final String MESSAGE_DELETECAT_SUCCESS = "The Category %1$s is successfully deleted from %2$s";
-    public static final String MESSAGE_CAT_NOT_FOUND = "This person does not have this category";
+    public static final String MESSAGE_CAT_NOT_FOUND = "This person does not have this category:\n%1$s";
 
     private final Index index;
     private final EditCategoryDescriptor editCategoryDescriptor;
@@ -65,8 +65,9 @@ public class DeleteCategoryCommand extends Command {
 
         Person personToDeleteCat = lastShownList.get(index.getZeroBased());
 
-        if (!isCategoriesPresent(personToDeleteCat, editCategoryDescriptor)) {
-            throw new CommandException(MESSAGE_CAT_NOT_FOUND);
+        Set<Category> categoryNotFound = isCategoriesPresent(personToDeleteCat, editCategoryDescriptor);
+        if (categoryNotFound.size() > 0) {
+            throw new CommandException(String.format(MESSAGE_CAT_NOT_FOUND, categoryNotFound));
         }
 
         Person editedPerson = createNewPerson(personToDeleteCat, editCategoryDescriptor);
@@ -77,17 +78,18 @@ public class DeleteCategoryCommand extends Command {
                 editCategoryDescriptor.getCategoriesAsString(), editedPerson.getName()));
     }
 
-    private boolean isCategoriesPresent(Person personToDeleteCat, EditCategoryDescriptor editCategoryDescriptor) {
+    private Set<Category> isCategoriesPresent(Person personToDeleteCat, EditCategoryDescriptor editCategoryDescriptor) {
         Set<Category> updatedCategories = new HashSet<>(personToDeleteCat.getCategories());
-        Set<Category> newCategory = editCategoryDescriptor.getCategories();
+        Set<Category> categoriesToDelete = editCategoryDescriptor.getCategories();
+        Set<Category> notFoundCategories = new HashSet<>();
 
-        for (Category category : newCategory) {
+        for (Category category : categoriesToDelete) {
             if (!updatedCategories.contains(category)) {
-                return false;
+                notFoundCategories.add(category);
             }
         }
 
-        return true;
+        return notFoundCategories;
     }
 
     /**
