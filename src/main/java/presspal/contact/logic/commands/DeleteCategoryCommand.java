@@ -105,10 +105,10 @@ public class DeleteCategoryCommand extends Command {
         Email email = personToDeleteCat.getEmail();
         Organisation organisation = personToDeleteCat.getOrganisation();
         Role role = personToDeleteCat.getRole();
-        Set<Category> newCategory = editCategoryDescriptor.getCategories();
+        Set<Category> categoriesToDelete = editCategoryDescriptor.getCategories();
 
-        if (!newCategory.isEmpty()) {
-            for (Category category : newCategory) {
+        if (!categoriesToDelete.isEmpty()) {
+            for (Category category : categoriesToDelete) {
                 updatedCategories.remove(category);
             }
         }
