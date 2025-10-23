@@ -92,9 +92,9 @@ public class AddCategoryCommand extends Command {
         Email email = personToAddCat.getEmail();
         Organisation organisation = personToAddCat.getOrganisation();
         Role role = personToAddCat.getRole();
-        Set<Category> newCategory = editCategoryDescriptor.getCategories();
-        if (!newCategory.isEmpty()) {
-            updatedCategories.addAll(newCategory);
+        Set<Category> categoriesToDelete = editCategoryDescriptor.getCategories();
+        if (!categoriesToDelete.isEmpty()) {
+            updatedCategories.addAll(categoriesToDelete);
         }
         InterviewList interviews = personToAddCat.getInterviews();
         return new Person(name, phone, email, organisation, role, updatedCategories, interviews);
