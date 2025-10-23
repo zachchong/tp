@@ -33,6 +33,7 @@ public class Email {
     public final String value;
 
     /**
+     * Allows the value of email to be null due to contact constraints where only one of email or phone is required.
      * Constructs an {@code Email}.
      *
      * @param email A valid email contact.

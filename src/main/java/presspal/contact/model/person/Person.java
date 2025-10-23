@@ -138,8 +138,8 @@ public class Person {
     public String toString() {
         return new ToStringBuilder(this)
                 .add("name", name)
-                .add("phone", phone != null ? phone : "")
-                .add("email", email != null ? email : "")
+                .add("phone", phone)
+                .add("email", email)
                 .add("organisation", organisation)
                 .add("role", role)
                 .add("categories", categories)
