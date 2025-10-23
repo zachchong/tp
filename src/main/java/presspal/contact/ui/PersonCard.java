@@ -54,13 +54,26 @@ public class PersonCard extends UiPart<Region> {
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
+        if (person.getPhone() != null && person.getPhone().value != null && !person.getPhone().value.isBlank()) {
+            phone.setText(person.getPhone().value);
+        } else {
+            hideLabel(phone);
+        }
         organisation.setText(person.getOrganisation().value);
         role.setText(person.getRole().value);
-        email.setText(person.getEmail().value);
+        if (person.getEmail() != null && person.getEmail().value != null && !person.getEmail().value.isBlank()) {
+            email.setText(person.getEmail().value);
+        } else {
+            hideLabel(email);
+        }
         person.getCategories().stream()
                 .sorted(Comparator.comparing(category -> category.categoryName))
                 .forEach(category -> categories.getChildren().add(new Label(category.categoryName)));
         interview.setText(person.getNextUpcomingInterview().map(Interview::getDisplayString).orElse(""));
+    }
+    private void hideLabel(Label label) {
+        label.setText("");
+        label.setVisible(false);
+        label.setManaged(false);
     }
 }

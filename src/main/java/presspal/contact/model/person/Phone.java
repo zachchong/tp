@@ -15,6 +15,7 @@ public class Phone {
     public final String value;
 
     /**
+     * Allows the value of email to be null due to contact constraints where only one of email or phone is required.
      * Constructs a {@code Phone}.
      *
      * @param phone A valid phone number.

@@ -169,16 +169,6 @@ public class AddCommandParserTest {
                 VALID_NAME_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ORGANISATION_DESC_BOB + ROLE_DESC_BOB,
                 expectedMessage);
 
-        // missing phone prefix
-        assertParseFailure(parser,
-                NAME_DESC_BOB + VALID_PHONE_BOB + EMAIL_DESC_BOB + ORGANISATION_DESC_BOB + ROLE_DESC_BOB,
-                expectedMessage);
-
-        // missing email prefix
-        assertParseFailure(parser,
-                NAME_DESC_BOB + PHONE_DESC_BOB + VALID_EMAIL_BOB + ORGANISATION_DESC_BOB + ROLE_DESC_BOB,
-                expectedMessage);
-
         // missing organisation prefix
         assertParseFailure(parser,
                 NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + VALID_ORGANISATION_BOB + ROLE_DESC_BOB,
@@ -187,6 +177,11 @@ public class AddCommandParserTest {
         // missing role prefix
         assertParseFailure(parser,
                 NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ORGANISATION_DESC_BOB + VALID_ROLE_BOB,
+                expectedMessage);
+
+        // missing both phone and email prefixes (at least one required)
+        assertParseFailure(parser,
+                NAME_DESC_BOB + ORGANISATION_DESC_BOB + ROLE_DESC_BOB,
                 expectedMessage);
 
         // all prefixes missing

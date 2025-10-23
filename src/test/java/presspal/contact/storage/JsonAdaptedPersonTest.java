@@ -1,6 +1,7 @@
 package presspal.contact.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static presspal.contact.storage.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
 import static presspal.contact.testutil.Assert.assertThrows;
 import static presspal.contact.testutil.TypicalPersons.BENSON;
@@ -70,14 +71,12 @@ public class JsonAdaptedPersonTest {
         String expectedMessage = Phone.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
-
     @Test
-    public void toModelType_nullPhone_throwsIllegalValueException() {
+    public void toModelType_nullPhone_returnsPersonWithNullPhone() throws Exception {
         JsonAdaptedPerson person =
-                new JsonAdaptedPerson(VALID_NAME, null, VALID_EMAIL, VALID_ORGANISATION, VALID_ROLE, VALID_CATEGORIES,
-                        VALID_INTERVIEWS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+                new JsonAdaptedPerson(VALID_NAME, null, VALID_EMAIL, VALID_ORGANISATION, VALID_ROLE,
+                        VALID_CATEGORIES, VALID_INTERVIEWS);
+        assertNull(person.toModelType().getPhone());
     }
 
     @Test
@@ -88,14 +87,12 @@ public class JsonAdaptedPersonTest {
         String expectedMessage = Email.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
-
     @Test
-    public void toModelType_nullEmail_throwsIllegalValueException() {
+    public void toModelType_nullEmail_returnsPersonWithNullEmail() throws Exception {
         JsonAdaptedPerson person =
-                new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, null, VALID_ORGANISATION, VALID_ROLE, VALID_CATEGORIES,
-                        VALID_INTERVIEWS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+                new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, null, VALID_ORGANISATION, VALID_ROLE,
+                        VALID_CATEGORIES, VALID_INTERVIEWS);
+        assertNull(person.toModelType().getEmail());
     }
 
     @Test
