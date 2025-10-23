@@ -26,11 +26,15 @@ PressPal features a clean and intuitive user interface designed for ease of use 
 
 ## Features
 1. Add Contacts
-2. Delete a Contact
-3. Add Interview to Contact
-4. Delete Interview from Contact
-5. Find Contact
-6. List interviews for a Contact
+2. Delete Contact
+3. Edit Contact
+4. Add Interview to Contact
+5. Delete Interview from Contact
+6. Find Contact
+7. List interviews for a Contact
+8. Add Category to Contact
+9. Delete Category from Contact
+10. Display upcoming Interview
 
 ## Commands
 ### Add Contact
@@ -43,6 +47,11 @@ Delete an existing contact
 
 `delete PERSON_INDEX`
 
+### Edit Contact
+Edit an existing contact
+
+`edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [o/ORGANISATION] [r/ROLE]`
+
 ### Add Interview to Contact
 Attach an interview date to an existing contact
 
@@ -51,7 +60,7 @@ Attach an interview date to an existing contact
 ### Delete Interview from Contact
 Remove an existing interview from a contact
 
-`deleteInterview PERSON_INDEX INTERVIEW_INDEX`
+`deleteInterview i/PERSON_INDEX i/INTERVIEW_INDEX`
 
 ### Find Contact
 Find existing contacts by searching through name, organisation, role or categories.
@@ -62,6 +71,21 @@ Find existing contacts by searching through name, organisation, role or categori
 List all interviews for a contact
 
 `listInterview i/PERSON_INDEX`
+
+### Add Category to Contact
+Add category(s) to a person identified by the index number used in the displayed person list
+
+`addCat i/INDEX [c/CATEGORY]...`
+
+### Delete Category from Contact
+Delete category(s) from a person identified by the index number used in the displayed person list
+
+`deleteCat i/INDEX [c/CATEGORY]...`
+
+### Display upcoming Interview
+Displays the next scheduled interview for the reporter among all interviews in the contact book.
+
+`nextInterview`
 
 ## Acknowledge Source
 This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org).
