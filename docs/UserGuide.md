@@ -214,11 +214,9 @@ Examples:
 
 ### Display the upcoming interview : `nextInterview`
 
-Displays the next scheduled interview for the reporter among all interviews in the contact book.
+Displays the next scheduled interview that occurs at or after the current date and time, excluding any interviews already in the past.
 
 Format: `nextInterview`
-
-* This command displays the next scheduled interview that occurs at or after the current date and time, excluding any interviews already in the past.
 
 Examples:
 * `nextInterview` Displays the most upcoming scheduled interview "[Meta Interview] on 15 Oct 2050 2:30PM at Meta HQ."
