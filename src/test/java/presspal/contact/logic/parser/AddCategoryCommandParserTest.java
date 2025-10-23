@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import presspal.contact.logic.Messages;
 import presspal.contact.logic.commands.AddCategoryCommand;
-import presspal.contact.logic.commands.AddCategoryCommand.EditCategoryDescriptor;
+import presspal.contact.logic.commands.EditCategoryCommand.EditCategoryDescriptor;
 import presspal.contact.model.category.Category;
 import presspal.contact.testutil.EditCategoryDescriptorBuilder;
 

@@ -4,7 +4,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import presspal.contact.logic.commands.AddCategoryCommand.EditCategoryDescriptor;
+import presspal.contact.logic.commands.EditCategoryCommand.EditCategoryDescriptor;
 import presspal.contact.model.category.Category;
 import presspal.contact.model.person.Person;
 
