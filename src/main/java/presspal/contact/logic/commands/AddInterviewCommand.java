@@ -41,7 +41,7 @@ public class AddInterviewCommand extends Command {
 
 
 
-    public static final String MESSAGE_ADD_INTERVIEW_SUCCESS = "New interview added: %1$s to Person: %2$s";
+    public static final String MESSAGE_ADD_INTERVIEW_SUCCESS = "The following interview has been added to %1$s:\n%2$s";
     public static final String MESSAGE_DUPLICATE_INTERVIEW = "Failed to add interview. This interview already exists.";
 
     private final Interview toAdd;
@@ -87,7 +87,8 @@ public class AddInterviewCommand extends Command {
 
         model.setPerson(targetPerson, edited);
 
-        return new CommandResult(String.format(MESSAGE_ADD_INTERVIEW_SUCCESS, toAdd, targetPerson));
+        return new CommandResult(String.format(MESSAGE_ADD_INTERVIEW_SUCCESS,
+                targetPerson.getName(), toAdd.getDisplayString()));
     }
 
     @Override
