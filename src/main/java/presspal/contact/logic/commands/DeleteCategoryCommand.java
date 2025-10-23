@@ -9,9 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 import presspal.contact.commons.core.index.Index;
-import presspal.contact.commons.util.ToStringBuilder;
 import presspal.contact.logic.Messages;
-import presspal.contact.logic.commands.AddCategoryCommand.EditCategoryDescriptor;
 import presspal.contact.logic.commands.exceptions.CommandException;
 import presspal.contact.model.Model;
 import presspal.contact.model.category.Category;
@@ -26,7 +24,7 @@ import presspal.contact.model.person.Role;
 /**
  * Delete the categories to an existing person in the contact book.
  */
-public class DeleteCategoryCommand extends Command {
+public class DeleteCategoryCommand extends EditCategoryCommand {
 
     public static final String COMMAND_WORD = "deleteCat";
 
@@ -40,24 +38,20 @@ public class DeleteCategoryCommand extends Command {
     public static final String MESSAGE_DELETECAT_SUCCESS = "The Category %1$s is successfully deleted from %2$s";
     public static final String MESSAGE_CAT_NOT_FOUND = "This person does not have this category:\n%1$s";
 
-    private final Index index;
-    private final EditCategoryDescriptor editCategoryDescriptor;
-
     /**
      * @param index of the person in the filtered person list to edit
      * @param editCategoryDescriptor details to edit the person with
      */
     public DeleteCategoryCommand(Index index, EditCategoryDescriptor editCategoryDescriptor) {
-        requireNonNull(editCategoryDescriptor);
-        requireNonNull(index);
-        this.index = index;
-        this.editCategoryDescriptor = editCategoryDescriptor;
+        super(index, editCategoryDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
+        Index index = super.getIndex();
+        EditCategoryDescriptor editCategoryDescriptor = super.getEditCategoryDescriptor();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -66,7 +60,7 @@ public class DeleteCategoryCommand extends Command {
         Person personToDeleteCat = lastShownList.get(index.getZeroBased());
 
         Set<Category> categoryNotFound = isCategoriesPresent(personToDeleteCat, editCategoryDescriptor);
-        if (categoryNotFound.size() > 0) {
+        if (!categoryNotFound.isEmpty()) {
             throw new CommandException(String.format(MESSAGE_CAT_NOT_FOUND, categoryNotFound));
         }
 
@@ -128,15 +122,7 @@ public class DeleteCategoryCommand extends Command {
         }
 
         DeleteCategoryCommand otherCommand = (DeleteCategoryCommand) other;
-        return index.equals(otherCommand.index)
-                && editCategoryDescriptor.equals(otherCommand.editCategoryDescriptor);
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this)
-                .add("index", index)
-                .add("editCategoryDescriptor", editCategoryDescriptor)
-                .toString();
+        return getIndex().equals(otherCommand.getIndex())
+                && getEditCategoryDescriptor().equals(otherCommand.getEditCategoryDescriptor());
     }
 }

@@ -9,8 +9,8 @@ import static presspal.contact.logic.parser.CliSyntax.PREFIX_ROLE;
 
 import java.util.Set;
 
-import presspal.contact.logic.commands.AddCategoryCommand.EditCategoryDescriptor;
 import presspal.contact.logic.commands.AddCommand;
+import presspal.contact.logic.commands.EditCategoryCommand.EditCategoryDescriptor;
 import presspal.contact.logic.commands.EditCommand.EditPersonDescriptor;
 import presspal.contact.model.category.Category;
 import presspal.contact.model.person.Person;

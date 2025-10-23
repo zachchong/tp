@@ -17,12 +17,12 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import presspal.contact.logic.commands.AddCategoryCommand;
-import presspal.contact.logic.commands.AddCategoryCommand.EditCategoryDescriptor;
 import presspal.contact.logic.commands.AddCommand;
 import presspal.contact.logic.commands.AddInterviewCommand;
 import presspal.contact.logic.commands.ClearCommand;
 import presspal.contact.logic.commands.DeleteCommand;
 import presspal.contact.logic.commands.DeleteInterviewCommand;
+import presspal.contact.logic.commands.EditCategoryCommand.EditCategoryDescriptor;
 import presspal.contact.logic.commands.EditCommand;
 import presspal.contact.logic.commands.EditCommand.EditPersonDescriptor;
 import presspal.contact.logic.commands.ExitCommand;

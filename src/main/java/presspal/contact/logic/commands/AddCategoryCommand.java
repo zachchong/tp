@@ -5,13 +5,11 @@ import static presspal.contact.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_INDEX;
 import static presspal.contact.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import presspal.contact.commons.core.index.Index;
-import presspal.contact.commons.util.ToStringBuilder;
 import presspal.contact.logic.Messages;
 import presspal.contact.logic.commands.exceptions.CommandException;
 import presspal.contact.model.Model;
@@ -27,7 +25,7 @@ import presspal.contact.model.person.Role;
 /**
  * Add the categories to an existing person in the contact book.
  */
-public class AddCategoryCommand extends Command {
+public class AddCategoryCommand extends EditCategoryCommand {
 
     public static final String COMMAND_WORD = "addCat";
 
@@ -41,25 +39,20 @@ public class AddCategoryCommand extends Command {
     public static final String MESSAGE_ADDCAT_SUCCESS = "The Category %1$s is successfully added to %2$s";
     public static final String MESSAGE_DUPLICATE_CAT = "This person already has this category";
 
-    private final Index index;
-    private final EditCategoryDescriptor editCategoryDescriptor;
-
     /**
      * @param index of the person in the filtered person list to edit
      * @param editCategoryDescriptor details to edit the person with
      */
     public AddCategoryCommand(Index index, EditCategoryDescriptor editCategoryDescriptor) {
-        requireNonNull(index);
-        requireNonNull(editCategoryDescriptor);
-
-        this.index = index;
-        this.editCategoryDescriptor = editCategoryDescriptor;
+        super(index, editCategoryDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
+        Index index = getIndex();
+        EditCategoryDescriptor editCategoryDescriptor = getEditCategoryDescriptor();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -112,80 +105,7 @@ public class AddCategoryCommand extends Command {
         }
 
         AddCategoryCommand otherAddCategoryCommand = (AddCategoryCommand) other;
-        return index.equals(otherAddCategoryCommand.index)
-                && editCategoryDescriptor.equals(otherAddCategoryCommand.editCategoryDescriptor);
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this)
-                .add("index", index)
-                .add("editCategoryDescriptor", editCategoryDescriptor)
-                .toString();
-    }
-
-    /**
-     * Stores the categories to edit the person with.
-     */
-    public static class EditCategoryDescriptor {
-        private Set<Category> categories;
-
-        public EditCategoryDescriptor() {
-        }
-
-        public EditCategoryDescriptor(EditCategoryDescriptor editCategoryDescriptor) {
-            this.categories = editCategoryDescriptor.categories;
-        }
-
-        /**
-         * Sets {@code categories} to this object's {@code categories}.
-         * A defensive copy of {@code categories} is used internally.
-         */
-        public void setCategories(Set<Category> categories) {
-            this.categories = new HashSet<>(categories);
-        }
-
-        /**
-         * Returns an unmodifiable category set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code categories} is non-null.
-         */
-        public Set<Category> getCategories() {
-            return Collections.unmodifiableSet(categories);
-        }
-
-        public String getCategoriesAsString() {
-            StringBuilder sb = new StringBuilder();
-            java.util.Iterator<Category> iterator = categories.iterator();
-            while (iterator.hasNext()) {
-                sb.append("[").append(iterator.next().categoryName).append("]");
-                if (iterator.hasNext()) {
-                    sb.append(", ");
-                }
-            }
-            return sb.toString();
-        }
-
-        @Override
-        public boolean equals(Object other) {
-            if (other == this) {
-                return true;
-            }
-
-            if (!(other instanceof EditCategoryDescriptor)) {
-                return false;
-            }
-
-            EditCategoryDescriptor otherDescriptor = (EditCategoryDescriptor) other;
-
-            return getCategories().equals(otherDescriptor.getCategories());
-        }
-
-        @Override
-        public String toString() {
-            return new ToStringBuilder(this)
-                    .add("categories", categories)
-                    .toString();
-        }
+        return getIndex().equals(otherAddCategoryCommand.getIndex())
+                && getEditCategoryDescriptor().equals(otherAddCategoryCommand.getEditCategoryDescriptor());
     }
 }

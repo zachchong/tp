@@ -7,7 +7,7 @@ import static presspal.contact.logic.commands.CommandTestUtil.ADD_CATEGORY_DESC_
 
 import org.junit.jupiter.api.Test;
 
-import presspal.contact.logic.commands.AddCategoryCommand.EditCategoryDescriptor;
+import presspal.contact.logic.commands.EditCategoryCommand.EditCategoryDescriptor;
 
 public class EditCategoryDescriptorTest {
 

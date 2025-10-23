@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 
 import presspal.contact.commons.core.index.Index;
 import presspal.contact.logic.commands.AddCategoryCommand;
-import presspal.contact.logic.commands.AddCategoryCommand.EditCategoryDescriptor;
+import presspal.contact.logic.commands.EditCategoryCommand.EditCategoryDescriptor;
 import presspal.contact.logic.parser.exceptions.ParseException;
 import presspal.contact.model.category.Category;
 
