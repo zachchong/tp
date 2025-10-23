@@ -114,6 +114,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [o/ORGANISATION] [r/ROLE]​`
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
+* Unable to delete both phone number and email, as at least one mode of contact must remain.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email of the 1st person to be `91234567` and `johndoe@example.com` respectively.
@@ -216,6 +217,8 @@ Examples:
 Displays the next scheduled interview for the reporter among all interviews in the contact book.
 
 Format: `nextInterview`
+
+* This command displays the next scheduled interview that occurs at or after the current date and time, excluding any interviews already in the past.
 
 Examples:
 * `nextInterview` Displays the most upcoming scheduled interview "[Meta Interview] on 15 Oct 2050 2:30PM at Meta HQ."
