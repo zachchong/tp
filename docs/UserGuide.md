@@ -20,6 +20,15 @@ The goal of PressPal is to:
 - Support the entire lifecycle of a contact — from initial outreach, to active follow-up, to archiving once a story concludes.
   Ultimately, PressPal aims to reduce cognitive load for reporters, allowing them to focus on storytelling while ensuring no lead, contact, or follow-up is lost.
 
+### User Profiles
+- Users with basic familiarity with Windows/macOS/Linux file navigation and opening a terminal.
+- Users who favor CLI over GUI and type quickly.
+- Users who manage an extensive network of contacts and numerous scheduled interviews to monitor.
+
+### System Requirements
+- Java 17 (or newer) installed and available on the PATH.
+- Operating System: Windows, macOS, or Linux
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Quick start
