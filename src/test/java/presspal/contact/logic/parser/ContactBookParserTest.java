@@ -17,12 +17,12 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import presspal.contact.logic.commands.AddCategoryCommand;
-import presspal.contact.logic.commands.AddCategoryCommand.AddCatDescriptor;
 import presspal.contact.logic.commands.AddCommand;
 import presspal.contact.logic.commands.AddInterviewCommand;
 import presspal.contact.logic.commands.ClearCommand;
 import presspal.contact.logic.commands.DeleteCommand;
 import presspal.contact.logic.commands.DeleteInterviewCommand;
+import presspal.contact.logic.commands.EditCategoryCommand.EditCategoryDescriptor;
 import presspal.contact.logic.commands.EditCommand;
 import presspal.contact.logic.commands.EditCommand.EditPersonDescriptor;
 import presspal.contact.logic.commands.ExitCommand;
@@ -32,7 +32,7 @@ import presspal.contact.logic.commands.ListInterviewCommand;
 import presspal.contact.logic.parser.exceptions.ParseException;
 import presspal.contact.model.person.Person;
 import presspal.contact.model.person.PersonContainsKeywordsPredicate;
-import presspal.contact.testutil.AddCatDescriptorBuilder;
+import presspal.contact.testutil.EditCategoryDescriptorBuilder;
 import presspal.contact.testutil.EditPersonDescriptorBuilder;
 import presspal.contact.testutil.InterviewBuilder;
 import presspal.contact.testutil.PersonBuilder;
@@ -74,11 +74,24 @@ public class ContactBookParserTest {
     @Test
     public void parseCommand_addCategory() throws Exception {
         Person person = new PersonBuilder().build();
-        AddCatDescriptor descriptor = new AddCatDescriptorBuilder(person).build();
+        EditCategoryDescriptor descriptor = new EditCategoryDescriptorBuilder(person).build();
         AddCategoryCommand command = (AddCategoryCommand) parser.parseCommand(
                 AddCategoryCommand.COMMAND_WORD + " " + PREFIX_INDEX + INDEX_FIRST_PERSON.getOneBased()
-                        + " " + PersonUtil.getAddCatDescriptorDetails(descriptor));
+                        + " " + PersonUtil.getEditCategoryDescriptorDetails(descriptor));
         assertEquals(new AddCategoryCommand(INDEX_FIRST_PERSON, descriptor), command);
+    }
+
+    @Test
+    public void parseCommand_deleteCategory() throws Exception {
+        Person person = new PersonBuilder().build();
+        EditCategoryDescriptor descriptor = new EditCategoryDescriptorBuilder(person).build();
+        presspal.contact.logic.commands.DeleteCategoryCommand command =
+                (presspal.contact.logic.commands.DeleteCategoryCommand) parser.parseCommand(
+                presspal.contact.logic.commands.DeleteCategoryCommand.COMMAND_WORD + " "
+                        + PREFIX_INDEX + INDEX_FIRST_PERSON.getOneBased()
+                        + " " + PersonUtil.getEditCategoryDescriptorDetails(descriptor));
+        assertEquals(new presspal.contact.logic.commands.DeleteCategoryCommand(INDEX_FIRST_PERSON, descriptor),
+                command);
     }
 
     @Test
@@ -123,8 +136,8 @@ public class ContactBookParserTest {
     public void parseCommand_deleteInterview() throws Exception {
         DeleteInterviewCommand command = (DeleteInterviewCommand) parser.parseCommand(
                 DeleteInterviewCommand.COMMAND_WORD + " "
-                        + INDEX_FIRST_PERSON.getOneBased() + " "
-                        + INDEX_SECOND_PERSON.getOneBased()); // person=1, interview=2
+                        + PREFIX_INDEX + INDEX_FIRST_PERSON.getOneBased() + " "
+                        + PREFIX_INDEX + INDEX_SECOND_PERSON.getOneBased()); // person=1, interview=2
         assertEquals(new DeleteInterviewCommand(INDEX_FIRST_PERSON, INDEX_SECOND_PERSON), command);
     }
 

@@ -66,7 +66,7 @@ public class NextInterviewCommandTest {
         String expectedMessage = String.format(
                 NextInterviewCommand.MESSAGE_SUCCESS,
                 expectedPerson.getName(),
-                expectedPerson.getNextUpcomingInterview().get()
+                expectedPerson.getNextUpcomingInterview().get().getDisplayString()
         );
 
         assertEquals(expectedMessage, result.getFeedbackToUser());

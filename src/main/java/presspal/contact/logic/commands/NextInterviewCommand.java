@@ -25,7 +25,6 @@ public class NextInterviewCommand extends Command {
             + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Next upcoming interview for %1$s:\n%2$s";
-    public static final String MESSAGE_NO_UPCOMING = "%1$s has no upcoming interviews.";
 
     public NextInterviewCommand() {
         // No index needed
@@ -63,7 +62,7 @@ public class NextInterviewCommand extends Command {
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS,
-                personWithNextInterview.getName(), earliestInterview));
+                personWithNextInterview.getName(), earliestInterview.getDisplayString()));
     }
 
     @Override

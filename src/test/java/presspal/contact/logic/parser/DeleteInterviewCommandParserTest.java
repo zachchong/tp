@@ -13,18 +13,19 @@ public class DeleteInterviewCommandParserTest {
 
     @Test
     public void parse_valid_success() {
-        assertDoesNotThrow(() -> parser.parse(" 1 2 "));
+        // matches expected format: "i/<personIndex> i/<interviewIndex>"
+        assertDoesNotThrow(() -> parser.parse(" i/1 i/2 "));
     }
 
     @Test
     public void parse_missingArgs_failure() {
         assertThrows(ParseException.class, () -> parser.parse(""));
-        assertThrows(ParseException.class, () -> parser.parse("1"));
+        assertThrows(ParseException.class, () -> parser.parse("i/1"));
     }
 
     @Test
     public void parse_nonInteger_failure() {
-        assertThrows(ParseException.class, () -> parser.parse("one 2"));
-        assertThrows(ParseException.class, () -> parser.parse("1 two"));
+        assertThrows(ParseException.class, () -> parser.parse("i/one i/2"));
+        assertThrows(ParseException.class, () -> parser.parse("i/1 i/two"));
     }
 }

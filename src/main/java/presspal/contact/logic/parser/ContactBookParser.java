@@ -13,6 +13,7 @@ import presspal.contact.logic.commands.AddCommand;
 import presspal.contact.logic.commands.AddInterviewCommand;
 import presspal.contact.logic.commands.ClearCommand;
 import presspal.contact.logic.commands.Command;
+import presspal.contact.logic.commands.DeleteCategoryCommand;
 import presspal.contact.logic.commands.DeleteCommand;
 import presspal.contact.logic.commands.DeleteInterviewCommand;
 import presspal.contact.logic.commands.EditCommand;
@@ -69,6 +70,9 @@ public class ContactBookParser {
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
+
+        case DeleteCategoryCommand.COMMAND_WORD:
+            return new DeleteCategoryCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();

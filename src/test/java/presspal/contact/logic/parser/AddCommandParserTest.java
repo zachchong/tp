@@ -169,16 +169,6 @@ public class AddCommandParserTest {
                 VALID_NAME_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ORGANISATION_DESC_BOB + ROLE_DESC_BOB,
                 expectedMessage);
 
-        // missing phone prefix
-        assertParseFailure(parser,
-                NAME_DESC_BOB + VALID_PHONE_BOB + EMAIL_DESC_BOB + ORGANISATION_DESC_BOB + ROLE_DESC_BOB,
-                expectedMessage);
-
-        // missing email prefix
-        assertParseFailure(parser,
-                NAME_DESC_BOB + PHONE_DESC_BOB + VALID_EMAIL_BOB + ORGANISATION_DESC_BOB + ROLE_DESC_BOB,
-                expectedMessage);
-
         // missing organisation prefix
         assertParseFailure(parser,
                 NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + VALID_ORGANISATION_BOB + ROLE_DESC_BOB,
@@ -187,6 +177,11 @@ public class AddCommandParserTest {
         // missing role prefix
         assertParseFailure(parser,
                 NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ORGANISATION_DESC_BOB + VALID_ROLE_BOB,
+                expectedMessage);
+
+        // missing both phone and email prefixes (at least one required)
+        assertParseFailure(parser,
+                NAME_DESC_BOB + ORGANISATION_DESC_BOB + ROLE_DESC_BOB,
                 expectedMessage);
 
         // all prefixes missing
@@ -228,5 +223,39 @@ public class AddCommandParserTest {
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                         + ORGANISATION_DESC_BOB + ROLE_DESC_BOB + CATEGORY_DESC_HUSBAND + CATEGORY_DESC_FRIEND,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_onlyPhoneProvided_success() {
+        String input = NAME_DESC_BOB + PHONE_DESC_BOB + ORGANISATION_DESC_BOB + ROLE_DESC_BOB;
+
+        Person expected = new Person(
+                new Name(VALID_NAME_BOB),
+                new Phone(VALID_PHONE_BOB),
+                null,
+                new Organisation(VALID_ORGANISATION_BOB),
+                new Role(VALID_ROLE_BOB),
+                java.util.Collections.emptySet(),
+                new presspal.contact.model.person.InterviewList(null)
+        );
+
+        assertParseSuccess(parser, input, new AddCommand(expected));
+    }
+
+    @Test
+    public void parse_onlyEmailProvided_success() {
+        String input = NAME_DESC_BOB + EMAIL_DESC_BOB + ORGANISATION_DESC_BOB + ROLE_DESC_BOB;
+
+        Person expected = new Person(
+                new Name(VALID_NAME_BOB),
+                null,
+                new Email(VALID_EMAIL_BOB),
+                new Organisation(VALID_ORGANISATION_BOB),
+                new Role(VALID_ROLE_BOB),
+                java.util.Collections.emptySet(),
+                new presspal.contact.model.person.InterviewList(null)
+        );
+
+        assertParseSuccess(parser, input, new AddCommand(expected));
     }
 }

@@ -25,7 +25,7 @@ public class DeleteInterviewCommand extends Command {
             + "Example: " + COMMAND_WORD + " i/1 i/2";
 
     public static final String MESSAGE_DELETE_INTERVIEW_SUCCESS =
-            "Deleted interview (%1$s) from Person: %2$s";
+            "The following interview has been deleted from %1$s:\n%2$s";
 
     public static final String MESSAGE_INVALID_INTERVIEW_DISPLAYED_INDEX =
             "The interview index provided is invalid.";
@@ -82,8 +82,8 @@ public class DeleteInterviewCommand extends Command {
 
         return new CommandResult(String.format(
                 MESSAGE_DELETE_INTERVIEW_SUCCESS,
-                interviewIndex.getOneBased(),
-                Messages.format(edited)));
+                edited.getName(),
+                toDelete.getDisplayString()));
     }
 
 
