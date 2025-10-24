@@ -21,13 +21,13 @@ LogicManager -> AddressBookParser : parseCommand("delete 1")
 activate AddressBookParser
 
 create DeleteCommandParser
-AddressBookParser -> DeleteCommandParser
+ContactBookParser -> DeleteCommandParser
 activate DeleteCommandParser
 
-DeleteCommandParser --> AddressBookParser
+DeleteCommandParser --> ContactBookParser
 deactivate DeleteCommandParser
 
-AddressBookParser -> DeleteCommandParser : parse("1")
+ContactBookParser -> DeleteCommandParser : parse("1")
 activate DeleteCommandParser
 
 create DeleteCommand
