@@ -209,7 +209,7 @@ Format: `addCat i/INDEX [c/CATEGORY]...`
 
 Examples:
 * `addCat i/1 c/emergency` Adds the category `emergency` to the person with index 1
-* `addCat i/2 c/emergency c/singapore` Adds the categories `emergency` and `singapore` to the person with index 2
+* `addCat i/2 c/emergency c/singapore` Adds the categories `emergency` and `singapore` to the person with index 2.
 
 ### Delete category(s) from a person : `deleteCat`
 
@@ -218,8 +218,8 @@ Delete category(s) from a person identified by the index number used in the disp
 Format: `deleteCat i/INDEX [c/CATEGORY]...`
 
 Examples:
-* `deleteCat i/1 c/emergency` Deletes the category `emergency` from the person with index 1
-* `deleteCat i/2 c/emergency c/singapore` Deletes the categories `emergency` and `singapore` from the person with index 2
+* `deleteCat i/1 c/emergency` Deletes the category `emergency` from the person with index 1.
+* `deleteCat i/2 c/emergency c/singapore` Deletes the categories `emergency` and `singapore` from the person with index 2.
 
 ### Display the upcoming interview : `nextInterview`
 
