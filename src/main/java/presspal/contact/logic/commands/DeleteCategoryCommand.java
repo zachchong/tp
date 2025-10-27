@@ -36,7 +36,7 @@ public class DeleteCategoryCommand extends EditCategoryCommand {
             + PREFIX_CATEGORY + "friends";
 
     public static final String MESSAGE_DELETECAT_SUCCESS = "Category(s) successfully deleted from %1$s:\n%2$s";
-    public static final String MESSAGE_CAT_NOT_FOUND = "Category(s) failed to delete from %1$s:\n%2$s";
+    public static final String MESSAGE_CAT_NOT_FOUND = "Failed to delete category(s) from %1$s:\n%2$s";
 
     /**
      * @param index of the person in the filtered person list to edit
