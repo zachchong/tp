@@ -78,11 +78,14 @@ public abstract class EditCategoryCommand extends Command {
         public String getCategoriesAsString() {
             StringBuilder sb = new StringBuilder();
             java.util.Iterator<Category> iterator = categories.iterator();
+            int i = 1;
             while (iterator.hasNext()) {
-                sb.append("[").append(iterator.next().categoryName).append("]");
+                Category category = iterator.next();
+                sb.append(i).append(". ").append(category);
                 if (iterator.hasNext()) {
-                    sb.append(", ");
+                    sb.append("\n");
                 }
+                i++;
             }
             return sb.toString();
         }
