@@ -1,12 +1,18 @@
 package presspal.contact.logic.parser;
 
 import static presspal.contact.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static presspal.contact.logic.commands.CommandTestUtil.CATEGORY_DESC_FRIEND;
+import static presspal.contact.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static presspal.contact.logic.commands.CommandTestUtil.INTERVIEW_HEADER_DESC_A;
 import static presspal.contact.logic.commands.CommandTestUtil.INTERVIEW_HEADER_DESC_B;
 import static presspal.contact.logic.commands.CommandTestUtil.INTERVIEW_LOCATION_DESC_A;
 import static presspal.contact.logic.commands.CommandTestUtil.INTERVIEW_LOCATION_DESC_B;
 import static presspal.contact.logic.commands.CommandTestUtil.INVALID_INTERVIEW_HEADER_DESC;
 import static presspal.contact.logic.commands.CommandTestUtil.INVALID_INTERVIEW_LOCATION_DESC;
+import static presspal.contact.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static presspal.contact.logic.commands.CommandTestUtil.ORGANISATION_DESC_AMY;
+import static presspal.contact.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static presspal.contact.logic.commands.CommandTestUtil.ROLE_DESC_AMY;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_DATE;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_HEADER;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_INDEX;
@@ -181,5 +187,65 @@ public class AddInterviewCommandParserTest {
                 + INTERVIEW_LOCATION_DESC_B;
 
         assertParseFailure(parser, duplicateLocation, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_LOCATION));
+    }
+
+    @Test
+    public void parse_invalidPrefixes_failure() {
+        String errorMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                AddInterviewCommand.MESSAGE_USAGE);
+
+        String categoryPrefix = " " + PREFIX_INDEX + "1"
+                + INTERVIEW_HEADER_DESC_A
+                + " " + PREFIX_DATE + "2024-10-10"
+                + " " + PREFIX_TIME + "14:00"
+                + INTERVIEW_LOCATION_DESC_A
+                + CATEGORY_DESC_FRIEND;
+
+        assertParseFailure(parser, categoryPrefix, errorMessage);
+
+        String emailPrefix = " " + PREFIX_INDEX + "1"
+                + INTERVIEW_HEADER_DESC_A
+                + EMAIL_DESC_AMY
+                + " " + PREFIX_DATE + "2024-10-10"
+                + " " + PREFIX_TIME + "14:00"
+                + INTERVIEW_LOCATION_DESC_A;
+
+        assertParseFailure(parser, emailPrefix, errorMessage);
+
+        String namePrefix = " " + PREFIX_INDEX + "1"
+                + INTERVIEW_HEADER_DESC_A
+                + " " + PREFIX_DATE + "2024-10-10"
+                + NAME_DESC_AMY
+                + " " + PREFIX_TIME + "14:00"
+                + INTERVIEW_LOCATION_DESC_A;
+
+        assertParseFailure(parser, namePrefix, errorMessage);
+
+        String organisationPrefix = " " + PREFIX_INDEX + "1"
+                + INTERVIEW_HEADER_DESC_A
+                + " " + PREFIX_DATE + "2024-10-10"
+                + " " + PREFIX_TIME + "14:00"
+                + ORGANISATION_DESC_AMY
+                + INTERVIEW_LOCATION_DESC_A;
+
+        assertParseFailure(parser, organisationPrefix, errorMessage);
+
+        String phonePrefix = " " + PHONE_DESC_AMY
+                + PREFIX_INDEX + "1"
+                + INTERVIEW_HEADER_DESC_A
+                + " " + PREFIX_DATE + "2024-10-10"
+                + " " + PREFIX_TIME + "14:00"
+                + INTERVIEW_LOCATION_DESC_A;
+
+        assertParseFailure(parser, phonePrefix, errorMessage);
+
+        String rolePrefix = " " + PREFIX_INDEX + "1"
+                + INTERVIEW_HEADER_DESC_A
+                + " " + PREFIX_DATE + "2024-10-10"
+                + " " + PREFIX_TIME + "14:00"
+                + INTERVIEW_LOCATION_DESC_A
+                + ROLE_DESC_AMY;
+
+        assertParseFailure(parser, rolePrefix, errorMessage);
     }
 }

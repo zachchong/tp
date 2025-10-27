@@ -1,10 +1,16 @@
 package presspal.contact.logic.parser;
 
 import static presspal.contact.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_DATE;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_HEADER;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_INDEX;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_NAME;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_ORGANISATION;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_PHONE;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_ROLE;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_TIME;
 
 import java.time.LocalDateTime;
@@ -28,10 +34,13 @@ public class AddInterviewCommandParser implements Parser<AddInterviewCommand> {
      */
     public AddInterviewCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
-                PREFIX_INDEX, PREFIX_HEADER, PREFIX_DATE, PREFIX_TIME, PREFIX_LOCATION);
+                PREFIX_INDEX, PREFIX_HEADER, PREFIX_DATE, PREFIX_TIME, PREFIX_LOCATION,
+                PREFIX_CATEGORY, PREFIX_EMAIL, PREFIX_NAME, PREFIX_ORGANISATION, PREFIX_PHONE, PREFIX_ROLE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_INDEX, PREFIX_HEADER, PREFIX_DATE, PREFIX_TIME, PREFIX_LOCATION)
-                || !argMultimap.getPreamble().isEmpty()) {
+                || !argMultimap.getPreamble().isEmpty()
+                || isPrefixPresent(argMultimap,
+                PREFIX_CATEGORY, PREFIX_EMAIL, PREFIX_NAME, PREFIX_ORGANISATION, PREFIX_PHONE, PREFIX_ROLE)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddInterviewCommand.MESSAGE_USAGE));
         }
@@ -52,5 +61,9 @@ public class AddInterviewCommandParser implements Parser<AddInterviewCommand> {
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap,
                                               Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    private static boolean isPrefixPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }
