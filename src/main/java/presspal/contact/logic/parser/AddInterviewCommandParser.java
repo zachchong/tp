@@ -36,7 +36,9 @@ public class AddInterviewCommandParser implements Parser<AddInterviewCommand> {
                     AddInterviewCommand.MESSAGE_USAGE));
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(); // Verify no duplicates
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_INDEX, PREFIX_HEADER,
+                PREFIX_DATE, PREFIX_TIME, PREFIX_LOCATION);
+
         Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).orElse(""));
         Header header = ParserUtil.parseHeader(argMultimap.getValue(PREFIX_HEADER).orElse(""));
         LocalDateTime dateTime = ParserUtil.parseLocalDateTime(argMultimap.getValue(PREFIX_DATE).orElse(""),

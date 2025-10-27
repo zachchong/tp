@@ -2,11 +2,15 @@ package presspal.contact.logic.parser;
 
 import static presspal.contact.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static presspal.contact.logic.commands.CommandTestUtil.INTERVIEW_HEADER_DESC_A;
+import static presspal.contact.logic.commands.CommandTestUtil.INTERVIEW_HEADER_DESC_B;
 import static presspal.contact.logic.commands.CommandTestUtil.INTERVIEW_LOCATION_DESC_A;
+import static presspal.contact.logic.commands.CommandTestUtil.INTERVIEW_LOCATION_DESC_B;
 import static presspal.contact.logic.commands.CommandTestUtil.INVALID_INTERVIEW_HEADER_DESC;
 import static presspal.contact.logic.commands.CommandTestUtil.INVALID_INTERVIEW_LOCATION_DESC;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_DATE;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_HEADER;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_INDEX;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_TIME;
 import static presspal.contact.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static presspal.contact.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -16,6 +20,7 @@ import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 
 import presspal.contact.commons.core.index.Index;
+import presspal.contact.logic.Messages;
 import presspal.contact.logic.commands.AddInterviewCommand;
 import presspal.contact.logic.parser.exceptions.ParseException;
 import presspal.contact.model.interview.Interview;
@@ -130,4 +135,51 @@ public class AddInterviewCommandParserTest {
         assertParseFailure(parser, userInput, expectedMessage);
     }
 
+    @Test
+    public void parse_duplicatePrefixes_failure() {
+        String duplicateIndex = " " + PREFIX_INDEX + "1"
+                + " " + PREFIX_INDEX + "2"
+                + INTERVIEW_HEADER_DESC_A
+                + " " + PREFIX_DATE + "2024-10-10"
+                + " " + PREFIX_TIME + "14:00"
+                + INTERVIEW_LOCATION_DESC_A;
+
+        assertParseFailure(parser, duplicateIndex, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_INDEX));
+
+        String duplicateHeader = " " + PREFIX_INDEX + "1"
+                + INTERVIEW_HEADER_DESC_A
+                + INTERVIEW_HEADER_DESC_B
+                + " " + PREFIX_DATE + "2024-10-10"
+                + " " + PREFIX_TIME + "14:00"
+                + INTERVIEW_LOCATION_DESC_A;
+
+        assertParseFailure(parser, duplicateHeader, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_HEADER));
+
+        String duplicateDate = " " + PREFIX_INDEX + "1"
+                + INTERVIEW_HEADER_DESC_A
+                + " " + PREFIX_DATE + "2024-10-10"
+                + " " + PREFIX_DATE + "2025-10-10"
+                + " " + PREFIX_TIME + "14:00"
+                + INTERVIEW_LOCATION_DESC_A;
+
+        assertParseFailure(parser, duplicateDate, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_DATE));
+
+        String duplicateTime = " " + PREFIX_INDEX + "1"
+                + INTERVIEW_HEADER_DESC_A
+                + " " + PREFIX_DATE + "2024-10-10"
+                + " " + PREFIX_TIME + "14:00"
+                + " " + PREFIX_TIME + "16:00"
+                + INTERVIEW_LOCATION_DESC_A;
+
+        assertParseFailure(parser, duplicateTime, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_TIME));
+
+        String duplicateLocation = " " + PREFIX_INDEX + "1"
+                + INTERVIEW_HEADER_DESC_A
+                + " " + PREFIX_DATE + "2024-10-10"
+                + " " + PREFIX_TIME + "14:00"
+                + INTERVIEW_LOCATION_DESC_A
+                + INTERVIEW_LOCATION_DESC_B;
+
+        assertParseFailure(parser, duplicateLocation, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_LOCATION));
+    }
 }
