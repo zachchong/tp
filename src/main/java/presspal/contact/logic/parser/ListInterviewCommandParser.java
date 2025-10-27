@@ -27,6 +27,8 @@ public class ListInterviewCommandParser implements Parser<ListInterviewCommand> 
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListInterviewCommand.MESSAGE_USAGE));
         }
 
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_INDEX);
+
         //get the index for the person
         Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
         //return ListInterviewCommand with the index of Person
