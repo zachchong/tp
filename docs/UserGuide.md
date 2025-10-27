@@ -168,8 +168,8 @@ Adds an interview to a contact in the contact book.
 Format: `addInterview i/INDEX h/HEADER d/DATE t/TIME l/LOCATION`
 
 * Adds an interview to the contact at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-* The `DATE` must be in the format `YYYY-MM-DD`. e.g. `2025-10-10`.
-* The `TIME` must be in the format `HH:MM`. e.g. `14:30`.
+* The `DATE` must be in the format `YYYY-MM-DD`. e.g. `2025-10-10`
+* The `TIME` must be in the format `HH:MM`. e.g. `14:30`
 * The `LOCATION` can be any string of characters.
 * The `HEADER` can be any string of characters.
 
@@ -208,7 +208,7 @@ Format: `addCat i/INDEX [c/CATEGORY]...`
 * If category A is already added to a person, any attempt to add category A again to the person will be rejected with an error message.
 
 Examples:
-* `addCat i/1 c/emergency` Adds the category `emergency` to the person with index 1.
+* `addCat i/1 c/emergency` Adds the category `emergency` to the person with index 1
 * `addCat i/2 c/emergency c/singapore` Adds the categories `emergency` and `singapore` to the person with index 2.
 
 ### Delete category(s) from a person : `deleteCat`
