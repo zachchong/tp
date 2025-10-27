@@ -60,9 +60,7 @@ public class PersonUtil {
     public static String getEditCategoryDescriptorDetails(EditCategoryDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         Set<Category> categories = descriptor.getCategories();
-        if (categories.isEmpty()) {
-            sb.append(PREFIX_CATEGORY);
-        } else {
+        if (!categories.isEmpty()) {
             categories.forEach(s -> sb.append(PREFIX_CATEGORY).append(s.categoryName).append(" "));
         }
         return sb.toString();

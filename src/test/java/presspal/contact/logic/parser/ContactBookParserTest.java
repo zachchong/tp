@@ -73,7 +73,7 @@ public class ContactBookParserTest {
 
     @Test
     public void parseCommand_addCategory() throws Exception {
-        Person person = new PersonBuilder().build();
+        Person person = new PersonBuilder().withCategories("friends", "vip").build();
         EditCategoryDescriptor descriptor = new EditCategoryDescriptorBuilder(person).build();
         AddCategoryCommand command = (AddCategoryCommand) parser.parseCommand(
                 AddCategoryCommand.COMMAND_WORD + " " + PREFIX_INDEX + INDEX_FIRST_PERSON.getOneBased()
@@ -83,7 +83,7 @@ public class ContactBookParserTest {
 
     @Test
     public void parseCommand_deleteCategory() throws Exception {
-        Person person = new PersonBuilder().build();
+        Person person = new PersonBuilder().withCategories("friends", "vip").build();
         EditCategoryDescriptor descriptor = new EditCategoryDescriptorBuilder(person).build();
         presspal.contact.logic.commands.DeleteCategoryCommand command =
                 (presspal.contact.logic.commands.DeleteCategoryCommand) parser.parseCommand(
