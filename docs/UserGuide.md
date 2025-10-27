@@ -142,10 +142,10 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
 Examples:
-* `find John` returns `john` and `John Doe`
-* `find bernice charlotte` returns `Bernice Yu`, `Charlotte Oliveiro`<br>
+* `find John` returns `john` and `John Doe`.
+* `find bernice charlotte` returns `Bernice Yu`, `Charlotte Oliveiro`.<br>
   ![result for 'find bernice charlotte'](images/findBerniceCharlotteResult.png)
-* `find NUS colleagues` Returns all persons whose details match the keyword of `NUS` or `colleagues`
+* `find NUS colleagues` Returns all persons whose details match the keyword of `NUS` or `colleagues`.
 
 ### Deleting a person : `delete`
 
