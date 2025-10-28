@@ -97,13 +97,18 @@ Format: `help`
 ### Adding a person: `add`
 
 Adds a person to the contact book.
+* You must provide at least one of `PHONE` and `EMAIL`.
+* `PHONE` and `EMAIL` do not have to be unique. Different people can share the same contact details.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL o/ORGANISATION r/ROLE [c/CATEGORY]…​`
+> **Format**
+> ```
+> add n/NAME p/PHONE_NUMBER e/EMAIL o/ORGANISATION r/ROLE [c/CATEGORY]
+> ```
 
-<div markdown="span" class="alert alert-primary">
+
 💡 **Tip:**
 A person can have any number of categories (including 0).
-</div>
+
 
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com o/NUS r/Student c/friends c/owesMoney`
@@ -113,18 +118,23 @@ Examples:
 
 Shows a list of all persons in the contact book.
 
-Format: `list`
+> **Format**
+> ```
+> list
+> ```
 
 ### Editing a person : `edit`
 
 Edits an existing person in the contact book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [o/ORGANISATION] [r/ROLE]​`
+> **Format**
+> ```
+> edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [o/ORGANISATION] [r/ROLE]
+> ```
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* Unable to delete both phone number and email, as at least one mode of contact must remain.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email of the 1st person to be `91234567` and `johndoe@example.com` respectively.
@@ -133,7 +143,10 @@ Examples:
 
 Finds persons whose name, organisation, role or categories contain any of the given keywords.
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+> **Format** 
+> ```
+> find KEYWORD [MORE_KEYWORDS]
+> ```
 
 * The search is case-insensitive. e.g `hans` will match `Hans`.
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
@@ -152,7 +165,10 @@ Examples:
 
 Deletes the specified person from the contact book.
 
-Format: `delete INDEX`
+> **Format**
+> ```
+> delete INDEX
+> ```
 
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
@@ -166,13 +182,20 @@ Examples:
 
 Adds an interview to a contact in the contact book.
 
-Format: `addInterview i/INDEX h/HEADER d/DATE t/TIME l/LOCATION`
+> **Format**
+> ```
+> addInterview i/INDEX h/HEADER d/DATE t/TIME l/LOCATION
+> ```
 
 * Adds an interview to the contact at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * The `DATE` must be in the format `YYYY-MM-DD`. e.g. `2025-10-10`.
-* The `TIME` must be in the format `HH:MM`. e.g. `14:30`. Each contact cannot have more than one interview at the same time. However, different contacts can have interviews at the same time.
-* The `LOCATION` can be any text describing where the interview will take place. Different interviews can take place at the same `LOCATION`.
-* The `HEADER` can be any text describing the interview (e.g company name, role, etc.). Different interviews can have the same `HEADER`.
+  * When adding an interview, the `DATE` can be in the past.
+* The `TIME` must be in the format `HH:MM`. e.g. `14:30`. 
+  * Each contact cannot have more than one interview at the same time. However, different contacts can have interviews at the same time.
+* The `LOCATION` can be any text describing where the interview will take place. 
+  * Different interviews can take place at the same `LOCATION`.
+* The `HEADER` can be any text describing the interview (e.g company name, role, etc.). 
+  * Different interviews can have the same `HEADER`.
 
 Examples:
 * `addInterview i/1 h/Interview with ABC Corp d/2024-10-10 t/14:00 l/123, Business St, #02-25` adds an interview with header `Interview with ABC Corp`, date `2024-10-10`, time `14:00` and location `123, Business St, #02-25` to the 1st contact in the contact book.
@@ -181,7 +204,10 @@ Examples:
 
 Deletes an interview from a contact in the contact book.
 
-Format: `deleteInterview i/PERSON_INDEX i/INTERVIEW_INDEX`
+> **Format** 
+> ```
+> deleteInterview i/PERSON_INDEX i/INTERVIEW_INDEX
+> ```
 
 * Deletes the interview at the specified `INTERVIEW_INDEX` from the contact at the specified `PERSON_INDEX`. The indices refer to the index numbers shown in the displayed person list and interview list respectively. The indices **must be positive integers** 1, 2, 3, …​
 
@@ -192,7 +218,10 @@ Examples:
 
 Lists all interviews of a contact in the contact book.
 
-Format: `listInterview i/INDEX`
+> **Format** 
+> ```
+> listInterview i/INDEX
+> ```
 
 * Lists all interviews of the contact at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * If the contact has no interviews, a message indicating so will be shown instead.
@@ -204,7 +233,10 @@ Format: `listInterview i/INDEX`
 
 Add category(s) to a person identified by the index number used in the displayed person list.
 
-Format: `addCat i/INDEX [c/CATEGORY]...`
+> **Format** 
+> ```
+> addCat i/INDEX [c/CATEGORY]...
+> ```
 
 * If category A is already added to a person, any attempt to add category A again to the person will be rejected with an error message.
 
@@ -216,7 +248,10 @@ Examples:
 
 Delete category(s) from a person identified by the index number used in the displayed person list.
 
-Format: `deleteCat i/INDEX [c/CATEGORY]...`
+> **Format** 
+> ```
+> deleteCat i/INDEX [c/CATEGORY]...
+> ```
 
 Examples:
 * `deleteCat i/1 c/emergency` Deletes the category `emergency` from the person with index 1.
@@ -225,8 +260,12 @@ Examples:
 ### Display the upcoming interview : `nextInterview`
 
 Displays the next scheduled interview that occurs at or after the current date and time, excluding any interviews already in the past.
+* If the next scheduled interview occurs for more than one contact, they will all be displayed.
 
-Format: `nextInterview`
+> **Format** 
+> ```
+> nextInterview
+> ```
 
 Examples:
 * `nextInterview` Displays the most upcoming scheduled interview "[Meta Interview] on 15 Oct 2050 2:30PM at Meta HQ."
@@ -235,13 +274,21 @@ Examples:
 
 Clears all entries from the contact book.
 
-Format: `clear`
+**⚠️ Caution:** This action is destructive and cannot be undone.
+
+> **Format** 
+> ```
+> clear
+> ```
 
 ### Exiting the program : `exit`
 
 Exits the program.
 
-Format: `exit`
+> **Format**
+> ```
+> exit
+> ```
 
 ### Saving the data
 
