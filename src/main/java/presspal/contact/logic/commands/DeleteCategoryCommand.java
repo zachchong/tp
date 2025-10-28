@@ -35,8 +35,8 @@ public class DeleteCategoryCommand extends EditCategoryCommand {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_CATEGORY + "friends";
 
-    public static final String MESSAGE_DELETECAT_SUCCESS = "The Category %1$s is successfully deleted from %2$s";
-    public static final String MESSAGE_CAT_NOT_FOUND = "This person does not have this category:\n%1$s";
+    public static final String MESSAGE_DELETECAT_SUCCESS = "Category(s) successfully deleted from %1$s:\n%2$s";
+    public static final String MESSAGE_CAT_NOT_FOUND = "Failed to delete category(s) from %1$s:\n%2$s";
 
     /**
      * @param index of the person in the filtered person list to edit
@@ -61,15 +61,23 @@ public class DeleteCategoryCommand extends EditCategoryCommand {
 
         Set<Category> categoryNotFound = isCategoriesPresent(personToDeleteCat, editCategoryDescriptor);
         if (!categoryNotFound.isEmpty()) {
-            throw new CommandException(String.format(MESSAGE_CAT_NOT_FOUND, categoryNotFound));
+            StringBuilder notFoundList = new StringBuilder();
+            int i = 1;
+            for (Category c : categoryNotFound) {
+                notFoundList.append(i++).append(". ").append(c).append("\n");
+            }
+            if (!notFoundList.isEmpty()) {
+                notFoundList.setLength(notFoundList.length() - 1);
+            }
+            throw new CommandException(String.format(MESSAGE_CAT_NOT_FOUND, personToDeleteCat.getName(), notFoundList));
         }
 
         Person editedPerson = createNewPerson(personToDeleteCat, editCategoryDescriptor);
 
         model.setPerson(personToDeleteCat, editedPerson);
         model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_DELETECAT_SUCCESS,
-                editCategoryDescriptor.getCategoriesAsString(), editedPerson.getName()));
+        return new CommandResult(String.format(MESSAGE_DELETECAT_SUCCESS, editedPerson.getName(),
+                editCategoryDescriptor.getCategoriesAsString()));
     }
 
     private Set<Category> isCategoriesPresent(Person personToDeleteCat, EditCategoryDescriptor editCategoryDescriptor) {
