@@ -21,5 +21,6 @@ public class CliSyntax {
 
     /* Prefix definitions for Index */
     public static final Prefix PREFIX_INDEX = new Prefix("i/");
+    public static final Prefix PREFIX_INTERVIEW_INDEX = new Prefix("v/");
 
 }
