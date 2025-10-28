@@ -169,9 +169,9 @@ Format: `addInterview i/INDEX h/HEADER d/DATE t/TIME l/LOCATION`
 
 * Adds an interview to the contact at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * The `DATE` must be in the format `YYYY-MM-DD`. e.g. `2025-10-10`.
-* The `TIME` must be in the format `HH:MM`. e.g. `14:30`.
-* The `LOCATION` can be any string of characters.
-* The `HEADER` can be any string of characters.
+* The `TIME` must be in the format `HH:MM`. e.g. `14:30`. Each contact cannot have two interviews at the same time. However, different contacts can have interviews at the same time.
+* The `LOCATION` can be any text describing where the interview will take place. Different contacts can have interviews at the same location.
+* The `HEADER` can be any text describing the interview (e.g company name, role, etc.). Each contact and different contacts can all have interviews with the same header. 
 
 Examples:
 * `addInterview i/1 h/Interview with ABC Corp d/2024-10-10 t/14:00 l/123, Business St, #02-25` adds an interview with header `Interview with ABC Corp`, date `2024-10-10`, time `14:00` and location `123, Business St, #02-25` to the 1st contact in the contact book.
