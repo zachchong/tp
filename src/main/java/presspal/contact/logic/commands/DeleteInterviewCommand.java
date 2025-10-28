@@ -30,9 +30,6 @@ public class DeleteInterviewCommand extends Command {
     public static final String MESSAGE_INVALID_INTERVIEW_DISPLAYED_INDEX =
             "Invalid interview index. Valid range: %s.";
 
-    public static final String MESSAGE_UNEXPECTED_PREFIXES =
-            "Only i/ (person) and v/ (interview) are allowed.\nRemove: %s";
-
     public static final String MESSAGE_NO_INTERVIEWS =
             "%s has no scheduled interviews.";
 

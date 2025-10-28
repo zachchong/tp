@@ -23,4 +23,10 @@ public class CliSyntax {
     public static final Prefix PREFIX_INDEX = new Prefix("i/");
     public static final Prefix PREFIX_INTERVIEW_INDEX = new Prefix("v/");
 
+    // canonical list of prefixes
+    public static final Prefix[] ALL_PREFIXES = {
+        PREFIX_CATEGORY, PREFIX_EMAIL, PREFIX_NAME, PREFIX_ORGANISATION, PREFIX_PHONE, PREFIX_ROLE,
+        PREFIX_HEADER, PREFIX_DATE, PREFIX_TIME, PREFIX_LOCATION,
+        PREFIX_INDEX, PREFIX_INTERVIEW_INDEX
+    };
 }
