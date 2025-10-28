@@ -43,13 +43,18 @@ public class DeleteInterviewCommandTest {
         // pick an interview index larger than the list size
         DeleteInterviewCommand cmd = new DeleteInterviewCommand(personIndex, Index.fromOneBased(size + 1));
 
-        assertCommandFailure(cmd, model, DeleteInterviewCommand.MESSAGE_INVALID_INTERVIEW_DISPLAYED_INDEX);
+        // if no interviews, we expect the name-based "no interviews" message.
+        // Otherwise, expect the range "1..N" where N = size of interview list.
+        String expected = (size == 0)
+                ? String.format(DeleteInterviewCommand.MESSAGE_NO_INTERVIEWS, p.getName())
+                : String.format(DeleteInterviewCommand.MESSAGE_INVALID_INTERVIEW_DISPLAYED_INDEX, "1.." + size);
+
+        assertCommandFailure(cmd, model, expected);
     }
 
     @Test
     public void execute_invalidPersonIndexFilteredList_throwsCommandException() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
-
         Index outOfBoundPerson = INDEX_SECOND_PERSON;
 
         assertTrue(outOfBoundPerson.getZeroBased() < model.getContactBook().getPersonList().size());
@@ -88,5 +93,4 @@ public class DeleteInterviewCommandTest {
                 + "{personIndex=" + person + ", interviewIndex=" + interview + "}";
         assertEquals(expected, cmd.toString());
     }
-
 }
