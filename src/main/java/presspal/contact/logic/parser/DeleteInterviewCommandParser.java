@@ -15,8 +15,6 @@ import presspal.contact.logic.parser.exceptions.ParseException;
  */
 public class DeleteInterviewCommandParser implements Parser<DeleteInterviewCommand> {
 
-    private static final Prefix[] ALLOWED = { PREFIX_INDEX, PREFIX_INTERVIEW_INDEX };
-
     @Override
     public DeleteInterviewCommand parse(String args) throws ParseException {
 
