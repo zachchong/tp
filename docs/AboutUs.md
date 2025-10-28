@@ -6,11 +6,11 @@ title: About Us
 We are a team based in the [School of Computing, National University of Singapore](https://www.comp.nus.edu.sg).
 
 You can reach any one of us at the email:
-* `e1398360[at]u.nus.edu` (Jia Bao)
-* `jessie.chin[at]u.nus.edu` (Jessie)
-* `koei[at]u.nus.edu` (Kieron)
-* `e1406319[at]u.nus.edu` (Lucas)
-* `czh[at]u.nus.edu` (Zach)
+* `e1398360@u.nus.edu` (Jia Bao)
+* `jessie.chin@u.nus.edu` (Jessie)
+* `koei@u.nus.edu` (Kieron)
+* `e1406319@u.nus.edu` (Lucas)
+* `czh@u.nus.edu` (Zach)
 
 ## Project team
 
@@ -34,7 +34,9 @@ You can reach any one of us at the email:
 [[portfolio](team/jcc-kh.md)]
 
 * Role: Developer
-* Responsibilities: TBC
+* Responsibilities:
+  * Testing, Bug Reporting and Verification
+  * Feature Implementation: Interview Scheduling
 
 ### Lucas Ng
 
@@ -44,7 +46,9 @@ You can reach any one of us at the email:
 [[portfolio](team/lucasn24.md)]
 
 * Role: Developer
-* Responsibilities: TBC
+* Responsibilities:
+  * UI Design and Implementation
+  * Feature Implementation: Categories
 
 ### Kieron Oei
 
@@ -52,6 +56,13 @@ You can reach any one of us at the email:
 
 [[github](http://github.com/KieronOei)]
 [[portfolio](team/kieronoei.md)]
+
+* Role: Developer
+* Responsibilities:
+  * Project & Release Management
+  * Documentation
+  * Code refactoring
+  * UI refinements
 
 ### Zach Chong
 
@@ -61,4 +72,6 @@ You can reach any one of us at the email:
 [[portfolio](team/zachchong.md)]
 
 * Role: Developer
-* Responsibilities: TBC
+* Responsibilities:
+  * Documentation
+  * Feature Implementation: Interview management
