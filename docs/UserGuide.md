@@ -27,7 +27,7 @@ The goal of PressPal is to:
 
 ### System Requirements
 - Java 17 (or newer) installed and available on the PATH.
-- Operating System: Windows, macOS, or Linux
+- Operating System: Windows, macOS, or Linux.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -101,7 +101,7 @@ Adds a person to the contact book.
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL o/ORGANISATION r/ROLE [c/CATEGORY]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A person can have any number of categories (including 0)
+A person can have any number of categories (including 0).
 </div>
 
 Examples:
@@ -134,7 +134,7 @@ Finds persons whose name, organisation, role or categories contain any of the gi
 
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
+* The search is case-insensitive. e.g `hans` will match `Hans`.
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name, organisation, role and categories are searched. Other fields such as phone or email are not included.
 * Only full words will be matched e.g. `Han` will not match `Hans`
