@@ -74,4 +74,18 @@ public class AddCategoryCommandParserTest {
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
+
+    @Test
+    public void parse_emptyCategoryValue_failure() {
+        // triggers onlyEmptyCategory == true
+        String userInput = INDEX_DESC_A + " c/";
+        assertParseFailure(parser, userInput, errorMessage);
+    }
+
+    @Test
+    public void parse_nonEmptyPreambleAtStart_failure() {
+        // triggers non-empty preamble branch
+        String userInput = "preamble " + INDEX_DESC_A + CATEGORY_DESC_FRIEND;
+        assertParseFailure(parser, userInput, errorMessage);
+    }
 }

@@ -32,7 +32,12 @@ public class AddCategoryCommandParser implements Parser<AddCategoryCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_INDEX, PREFIX_CATEGORY);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_INDEX, PREFIX_CATEGORY) || !argMultimap.getPreamble().isEmpty()) {
+        Collection<String> rawCategories = argMultimap.getAllValues(PREFIX_CATEGORY);
+        boolean onlyEmptyCategory = rawCategories.size() == 1 && rawCategories.contains("");
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_INDEX, PREFIX_CATEGORY)
+                || !argMultimap.getPreamble().isEmpty()
+                || onlyEmptyCategory) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCategoryCommand.MESSAGE_USAGE));
         }
 

@@ -1,6 +1,7 @@
 package presspal.contact.logic.parser;
 
 import static presspal.contact.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static presspal.contact.logic.commands.CommandTestUtil.CATEGORY_DESC_FRIEND;
 import static presspal.contact.logic.commands.CommandTestUtil.INDEX_DESC_A;
 import static presspal.contact.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static presspal.contact.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -55,5 +56,19 @@ public class DeleteCategoryCommandParserTest {
                 new DeleteCategoryCommand(INDEX_FIRST_PERSON, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_emptyCategoryValue_failure() {
+        // triggers onlyEmptyCategory == true
+        String userInput = INDEX_DESC_A + " c/";
+        assertParseFailure(parser, userInput, errorMessage);
+    }
+
+    @Test
+    public void parse_nonEmptyPreambleAtStart_failure() {
+        // triggers non-empty preamble branch
+        String userInput = "preamble " + INDEX_DESC_A + CATEGORY_DESC_FRIEND;
+        assertParseFailure(parser, userInput, errorMessage);
     }
 }
