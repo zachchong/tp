@@ -16,7 +16,6 @@ import presspal.contact.logic.Messages;
 import presspal.contact.model.Model;
 import presspal.contact.model.ModelManager;
 import presspal.contact.model.UserPrefs;
-import presspal.contact.model.person.InterviewList;
 import presspal.contact.model.person.Person;
 import presspal.contact.testutil.PersonBuilder;
 
