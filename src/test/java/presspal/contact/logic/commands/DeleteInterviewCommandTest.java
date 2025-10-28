@@ -16,7 +16,9 @@ import presspal.contact.logic.Messages;
 import presspal.contact.model.Model;
 import presspal.contact.model.ModelManager;
 import presspal.contact.model.UserPrefs;
+import presspal.contact.model.person.InterviewList;
 import presspal.contact.model.person.Person;
+import presspal.contact.testutil.PersonBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -92,5 +94,24 @@ public class DeleteInterviewCommandTest {
         String expected = DeleteInterviewCommand.class.getCanonicalName()
                 + "{personIndex=" + person + ", interviewIndex=" + interview + "}";
         assertEquals(expected, cmd.toString());
+    }
+
+    @Test
+    public void execute_noInterviews_failureWithPersonName() {
+        Model model = new ModelManager(getTypicalContactBook(), new UserPrefs());
+
+        // build a person with no interviews
+        Person empty =
+                new PersonBuilder()
+                        .withName("Empty Person")
+                        .build();
+
+        model.addPerson(empty);
+
+        Index personIdx = Index.fromOneBased(model.getFilteredPersonList().size());
+        DeleteInterviewCommand cmd = new DeleteInterviewCommand(personIdx, Index.fromOneBased(1));
+
+        String expected = String.format(DeleteInterviewCommand.MESSAGE_NO_INTERVIEWS, empty.getName());
+        assertCommandFailure(cmd, model, expected);
     }
 }
