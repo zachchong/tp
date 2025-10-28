@@ -65,7 +65,7 @@ The goal of PressPal is to:
 
 <div markdown="block" class="alert alert-info">
 
-**:information_source: Notes about the command format:**<br>
+**ℹ️ Notes about the command format:**<br>:
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
@@ -100,7 +100,8 @@ Adds a person to the contact book.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL o/ORGANISATION r/ROLE [c/CATEGORY]…​`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+<div markdown="span" class="alert alert-primary">
+💡 **Tip:**
 A person can have any number of categories (including 0).
 </div>
 
