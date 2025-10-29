@@ -85,6 +85,30 @@ The goal of PressPal is to:
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
 
+### GENERAL COMMANDS 
+
+### Viewing help : `help`
+
+Shows a message explaining how to access the help page.
+
+![help message](images/helpMessage.png)
+
+Format: `help`
+
+### Clearing all entries : `clear`
+
+Clears all entries from the contact book.
+
+Format: `clear`
+
+### Exiting the program : `exit`
+
+Exits the program.
+
+Format: `exit`
+
+### CONTACT MANAGEMENT
+
 ### Adding a person: `add`
 
 Adds a person to the contact book.
@@ -152,6 +176,8 @@ Examples:
   ![result for 'find bernice charlotte'](images/findBerniceCharlotteResult.png)
 * `find NUS colleagues` Returns all persons whose details match the keyword of `NUS` or `colleagues`.
 
+### INTERVIEW MANAGEMENT
+
 ### Adding an interview to a contact : `addInterview`
 
 Adds an interview to a contact in the contact book.
@@ -199,6 +225,8 @@ Format: `nextInterview`
 Examples:
 * `nextInterview` Displays the most upcoming scheduled interview "[Meta Interview] on 15 Oct 2050 2:30PM at Meta HQ."
 
+### CATEGORY MANAGEMENT
+
 ### Add category(s) to a person : `addCat`
 
 Add category(s) to a person identified by the index number used in the displayed person list.
@@ -221,26 +249,6 @@ Examples:
 * `deleteCat i/1 c/emergency` Deletes the category `emergency` from the person with index 1.
 * `deleteCat i/2 c/emergency c/singapore` Deletes the categories `emergency` and `singapore` from the person with index 2.
 
-### Viewing help : `help`
-
-Shows a message explaining how to access the help page.
-
-![help message](images/helpMessage.png)
-
-Format: `help`
-
-### Clearing all entries : `clear`
-
-Clears all entries from the contact book.
-
-Format: `clear`
-
-### Exiting the program : `exit`
-
-Exits the program.
-
-Format: `exit`
-
 ### Saving the data
 
 ContactBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
@@ -261,10 +269,10 @@ Furthermore, certain edits can cause the ContactBook to behave in unexpected way
 ### Troubleshooting
 
 **Q**: I’ve found a bug. How can I report it?<br>
-**A**: You can report it to any one of the developers. Their emails can be found in the [AboutUs page](AboutUs.md) here.
+**A**: You can report it to any one of the developers. Their emails can be found in the [AboutUs page](AboutUs.md).
 
 **Q**: I have an idea for a new feature. Where should I suggest it?<br>
-**A**: You can give your suggestions to any one of the developers. Their emails can be found in the [AboutUs page](AboutUs.md) here.
+**A**: You can give your suggestions to any one of the developers. Their emails can be found in the [AboutUs page](AboutUs.md).
 
 
 ### Features
