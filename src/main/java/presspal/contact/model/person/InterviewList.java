@@ -54,6 +54,11 @@ public class InterviewList {
                 .min(Comparator.comparing(Interview::getDateTime));
     }
 
+    /** Returns true if any interview is scheduled exactly at the given date-time. */
+    public boolean hasInterviewAt(LocalDateTime dateTime) {
+        return interviews.stream().anyMatch(iv -> iv.getDateTime().equals(dateTime));
+    }
+
     /**
      * Adds an interview to the interview list.
      */

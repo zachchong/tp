@@ -3,6 +3,7 @@ package presspal.contact.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static presspal.contact.commons.core.Config.DISPLAY_DATE_TIME_FORMATTER;
 import static presspal.contact.logic.commands.CommandTestUtil.assertCommandFailure;
 import static presspal.contact.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static presspal.contact.testutil.TypicalPersons.getTypicalContactBook;
@@ -107,6 +108,26 @@ public class AddInterviewCommandTest {
         // toString contains dynamic content; ensure it starts with canonical name
         assertTrue(cmd.toString().startsWith(AddInterviewCommand.class.getCanonicalName()));
         assertEquals(cmd.toString(), cmd.toString());
+    }
+
+    @Test
+    public void execute_duplicateDateTimeSamePerson_failure() {
+        Person p = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Interview existing = p.getInterviews().getInterviews().get(0);
+
+        Interview clash = new InterviewBuilder()
+                .withHeader("Different Topic")
+                .withLocation("Different Place")
+                .withDate(existing.getDateTime())
+                .build();
+
+        AddInterviewCommand cmd = new AddInterviewCommand(clash, INDEX_FIRST_PERSON);
+
+        // build expected message with the SAME formatter as the command:
+        String when = existing.getDateTime().format(DISPLAY_DATE_TIME_FORMATTER);
+        String expected = String.format(AddInterviewCommand.MESSAGE_DUPLICATE_DATETIME, when);
+
+        assertCommandFailure(cmd, model, expected);
     }
 
 }

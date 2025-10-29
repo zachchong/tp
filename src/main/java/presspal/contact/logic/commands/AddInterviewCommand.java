@@ -1,6 +1,7 @@
 package presspal.contact.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static presspal.contact.commons.core.Config.DISPLAY_DATE_TIME_FORMATTER;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_DATE;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_HEADER;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_INDEX;
@@ -39,10 +40,9 @@ public class AddInterviewCommand extends Command {
             + PREFIX_TIME + "14:00 "
             + PREFIX_LOCATION + "123, Business St, #02-25 ";
 
-
-
     public static final String MESSAGE_ADD_INTERVIEW_SUCCESS = "The following interview has been added to %1$s:\n%2$s";
     public static final String MESSAGE_DUPLICATE_INTERVIEW = "Failed to add interview. This interview already exists.";
+    public static final String MESSAGE_DUPLICATE_DATETIME = "This contact already has an interview at %s.";
 
     private final Interview toAdd;
     private final Index personIndex;
@@ -72,6 +72,11 @@ public class AddInterviewCommand extends Command {
 
         if (interviewList.contains(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_INTERVIEW);
+        }
+
+        if (interviewList.hasInterviewAt(toAdd.getDateTime())) {
+            String when = toAdd.getDateTime().format(DISPLAY_DATE_TIME_FORMATTER);
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_DATETIME, when));
         }
 
         interviewList.add(toAdd);
