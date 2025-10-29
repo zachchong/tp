@@ -299,7 +299,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ## **Use cases**
 
-(For all use cases below, the **System** is the `PressPal` and the **Actor** is the `Reporter`, unless specified otherwise)
+The use cases below are not exhaustive. (For all use cases below, the **System** is the `PressPal` and the **Actor** is the `Reporter`, unless specified otherwise)
 
 ### UC1 – Add a contact
 
@@ -362,7 +362,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * 1a2. Reporter provides it.
     Use case resumes at step 2.
 
-* 2a. PressPal detects an invalid name (e.g., empty or only symbols).
+* 2a. PressPal detects an invalid name (e.g., empty / more than 20 characters / non-alphabetic).
   * 2a1. PressPal requests a valid name and explains the issue.
   * 2a2. Reporter enters a valid name.
     Steps 2a1–2a2 repeat until valid.
@@ -378,7 +378,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Use case ends.
 
 
-### UC3 – Add contact to category
+### UC3 – Add category to contact
 
 **MSS**
 
