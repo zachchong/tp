@@ -85,7 +85,7 @@ The goal of PressPal is to:
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
 
-### GENERAL COMMANDS 
+### <u>GENERAL COMMANDS</u>
 
 ### Viewing help : `help`
 
@@ -107,7 +107,7 @@ Exits the program.
 
 Format: `exit`
 
-### CONTACT MANAGEMENT
+### <u>CONTACT MANAGEMENT</u>
 
 ### Adding a person: `add`
 
@@ -176,7 +176,7 @@ Examples:
   ![result for 'find bernice charlotte'](images/findBerniceCharlotteResult.png)
 * `find NUS colleagues` Returns all persons whose details match the keyword of `NUS` or `colleagues`.
 
-### INTERVIEW MANAGEMENT
+### <u>INTERVIEW MANAGEMENT</u>
 
 ### Adding an interview to a contact : `addInterview`
 
@@ -225,7 +225,7 @@ Format: `nextInterview`
 Examples:
 * `nextInterview` Displays the most upcoming scheduled interview "[Meta Interview] on 15 Oct 2050 2:30PM at Meta HQ."
 
-### CATEGORY MANAGEMENT
+### <u>CATEGORY MANAGEMENT</u>
 
 ### Add category(s) to a person : `addCat`
 
