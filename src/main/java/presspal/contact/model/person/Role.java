@@ -9,7 +9,7 @@ import static presspal.contact.commons.util.AppUtil.checkArgument;
  */
 public class Role {
 
-    public static final String MESSAGE_CONSTRAINTS = "Roles can take any values, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Roles can take any values, and it should not be blank. It should have at most 50 characters.";
 
     /*
      * The first character of the role must not be a whitespace,
@@ -34,7 +34,7 @@ public class Role {
      * Returns true if a given string is a valid role.
      */
     public static boolean isValidRole(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.length() <= 50 && test.matches(VALIDATION_REGEX);
     }
 
     @Override

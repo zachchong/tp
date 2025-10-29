@@ -9,7 +9,7 @@ import static presspal.contact.commons.util.AppUtil.checkArgument;
  */
 public class Organisation {
 
-    public static final String MESSAGE_CONSTRAINTS = "Organisations can take any values, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Organisations can take any values, and it should not be blank. It should have at most 50 characters.";
 
     /*
      * The first character of the organisation must not be a whitespace,
@@ -31,10 +31,10 @@ public class Organisation {
     }
 
     /**
-     * Returns true if a given string is a valid email.
+     * Returns true if a given string is a valid organisation.
      */
     public static boolean isValidOrganisation(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.length() <= 50 && test.matches(VALIDATION_REGEX);
     }
 
     @Override

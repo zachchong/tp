@@ -35,6 +35,24 @@ public class RoleTest {
     }
 
     @Test
+    public void isValidCategoryName_lengthLimits() {
+        // EP: less than 50 characters -> valid
+        String valid49 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"; // 49 a's
+        assertTrue(Category.isValidCategoryName(valid49));
+
+        // EP: exactly 50 characters -> valid
+        String valid50 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"; // 50 a's
+        assertTrue(Category.isValidCategoryName(valid50));
+
+        // EP: 51 characters (too long) -> invalid
+        String invalid51 = valid50 + "a";
+        assertFalse(Category.isValidCategoryName(invalid51));
+
+        // constructor should reject too-long category names
+        assertThrows(IllegalArgumentException.class, () -> new Category(invalid51));
+    }
+
+    @Test
     public void equals() {
         Role role = new Role("Valid Role");
 
