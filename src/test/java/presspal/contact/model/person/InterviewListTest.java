@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -46,7 +47,15 @@ public class InterviewListTest {
 
     @Test
     public void getInterviewList_returnsCorrectList() {
-        assertEquals(sampleInterviews, populatedList.getInterviews());
+        // expect newest to oldest
+        List<Interview> expected = sampleInterviews.stream()
+                .sorted(Comparator.comparing(Interview::getDateTime).reversed())
+                .collect(Collectors.toList());
+
+        assertEquals(expected, populatedList.getInterviews());
+
+        assertEquals("Interview at 2359", sampleInterviews.get(0).getHeader().toString());
+        assertEquals("Interview at 1600", sampleInterviews.get(1).getHeader().toString());
     }
 
     @Test
@@ -115,7 +124,7 @@ public class InterviewListTest {
 
     @Test
     public void toString_returnsCommaSeparatedList() {
-        String expected = sampleInterviews.stream()
+        String expected = populatedList.getInterviews().stream()
                 .map(Interview::toString)
                 .collect(Collectors.joining(","));
         assertEquals(expected, populatedList.toString());
@@ -125,11 +134,6 @@ public class InterviewListTest {
     public void toString_emptyList_returnsEmptyString() {
         InterviewList empty = new InterviewList(null);
         assertEquals("", empty.toString());
-    }
-
-    @Test
-    public void getUpcomingInterviews_returnsEmptyListForNow() {
-        assertTrue(populatedList.getUpcomingInterviews().isEmpty());
     }
 
     @Test
@@ -146,11 +150,13 @@ public class InterviewListTest {
 
     @Test
     public void getNumberedInterviews_returnsNumberedList() {
-        String expected = "1. " + sampleInterviews.get(0).getDisplayString()
+        // numbered in newest to oldest order
+        String expected = "1. " + populatedList.getInterviews().get(0).getDisplayString()
                 + System.lineSeparator()
-                + "2. " + sampleInterviews.get(1).getDisplayString();
+                + "2. " + populatedList.getInterviews().get(1).getDisplayString();
         assertEquals(expected, populatedList.getNumberedInterviews());
     }
+
     @Test
     public void getNumberedInterviews_emptyList_returnsNoInterviewsMessage() {
         InterviewList empty = new InterviewList(null);
@@ -177,5 +183,46 @@ public class InterviewListTest {
 
         InterviewList list = new InterviewList(Arrays.asList(past1, past2));
         assertTrue(list.getNextUpcoming().isEmpty());
+    }
+
+    @Test
+    public void constructor_unsortedInput_becomesSortedNewestFirst() {
+        List<Interview> unsorted = Arrays.asList(
+                interview("Older", "L1", LocalDateTime.of(2025, 1, 1, 10, 0)),
+                interview("Newest", "L2", LocalDateTime.of(2025, 1, 3, 10, 0)),
+                interview("Middle", "L3", LocalDateTime.of(2025, 1, 2, 10, 0))
+        );
+        InterviewList list = new InterviewList(unsorted);
+        List<Interview> got = list.getInterviews();
+        assertEquals("Newest", got.get(0).getHeader().toString());
+        assertEquals("Middle", got.get(1).getHeader().toString());
+        assertEquals("Older", got.get(2).getHeader().toString());
+    }
+
+    @Test
+    public void add_insertsMaintainingOrder_newestMiddleOldest() {
+        Interview a = interview("Jan02 1600", "A", LocalDateTime.of(2025, 1, 2, 16, 0));
+        InterviewList list = new InterviewList(Arrays.asList(a));
+
+        // Add a *newest* one, goes to index 0
+        Interview newest = interview("Jan03 0900", "N", LocalDateTime.of(2025, 1, 3, 9, 0));
+        list.add(newest);
+        assertEquals("Jan03 0900", list.getInterviews().get(0).getHeader().toString());
+
+        // Add an *oldest* one, goes to end
+        Interview oldest = interview("Jan01 0800", "O", LocalDateTime.of(2025, 1, 1, 8, 0));
+        list.add(oldest);
+        int last = list.getInterviews().size() - 1;
+        assertEquals("Jan01 0800", list.getInterviews().get(last).getHeader().toString());
+
+        // Add a *middle* one
+        Interview middle = interview("Jan02 2000", "M", LocalDateTime.of(2025, 1, 2, 20, 0));
+        list.add(middle);
+
+        // verify full order: newest to oldest
+        List<String> headers = list.getInterviews().stream()
+                .map(iv -> iv.getHeader().toString())
+                .collect(Collectors.toList());
+        assertEquals(Arrays.asList("Jan03 0900", "Jan02 2000", "Jan02 1600", "Jan01 0800"), headers);
     }
 }
