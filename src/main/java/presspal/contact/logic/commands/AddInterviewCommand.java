@@ -42,7 +42,7 @@ public class AddInterviewCommand extends Command {
 
     public static final String MESSAGE_ADD_INTERVIEW_SUCCESS = "The following interview has been added to %1$s:\n%2$s";
     public static final String MESSAGE_DUPLICATE_INTERVIEW = "Failed to add interview. This interview already exists.";
-    public static final String MESSAGE_DUPLICATE_DATETIME = "This contact already has an interview at %s.";
+    public static final String MESSAGE_DUPLICATE_DATETIME = "%1$s already has an interview at %2$s.";
 
     private final Interview toAdd;
     private final Index personIndex;
@@ -74,9 +74,14 @@ public class AddInterviewCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_INTERVIEW);
         }
 
+        // check for duplicate date time for same person
         if (interviewList.hasInterviewAt(toAdd.getDateTime())) {
-            String when = toAdd.getDateTime().format(DISPLAY_DATE_TIME_FORMATTER);
-            throw new CommandException(String.format(MESSAGE_DUPLICATE_DATETIME, when));
+            if (interviewList.hasInterviewAt(toAdd.getDateTime())) {
+                String when = toAdd.getDateTime().format(DISPLAY_DATE_TIME_FORMATTER);
+                throw new CommandException(String.format(MESSAGE_DUPLICATE_DATETIME,
+                        targetPerson.getName(),
+                        when));
+            }
         }
 
         interviewList.add(toAdd);

@@ -137,7 +137,8 @@ public class AddInterviewCommandTest {
         // EP: Error message formatting (date/time rendering) uses Config formatter.
         // build expected message with the SAME formatter as the command:
         String when = existing.getDateTime().format(DISPLAY_DATE_TIME_FORMATTER);
-        String expected = String.format(AddInterviewCommand.MESSAGE_DUPLICATE_DATETIME, when);
+        String expected = String.format(AddInterviewCommand.MESSAGE_DUPLICATE_DATETIME,
+                p.getName(), when);
 
         assertCommandFailure(cmd, model, expected);
     }
