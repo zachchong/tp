@@ -21,9 +21,9 @@ import presspal.contact.commons.core.index.Index;
 import presspal.contact.logic.commands.exceptions.CommandException;
 import presspal.contact.model.ContactBook;
 import presspal.contact.model.Model;
-import presspal.contact.model.person.NameContainsKeywordsPredicate;
 import presspal.contact.model.person.Person;
-import presspal.contact.testutil.AddCatDescriptorBuilder;
+import presspal.contact.model.person.PersonContainsKeywordsPredicate;
+import presspal.contact.testutil.EditCategoryDescriptorBuilder;
 import presspal.contact.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -83,8 +83,8 @@ public class CommandTestUtil {
 
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
-    public static final AddCategoryCommand.AddCatDescriptor ADD_CATEGORY_DESC_AMY;
-    public static final AddCategoryCommand.AddCatDescriptor ADD_CATEGORY_DESC_BOB;
+    public static final AddCategoryCommand.EditCategoryDescriptor ADD_CATEGORY_DESC_AMY;
+    public static final AddCategoryCommand.EditCategoryDescriptor ADD_CATEGORY_DESC_BOB;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder()
@@ -99,9 +99,9 @@ public class CommandTestUtil {
                 .withEmail(VALID_EMAIL_BOB)
                 .withOrganisation(VALID_ORGANISATION_BOB)
                 .withRole(VALID_ROLE_BOB).build();
-        ADD_CATEGORY_DESC_AMY = new AddCatDescriptorBuilder()
+        ADD_CATEGORY_DESC_AMY = new EditCategoryDescriptorBuilder()
                 .withCategories(VALID_CATEGORY_FRIEND).build();
-        ADD_CATEGORY_DESC_BOB = new AddCatDescriptorBuilder()
+        ADD_CATEGORY_DESC_BOB = new EditCategoryDescriptorBuilder()
                 .withCategories(VALID_CATEGORY_HUSBAND, VALID_CATEGORY_FRIEND).build();
     }
 
@@ -163,7 +163,7 @@ public class CommandTestUtil {
 
         Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
         final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredPersonList(new PersonContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPersonList().size());
     }

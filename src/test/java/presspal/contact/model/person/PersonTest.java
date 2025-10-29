@@ -69,6 +69,34 @@ public class PersonTest {
     }
 
     @Test
+    public void constructor_nullPhoneAndEmail_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> new PersonBuilder()
+                .withPhone(null)
+                .withEmail(null)
+                .build());
+    }
+
+    @Test
+    public void constructor_onlyPhoneProvided_success() {
+        Person person = new PersonBuilder()
+                .withEmail(null)
+                .withPhone(VALID_PHONE_BOB)
+                .build();
+        assertEquals(VALID_PHONE_BOB, person.getPhone().value);
+        assertEquals(null, person.getEmail());
+    }
+
+    @Test
+    public void constructor_onlyEmailProvided_success() {
+        Person person = new PersonBuilder()
+                .withPhone(null)
+                .withEmail(VALID_EMAIL_BOB)
+                .build();
+        assertEquals(VALID_EMAIL_BOB, person.getEmail().value);
+        assertEquals(null, person.getPhone());
+    }
+
+    @Test
     public void equals() {
         // same values -> returns true
         Person aliceCopy = new PersonBuilder(ALICE).build();
@@ -144,5 +172,45 @@ public class PersonTest {
                 + ", interviews=" + ALICE.getInterviews()
                 + "}";
         assertEquals(expected, ALICE.toString());
+    }
+
+    @Test
+    public void toStringMethod_handlesNullPhone() {
+        // Person with both phone and email null
+        Person person = new PersonBuilder()
+                .withPhone(null)
+                .build();
+
+        String expected = Person.class.getCanonicalName()
+                + "{name=" + person.getName()
+                + ", phone=" + person.getPhone()
+                + ", email=" + person.getEmail()
+                + ", organisation=" + person.getOrganisation()
+                + ", role=" + person.getRole()
+                + ", categories=" + person.getCategories()
+                + ", interviews=" + person.getInterviews()
+                + "}";
+
+        assertEquals(expected, person.toString());
+    }
+
+    @Test
+    public void toStringMethod_handlesNullEmail() {
+        // Person with both phone and email null
+        Person person = new PersonBuilder()
+                .withEmail(null)
+                .build();
+
+        String expected = Person.class.getCanonicalName()
+                + "{name=" + person.getName()
+                + ", phone=" + person.getPhone()
+                + ", email=" + person.getEmail()
+                + ", organisation=" + person.getOrganisation()
+                + ", role=" + person.getRole()
+                + ", categories=" + person.getCategories()
+                + ", interviews=" + person.getInterviews()
+                + "}";
+
+        assertEquals(expected, person.toString());
     }
 }

@@ -5,13 +5,11 @@ import static presspal.contact.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_INDEX;
 import static presspal.contact.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import presspal.contact.commons.core.index.Index;
-import presspal.contact.commons.util.ToStringBuilder;
 import presspal.contact.logic.Messages;
 import presspal.contact.logic.commands.exceptions.CommandException;
 import presspal.contact.model.Model;
@@ -24,12 +22,10 @@ import presspal.contact.model.person.Person;
 import presspal.contact.model.person.Phone;
 import presspal.contact.model.person.Role;
 
-
-
 /**
  * Add the categories to an existing person in the contact book.
  */
-public class AddCategoryCommand extends Command {
+public class AddCategoryCommand extends EditCategoryCommand {
 
     public static final String COMMAND_WORD = "addCat";
 
@@ -37,38 +33,33 @@ public class AddCategoryCommand extends Command {
             + "by the index number used in the displayed person list. \n"
             + "Parameters: " + PREFIX_INDEX + "INDEX "
             + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "Example: " + COMMAND_WORD + " " + PREFIX_INDEX + " 1 "
             + PREFIX_CATEGORY + "friends";
 
-    public static final String MESSAGE_ADDCAT_SUCCESS = "The Category %1$s is successfully added to %2$s";
+    public static final String MESSAGE_ADDCAT_SUCCESS = "Category(s) successfully added to %1$s:\n%2$s";
     public static final String MESSAGE_DUPLICATE_CAT = "This person already has this category";
-
-    private final Index index;
-    private final AddCatDescriptor addCatDescriptor;
 
     /**
      * @param index of the person in the filtered person list to edit
-     * @param addCatDescriptor details to edit the person with
+     * @param editCategoryDescriptor details to edit the person with
      */
-    public AddCategoryCommand(Index index, AddCatDescriptor addCatDescriptor) {
-        requireNonNull(index);
-        requireNonNull(addCatDescriptor);
-
-        this.index = index;
-        this.addCatDescriptor = addCatDescriptor;
+    public AddCategoryCommand(Index index, EditCategoryDescriptor editCategoryDescriptor) {
+        super(index, editCategoryDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
+        Index index = getIndex();
+        EditCategoryDescriptor editCategoryDescriptor = getEditCategoryDescriptor();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
         Person personToAddCat = lastShownList.get(index.getZeroBased());
-        Person editedPerson = createNewPerson(personToAddCat, addCatDescriptor);
+        Person editedPerson = createNewPerson(personToAddCat, editCategoryDescriptor);
 
         if (personToAddCat.getCategories().equals(editedPerson.getCategories())) {
             throw new CommandException(MESSAGE_DUPLICATE_CAT);
@@ -77,15 +68,15 @@ public class AddCategoryCommand extends Command {
         model.setPerson(personToAddCat, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        return new CommandResult(String.format(MESSAGE_ADDCAT_SUCCESS,
-                addCatDescriptor.getCategoriesAsString(), editedPerson.getName()));
+        return new CommandResult(String.format(MESSAGE_ADDCAT_SUCCESS, editedPerson.getName(),
+                editCategoryDescriptor.getCategoriesAsString()));
     }
 
     /**
      * Creates and returns a {@code Person} with the details of {@code personToAddCat}
-     * edited with {@code addCatDescriptor}.
+     * edited with {@code editCategoryDescriptor}.
      */
-    public static Person createNewPerson(Person personToAddCat, AddCatDescriptor addCatDescriptor) {
+    public static Person createNewPerson(Person personToAddCat, EditCategoryDescriptor editCategoryDescriptor) {
         assert personToAddCat != null;
         Set<Category> updatedCategories = new HashSet<>(personToAddCat.getCategories());
 
@@ -94,9 +85,9 @@ public class AddCategoryCommand extends Command {
         Email email = personToAddCat.getEmail();
         Organisation organisation = personToAddCat.getOrganisation();
         Role role = personToAddCat.getRole();
-        Set<Category> newCategory = addCatDescriptor.getCategories();
-        if (!newCategory.isEmpty()) {
-            updatedCategories.addAll(newCategory);
+        Set<Category> catToAdd = editCategoryDescriptor.getCategories();
+        if (!catToAdd.isEmpty()) {
+            updatedCategories.addAll(catToAdd);
         }
         InterviewList interviews = personToAddCat.getInterviews();
         return new Person(name, phone, email, organisation, role, updatedCategories, interviews);
@@ -114,80 +105,7 @@ public class AddCategoryCommand extends Command {
         }
 
         AddCategoryCommand otherAddCategoryCommand = (AddCategoryCommand) other;
-        return index.equals(otherAddCategoryCommand.index)
-                && addCatDescriptor.equals(otherAddCategoryCommand.addCatDescriptor);
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this)
-                .add("index", index)
-                .add("addCatDescriptor", addCatDescriptor)
-                .toString();
-    }
-
-    /**
-     * Stores the categories to edit the person with.
-     */
-    public static class AddCatDescriptor {
-        private Set<Category> categories;
-
-        public AddCatDescriptor() {
-        }
-
-        public AddCatDescriptor(AddCatDescriptor addCatDescriptor) {
-            this.categories = addCatDescriptor.categories;
-        }
-
-        /**
-         * Sets {@code categories} to this object's {@code categories}.
-         * A defensive copy of {@code categories} is used internally.
-         */
-        public void setCategories(Set<Category> categories) {
-            this.categories = new HashSet<>(categories);
-        }
-
-        /**
-         * Returns an unmodifiable category set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code categories} is non-null.
-         */
-        public Set<Category> getCategories() {
-            return Collections.unmodifiableSet(categories);
-        }
-
-        public String getCategoriesAsString() {
-            StringBuilder sb = new StringBuilder();
-            java.util.Iterator<Category> iterator = categories.iterator();
-            while (iterator.hasNext()) {
-                sb.append("[").append(iterator.next().categoryName).append("]");
-                if (iterator.hasNext()) {
-                    sb.append(", ");
-                }
-            }
-            return sb.toString();
-        }
-
-        @Override
-        public boolean equals(Object other) {
-            if (other == this) {
-                return true;
-            }
-
-            if (!(other instanceof AddCatDescriptor)) {
-                return false;
-            }
-
-            AddCatDescriptor otherDescriptor = (AddCatDescriptor) other;
-
-            return getCategories().equals(otherDescriptor.getCategories());
-        }
-
-        @Override
-        public String toString() {
-            return new ToStringBuilder(this)
-                    .add("categories", categories)
-                    .toString();
-        }
+        return getIndex().equals(otherAddCategoryCommand.getIndex())
+                && getEditCategoryDescriptor().equals(otherAddCategoryCommand.getEditCategoryDescriptor());
     }
 }

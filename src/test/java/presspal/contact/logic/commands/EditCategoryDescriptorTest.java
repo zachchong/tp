@@ -7,14 +7,14 @@ import static presspal.contact.logic.commands.CommandTestUtil.ADD_CATEGORY_DESC_
 
 import org.junit.jupiter.api.Test;
 
-import presspal.contact.logic.commands.AddCategoryCommand.AddCatDescriptor;
+import presspal.contact.logic.commands.EditCategoryCommand.EditCategoryDescriptor;
 
-public class AddCatDescriptorTest {
+public class EditCategoryDescriptorTest {
 
     @Test
     public void equals() {
         // same values -> returns true
-        AddCatDescriptor descriptorWithSameValues = new AddCatDescriptor(ADD_CATEGORY_DESC_AMY);
+        EditCategoryDescriptor descriptorWithSameValues = new EditCategoryDescriptor(ADD_CATEGORY_DESC_AMY);
         assertTrue(ADD_CATEGORY_DESC_AMY.equals(descriptorWithSameValues));
 
         // same object -> returns true
@@ -27,15 +27,15 @@ public class AddCatDescriptorTest {
         assertTrue(!ADD_CATEGORY_DESC_AMY.equals(5));
 
         // different values -> returns false
-        AddCatDescriptor differentDescriptor = new AddCatDescriptor(ADD_CATEGORY_DESC_BOB);
+        EditCategoryDescriptor differentDescriptor = new EditCategoryDescriptor(ADD_CATEGORY_DESC_BOB);
         assertFalse(ADD_CATEGORY_DESC_AMY.equals(differentDescriptor));
     }
 
     @Test
     public void toStringMethod() {
-        AddCatDescriptor addCatDescriptor = new AddCatDescriptor(ADD_CATEGORY_DESC_AMY);
-        String expectedString = AddCatDescriptor.class.getCanonicalName() + "{categories="
+        EditCategoryDescriptor editCategoryDescriptor = new EditCategoryDescriptor(ADD_CATEGORY_DESC_AMY);
+        String expectedString = EditCategoryDescriptor.class.getCanonicalName() + "{categories="
                 + ADD_CATEGORY_DESC_AMY.getCategories() + "}";
-        assertTrue(addCatDescriptor.toString().equals(expectedString));
+        assertTrue(editCategoryDescriptor.toString().equals(expectedString));
     }
 }

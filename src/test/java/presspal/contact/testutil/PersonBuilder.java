@@ -1,5 +1,6 @@
 package presspal.contact.testutil;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -86,12 +87,21 @@ public class PersonBuilder {
     }
 
     /**
-     * Convenience overload for simple string calls.
+     * Convenience overload for getting upcoming interviews with just header and location.
      */
     public PersonBuilder withInterviews(String header, String location) {
         this.interviews = SampleDataUtil.getInterviewList(header, location);
         return this;
     }
+
+    /**
+     * Convenience overload for getting upcoming Interviews with header, location and dateTime.
+     */
+    public PersonBuilder withInterviews(String header, String location, LocalDateTime dateTime) {
+        this.interviews = SampleDataUtil.getInterviewList(header, location, dateTime);
+        return this;
+    }
+
 
     /**
      * Sets the {@code Organisation} of the {@code Person} that we are building.
@@ -113,7 +123,7 @@ public class PersonBuilder {
      * Sets the {@code Phone} of the {@code Person} that we are building.
      */
     public PersonBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
+        this.phone = (phone == null) ? null : new Phone(phone);
         return this;
     }
 
@@ -121,7 +131,7 @@ public class PersonBuilder {
      * Sets the {@code Email} of the {@code Person} that we are building.
      */
     public PersonBuilder withEmail(String email) {
-        this.email = new Email(email);
+        this.email = (email == null) ? null : new Email(email);
         return this;
     }
 

@@ -265,6 +265,7 @@ DEPENDENCIES
   csv
   github-pages
   jekyll
+  jemoji
   logger
   webrick
 

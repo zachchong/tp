@@ -1,10 +1,10 @@
 ---
 layout: page
-title: AddressBook Level-3
+title: PressPal
 ---
 
-[![CI Status](https://github.com/se-edu/addressbook-level3/workflows/Java%20CI/badge.svg)](https://github.com/se-edu/addressbook-level3/actions)
-[![codecov](https://codecov.io/gh/se-edu/addressbook-level3/branch/master/graph/badge.svg)](https://codecov.io/gh/se-edu/addressbook-level3)
+[![Java CI](https://github.com/AY2526S1-CS2103T-W08-1/tp/actions/workflows/gradle.yml/badge.svg)](https://github.com/AY2526S1-CS2103T-W08-1/tp/actions/workflows/gradle.yml)
+[![codecov](https://codecov.io/gh/AY2526S1-CS2103T-W08-1/tp/graph/badge.svg?token=SHFCVBT8YC)](https://codecov.io/gh/AY2526S1-CS2103T-W08-1/tp)
 
 ![Ui](images/Ui.png)
 

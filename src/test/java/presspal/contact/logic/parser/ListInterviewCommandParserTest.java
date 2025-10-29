@@ -9,6 +9,7 @@ import static presspal.contact.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.jupiter.api.Test;
 
+import presspal.contact.logic.Messages;
 import presspal.contact.logic.commands.ListInterviewCommand;
 
 public class ListInterviewCommandParserTest {
@@ -27,6 +28,12 @@ public class ListInterviewCommandParserTest {
 
         assertParseFailure(parser, " " + PREFIX_INDEX,
                 String.format(MESSAGE_INVALID_INDEX));
+    }
+
+    @Test
+    public void parse_duplicateIndex_throwsParseException() {
+        assertParseFailure(parser, " " + PREFIX_INDEX + "1" + " " + PREFIX_INDEX + "1",
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_INDEX));
     }
 
     @Test

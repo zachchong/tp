@@ -75,5 +75,16 @@ public class SampleDataUtil {
         );
         return interviews;
     }
+    // overloaded method to accept dateTime as parameter for NextInterviewCommandTest
+    public static InterviewList getInterviewList(String header, String location, LocalDateTime dateTime) {
+        InterviewList interviews = new InterviewList(null);
+        interviews.add(new Interview(
+                new Header(header),
+                new Location(location),
+                dateTime)
+        );
+        return interviews;
+    }
+
 
 }

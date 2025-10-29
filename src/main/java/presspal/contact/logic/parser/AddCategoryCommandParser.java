@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 
 import presspal.contact.commons.core.index.Index;
 import presspal.contact.logic.commands.AddCategoryCommand;
-import presspal.contact.logic.commands.AddCategoryCommand.AddCatDescriptor;
+import presspal.contact.logic.commands.EditCategoryCommand.EditCategoryDescriptor;
 import presspal.contact.logic.parser.exceptions.ParseException;
 import presspal.contact.model.category.Category;
 
@@ -32,7 +32,12 @@ public class AddCategoryCommandParser implements Parser<AddCategoryCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_INDEX, PREFIX_CATEGORY);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_INDEX, PREFIX_CATEGORY) || !argMultimap.getPreamble().isEmpty()) {
+        Collection<String> rawCategories = argMultimap.getAllValues(PREFIX_CATEGORY);
+        boolean onlyEmptyCategory = rawCategories.size() == 1 && rawCategories.contains("");
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_INDEX, PREFIX_CATEGORY)
+                || !argMultimap.getPreamble().isEmpty()
+                || onlyEmptyCategory) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCategoryCommand.MESSAGE_USAGE));
         }
 
@@ -40,12 +45,12 @@ public class AddCategoryCommandParser implements Parser<AddCategoryCommand> {
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_INDEX);
 
-        AddCatDescriptor addCatDescriptor = new AddCatDescriptor();
+        EditCategoryDescriptor editCategoryDescriptor = new EditCategoryDescriptor();
 
         Set<Category> catToBeAdded = parseCategoriesForEdit(argMultimap.getAllValues(PREFIX_CATEGORY));
-        addCatDescriptor.setCategories(catToBeAdded);
+        editCategoryDescriptor.setCategories(catToBeAdded);
 
-        return new AddCategoryCommand(index, addCatDescriptor);
+        return new AddCategoryCommand(index, editCategoryDescriptor);
     }
 
     /**

@@ -17,9 +17,9 @@ import org.junit.jupiter.api.Test;
 
 import presspal.contact.logic.Messages;
 import presspal.contact.logic.commands.AddCategoryCommand;
-import presspal.contact.logic.commands.AddCategoryCommand.AddCatDescriptor;
+import presspal.contact.logic.commands.EditCategoryCommand.EditCategoryDescriptor;
 import presspal.contact.model.category.Category;
-import presspal.contact.testutil.AddCatDescriptorBuilder;
+import presspal.contact.testutil.EditCategoryDescriptorBuilder;
 
 public class AddCategoryCommandParserTest {
 
@@ -67,11 +67,25 @@ public class AddCategoryCommandParserTest {
     @Test
     public void parse_allFieldsSpecified_success() {
         String userInput = INDEX_DESC_A + CATEGORY_DESC_FRIEND + CATEGORY_DESC_HUSBAND;
-        AddCatDescriptor descriptor = new AddCatDescriptorBuilder()
+        EditCategoryDescriptor descriptor = new EditCategoryDescriptorBuilder()
                 .withCategories(VALID_CATEGORY_FRIEND, VALID_CATEGORY_HUSBAND).build();
 
         AddCategoryCommand expectedCommand = new AddCategoryCommand(INDEX_FIRST_PERSON, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_emptyCategoryValue_failure() {
+        // triggers onlyEmptyCategory == true
+        String userInput = INDEX_DESC_A + " c/";
+        assertParseFailure(parser, userInput, errorMessage);
+    }
+
+    @Test
+    public void parse_nonEmptyPreambleAtStart_failure() {
+        // triggers non-empty preamble branch
+        String userInput = "preamble " + INDEX_DESC_A + CATEGORY_DESC_FRIEND;
+        assertParseFailure(parser, userInput, errorMessage);
     }
 }

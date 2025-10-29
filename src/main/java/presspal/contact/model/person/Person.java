@@ -34,7 +34,13 @@ public class Person {
      */
     public Person(Name name, Phone phone, Email email, Organisation organisation, Role role,
                   Set<Category> categories, InterviewList interviews) {
-        requireAllNonNull(name, phone, email, organisation, role, categories, interviews);
+        requireAllNonNull(name, organisation, role, categories, interviews);
+
+        // enforce at least one compulsory contact field
+        if (phone == null && email == null) {
+            throw new IllegalArgumentException("At least one of phone or email must be provided.");
+        }
+
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -109,25 +115,22 @@ public class Person {
         if (other == this) {
             return true;
         }
-
-        // instanceof handles nulls
         if (!(other instanceof Person)) {
             return false;
         }
-
         Person otherPerson = (Person) other;
         return name.equals(otherPerson.name)
-                && phone.equals(otherPerson.phone)
-                && email.equals(otherPerson.email)
+                && Objects.equals(phone, otherPerson.phone)
+                && Objects.equals(email, otherPerson.email)
                 && organisation.equals(otherPerson.organisation)
                 && role.equals(otherPerson.role)
                 && categories.equals(otherPerson.categories)
                 && interviews.equals(otherPerson.interviews);
     }
 
+
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(name, phone, email, organisation, role, categories, interviews);
     }
 

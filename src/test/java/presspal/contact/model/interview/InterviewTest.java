@@ -74,6 +74,16 @@ class InterviewTest {
     }
 
     @Test
+    @DisplayName("getDisplayString() returns a UI-friendly formatted string")
+    void testGetDisplayString_returnsUiFriendlyString() {
+        String expected = "[" + header + "] on "
+                + dateTime.format(presspal.contact.commons.core.Config.DISPLAY_DATE_TIME_FORMATTER)
+                + " at " + location;
+        assertEquals(expected, interview.getDisplayString(),
+                "getDisplayString() should match the central formatter and include header/location");
+    }
+
+    @Test
     @DisplayName("Constructor should throw NullPointerException for null header or location")
     void constructorNullHeaderOrLocation_throwsException() {
         // Null header
