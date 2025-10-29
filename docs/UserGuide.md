@@ -85,15 +85,6 @@ The goal of PressPal is to:
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
 
-### Viewing help : `help`
-
-Shows a message explaining how to access the help page.
-
-![help message](images/helpMessage.png)
-
-Format: `help`
-
-
 ### Adding a person: `add`
 
 Adds a person to the contact book.
@@ -108,12 +99,6 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com o/NUS r/Student c/friends c/owesMoney`
 * `add n/Betsy Crowe p/12345678 e/betsycrowe@example.com o/Reuters r/Reporter`
 
-### Listing all persons : `list`
-
-Shows a list of all persons in the contact book.
-
-Format: `list`
-
 ### Editing a person : `edit`
 
 Edits an existing person in the contact book.
@@ -127,6 +112,26 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [o/ORGANISATION] [r/ROLE]​`
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+
+### Deleting a person : `delete`
+
+Deletes the specified person from the contact book.
+
+Format: `delete INDEX`
+
+* Deletes the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+* `list` followed by `delete 2` deletes the 2nd person in the contact book.
+* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+
+### Listing all persons : `list`
+
+Shows a list of all persons in the contact book.
+
+Format: `list`
 
 ### Locating persons by name, organisation, role, or categories : `find`
 
@@ -146,20 +151,6 @@ Examples:
 * `find bernice charlotte` returns `Bernice Yu`, `Charlotte Oliveiro`.<br>
   ![result for 'find bernice charlotte'](images/findBerniceCharlotteResult.png)
 * `find NUS colleagues` Returns all persons whose details match the keyword of `NUS` or `colleagues`.
-
-### Deleting a person : `delete`
-
-Deletes the specified person from the contact book.
-
-Format: `delete INDEX`
-
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
-
-Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the contact book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
 ### Adding an interview to a contact : `addInterview`
 
@@ -199,6 +190,15 @@ Format: `listInterview i/INDEX`
 ![empty interview](images/emptyInterviewExample.png)
 ![filled interview](images/filledInterviewExample.png)
 
+### Display the upcoming interview : `nextInterview`
+
+Displays the next scheduled interview that occurs at or after the current date and time, excluding any interviews already in the past.
+
+Format: `nextInterview`
+
+Examples:
+* `nextInterview` Displays the most upcoming scheduled interview "[Meta Interview] on 15 Oct 2050 2:30PM at Meta HQ."
+
 ### Add category(s) to a person : `addCat`
 
 Add category(s) to a person identified by the index number used in the displayed person list.
@@ -221,14 +221,13 @@ Examples:
 * `deleteCat i/1 c/emergency` Deletes the category `emergency` from the person with index 1.
 * `deleteCat i/2 c/emergency c/singapore` Deletes the categories `emergency` and `singapore` from the person with index 2.
 
-### Display the upcoming interview : `nextInterview`
+### Viewing help : `help`
 
-Displays the next scheduled interview that occurs at or after the current date and time, excluding any interviews already in the past.
+Shows a message explaining how to access the help page.
 
-Format: `nextInterview`
+![help message](images/helpMessage.png)
 
-Examples:
-* `nextInterview` Displays the most upcoming scheduled interview "[Meta Interview] on 15 Oct 2050 2:30PM at Meta HQ."
+Format: `help`
 
 ### Clearing all entries : `clear`
 
@@ -259,8 +258,22 @@ Furthermore, certain edits can cause the ContactBook to behave in unexpected way
 
 ## FAQ
 
-**Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous ContactBook home folder.
+### Troubleshooting
+
+**Q**: I’ve found a bug. How can I report it?<br>
+**A**: You can report it to any one of the developers. Their emails can be found in the [AboutUs page](AboutUs.md) here.
+
+**Q**: I have an idea for a new feature. Where should I suggest it?<br>
+**A**: You can give your suggestions to any one of the developers. Their emails can be found in the [AboutUs page](AboutUs.md) here.
+
+
+### Features
+
+**Q**: Why does `addInterview` allow past interview dates?<br>
+**A**: This is to allow the user to archive past interviews to keep as reference.
+
+**Q**: Why can I schedule two interviews at the same date and time?<br>
+**A**: We understand that there might be a chance that multiple people can join in for the same interview, hence we allowed for duplicate interview times for different people.
 
 --------------------------------------------------------------------------------------------------------------------
 
