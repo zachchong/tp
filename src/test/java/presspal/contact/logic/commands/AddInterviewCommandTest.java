@@ -192,4 +192,41 @@ public class AddInterviewCommandTest {
                 p2w.getName(), forP2.getDisplayString());
         assertEquals(expected, result.getFeedbackToUser());
     }
+
+    @Test
+    public void execute_duplicateDateTimeWithMultipleExisting_failure() throws Exception {
+        Model model = new ModelManager(getTypicalContactBook(), new UserPrefs());
+        Index idx = INDEX_FIRST_PERSON;
+        Person person = model.getFilteredPersonList().get(idx.getZeroBased());
+
+        // first interview at T
+        java.time.LocalDateTime t = java.time.LocalDateTime.parse("2050-12-12T09:00");
+        Interview atT = new InterviewBuilder()
+                .withHeader("Morning Briefing")
+                .withLocation("Room A")
+                .withDate(t)
+                .build();
+        new AddInterviewCommand(atT, idx).execute(model);
+
+        // different interview at T+1h
+        Interview atTplus = new InterviewBuilder()
+                .withHeader("Follow-up")
+                .withLocation("Room B")
+                .withDate(t.plusHours(1))
+                .build();
+        new AddInterviewCommand(atTplus, idx).execute(model);
+
+        // try to add another different interview that clashes at exactly T
+        Interview clash = new InterviewBuilder()
+                .withHeader("Clashing Topic")
+                .withLocation("Room C")
+                .withDate(t) // same datetime as first
+                .build();
+
+        String when = t.format(DISPLAY_DATE_TIME_FORMATTER);
+        String expected = String.format(AddInterviewCommand.MESSAGE_DUPLICATE_DATETIME,
+                person.getName(), when);
+
+        assertCommandFailure(new AddInterviewCommand(clash, idx), model, expected);
+    }
 }
