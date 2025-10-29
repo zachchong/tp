@@ -36,7 +36,7 @@ public class AddInterviewCommandTest {
         AddInterviewCommand cmd = new AddInterviewCommand(builder.build(), INDEX_FIRST_PERSON);
 
         Person target = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Model expectedModel = new ModelManager(model.getContactBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalContactBook(), new UserPrefs());
 
         try {
             CommandResult result = cmd.execute(expectedModel);
@@ -145,35 +145,31 @@ public class AddInterviewCommandTest {
 
     @Test
     public void execute_sameDateTimeDifferentPerson_success() throws Exception {
-        // EP: valid, same datetime across different contacts
+        Model working = new ModelManager(getTypicalContactBook(), new UserPrefs());
 
-        // Base fixture
-        Person p1 = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        // setup person 1 and person 2 from working model
+        Person p1w = working.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Index second = Index.fromOneBased(2); // assumes TypicalPersons has >= 2
-        Person p2 = model.getFilteredPersonList().get(second.getZeroBased());
+        Person p2w = working.getFilteredPersonList().get(second.getZeroBased());
 
-        // Build sets of existing datetimes
-        java.util.Set<java.time.LocalDateTime> p1Times = p1.getInterviews().getInterviews()
+        // build sets of existing datetimes
+        java.util.Set<java.time.LocalDateTime> p1Times = p1w.getInterviews().getInterviews()
                 .stream().map(Interview::getDateTime).collect(java.util.stream.Collectors.toSet());
-        java.util.Set<java.time.LocalDateTime> p2Times = p2.getInterviews().getInterviews()
+        java.util.Set<java.time.LocalDateTime> p2Times = p2w.getInterviews().getInterviews()
                 .stream().map(Interview::getDateTime).collect(java.util.stream.Collectors.toSet());
 
-        // try to find a datetime that P1 already has and P2 does not
+        // find a datetime that P1 already has and P2 does not
         java.time.LocalDateTime base = p1Times.stream()
                 .filter(dt -> !p2Times.contains(dt))
                 .findFirst()
                 .orElse(null);
 
-        Model working = new ModelManager(getTypicalContactBook(), new UserPrefs());
-
-        // if all P1 times clash with P2, create a fresh datetime by adding minutes
+        // if all P1 times clash with P2, create a fresh datetime and add it to P1 first
         if (base == null) {
-            // start from any P1 time and increment until free for P2
-            java.time.LocalDateTime candidate = p1.getInterviews().getInterviews().get(0).getDateTime();
+            java.time.LocalDateTime candidate = p1w.getInterviews().getInterviews().get(0).getDateTime();
             while (p2Times.contains(candidate) || p1Times.contains(candidate)) {
                 candidate = candidate.plusMinutes(1);
             }
-            // add to P1 in the working model so P1 now has this exact datetime
             Interview p1New = new InterviewBuilder()
                     .withHeader("Seeding P1")
                     .withLocation("Room 101")
@@ -183,7 +179,7 @@ public class AddInterviewCommandTest {
             base = candidate;
         }
 
-        // add the SAME datetime to Person 2, should succeed
+        // add the SAME datetime to Person 2
         Interview forP2 = new InterviewBuilder()
                 .withHeader("Parallel Slot")
                 .withLocation("Cafe")
@@ -193,7 +189,7 @@ public class AddInterviewCommandTest {
         CommandResult result = new AddInterviewCommand(forP2, second).execute(working);
 
         String expected = String.format(AddInterviewCommand.MESSAGE_ADD_INTERVIEW_SUCCESS,
-                p2.getName(), forP2.getDisplayString());
+                p2w.getName(), forP2.getDisplayString());
         assertEquals(expected, result.getFeedbackToUser());
     }
 }

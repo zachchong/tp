@@ -59,7 +59,9 @@ public class PersonBuilder {
         organisation = personToCopy.getOrganisation();
         role = personToCopy.getRole();
         categories = new HashSet<>(personToCopy.getCategories());
-        interviews = personToCopy.getInterviews();
+        interviews = new InterviewList(
+                new java.util.ArrayList<>(personToCopy.getInterviews().getInterviews())
+        );
     }
 
     /**
