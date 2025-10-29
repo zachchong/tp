@@ -19,7 +19,7 @@ Class "<<interface>>\nContactBookStorage" as ContactBookStorage
 Class JsonContactBookStorage
 Class JsonSerializableContactBook
 Class JsonAdaptedPerson
-Class JsonAdaptedTag
+Class JsonAdaptedCategory
 }
 
 }
@@ -38,6 +38,6 @@ JsonUserPrefsStorage .up.|> UserPrefsStorage
 JsonContactBookStorage .up.|> ContactBookStorage
 JsonContactBookStorage ..> JsonSerializableContactBook
 JsonSerializableContactBook --> "*" JsonAdaptedPerson
-JsonAdaptedPerson --> "*" JsonAdaptedTag
+JsonAdaptedPerson --> "*" JsonAdaptedCategory
 
 @enduml
