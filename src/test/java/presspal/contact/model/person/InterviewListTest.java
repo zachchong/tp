@@ -225,4 +225,12 @@ public class InterviewListTest {
                 .collect(Collectors.toList());
         assertEquals(Arrays.asList("Jan03 0900", "Jan02 2000", "Jan02 1600", "Jan01 0800"), headers);
     }
+
+    @Test
+    public void getInterviews_unmodifiableView() {
+        assertThrows(UnsupportedOperationException.class, () ->
+                populatedList.getInterviews().add(
+                        interview("X", "Y", LocalDateTime.of(2025, 1, 10, 10, 0)))
+        );
+    }
 }

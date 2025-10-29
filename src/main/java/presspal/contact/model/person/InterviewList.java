@@ -37,7 +37,7 @@ public class InterviewList {
      * Returns an unmodifiable interviews list.
      */
     public List<Interview> getInterviews() {
-        return interviews;
+        return Collections.unmodifiableList(interviews);
     }
 
     /**
