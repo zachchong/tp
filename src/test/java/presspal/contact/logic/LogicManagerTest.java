@@ -68,7 +68,18 @@ public class LogicManagerTest {
     @Test
     public void execute_validCommand_success() throws Exception {
         String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+        // Add one contact to the model
+        Person amy = new PersonBuilder(AMY).build();
+        model.addPerson(amy);
+        Model expectedModel = new ModelManager(model.getContactBook(), new UserPrefs());
+
+        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void execute_noContactsList_showsNoContactMessage() throws Exception {
+        String listCommand = ListCommand.COMMAND_WORD;
+        assertCommandSuccess(listCommand, ListCommand.MESSAGE_NO_CONTACT, model);
     }
 
     @Test
