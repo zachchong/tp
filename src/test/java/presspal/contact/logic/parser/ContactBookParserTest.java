@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static presspal.contact.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static presspal.contact.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_INDEX;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_INTERVIEW_INDEX;
 import static presspal.contact.testutil.Assert.assertThrows;
 import static presspal.contact.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static presspal.contact.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
@@ -137,7 +138,7 @@ public class ContactBookParserTest {
         DeleteInterviewCommand command = (DeleteInterviewCommand) parser.parseCommand(
                 DeleteInterviewCommand.COMMAND_WORD + " "
                         + PREFIX_INDEX + INDEX_FIRST_PERSON.getOneBased() + " "
-                        + PREFIX_INDEX + INDEX_SECOND_PERSON.getOneBased()); // person=1, interview=2
+                        + PREFIX_INTERVIEW_INDEX + INDEX_SECOND_PERSON.getOneBased()); // person=1, interview=2
         assertEquals(new DeleteInterviewCommand(INDEX_FIRST_PERSON, INDEX_SECOND_PERSON), command);
     }
 
