@@ -164,7 +164,7 @@ public class AddInterviewCommandTest {
                 .findFirst()
                 .orElse(null);
 
-        Model working = new ModelManager(model.getContactBook(), new UserPrefs());
+        Model working = new ModelManager(getTypicalContactBook(), new UserPrefs());
 
         // if all P1 times clash with P2, create a fresh datetime by adding minutes
         if (base == null) {
