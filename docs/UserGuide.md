@@ -641,7 +641,7 @@ If several interviews have the same time, we show the **first one in your curren
       <li>Search and restore archived items anytime.</li>
     </ul>
     <div class="roadmap-actions">
-      <a class="btn-ghost" href="##locating-persons-by-name-organisation-role-or-categories-find">Related: search (`find`)</a>
+      <a class="btn-ghost" href="#locating-persons-by-name-organisation-role-or-categories-find">Related: search (`find`)</a>
     </div>
   </div>
 
