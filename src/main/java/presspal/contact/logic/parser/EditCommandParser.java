@@ -10,9 +10,12 @@ import static presspal.contact.logic.parser.CliSyntax.PREFIX_PHONE;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_ROLE;
 
 import presspal.contact.commons.core.index.Index;
+import presspal.contact.logic.commands.DeleteCommand;
 import presspal.contact.logic.commands.EditCommand;
 import presspal.contact.logic.commands.EditCommand.EditPersonDescriptor;
 import presspal.contact.logic.parser.exceptions.ParseException;
+
+import java.util.stream.Stream;
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -30,15 +33,14 @@ public class EditCommandParser implements Parser<EditCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_INDEX, PREFIX_NAME, PREFIX_PHONE,
                         PREFIX_EMAIL, PREFIX_ORGANISATION, PREFIX_ROLE);
 
-        Index index;
-
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+        if (!isPrefixPresent(argMultimap, PREFIX_INDEX) || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE,
+        //get the index for the person
+        Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
+
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_INDEX, PREFIX_PHONE,
                 PREFIX_EMAIL, PREFIX_ORGANISATION, PREFIX_ROLE);
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
@@ -66,5 +68,13 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         return new EditCommand(index, editPersonDescriptor);
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean isPrefixPresent(ArgumentMultimap argumentMultimap, Prefix prefix) {
+        return Stream.of(prefix).allMatch(p -> argumentMultimap.getValue(p).isPresent());
     }
 }

@@ -2,6 +2,7 @@ package presspal.contact.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_INDEX;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_NAME;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_ORGANISATION;
 import static presspal.contact.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -44,12 +45,13 @@ public class EditCommand extends Command {
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ORGANISATION + "ORGANISATION] "
             + "[" + PREFIX_ROLE + "ROLE]\n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_INDEX + "1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_NOT_EDITED = "Invalid command format! \nedit: Edits the details of the person identified by the index number used in the displayed person list. Existing values will be overwritten by the input values.\nParameters: i/PERSON_INDEX (must be a positive integer) [n/NAME] [p/PHONE] [e/EMAIL] [o/ORGANISATION] [r/ROLE]\nExample: edit i/1 p/91234567 e/johndoe@example.com";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the contact book.";
 
     private final Index index;
