@@ -20,6 +20,7 @@ Class JsonContactBookStorage
 Class JsonSerializableContactBook
 Class JsonAdaptedPerson
 Class JsonAdaptedCategory
+Class JsonAdaptedInterview
 }
 
 }
@@ -39,5 +40,6 @@ JsonContactBookStorage .up.|> ContactBookStorage
 JsonContactBookStorage ..> JsonSerializableContactBook
 JsonSerializableContactBook --> "*" JsonAdaptedPerson
 JsonAdaptedPerson --> "*" JsonAdaptedCategory
+JsonAdaptedPerson --> "*" JsonAdaptedInterview
 
 @enduml
