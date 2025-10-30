@@ -37,7 +37,7 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
+            + "by the index number used in the displayed person list.\n"
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: i/PERSON_INDEX "
             + "[" + PREFIX_NAME + "NAME] "
@@ -52,8 +52,8 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "Invalid command format! \n"
-            + "edit: Edits the details of the person identified by the index number used in the displayed person list. "
-            + "Existing values will be overwritten by the input values.\n"
+            + "edit: Edits the details of the person identified by the index number used in the displayed person list."
+            + "\nExisting values will be overwritten by the input values.\n"
             + "Parameters: i/PERSON_INDEX "
             + "[n/NAME] "
             + "[p/PHONE] "
