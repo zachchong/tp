@@ -318,35 +318,24 @@ The use cases below are not exhaustive. (For all use cases below, the **System**
 **Extensions**
 
 * 1a. Reporter includes only some fields.
-  * 1a1. PressPal requests the missing fields.
-  * 1a2. Reporter provides them.
-    Use case resumes at step 2.
+  * 1a1. PressPal shows an invalid command error message.  
+    Use case resumes at step 1.
 
 * 2a. PressPal detects an invalid field (e.g., name/phone/email format).
-  * 2a1. PressPal requests the corrected value and explains the issue.
-  * 2a2. Reporter enters a corrected value.
-    Steps 2a1–2a2 repeat until all values are valid.
-    Use case resumes at step 2.
+  * 2a1. PressPal shows an invalid parameters error message.  
+    Use case resumes at step 1.
 
 * 2b. PressPal detects that the phone or email already exists.
-  * 2b1. PressPal informs that a duplicate contact exists.
-  * 2b2. Reporter chooses to cancel.
-    Use case ends.
+  * 2b1. PressPal shows a duplicate contact error message.  
+    Use case resumes at step 1.
 
-* 2c. PressPal detects missing mode of contact.
-  * 2c1. PressPal requests at least one mode of contact (phone or email).
-  * 2c2. Reporter provides one.
-    Use case resumes at step 2.
+* 2c. PressPal detects a missing mode of contact (no phone and no email provided).
+  * 2c1. PressPal shows a missing contact method error message.  
+    Use case resumes at step 1.
 
-* 2d. PressPal detects a repeated parameter.
-  * 2d1. PressPal requests a single value for the repeated parameter.
-  * 2d2. Reporter provides the single value.
-    Use case resumes at step 2.
-
-* *a. At any time, Reporter chooses to cancel.
-  * *a1. PressPal requests to confirm the cancellation.
-  * *a2. Reporter confirms the cancellation.
-    Use case ends.
+* 2d. PressPal detects a repeated parameter (e.g., two phone fields).
+  * 2d1. PressPal shows a repeated parameter error message.  
+    Use case resumes at step 1.
 
 ### UC2 – Add category to contact
 
@@ -361,27 +350,17 @@ The use cases below are not exhaustive. (For all use cases below, the **System**
 
 **Extensions**
 
-* 1a. Reporter omits the contact index.
-  * 1a1. PressPal requests the contact index.
-  * 1a2. Reporter provides it.  
-    Use case resumes at step 2.
-
-* 1b. Reporter omits category name(s).
-  * 1b1. PressPal requests the missing category name(s).
-  * 1b2. Reporter provides them.  
-    Use case resumes at step 2.
+* 1a. Reporter omits the contact index or category name(s).
+  * 1a1. PressPal shows an invalid command error message.  
+    Use case resumes at step 1.
 
 * 2a. PressPal detects an invalid contact index (e.g., out of range or non-integer).
-  * 2a1. PressPal requests a valid index and explains the issue.
-  * 2a2. Reporter provides a valid index.  
-    Steps 2a1–2a2 repeat until valid.  
-    Use case resumes at step 2.
+  * 2a1. PressPal shows an invalid parameters error message.  
+    Use case resumes at step 1.
 
-* 2b. PressPal detects an invalid category name (e.g., empty, contains symbols/spaces, or exceeds 20 characters).
-  * 2b1. PressPal requests a valid category name and explains the issue.
-  * 2b2. Reporter enters a corrected category name.  
-    Steps 2b1–2b2 repeat until all names are valid.  
-    Use case resumes at step 3.
+* 2b. PressPal detects an invalid category name (e.g., empty, non-alphabetic, or exceeds 20 characters).
+  * 2b1. PressPal shows an invalid parameters error message.  
+    Use case resumes at step 1.
 
 * 3a. One or more categories already exist for the contact.
   * 3a1. PressPal informs the Reporter that duplicate categories cannot be added.
@@ -391,11 +370,6 @@ The use cases below are not exhaustive. (For all use cases below, the **System**
 * 3b. All specified categories already exist.
   * 3b1. PressPal informs the Reporter that duplicate categories cannot be added.
   * 3b2. No new categories were added.  
-    Use case ends.
-
-* *a. At any time, Reporter chooses to cancel.*
-  * *a1. PressPal requests confirmation of cancellation.*
-  * *a2. Reporter confirms cancellation.*  
     Use case ends.
 
 ### UC3 – Add interview to contact
@@ -412,29 +386,20 @@ The use cases below are not exhaustive. (For all use cases below, the **System**
 **Extensions**
 
 * 1a. Reporter omits one or more required fields (index, header, date, time, or location).
-  * 1a1. PressPal requests the missing fields.
-  * 1a2. Reporter provides them.  
-    Use case resumes at step 2.
+  * 1a1. PressPal shows an invalid command error message.  
+    Use case resumes at step 1.
 
 * 2a. PressPal detects an invalid field format (e.g., invalid date/time format, out of range or non-integer index).
-  * 2a1. PressPal requests the corrected value and explains the issue.
-  * 2a2. Reporter enters a corrected value.  
-    Steps 2a1–2a2 repeat until all values are valid.  
-    Use case resumes at step 2.
+  * 2a1. PressPal shows an invalid parameters error message.  
+    Use case resumes at step 1.
 
 * 3a. The contact already has an interview scheduled at the same date and time.
-  * 3a1. PressPal informs the Reporter that an interview conflict exists.
-  * 3a2. Reporter may choose to modify the date or time.  
-    Use case resumes at step 2.
+  * 3a1. PressPal shows an error message that an interview conflict exists. 
+    Use case resumes at step 1.
 
 * 3b. The specified contact index does not exist.
   * 3b1. PressPal informs the Reporter that the index is invalid.  
-    Use case ends.
-
-* *a. At any time, Reporter chooses to cancel.*
-  * *a1. PressPal requests confirmation of cancellation.*
-  * *a2. Reporter confirms cancellation.*  
-    Use case ends.
+    Use case resumes at step 1.
 
 ### UC4 – Delete a contact
 
@@ -449,23 +414,15 @@ The use cases below are not exhaustive. (For all use cases below, the **System**
 **Extensions**
 
 * 1a. Reporter omits the index.
-  * 1a1. PressPal requests the index of the person to delete.
-  * 1a2. Reporter provides the index.  
-    Use case resumes at step 2.
+  * 1a1. PressPal shows an invalid command error message.  
+    Use case resumes at step 1.
 
-* 2a. PressPal detects an invalid index (e.g., non-integer, out of range).
-  * 2a1. PressPal informs the Reporter that the index is invalid.
-  * 2a2. Reporter provides a valid index.  
-    Steps 2a1–2a2 repeat until valid.  
-    Use case resumes at step 2.
+* 2a. PressPal detects an invalid index (e.g., non-integer or out of range).
+  * 2a1. PressPal shows an invalid parameters error message.  
+    Use case resumes at step 1.
 
 * 3a. Storage error occurs during deletion.
-  * 3a1. PressPal reports the failure and retains the contact.
-    Use case ends.
-
-* *a. At any time, Reporter chooses to cancel.
-  * *a1. PressPal requests to confirm the cancellation.
-  * *a2. Reporter confirms the cancellation.
+  * 3a1. PressPal shows an error message indicating that the deletion failed and the contact is retained.  
     Use case ends.
 
 ### UC5 – Delete category from contact
@@ -481,27 +438,17 @@ The use cases below are not exhaustive. (For all use cases below, the **System**
 
 **Extensions**
 
-* 1a. Reporter omits the index.
-  * 1a1. PressPal requests the person’s index.
-  * 1a2. Reporter provides it.  
-    Use case resumes at step 2.
-
-* 1b. Reporter omits the category name(s).
-  * 1b1. PressPal requests the category name(s) to delete.
-  * 1b2. Reporter provides them.  
-    Use case resumes at step 2.
+* 1a. Reporter omits the index or category name(s).
+  * 1a1. PressPal shows an invalid command error message.  
+    Use case resumes at step 1.
 
 * 2a. PressPal detects an invalid index (e.g., non-integer or out of range).
-  * 2a1. PressPal requests a valid index and explains the issue.
-  * 2a2. Reporter provides a valid index.  
-    Steps 2a1–2a2 repeat until valid.  
-    Use case resumes at step 2.
+  * 2a1. PressPal shows an invalid parameters error message.  
+    Use case resumes at step 1.
 
-* 2b. PressPal detects an invalid category name (e.g., contains spaces, symbols, or exceeds 20 characters).
-  * 2b1. PressPal requests a valid category name and explains the issue.
-  * 2b2. Reporter provides a corrected name.  
-    Steps 2b1–2b2 repeat until valid.  
-    Use case resumes at step 3.
+* 2b. PressPal detects an invalid category name (e.g., non-alphabetic, or exceeds 20 characters).
+  * 2b1. PressPal shows an invalid parameters error message.  
+    Use case resumes at step 1.
 
 * 3a. One or more specified categories do not exist for that person.
   * 3a1. PressPal informs the Reporter that the category(s) was not found.
@@ -510,11 +457,6 @@ The use cases below are not exhaustive. (For all use cases below, the **System**
 
 * 3b. None of the specified categories exist.
   * 3b1. PressPal informs the Reporter that no matching categories were found.  
-    Use case ends.
-
-* *a. At any time, Reporter chooses to cancel.*
-  * *a1. PressPal requests confirmation of cancellation.*
-  * *a2. Reporter confirms cancellation.*  
     Use case ends.
 
 ### UC6 – Delete interview from contact
@@ -530,29 +472,19 @@ The use cases below are not exhaustive. (For all use cases below, the **System**
 **Extensions**
 
 * 1a. Reporter omits the person index or interview index.
-  * 1a1. PressPal requests the missing index.
-  * 1a2. Reporter provides it.  
-    Use case resumes at step 2.
+  * 1a1. PressPal shows an invalid command error message.  
+    Use case resumes at step 1.
 
 * 2a. PressPal detects an invalid person index (e.g., non-integer or out of range).
-  * 2a1. PressPal requests a valid person index and explains the issue.
-  * 2a2. Reporter provides a valid index.  
-    Steps 2a1–2a2 repeat until valid.  
-    Use case resumes at step 2.
+  * 2a1. PressPal shows an invalid parameters error message.  
+    Use case resumes at step 1.
 
-* 2b. PressPal detects an invalid interview index (e.g., out of range or non-integer).
-  * 2b1. PressPal requests a valid interview index and explains the issue.
-  * 2b2. Reporter provides a valid index.  
-    Steps 2b1–2b2 repeat until valid.  
-    Use case resumes at step 2.
+* 2b. PressPal detects an invalid interview index (e.g., non-integer or out of range).
+  * 2b1. PressPal shows an invalid parameters error message.  
+    Use case resumes at step 1.
 
 * 3a. The specified contact has no interviews or the specified interview does not exist.
   * 3a1. PressPal informs the Reporter that the interview cannot be found.  
-    Use case ends.
-
-* *a. At any time, Reporter chooses to cancel.*
-  * *a1. PressPal requests confirmation of cancellation.*
-  * *a2. Reporter confirms cancellation.*  
     Use case ends.
 
 ### UC7 – Find Persons by Name, Organisation, Role, or Categories
@@ -568,17 +500,11 @@ The use cases below are not exhaustive. (For all use cases below, the **System**
 **Extensions**
 
 * 1a. Reporter omits the keyword(s).
-  * 1a1. PressPal requests at least one keyword to perform the search.
-  * 1a2. Reporter provides keyword(s).  
-    Use case resumes at step 2.
+  * 1a1. PressPal shows an invalid command error message.  
+    Use case resumes at step 1.
 
 * 2a. No persons match the provided keyword(s).
   * 2a1. PressPal informs the Reporter that no matching results were found.  
-    Use case ends.
-
-* *a. At any time, Reporter chooses to cancel.*
-  * *a1. PressPal requests confirmation of cancellation.*
-  * *a2. Reporter confirms cancellation.*  
     Use case ends.
 
 ### UC8 – List all interviews of a contact
@@ -594,23 +520,15 @@ The use cases below are not exhaustive. (For all use cases below, the **System**
 **Extensions**
 
 * 1a. Reporter omits the contact index.
-  * 1a1. PressPal requests the index of the contact.
-  * 1a2. Reporter provides the index.  
-    Use case resumes at step 2.
+  * 1a1. PressPal shows an invalid command error message.  
+    Use case resumes at step 1.
 
 * 2a. PressPal detects an invalid index (e.g., non-integer or out of range).
-  * 2a1. PressPal requests a valid index and explains the issue.
-  * 2a2. Reporter provides a valid index.  
-    Steps 2a1–2a2 repeat until valid.  
-    Use case resumes at step 2.
+  * 2a1. PressPal shows an invalid parameters error message.  
+    Use case resumes at step 1.
 
 * 3a. The specified contact has no interviews.
   * 3a1. PressPal displays a message indicating that there are no interviews scheduled.  
-    Use case ends.
-
-* *a. At any time, Reporter chooses to cancel.*
-  * *a1. PressPal requests confirmation of cancellation.*
-  * *a2. Reporter confirms cancellation.*  
     Use case ends.
 
 ### UC9 – List all persons
@@ -628,11 +546,6 @@ The use cases below are not exhaustive. (For all use cases below, the **System**
   * 1a1. PressPal informs the Reporter that there are no persons in the contact book.  
     Use case ends.
 
-* *a. At any time, Reporter chooses to cancel.*
-  * *a1. PressPal requests confirmation of cancellation.*
-  * *a2. Reporter confirms cancellation.*  
-    Use case ends.
-
 ### UC10 – Edit a person
 
 **MSS**
@@ -647,34 +560,24 @@ The use cases below are not exhaustive. (For all use cases below, the **System**
 **Extensions**
 
 * 1a. Reporter omits the contact index.
-  * 1a1. PressPal requests the contact index.
-  * 1a2. Reporter provides it.  
-    Use case resumes at step 2.
+  * 1a1. PressPal shows an invalid command error message.  
+    Use case resumes at step 1.
 
 * 1b. Reporter omits all optional fields.
-  * 1b1. PressPal informs the Reporter that at least one field must be provided.  
-    Use case ends.
+  * 1b1. PressPal shows an invalid command error message.  
+    Use case resumes at step 1.
 
 * 2a. PressPal detects an invalid index (e.g., non-integer or out of range).
-  * 2a1. PressPal requests a valid index and explains the issue.
-  * 2a2. Reporter provides a valid index.  
-    Steps 2a1–2a2 repeat until valid.  
-    Use case resumes at step 2.
+  * 2a1. PressPal shows an invalid parameters error message.  
+    Use case resumes at step 1.
 
-* 2b. PressPal detects invalid field formats (e.g., invalid email, phone number, or role/organisation exceed 50 characters)).
-  * 2b1. PressPal requests corrected input and explains the issue.
-  * 2b2. Reporter provides valid field values.  
-    Steps 2b1–2b2 repeat until all fields are valid.  
-    Use case resumes at step 3.
+* 2b. PressPal detects invalid field formats (e.g., invalid email, phone number, or role/organisation exceeding character limits).
+  * 2b1. PressPal shows an invalid parameters error message.  
+    Use case resumes at step 1.
 
 * 3a. Reporter attempts to delete both phone and email fields.
   * 3a1. PressPal rejects the update and informs that at least one contact method must remain.  
-    Use case ends.
-
-* *a. At any time, Reporter chooses to cancel.*
-  * *a1. PressPal requests confirmation of cancellation.*
-  * *a2. Reporter confirms cancellation.*  
-    Use case ends.
+    Use case resumes at step 1.
 
 ### UC11 – Display the upcoming interview
 
@@ -700,11 +603,6 @@ The use cases below are not exhaustive. (For all use cases below, the **System**
 
 * 3a. Multiple upcoming interviews are scheduled at the same date and time.
   * 3a1. PressPal displays any one of them as the next interview, following priority of the person index.  
-    Use case ends.
-
-* *a. At any time, Reporter chooses to cancel.*
-  * *a1. PressPal requests confirmation of cancellation.*
-  * *a2. Reporter confirms cancellation.*  
     Use case ends.
 
 ## Non-Functional Requirements
