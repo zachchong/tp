@@ -325,7 +325,7 @@ The use cases below are not exhaustive. (For all use cases below, the **System**
   * 2a1. PressPal shows an invalid parameters error message.  
     Use case resumes at step 1.
 
-* 2b. PressPal detects that the phone or email already exists.
+* 2b. PressPal detects that the contact name already exists.
   * 2b1. PressPal shows a duplicate contact error message.  
     Use case resumes at step 1.
 
@@ -360,7 +360,6 @@ The use cases below are not exhaustive. (For all use cases below, the **System**
 
 * 3a. One or more categories already exist for the contact.
   * 3a1. PressPal informs the Reporter that duplicate categories cannot be added.
-  * 3a2. PressPal adds only new, valid categories.  
     Use case ends.
 
 * 3b. All specified categories already exist.
@@ -569,10 +568,6 @@ The use cases below are not exhaustive. (For all use cases below, the **System**
 
 * 2b. PressPal detects invalid field formats (e.g., invalid email, phone number, or role/organisation exceeding character limits).
   * 2b1. PressPal shows an invalid parameters error message.  
-    Use case resumes at step 1.
-
-* 3a. Reporter attempts to delete both phone and email fields.
-  * 3a1. PressPal rejects the update and informs that at least one contact method must remain.  
     Use case resumes at step 1.
 
 ### UC11 – Display the upcoming interview
