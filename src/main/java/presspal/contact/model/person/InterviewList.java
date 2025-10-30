@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -15,6 +16,9 @@ import presspal.contact.model.interview.Interview;
  * Represents a Person's list of interviews in the contact book.
  */
 public class InterviewList {
+    // newest to oldest invariant
+    private static final Comparator<Interview> NEWEST_FIRST =
+            Comparator.comparing(Interview::getDateTime).reversed();
 
     // list of interview(s) for a person
     private final List<Interview> interviews;
@@ -25,22 +29,15 @@ public class InterviewList {
      * @param interviews List of initial interviews.
      */
     public InterviewList(List<Interview> interviews) {
-        this.interviews = Objects.requireNonNullElseGet(interviews, ArrayList::new);
+        this.interviews = new ArrayList<>(Objects.requireNonNullElseGet(interviews, ArrayList::new));
+        this.interviews.sort(NEWEST_FIRST);
     }
 
     /**
-     * Returns the interviews list.
+     * Returns an unmodifiable interviews list.
      */
     public List<Interview> getInterviews() {
-        return interviews;
-    }
-
-    /**
-     * Returns a list of upcoming interviews by comparing current time and time of interview.
-     */
-    public List<Interview> getUpcomingInterviews() {
-        List<Interview> upcomingInterviews = new ArrayList<>();
-        return upcomingInterviews; // return an empty list for now. TBC in v1.4
+        return Collections.unmodifiableList(interviews);
     }
 
     /**
@@ -64,7 +61,11 @@ public class InterviewList {
      */
     public void add(Interview interview) {
         requireNonNull(interview, "Interview cannot be null");
-        interviews.add(interview);
+        int pos = Collections.binarySearch(interviews, interview, NEWEST_FIRST);
+        if (pos < 0) {
+            pos = -pos - 1; // insertion point
+        }
+        interviews.add(pos, interview);
     }
 
     /**
@@ -73,6 +74,7 @@ public class InterviewList {
     public void remove(Interview interview) {
         requireNonNull(interview, "Interview cannot be null");
         interviews.remove(interview);
+        // no need to resort, as order is maintained
     }
 
     /**
@@ -121,9 +123,8 @@ public class InterviewList {
 
     @Override
     public String toString() {
-        return String.join(",",
-                interviews.stream()
-                        .map(Interview::toString)
-                        .toList());
+        return interviews.stream()
+                .map(Interview::toString)
+                .collect(java.util.stream.Collectors.joining(","));
     }
 }

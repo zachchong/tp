@@ -68,7 +68,10 @@ public class PersonCard extends UiPart<Region> {
         }
         person.getCategories().stream()
                 .sorted(Comparator.comparing(category -> category.categoryName))
-                .forEach(category -> categories.getChildren().add(new Label(category.categoryName)));
+                .forEach(category -> {
+                    Label catLabel = new Label(category.categoryName);
+                    categories.getChildren().add(catLabel);
+                });
         interview.setText(person
                 .getNextUpcomingInterview()
                 .map(Interview::getDisplayString)

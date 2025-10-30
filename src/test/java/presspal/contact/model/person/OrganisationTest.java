@@ -35,6 +35,24 @@ public class OrganisationTest {
     }
 
     @Test
+    public void isValidOrganisationName_lengthLimits() {
+        // EP: less than 50 characters -> valid
+        String valid49 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"; // 49 a's
+        assertTrue(Organisation.isValidOrganisation(valid49));
+
+        // EP: exactly 50 characters -> valid
+        String valid50 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"; // 50 a's
+        assertTrue(Organisation.isValidOrganisation(valid50));
+
+        // EP: 51 characters (too long) -> invalid
+        String invalid51 = valid50 + "a";
+        assertFalse(Organisation.isValidOrganisation(invalid51));
+
+        // constructor should reject too-long organisation names
+        assertThrows(IllegalArgumentException.class, () -> new Organisation(invalid51));
+    }
+
+    @Test
     public void equals() {
         Organisation organisation = new Organisation("Valid Organisation");
 
