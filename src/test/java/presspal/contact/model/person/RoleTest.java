@@ -15,40 +15,68 @@ public class RoleTest {
 
     @Test
     public void constructor_invalidRole_throwsIllegalArgumentException() {
-        String invalidRole = "";
-        assertThrows(IllegalArgumentException.class, () -> new Role(invalidRole));
+        // EP (invalid): empty / whitespace-only
+        assertThrows(IllegalArgumentException.class, () -> new Role(""));
+        assertThrows(IllegalArgumentException.class, () -> new Role(" "));
+
+        // EP (invalid): contains non-alphanumeric characters (hyphen, underscore)
+        assertThrows(IllegalArgumentException.class, () -> new Role("Editor-in-chief"));
+        assertThrows(IllegalArgumentException.class, () -> new Role("Lead_Engineer"));
+
+        // EP (invalid): leading/trailing space
+        assertThrows(IllegalArgumentException.class, () -> new Role(" Manager"));
+        assertThrows(IllegalArgumentException.class, () -> new Role("Manager "));
+
+        // EP (invalid): multiple consecutive spaces
+        assertThrows(IllegalArgumentException.class, () -> new Role("Data  Scientist"));
+
+        // EP (invalid): non-ASCII letters
+        assertThrows(IllegalArgumentException.class, () -> new Role("工程师"));
     }
 
     @Test
     public void isValidRole() {
-        // null role
+        // EP (null): invalid
         assertThrows(NullPointerException.class, () -> Role.isValidRole(null));
 
-        // invalid roles
-        assertFalse(Role.isValidRole("")); // empty string
-        assertFalse(Role.isValidRole(" ")); // spaces only
+        // EP (invalid): empty / whitespace-only
+        assertFalse(Role.isValidRole(""));
+        assertFalse(Role.isValidRole(" "));
 
-        // valid roles
+        // EP (invalid): non-alphanumeric tokens or separators
+        assertFalse(Role.isValidRole("-")); // single non-alnum char
+        assertFalse(Role.isValidRole("Editor-in-chief")); // hyphen
+        assertFalse(Role.isValidRole("Lead_Engineer")); // underscore
+        assertFalse(Role.isValidRole("Data  Scientist")); // double space
+        assertFalse(Role.isValidRole(" Manager")); // leading space
+        assertFalse(Role.isValidRole("Manager ")); // trailing space
+        assertFalse(Role.isValidRole("工程师")); // non-ASCII
+
+        // EP (valid): single alphanumeric word
+        assertTrue(Role.isValidRole("Reporter"));
+        assertTrue(Role.isValidRole("A")); // minimal length
+
+        // EP (valid): multiple words separated by single spaces, alnum only
         assertTrue(Role.isValidRole("Software Engineer"));
-        assertTrue(Role.isValidRole("-")); // one character
-        assertTrue(Role.isValidRole("Senior President of Engineering")); // long role, < 50 characters
+        assertTrue(Role.isValidRole("Data Scientist 2")); // digits allowed
+        assertTrue(Role.isValidRole("Senior 2 Analyst")); // digits inside words
     }
 
     @Test
     public void isValidRole_lengthLimits() {
-        // EP: less than 50 characters -> valid
+        // EP/BVA (valid): < 50 characters
         String valid49 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"; // 49 a's
         assertTrue(Role.isValidRole(valid49));
 
-        // EP: exactly 50 characters -> valid
+        // BVA (valid): exactly 50 characters
         String valid50 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"; // 50 a's
         assertTrue(Role.isValidRole(valid50));
 
-        // EP: 51 characters (too long) -> invalid
+        // BVA (invalid): 51 characters
         String invalid51 = valid50 + "a";
         assertFalse(Role.isValidRole(invalid51));
 
-        // constructor should reject too-long category names
+        // Constructor should reject too-long role names
         assertThrows(IllegalArgumentException.class, () -> new Role(invalid51));
     }
 
@@ -56,19 +84,19 @@ public class RoleTest {
     public void equals() {
         Role role = new Role("Valid Role");
 
-        // same values -> returns true
+        // EP (equal values)
         assertTrue(role.equals(new Role("Valid Role")));
 
-        // same object -> returns true
+        // Reflexive
         assertTrue(role.equals(role));
 
-        // null -> returns false
+        // Null
         assertFalse(role.equals(null));
 
-        // different types -> returns false
+        // Different type
         assertFalse(role.equals(5.0f));
 
-        // different values -> returns false
+        // Different value
         assertFalse(role.equals(new Role("Other Valid Role")));
     }
 }
