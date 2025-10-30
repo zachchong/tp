@@ -4,6 +4,57 @@ title: User Guide
 pageNav: 3
 ---
 
+<style>
+details summary { cursor: pointer; list-style: none; }
+details summary h2 { display: inline; margin: 0; }
+
+details summary h2::after {
+  content: " (click to expand)";
+  font-weight: 400;
+  font-size: 0.95rem;
+  color: #6b7280;
+  margin-left: .15rem;
+}
+
+details[open] summary h2::after {
+  content: " (click to collapse)";
+}
+
+details table { margin-top: .5rem; }
+</style>
+
+<style>
+.nav-tabs { 
+  border-bottom: 2px solid #e5e7eb;
+  margin-top: .5rem;
+}
+.nav-tabs .nav-link {
+  padding: .5rem .9rem;
+  font-weight: 600;
+  color: #374151;
+  border: 1px solid transparent;
+  border-radius: .6rem .6rem 0 0;
+}
+.nav-tabs .nav-link:hover {
+  color: #111827; 
+  background: #ffecb8;
+}
+.nav-tabs .nav-link.active {
+  color: #111827;
+  background: #ffcb3b;
+  border-color: #e5e7eb #e5e7eb #ffcb3b;
+}
+
+.tab-content {
+  border: 1px solid #ffcb3b;
+  border-top: none;
+  border-radius: 0 .6rem .6rem .6rem;
+  padding: 1rem;
+  background: #fff9e8;
+  box-shadow: 0 1px 0 rgba(0,0,0,.02);
+}
+</style>
+
 ![PressPalAbout](images/PressPalAbout.png)
 
 ## About
@@ -37,33 +88,30 @@ The **goal of PressPal** is to:
 
 ## Quick start
 
-1. Ensure you have Java `17` or above installed in your Computer.<br>
-   * **Windows & Linux Users:** Download and install Java from [Oracle JDK 17 Archive Downloads](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html).
-     * **Windows Users:** Follow the instructions [here](https://se-education.org/guides/tutorials/javaInstallationWindows.html).
-   * **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).<br/>
+1. Ensure you have Java `17` or above installed on your computer.<br>
+   - **Windows & Linux Users:** Download and install Java from [Oracle JDK 17 Archive Downloads](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html).
+     - **Windows Users:** Follow the instructions [here](https://se-education.org/guides/tutorials/javaInstallationWindows.html).
+   - **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).<br/><br/>
 
+2. **Download our app:**
+   - Install the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103T-W08-1/tp/releases/latest).<br/><br/>
 
-2. **Download our App:**
-   * Install the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103T-W08-1/tp/releases/tag/v1.5).<br/>
+3. **Prepare a folder:**
+   - Copy the file to the folder you want to use as the _home folder_ for PressPal.<br/><br/>
 
-
-3. **Prepare A Folder:**
-   * Copy the file to the folder you want to use as the _home folder_ for PressPal.<br/>
-
-
-4. **Launch the App:** 
-   * Open a command terminal
-   * Navigate to the folder where you copied the `.jar` file to. 
-        * For **Windows Users**:
-          * Open the Command Prompt and type `cd` followed by the folder path, then press Enter.
-        * For **macOS/Linux Users**:
-          * Open the Terminal and type `cd` followed by the folder path, then press Enter.
-   * Launch the app by entering the following command:<br/>
+4. **Launch the app:** 
+   - Open a terminal
+   - Navigate to the folder where you copied the `.jar` file to. 
+     - For **Windows Users**:
+       - Open the Command Prompt and type `cd` followed by the folder path, then press Enter.
+     - For **macOS/Linux Users**:
+       - Open a terminal and type `cd` followed by the folder path, then press Enter.
+   - Launch the app by entering the following command:<br/>
      `java -jar PressPal.jar`
-   * A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-     ![Ui](images/Ui.png)
+   - A GUI like the one below should appear with some sample data:
+     ![Ui](images/Ui.png)<br/><br/>
 
-5. **Using the App:** Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+5. **Using the app:** Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Here are some example commands you can try:
 
    * `list` : Lists all contacts.
@@ -77,50 +125,68 @@ The **goal of PressPal** is to:
    * `exit` : Exits the app.
 
 6. **Learning more about the App:**
-   * Refer to the [Features](#features) below for more details about the capabilities of PressPal.
+   * Refer to the [Features](#features) below for more details about the capabilities of PressPal.<br/><br/>
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Input Parameters
+<details open>
+  <summary><h2>Input Parameters</h2></summary>
 
-> **Notes about parameters:**
-> - All parameters will be in the form of `p/PARAMETER` where p is the symbol designated for that parameter.
->   - For Example, the command `listInterview i/1`
->     - `i/` is the parameter symbol.
->     - `1` is the parameter.
+<panel header=":information_source: Notes about parameters" type="info" expanded>
 
-### General Parameters
+- All parameters will be in the form of `p/PARAMETER` where `p/` is the symbol designated for that parameter.
+  - For Example, the command `listInterview i/1`
+    - `i/` is the parameter symbol.
+    - `1` is the parameter.
+
+</panel>
+<br/><br/>
+<tabs>
+
+  <tab header="🧭 **General**" active>
+  <h3>General Parameters</h3>
+
 | Symbol |     Parameter     | Constraints                                                                                                      |
 |:------:|:-----------------:|------------------------------------------------------------------------------------------------------------------|
-|   i    |  `PERSON_INDEX`   | <ul><li><strong>Positive integer</strong> (1, 2, …).</li><li>Must exist in the current displayed list.</li></ul> |
-|   v    | `INTERVIEW_INDEX` | <ul><li><strong>Positive integer</strong> (1, 2, …).</li><li>Must exist in the current displayed list.</li></ul> |
-|   NA   | `KEYWORD` | <ul><li>Non-empty string.</li></ul>                                                                              |
+|   `i/`   |  `PERSON_INDEX`   | <ul><li><strong>Positive integer</strong> (1, 2, …).</li><li>Must exist in the current displayed list.</li></ul> |
+|   `v/`   | `INTERVIEW_INDEX` | <ul><li><strong>Positive integer</strong> (1, 2, …).</li><li>Must exist in the current displayed list.</li></ul> |
+|   `NA`   | `KEYWORD` | <ul><li>Non-empty string.</li></ul>                                                                              |
 
-### Contact Parameters
-| Symbol |   Parameter    | Constraints                                                                                                                                                                                                                                                                                                           |
-|:------:|:--------------:|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|   n/   |     `NAME`     | <ul><li>Non-empty string.</li></ul>                                                                                                                                                                                                                                                                                   |
-|   o/   | `ORGANISATION` | <ul><li>Non-empty string, alphanumeric characters with a character limit of 50.</li></ul>                                                                                                                                                                                                                             |
-|   r/   |     `ROLE`     | <ul><li>Non-empty string, alphanumeric characters with a character limit of 50.</li></ul>                                                                                                                                                                                                                             |
-| `e/`  | `EMAIL`   | <ul><li>Format: <code>local-part@domain</code>.</li><li><strong>Local-part</strong>: letters/digits plus <code>+</code>, <code>_</code>, <code>.</code>, <code>-</code>; cannot start or end with a special character.</li><li><strong>Domain</strong>: one or more labels separated by dots.</li><li>Each label starts and ends with an alphanumeric character.</li><li>Within a label, only letters/digits and hyphens (<code>-</code>) are allowed.</li><li>Final label (TLD) must be at least <strong>2 characters</strong> long.</li></ul> |
-|   p/   |    `PHONE`     | <ul><li>Minimum of 3 digits.</li></ul>                                                                                                                                                                                                                                                                                |
-|   c/   |   `CATEGORY`   | <ul><li>Non-empty string, alphanumeric characters with a character limit of 20.</li></ul>                                                                                                                                                                                                                             |
+  </tab>
+  <tab header="👤 **Contact**">
+  <h3>Contact Parameters</h3>
 
-### Interview Parameters
+| Symbol |   Parameter    | Constraints |
+|:------:|:--------------:|----------------------------------------------------------------------|
+|   `n/`   |     `NAME`     | <ul><li>Non-empty string.</li></ul> |
+| `o/` | `ORGANISATION` | <ul><li>Alphanumeric words with single spaces, 1–50 characters.</li></ul> |
+| `r/` | `ROLE`         | <ul><li>Alphanumeric words with single spaces, 1–50 characters.</li></ul> |
+|   `e/`   |    `EMAIL`     | <ul><li>Format: <code>local-part@domain</code>.</li><li><strong>Local-part</strong>: letters/digits plus <code>+</code>, <code>_</code>, <code>.</code>, <code>-</code>; cannot start or end with a special character.</li><li><strong>Domain</strong>: one or more labels separated by dots.</li><li>Each label starts and ends with an alphanumeric character.</li><li>Within a label, only letters/digits and hyphens (<code>-</code>) are allowed.</li><li>Final label (TLD) must be at least <strong>2 characters</strong> long.</li></ul> |
+|   `p/`   |    `PHONE`     | <ul><li>Minimum of 3 digits.</li></ul> |
+| `c/` | `CATEGORY` | <ul><li>Alphanumeric, no spaces, 1–20 characters.</li></ul> |
+
+  </tab>
+  <tab header="📅 **Interview**">
+  <h3>Interview Parameters</h3>
+
 | Symbol | Parameter | Constraints                                                                        |
-|:-----:|:---------:|------------------------------------------------------------------------------------|
-| `h/`  | `HEADER`  | <ul><li>Non-empty string.</li></ul>                                                |
-| `d/`  | `DATE`    | <ul><li>Format: <code>yyyy-MM-dd</code> (e.g., <code>2025-10-15</code>).</li></ul> |
-| `t/`  | `TIME`    | <ul><li>Format: 24-hour <code>HH:mm</code> (e.g., <code>18:30</code>).</li></ul>   |
-| `l/`  | `LOCATION`| <ul><li>Non-empty string.</li></ul>                                                |
+|:------:|:---------:|------------------------------------------------------------------------------------|
+|   `h/`   | `HEADER`  | <ul><li>Non-empty string.</li></ul>                                                |
+|   `d/`   | `DATE`    | <ul><li>Format: <code>yyyy-MM-dd</code> (e.g., <code>2025-10-15</code>).</li></ul> |
+|   `t/`   | `TIME`    | <ul><li>Format: 24-hour <code>HH:mm</code> (e.g., <code>18:30</code>).</li></ul>   |
+|   `l/`   | `LOCATION`| <ul><li>Non-empty string.</li></ul>                                                |
+
+  </tab>
+
+</tabs>
+
+</details>
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Features
 
-<div markdown="block" class="alert alert-info">
-
-**:information_source: Notes about the command format:**<br>
+<panel header=":information_source: Notes about the command format:" type="info" expanded>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
@@ -138,7 +204,8 @@ The **goal of PressPal** is to:
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
-</div>
+
+</panel>
 
 ### Viewing help : `help`
 Shows a message explaining how to access the help page.
@@ -217,6 +284,10 @@ Edits an existing person in the contact book.
 > edit i/INDEX [n/NAME] [p/PHONE] [e/EMAIL] [o/ORGANISATION] [r/ROLE]
 > ```
 
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+
 Examples:
 *  `edit i/1 p/91234567 e/johndoe@example.com` Edits the phone number and email of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 
@@ -228,10 +299,6 @@ Shows a list of all persons in the contact book.
 > ```
 > list
 > ```
-
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
 
 ### Locating persons by name, organisation, role, or categories : `find`
 
@@ -315,8 +382,6 @@ Displays the next scheduled interview that occurs at or after the current date a
 > ```
 > nextInterview
 > ```
-
-Format: `nextInterview`
 
 Examples:
 * `nextInterview` Displays the most upcoming scheduled interview "[Meta Interview] on 15 Oct 2050 2:30PM at Meta HQ."
@@ -413,15 +478,15 @@ Action | Format, Examples
 --------|------------------
 **Add** | `add n/NAME p/PHONE e/EMAIL o/ORGANISATION r/ROLE [c/CATEGORY]…​` <br> e.g., `add n/John Doe p/98765432 e/johnd@example.com o/NUS r/Student c/friends c/owesMoney`
 **Clear** | `clear`
-**Delete** | `delete i/INDEX`<br> e.g., `delete 3`
-**Edit** | `edit i/INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [o/ORGANISATION] [r/ROLE]​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Delete** | `delete i/INDEX`<br> e.g., `delete i/3`
+**Edit** | `edit i/INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [o/ORGANISATION] [r/ROLE]​`<br> e.g.,`edit i/2 n/James Lee e/jameslee@example.com`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James NUS Student`
 **List** | `list`
 **AddInterview** | `addInterview i/INDEX h/HEADER d/DATE t/TIME l/LOCATION` <br> e.g., `addInterview i/1 h/Interview with ABC Corp d/2024-10-10 t/14:00 l/123, Business St, #02-25`
-**DeleteInterview** | `deleteInterview i/PERSON_INDEX i/INTERVIEW_INDEX` <br> e.g., `deleteInterview i/1 i/2`
+**DeleteInterview** | `deleteInterview i/PERSON_INDEX v/INTERVIEW_INDEX` <br> e.g., `deleteInterview i/1 v/2`
 **ListInterview** | `listInterview i/INDEX` <br> e.g., `listInterview i/1`
-**AddCat** | `addCat i/INDEX [c/CATEGORY]...`<br>e.g., `addCat i/1 c/emergency` |
-**DeleteCat** | `deleteCat i/INDEX [c/CATEGORY]...`<br>e.g., `deleteCat i/1 c/emergency` |
-**NextInterview** | `nextInterview` |
+**AddCat** | `addCat i/INDEX [c/CATEGORY]...`<br>e.g., `addCat i/1 c/emergency`
+**DeleteCat** | `deleteCat i/INDEX [c/CATEGORY]...`<br>e.g., `deleteCat i/1 c/emergency`
+**NextInterview** | `nextInterview`
 **Exit** | `exit`
 **Help** | `help`
