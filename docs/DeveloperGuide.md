@@ -772,7 +772,7 @@ testers are expected to do more *exploratory* testing.
   * Expected: Error message shown indicating invalid category name.
 
 5. Deleting a category from a <u>non-existent person</u>
-  * Test case: `addCat i/999 c/family`
+  * Test case: `deleteCat i/999 c/family`
   * Expected: Error message shown indicating person not found.
 
 ### Saving data
