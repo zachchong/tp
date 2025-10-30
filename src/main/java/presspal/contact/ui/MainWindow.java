@@ -113,8 +113,11 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
+        String welcomeMessage = "Welcome to PressPal!";
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+        resultDisplay.setFeedbackToUser(welcomeMessage);
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getContactBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
