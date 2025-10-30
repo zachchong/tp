@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "markdown-it-emoji": "^3.0.0"
+  }
+}
