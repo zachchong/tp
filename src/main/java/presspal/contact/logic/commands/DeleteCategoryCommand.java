@@ -59,7 +59,7 @@ public class DeleteCategoryCommand extends EditCategoryCommand {
 
         Person personToDeleteCat = lastShownList.get(index.getZeroBased());
 
-        Set<Category> categoryNotFound = isCategoriesPresent(personToDeleteCat, editCategoryDescriptor);
+        Set<Category> categoryNotFound = categoriesToDelete(personToDeleteCat, editCategoryDescriptor);
         if (!categoryNotFound.isEmpty()) {
             StringBuilder notFoundList = new StringBuilder();
             int i = 1;
@@ -80,7 +80,7 @@ public class DeleteCategoryCommand extends EditCategoryCommand {
                 editCategoryDescriptor.getCategoriesAsString()));
     }
 
-    private Set<Category> isCategoriesPresent(Person personToDeleteCat, EditCategoryDescriptor editCategoryDescriptor) {
+    private Set<Category> categoriesToDelete(Person personToDeleteCat, EditCategoryDescriptor editCategoryDescriptor) {
         Set<Category> updatedCategories = new HashSet<>(personToDeleteCat.getCategories());
         Set<Category> categoriesToDelete = editCategoryDescriptor.getCategories();
         Set<Category> notFoundCategories = new HashSet<>();
