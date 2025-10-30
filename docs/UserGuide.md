@@ -141,15 +141,6 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com o/NUS r/Student c/friends c/owesMoney`
 * `add n/Betsy Crowe p/12345678 e/betsycrowe@example.com o/Reuters r/Reporter`
 
-### Editing a person : `edit`
-
-Edits an existing person in the contact book.
-
-> **Format**
-> ```
-> edit i/INDEX [n/NAME] [p/PHONE] [e/EMAIL] [o/ORGANISATION] [r/ROLE]
-> ```
-
 ### Deleting a person : `delete`
 
 Deletes the specified person from the contact book.
@@ -167,6 +158,18 @@ Examples:
 * `list` followed by `delete i/2` deletes the 2nd person in the contact book.
 * `find Betsy` followed by `delete i/1` deletes the 1st person in the results of the `find` command.
 
+### Editing a person : `edit`
+
+Edits an existing person in the contact book.
+
+> **Format**
+> ```
+> edit i/INDEX [n/NAME] [p/PHONE] [e/EMAIL] [o/ORGANISATION] [r/ROLE]
+> ```
+
+Examples:
+*  `edit i/1 p/91234567 e/johndoe@example.com` Edits the phone number and email of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+
 ### Listing all persons : `list`
 
 Shows a list of all persons in the contact book.
@@ -176,14 +179,9 @@ Shows a list of all persons in the contact book.
 > list
 > ```
 
-
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-
-Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-
 
 ### Locating persons by name, organisation, role, or categories : `find`
 
