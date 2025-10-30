@@ -43,7 +43,7 @@ public class DeleteCategoryCommandTest {
         Person editedPerson = DeleteCategoryCommand.createNewPerson(personToEdit, descriptor);
 
         String expectedMessage = String.format(DeleteCategoryCommand.MESSAGE_DELETECAT_SUCCESS,
-                descriptor.getCategoriesAsString(), editedPerson.getName());
+                editedPerson.getName(), descriptor.getCategoriesAsString());
 
         Model expectedModel = new ModelManager(model.getContactBook(), new UserPrefs());
         expectedModel.setPerson(personToEdit, editedPerson);
@@ -65,7 +65,7 @@ public class DeleteCategoryCommandTest {
         Person editedPerson = DeleteCategoryCommand.createNewPerson(personInFilteredList, descriptor);
 
         String expectedMessage = String.format(DeleteCategoryCommand.MESSAGE_DELETECAT_SUCCESS,
-                descriptor.getCategoriesAsString(), editedPerson.getName());
+                editedPerson.getName(), descriptor.getCategoriesAsString());
 
         Model expectedModel = new ModelManager(new ContactBook(model.getContactBook()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
@@ -109,7 +109,7 @@ public class DeleteCategoryCommandTest {
         DeleteCategoryCommand deleteCategoryCommand = new DeleteCategoryCommand(INDEX_FIRST_PERSON, descriptor);
 
         String expectedMessage = String.format(DeleteCategoryCommand.MESSAGE_CAT_NOT_FOUND,
-                descriptor.getCategories());
+                personToEdit.getName(), descriptor.getCategoriesAsString());
 
         assertCommandFailure(deleteCategoryCommand, model, expectedMessage);
     }

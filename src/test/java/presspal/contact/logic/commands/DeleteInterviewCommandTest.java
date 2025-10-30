@@ -17,6 +17,7 @@ import presspal.contact.model.Model;
 import presspal.contact.model.ModelManager;
 import presspal.contact.model.UserPrefs;
 import presspal.contact.model.person.Person;
+import presspal.contact.testutil.PersonBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -43,13 +44,18 @@ public class DeleteInterviewCommandTest {
         // pick an interview index larger than the list size
         DeleteInterviewCommand cmd = new DeleteInterviewCommand(personIndex, Index.fromOneBased(size + 1));
 
-        assertCommandFailure(cmd, model, DeleteInterviewCommand.MESSAGE_INVALID_INTERVIEW_DISPLAYED_INDEX);
+        // if no interviews, we expect the name-based "no interviews" message.
+        // Otherwise, expect the range "1..N" where N = size of interview list.
+        String expected = (size == 0)
+                ? String.format(DeleteInterviewCommand.MESSAGE_NO_INTERVIEWS, p.getName())
+                : String.format(DeleteInterviewCommand.MESSAGE_INVALID_INTERVIEW_DISPLAYED_INDEX, "1.." + size);
+
+        assertCommandFailure(cmd, model, expected);
     }
 
     @Test
     public void execute_invalidPersonIndexFilteredList_throwsCommandException() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
-
         Index outOfBoundPerson = INDEX_SECOND_PERSON;
 
         assertTrue(outOfBoundPerson.getZeroBased() < model.getContactBook().getPersonList().size());
@@ -89,4 +95,22 @@ public class DeleteInterviewCommandTest {
         assertEquals(expected, cmd.toString());
     }
 
+    @Test
+    public void execute_noInterviews_failureWithPersonName() {
+        Model model = new ModelManager(getTypicalContactBook(), new UserPrefs());
+
+        // build a person with no interviews
+        Person empty =
+                new PersonBuilder()
+                        .withName("Empty Person")
+                        .build();
+
+        model.addPerson(empty);
+
+        Index personIdx = Index.fromOneBased(model.getFilteredPersonList().size());
+        DeleteInterviewCommand cmd = new DeleteInterviewCommand(personIdx, Index.fromOneBased(1));
+
+        String expected = String.format(DeleteInterviewCommand.MESSAGE_NO_INTERVIEWS, empty.getName());
+        assertCommandFailure(cmd, model, expected);
+    }
 }

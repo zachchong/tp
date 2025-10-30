@@ -31,7 +31,25 @@ public class RoleTest {
         // valid roles
         assertTrue(Role.isValidRole("Software Engineer"));
         assertTrue(Role.isValidRole("-")); // one character
-        assertTrue(Role.isValidRole("Senior Vice President of Engineering and Development")); // long role
+        assertTrue(Role.isValidRole("Senior President of Engineering")); // long role, < 50 characters
+    }
+
+    @Test
+    public void isValidRole_lengthLimits() {
+        // EP: less than 50 characters -> valid
+        String valid49 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"; // 49 a's
+        assertTrue(Role.isValidRole(valid49));
+
+        // EP: exactly 50 characters -> valid
+        String valid50 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"; // 50 a's
+        assertTrue(Role.isValidRole(valid50));
+
+        // EP: 51 characters (too long) -> invalid
+        String invalid51 = valid50 + "a";
+        assertFalse(Role.isValidRole(invalid51));
+
+        // constructor should reject too-long category names
+        assertThrows(IllegalArgumentException.class, () -> new Role(invalid51));
     }
 
     @Test

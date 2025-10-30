@@ -88,6 +88,8 @@ The goal of PressPal is to:
 ### <u>GENERAL COMMANDS</u>
 
 ### Viewing help : `help`
+
+### Viewing help : `help`
 Shows a message explaining how to access the help page.
 
 ![help message](images/helpMessage.png)
@@ -107,6 +109,11 @@ Clears all entries from the contact book.
 > ```
 > clear
 > ```
+### Clearing all entries : `clear`
+
+Clears all entries from the contact book.
+
+Format: `clear`
 
 ### Exiting the program : `exit`
 
@@ -116,6 +123,7 @@ Exits the program.
 > ```
 > exit
 > ```
+Format: `exit`
 
 ### <u>CONTACT MANAGEMENT</u>
 
@@ -181,6 +189,26 @@ Shows a list of all persons in the contact book.
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 
+### Deleting a person : `delete`
+
+Deletes the specified person from the contact book.
+
+Format: `delete INDEX`
+
+* Deletes the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+* `list` followed by `delete 2` deletes the 2nd person in the contact book.
+* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+
+### Listing all persons : `list`
+
+Shows a list of all persons in the contact book.
+
+Format: `list`
+
 ### Locating persons by name, organisation, role, or categories : `find`
 
 Finds persons whose name, organisation, role or categories contain any of the given keywords.
@@ -191,11 +219,11 @@ Finds persons whose name, organisation, role or categories contain any of the gi
 > ```
 
 * The search is case-insensitive. e.g `hans` will match `Hans`.
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 * Only the name, organisation, role and categories are searched. Other fields such as phone or email are not included.
-* Only full words will be matched e.g. `Han` will not match `Hans`
+* Only full words will be matched e.g. `Han` will not match `Hans`.
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`.
 
 Examples:
 * `find John` returns `john` and `John Doe`.
@@ -266,10 +294,13 @@ Displays the next scheduled interview that occurs at or after the current date a
 > nextInterview
 > ```
 
+Format: `nextInterview`
+
 Examples:
 * `nextInterview` Displays the most upcoming scheduled interview "[Meta Interview] on 15 Oct 2050 2:30PM at Meta HQ."
 
 ### <u>CATEGORY MANAGEMENT</u>
+
 ### Add category(s) to a person : `addCat`
 
 Add category(s) to a person identified by the index number used in the displayed person list.
@@ -316,6 +347,22 @@ ContactBook data are saved in the hard disk automatically after any command that
 1. **App opens off-screen after disconnecting a monitor**
     - **Why it happens:** The app remembers its last position — even if that screen is gone.
     - **Fix:** Delete the `preferences.json` file before reopening the app.
+### Troubleshooting
+
+**Q**: I’ve found a bug. How can I report it?<br>
+**A**: You can report it to any one of the developers. Their emails can be found in the [AboutUs page](AboutUs.md).
+
+**Q**: I have an idea for a new feature. Where should I suggest it?<br>
+**A**: You can give your suggestions to any one of the developers. Their emails can be found in the [AboutUs page](AboutUs.md).
+
+
+### Features
+
+**Q**: Why does `addInterview` allow past interview dates?<br>
+**A**: This is to allow the user to archive past interviews to keep as reference.
+
+**Q**: Why can I schedule two interviews at the same date and time?<br>
+**A**: We understand that there might be a chance that multiple people can join in for the same interview, hence we allowed for duplicate interview times for different people.
 
 2. **Help window doesn’t reopen after being minimized**
     - **Why it happens:** The app keeps the original Help Window minimized.

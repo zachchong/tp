@@ -36,7 +36,7 @@ public class AddCategoryCommand extends EditCategoryCommand {
             + "Example: " + COMMAND_WORD + " " + PREFIX_INDEX + " 1 "
             + PREFIX_CATEGORY + "friends";
 
-    public static final String MESSAGE_ADDCAT_SUCCESS = "The Category %1$s is successfully added to %2$s";
+    public static final String MESSAGE_ADDCAT_SUCCESS = "Category(s) successfully added to %1$s:\n%2$s";
     public static final String MESSAGE_DUPLICATE_CAT = "This person already has this category";
 
     /**
@@ -68,8 +68,8 @@ public class AddCategoryCommand extends EditCategoryCommand {
         model.setPerson(personToAddCat, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        return new CommandResult(String.format(MESSAGE_ADDCAT_SUCCESS,
-                editCategoryDescriptor.getCategoriesAsString(), editedPerson.getName()));
+        return new CommandResult(String.format(MESSAGE_ADDCAT_SUCCESS, editedPerson.getName(),
+                editCategoryDescriptor.getCategoriesAsString()));
     }
 
     /**
