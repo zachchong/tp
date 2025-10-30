@@ -714,28 +714,28 @@ testers are expected to do more *exploratory* testing.
 **Prerequisites**: Ensure at least one person exists in the contact book.
 
 1. Adding a <u>valid category</u> to a person
-   * Test case: `addCat i/1 c/friend`
-   * Expected: Confirmation message shown that category 'friend' is added to the person at index 1.
+   * **Test case:** `addCat i/1 c/friend`
+   * **Expected:** Confirmation message shown that category 'friend' is added to the person at index 1.
    
 
 2. Adding <u>valid categories</u> to a person
-   * Test case: `addCat i/1 c/friend c/work`
-   * Expected: Confirmation message shown that categories 'friend' and 'work' are added to the person at index 1.
+   * **Test case:** `addCat i/1 c/friend c/work`
+   * **Expected:** Confirmation message shown that categories 'friend' and 'work' are added to the person at index 1.
 
 
 3. Adding an <u>invalid category</u> to a person
-    * Test case: `addCat i/1 c/!`
-    * Expected: Error message shown indicating invalid category name.
+    * **Test case:** `addCat i/1 c/!`
+    * **Expected:** Error message shown indicating invalid category name.
 
 
 4. Adding an <u>empty category</u> to a person
-   * Test case: `addCat i/1 c/`
-   * Expected: Error message shown indicating invalid category name.
+   * **Test case:** `addCat i/1 c/`
+   * **Expected:** Error message shown indicating invalid category name.
 
 
 5. Adding a category to a <u>non-existent person</u>
-    * Test case: `addCat i/999 c/family`
-    * Expected: Error message shown indicating person not found.
+    * **Test case:** `addCat i/999 c/family`
+    * **Expected:** Error message shown indicating person not found.
 
 
 ### Delete category(s) from a person
@@ -745,25 +745,80 @@ testers are expected to do more *exploratory* testing.
 **Prerequisites**: Ensure at least one person exists in the contact book.
 
 1. Deleting a <u>valid category</u> from a person
-  * Test case: `deleteCat i/1 c/friend`
-  * Expected: Success message shown that category 'friend' is deleted from the person at index 1.
+    * **Test case:** `deleteCat i/1 c/friend`
+    * **Expected:** Success message shown that category 'friend' is deleted from the person at index 1.
 
 
 2. Deleting <u>valid categories</u> from a person
-  * Test case: `deleteCat i/1 c/friend c/work`
-  * Expected: Success message shown that categories 'friend' and 'work' are deleted from the person at index 1.
+    * **Test case:** `deleteCat i/1 c/friend c/work`
+    * **Expected:** Success message shown that categories 'friend' and 'work' are deleted from the person at index 1.
 
 
 3. Deleting an <u>invalid category</u> from a person
-  * Test case: `deleteCat i/1 c/!`
-  * Expected: Error message shown indicating invalid category name.
+    * **Test case:** `deleteCat i/1 c/!`
+    * **Expected:** Error message shown indicating invalid category name.
 
 
 4. Deleting an <u>empty category</u> from a person
-  * Test case: `deleteCat i/1 c/`
-  * Expected: Error message shown indicating invalid category name.
+    * **Test case:** `deleteCat i/1 c/`
+    * **Expected:** Error message shown indicating invalid category name.
 
 
 5. Deleting a category from a <u>non-existent person</u>
-  * Test case: `deleteCat i/999 c/family`
-  * Expected: Error message shown indicating person not found.
+    * **Test case:** `deleteCat i/999 c/family`
+    * **Expected:** Error message shown indicating person not found.
+
+
+### Display the upcoming interview
+
+**Command**: `nextInterview`
+
+1. Displaying the next upcoming interview in the contact book
+    * **Prerequisites:** 
+      * Ensure at least one person exists in the contact book with an interview date of later than present time.
+    * **Test Case:** `nextInterview`
+    * **Expected:** Success message showing the next upcoming interview.
+
+
+2. Displaying the next upcoming interview for an empty contact book
+    * **Prerequisites:** 
+      * Ensure that the contact book is empty by using `clear` command.
+    * **Test Case:** `nextInterview`
+    * **Expected:** Error message shown indicating the contact book is empty.
+
+
+### Display the list of interview(s) for a person
+
+**Command**: `listInterview`
+
+1. Displaying a person's interview(s)
+    * **Prerequisites:** 
+      * Ensure the person at index `1` exists in the contact book with at least one interview.
+    * **Test Case:** `listInterview i/1`
+    * **Expected:** Success message showing the person's list of interview(s).
+
+
+2. Displaying <u>an empty list of</u> interview(s) for a person
+    * **Prerequisites:** 
+      * Ensure that the person at index `1` has no interview(s).
+    * **Test Case:** `listInterview i/1`
+    * **Expected:** Error message shown indicating the person has no interview(s) scheduled.
+
+
+### Adding a person
+
+**Command**: `add`
+
+1. Adding a person with <u>all valid fields</u>
+    * **Test Case:** `add n/John Doe p/12345678 e/johnd@example.com o/NUS r/TA c/Student`
+    * **Expected:** Person is added to the contact book. Details of the new person is shown in the status message.
+
+
+2. Adding a person with missing mandatory fields
+    * **Test Case:** `add p/12345678 e/johnd@example.com o/NUS r/TA c/Student`
+    * **Expected:** Person is not added. Error details shown in the status message.
+
+
+3. Adding a person with invalid Organisation format
+    * **Test Case:** `add n/John Doe p/12345678 e/johnd@example.com o/NUS-C r/TA`
+    * **Expected:** Person is not added. Error details shown in the status message.
