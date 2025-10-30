@@ -317,7 +317,7 @@ The use cases below are not exhaustive. (For all use cases below, the **System**
 
 **Extensions**
 
-* 1a. Reporter includes only some fields.
+* 1a. Reporter omits one or more required fields (name, phone OR email, organisation, role).
   * 1a1. PressPal shows an invalid command error message.  
     Use case resumes at step 1.
 
@@ -329,12 +329,8 @@ The use cases below are not exhaustive. (For all use cases below, the **System**
   * 2b1. PressPal shows a duplicate contact error message.  
     Use case resumes at step 1.
 
-* 2c. PressPal detects a missing mode of contact (no phone and no email provided).
-  * 2c1. PressPal shows a missing contact method error message.  
-    Use case resumes at step 1.
-
-* 2d. PressPal detects a repeated parameter (e.g., two phone fields).
-  * 2d1. PressPal shows a repeated parameter error message.  
+* 2c. PressPal detects a repeated parameter (e.g., two phone fields).
+  * 2c1. PressPal shows a repeated parameter error message.  
     Use case resumes at step 1.
 
 ### UC2 – Add category to contact
