@@ -744,6 +744,7 @@ testers are expected to do more *exploratory* testing.
   - **Expected:** The system lists all persons whose `name` contains the full word `John`.  
     Example: `John Doe` is displayed. Status bar shows `1 person listed!`.
 
+
 1. Finding persons by multiple keywords
   - **Prerequisite:**
     - The contact book contains persons `Bernice Yu` and `Charlotte Oliveira`.
@@ -751,17 +752,20 @@ testers are expected to do more *exploratory* testing.
   - **Expected:** The system lists both `Bernice Yu` and `Charlotte Oliveira`.  
     Status bar shows `2 persons listed!`. The search behaves as an OR search.
 
+
 1. Case-insensitive search
   - **Prerequisite:**
     - The contact book contains `Alex Yeoh`.
   - **Test Case:** `find AlEx`
   - **Expected:** The system lists `Alex Yeoh`. The search is case-insensitive.
 
+
 1. Order of keywords does not matter
   - **Prerequisite:**
     - The contact book contains `Hans Gruber`.
   - **Test Case:** `find Gruber Hans`
   - **Expected:** The system lists `Hans Gruber`. The order of keywords does not affect search results.
+
 
 1. Partial word should not match
   - **Prerequisite:**
@@ -770,11 +774,13 @@ testers are expected to do more *exploratory* testing.
   - **Expected:** `Hans Gruber` is **not** listed since `Han` is only part of the name.  
     `Han Solo` is listed since `Han` is a full word in that name.
 
+
 1. Finding persons by keyword organisation
   - **Prerequisite:**
     - The contact book contains `Alice Tan` with organisation `Google`.
   - **Test Case:** `find Google`
   - **Expected:** `Alice Tan` is listed because her organisation contains the keyword `Google`.
+
 
 1. Finding persons by keyword role
   - **Prerequisite:**
@@ -782,11 +788,13 @@ testers are expected to do more *exploratory* testing.
   - **Test Case:** `find manager`
   - **Expected:** `David Li` is listed since his role matches the keyword `manager`.
 
+
 1. Finding persons by keyword category
   - **Prerequisite:**
     - The contact book contains `Alex Yeoh` with category `family`.
   - **Test Case:** `find family`
   - **Expected:** `Alex Yeoh` is listed because the category `family` matches the keyword.
+
 
 1. Searching with a non-existent keyword
   - **Prerequisite:**
@@ -794,11 +802,13 @@ testers are expected to do more *exploratory* testing.
   - **Test Case:** `find Kieron`
   - **Expected:** No results displayed. Status bar shows `0 persons listed!`.
 
+
 1. Handling extra spaces in input
   - **Prerequisite:**
     - The contact book contains `David Li`.
   - **Test Case:** `find   david    `
   - **Expected:** `David Li` is listed normally. Leading or trailing spaces are ignored.
+
 
 1. Empty input
   - **Prerequisite:**
@@ -806,6 +816,7 @@ testers are expected to do more *exploratory* testing.
   - **Test Case:** `find`
   - **Expected:** Error message shown indicating invalid command format.  
     Usage message displayed: `find KEYWORD [MORE_KEYWORDS]`.
+
 
 ### Listing All Persons
 
@@ -816,6 +827,7 @@ testers are expected to do more *exploratory* testing.
     - The contact book contains at least one person (e.g., `John Doe`, `Alex Yeoh`).
   - **Test Case:** `list`
   - **Expected:** The system displays a list of all persons currently stored in the contact book. Both `John Doe` and `Alex Yeoh` are displayed in the result panel.
+
 
 1. Listing all persons when the contact book is empty
   - **Prerequisite:**
