@@ -90,12 +90,26 @@ The goal of PressPal is to:
 
 ### Viewing help : `help`
 
+### Viewing help : `help`
 Shows a message explaining how to access the help page.
 
 ![help message](images/helpMessage.png)
 
-Format: `help`
+> **Format**
+> ```
+> help
+> ```
 
+### Clearing all entries : `clear`
+
+Clears all entries from the contact book.
+
+** :warning: Caution:** This action is destructive and cannot be undone.
+
+> **Format**
+> ```
+> clear
+> ```
 ### Clearing all entries : `clear`
 
 Clears all entries from the contact book.
@@ -106,6 +120,10 @@ Format: `clear`
 
 Exits the program.
 
+> **Format**
+> ```
+> exit
+> ```
 Format: `exit`
 
 ### <u>CONTACT MANAGEMENT</u>
@@ -113,8 +131,13 @@ Format: `exit`
 ### Adding a person: `add`
 
 Adds a person to the contact book.
+* You must provide at least one of `PHONE` and `EMAIL`.
+* `PHONE` and `EMAIL` do not have to be unique. Different people can share the same contact details.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL o/ORGANISATION r/ROLE [c/CATEGORY]…​`
+> **Format**
+> ```
+> add n/NAME p/PHONE_NUMBER e/EMAIL o/ORGANISATION r/ROLE [c/CATEGORY]
+> ```
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A person can have any number of categories (including 0).
@@ -128,12 +151,41 @@ Examples:
 
 Edits an existing person in the contact book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [o/ORGANISATION] [r/ROLE]​`
+> **Format**
+> ```
+> edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [o/ORGANISATION] [r/ROLE]
+> ```
+
+### Deleting a person : `delete`
+
+Deletes the specified person from the contact book.
+
+> **Format**
+> ```
+> delete INDEX
+> ```
+
+* Deletes the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+* `list` followed by `delete 2` deletes the 2nd person in the contact book.
+* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+
+### Listing all persons : `list`
+
+Shows a list of all persons in the contact book.
+
+> **Format**
+> ```
+> list
+> ```
+
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* Unable to delete both phone number and email, as at least one mode of contact must remain.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email of the 1st person to be `91234567` and `johndoe@example.com` respectively.
@@ -162,7 +214,10 @@ Format: `list`
 
 Finds persons whose name, organisation, role or categories contain any of the given keywords.
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+> **Format** 
+> ```
+> find KEYWORD [MORE_KEYWORDS]
+> ```
 
 * The search is case-insensitive. e.g `hans` will match `Hans`.
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
@@ -183,13 +238,20 @@ Examples:
 
 Adds an interview to a contact in the contact book.
 
-Format: `addInterview i/INDEX h/HEADER d/DATE t/TIME l/LOCATION`
+> **Format**
+> ```
+> addInterview i/INDEX h/HEADER d/DATE t/TIME l/LOCATION
+> ```
 
 * Adds an interview to the contact at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * The `DATE` must be in the format `YYYY-MM-DD`. e.g. `2025-10-10`.
-* The `TIME` must be in the format `HH:MM`. e.g. `14:30`. Each contact cannot have more than one interview at the same time. However, different contacts can have interviews at the same time.
-* The `LOCATION` can be any text describing where the interview will take place. Different interviews can take place at the same `LOCATION`.
-* The `HEADER` can be any text describing the interview (e.g company name, role, etc.). Different interviews can have the same `HEADER`.
+  * When adding an interview, the `DATE` can be in the past.
+* The `TIME` must be in the format `HH:MM`. e.g. `14:30`. 
+  * Each contact cannot have more than one interview at the same time. However, different contacts can have interviews at the same time.
+* The `LOCATION` can be any text describing where the interview will take place. 
+  * Different interviews can take place at the same `LOCATION`.
+* The `HEADER` can be any text describing the interview (e.g company name, role, etc.). 
+  * Different interviews can have the same `HEADER`.
 
 Examples:
 * `addInterview i/1 h/Interview with ABC Corp d/2024-10-10 t/14:00 l/123, Business St, #02-25` adds an interview with header `Interview with ABC Corp`, date `2024-10-10`, time `14:00` and location `123, Business St, #02-25` to the 1st contact in the contact book.
@@ -198,7 +260,10 @@ Examples:
 
 Deletes an interview from a contact in the contact book.
 
-Format: `deleteInterview i/PERSON_INDEX i/INTERVIEW_INDEX`
+> **Format** 
+> ```
+> deleteInterview i/PERSON_INDEX i/INTERVIEW_INDEX
+> ```
 
 * Deletes the interview at the specified `INTERVIEW_INDEX` from the contact at the specified `PERSON_INDEX`. The indices refer to the index numbers shown in the displayed person list and interview list respectively. The indices **must be positive integers** 1, 2, 3, …​
 
@@ -209,7 +274,10 @@ Examples:
 
 Lists all interviews of a contact in the contact book.
 
-Format: `listInterview i/INDEX`
+> **Format** 
+> ```
+> listInterview i/INDEX
+> ```
 
 * Lists all interviews of the contact at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * If the contact has no interviews, a message indicating so will be shown instead.
@@ -220,6 +288,12 @@ Format: `listInterview i/INDEX`
 ### Display the upcoming interview : `nextInterview`
 
 Displays the next scheduled interview that occurs at or after the current date and time, excluding any interviews already in the past.
+* If the next scheduled interview occurs for more than one contact, they will all be displayed.
+
+> **Format**
+> ```
+> nextInterview
+> ```
 
 Format: `nextInterview`
 
@@ -232,7 +306,10 @@ Examples:
 
 Add category(s) to a person identified by the index number used in the displayed person list.
 
-Format: `addCat i/INDEX [c/CATEGORY]...`
+> **Format** 
+> ```
+> addCat i/INDEX [c/CATEGORY]...
+> ```
 
 * If category A is already added to a person, any attempt to add category A again to the person will be rejected with an error message.
 
@@ -244,7 +321,10 @@ Examples:
 
 Delete category(s) from a person identified by the index number used in the displayed person list.
 
-Format: `deleteCat i/INDEX [c/CATEGORY]...`
+> **Format** 
+> ```
+> deleteCat i/INDEX [c/CATEGORY]...
+> ```
 
 Examples:
 * `deleteCat i/1 c/emergency` Deletes the category `emergency` from the person with index 1.
@@ -254,19 +334,20 @@ Examples:
 
 ContactBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
-### Editing the data file
+--------------------------------------------------------------------------------------------------------------------
 
-ContactBook data are saved automatically as a JSON file `[JAR file location]/data/contactbook.json`. Advanced users are welcome to update data directly by editing that data file.
+## Frequently Asked Questions (FAQ)
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, ContactBook will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the ContactBook to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
-</div>
+**Q**: How do I transfer my data to another Computer?<br>
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous ContactBook home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## FAQ
+## Common Problems and Fixes
 
+1. **App opens off-screen after disconnecting a monitor**
+    - **Why it happens:** The app remembers its last position — even if that screen is gone.
+    - **Fix:** Delete the `preferences.json` file before reopening the app.
 ### Troubleshooting
 
 **Q**: I’ve found a bug. How can I report it?<br>
@@ -284,12 +365,24 @@ Furthermore, certain edits can cause the ContactBook to behave in unexpected way
 **Q**: Why can I schedule two interviews at the same date and time?<br>
 **A**: We understand that there might be a chance that multiple people can join in for the same interview, hence we allowed for duplicate interview times for different people.
 
+2. **Help window doesn’t reopen after being minimized**
+    - **Why it happens:** The app keeps the original Help Window minimized.
+    - **Fix:** Manually restore the minimized window.
 --------------------------------------------------------------------------------------------------------------------
 
-## Known issues
+## Future Iteration Plans
 
-1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
-2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
+In future iterations, these are the features we plan to implement:
+1. Archive of contact and interviews
+
+After a certain period, there are contacts that may no longer be relevant to the journalist. An archiving feature would allow users to move such contacts to an archive section, keeping the main contact list uncluttered while still retaining access to past contacts if needed.
+2. Enforcement of uniqueness on phone and email
+
+Currently, the application allows multiple contacts to share the same phone number or email address. Implementing uniqueness constraints would help prevent duplicate entries and ensure that each contact is distinct, cohering with real-world scenarios where phone numbers and email addresses are unique identifiers.
+
+3. Interview notes
+
+Adding a feature to attach notes to interviews would be beneficial for journalists to jot down important points, observations, or follow-up questions related to each interview. This would allow journalist to use PressPal as the only tool needed to manage both contacts and interview details comprehensively.
 
 --------------------------------------------------------------------------------------------------------------------
 
