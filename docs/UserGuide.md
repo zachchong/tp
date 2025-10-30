@@ -159,7 +159,99 @@ html { scroll-behavior: smooth; }
 }
 </style>
 
+<style>
+/* Accordion cheat-sheet */
+.rule-accordion { border:1px solid #ffcb3b; border-radius:.75rem; overflow:hidden; background:#fff9e8; }
+.rule-accordion details { border-top:1px solid #ffe28a; }
+.rule-accordion details:first-of-type { border-top:none; }
+.rule-accordion summary {
+  list-style:none; cursor:pointer; padding:.8rem 1rem; font-weight:700; color:#7c5b00;
+  display:flex; align-items:center; gap:.6rem;
+}
+.rule-accordion summary::-webkit-details-marker { display:none; }
+.rule-accordion summary .caret { transition:transform .2s ease; }
+.rule-accordion details[open] summary .caret { transform:rotate(90deg); }
+.rule-accordion .rule-body { padding:.8rem 1rem 1rem 2.2rem; color:#374151; }
+
+.rule-accordion .example {
+  background:#fffdf5; border:1px dashed #ffcb3b; border-radius:.6rem; padding:.6rem .7rem; margin:.5rem 0 0;
+}
+.rule-accordion pre { margin:.35rem 0 0; }
+.rule-accordion code { font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+
+.copybtn {
+  float:right; font-size:.75rem; padding:.15rem .45rem; border:1px solid #ffcb3b; background:#fff; border-radius:.4rem;
+  cursor:pointer;
+}
+.copybtn:hover { background:#fff7cc; }
+</style>
+
+<script>
+/* optional: small copy buttons for examples */
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.copybtn');
+  if (!btn) return;
+  const text = btn.getAttribute('data-copy');
+  navigator.clipboard.writeText(text || '').then(() => {
+    const old = btn.textContent; btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = old, 900);
+  });
+});
+</script>
+
+<style>
+details.caution {
+  border: 1px solid #ffcb3b;
+  background: #fff9e8;
+  border-radius: .6rem;
+  margin: 1rem 0;
+}
+details.caution summary {
+  cursor: pointer;
+  list-style: none;
+  padding: .65rem .8rem;
+  font-weight: 700;
+  color: #7c5b00;
+  display: flex; align-items: center; gap: .5rem;
+}
+details.caution summary::-webkit-details-marker { display: none; }
+details.caution .caution-body {
+  padding: .2rem .9rem .8rem .9rem;
+  color: #374151;
+}
+</style>
+
+<style>
+h2 {
+  color: #0C3878 !important;
+  font-size: 3rem !important;
+  font-weight: 800 !important;
+  line-height: 1.2;
+  margin-top: 2rem;
+  margin-bottom: .9rem;
+}
+
+details summary h2 {
+  color: inherit !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+}
+</style>
+
+<style>
+h1 {
+  color: #E84C23 !important;
+  font-size: 4rem !important;
+  font-weight: 800 !important;
+  line-height: 1.2;
+  margin-top: 2rem;
+  margin-bottom: .9rem;
+}
+</style>
+
 ![PressPalAbout](images/PressPalAbout.png)
+
+# User Guide
 
 ## About
 
@@ -268,7 +360,72 @@ The **goal of PressPal** is to:
   - For Example, the command `listInterview i/1`
     - `i/` is the parameter symbol.
     - `1` is the parameter.
+<br/><br/>
+- Words in `UPPER_CASE` are the parameters to be supplied by the user.
+  - For Example, the command `add n/NAME`
+    - `NAME` is a parameter which can be used as `add n/John Doe`.
 
+</panel>
+
+<panel header=":memo: Notes about the command format" type="info" expanded>
+
+<div class="rule-accordion">
+
+  <details>
+    <summary><span class="caret">▶</span> Items in square brackets are optional</summary>
+    <div class="rule-body">
+      Use optional flags when you need them.
+      <div class="example">
+        <button class="copybtn" data-copy="n/John Doe c/friend">Copy</button>
+        <strong>Examples</strong><br/>
+        <code>n/NAME [c/CATEGORY]</code><br/>
+        → <code>n/John Doe c/friend</code><br/>
+        → <code>n/John Doe</code>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="caret">▶</span> Items with <code>…</code> can repeat (including zero times)</summary>
+    <div class="rule-body">
+      Repeat the same flag as needed.
+      <div class="example">
+        <button class="copybtn" data-copy="c/friend c/family">Copy</button>
+        <strong>Examples</strong><br/>
+        <code>[c/CATEGORY]…</code><br/>
+        → <code>(zero times)</code><br/>
+        → <code>c/friend</code><br/>
+        → <code>c/friend c/family</code>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="caret">▶</span> Parameters can be in any order</summary>
+    <div class="rule-body">
+      Order doesn’t matter unless stated otherwise.
+      <div class="example">
+        <button class="copybtn" data-copy="p/91234567 n/John Doe">Copy</button>
+        <strong>Examples</strong><br/>
+        <code>n/NAME p/PHONE_NUMBER</code><br/>
+        ↔ <code>p/PHONE_NUMBER n/NAME</code>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="caret">▶</span> Extra parameters on no-arg commands are ignored</summary>
+    <div class="rule-body">
+      Commands like <code>help</code>, <code>list</code>, <code>exit</code>, <code>clear</code> ignore extras.
+      <div class="example">
+        <button class="copybtn" data-copy="help">Copy</button>
+        <strong>Example</strong><br/>
+        <code>help 123</code> is treated as <code>help</code>.
+      </div>
+    </div>
+  </details>
+
+</div>
 </panel>
 
 <h3 id="general-parameters" class="visually-hidden-anchor">General Parameters</h3>
@@ -280,35 +437,38 @@ The **goal of PressPal** is to:
   <tab header="🧭 **General**" active>
   <h3>General Parameters</h3>
 
-| Symbol |     Parameter     | Constraints                                                                                                      |
-|:------:|:-----------------:|------------------------------------------------------------------------------------------------------------------|
-|   `i/`   |  `PERSON_INDEX`   | <ul><li><strong>Positive integer</strong> (1, 2, …).</li><li>Must exist in the current displayed list.</li></ul> |
-|   `v/`   | `INTERVIEW_INDEX` | <ul><li><strong>Positive integer</strong> (1, 2, …).</li><li>Must exist in the current displayed list.</li></ul> |
-|   `NA`   | `KEYWORD` | <ul><li>Non-empty string.</li></ul>                                                                              |
+| Symbol | Parameter        | Description                                   | Constraints |
+|:------:|:-----------------|:----------------------------------------------|:------------|
+|  `i/`  | `PERSON_INDEX`   | Index of a person in the **current** list.    | **Positive integer** (1, 2, …); must exist in the current displayed list. |
+|  `v/`  | `INTERVIEW_INDEX`| Index of an interview for the selected person.| **Positive integer** (1, 2, …); must exist in the current displayed list. |
+|   NA   | `KEYWORD`        | One or more words used for searching.         | Non-empty string. |
+
 
   </tab>
   <tab header="👤 **Contact**">
   <h3>Contact Parameters</h3>
 
-| Symbol |   Parameter    | Constraints |
-|:------:|:--------------:|----------------------------------------------------------------------|
-|   `n/`   |     `NAME`     | <ul><li>Non-empty string.</li></ul> |
-| `o/` | `ORGANISATION` | <ul><li>Alphanumeric words with single spaces, 1–50 characters.</li></ul> |
-| `r/` | `ROLE`         | <ul><li>Alphanumeric words with single spaces, 1–50 characters.</li></ul> |
-|   `e/`   |    `EMAIL`     | <ul><li>Format: <code>local-part@domain</code>.</li><li><strong>Local-part</strong>: letters/digits plus <code>+</code>, <code>_</code>, <code>.</code>, <code>-</code>; cannot start or end with a special character.</li><li><strong>Domain</strong>: one or more labels separated by dots.</li><li>Each label starts and ends with an alphanumeric character.</li><li>Within a label, only letters/digits and hyphens (<code>-</code>) are allowed.</li><li>Final label (TLD) must be at least <strong>2 characters</strong> long.</li></ul> |
-|   `p/`   |    `PHONE`     | <ul><li>Minimum of 3 digits.</li></ul> |
-| `c/` | `CATEGORY` | <ul><li>Alphanumeric, no spaces, 1–20 characters.</li></ul> |
+| Symbol | Parameter     | Description                                       | Constraints |
+|:-----:|:--------------|:--------------------------------------------------|:------------|
+| `n/`  | `NAME`        | Person’s full name as you’d like it displayed.    | Non-empty string. |
+| `o/`  | `ORGANISATION`| Company, school, outlet, etc.                     | Alphanumeric words with single spaces, 1–50 chars. |
+| `r/`  | `ROLE`        | Job title or position (e.g., Reporter, Lawyer).   | Alphanumeric words with single spaces, 1–50 chars. |
+| `e/`  | `EMAIL`       | Email address used for contacting the person.     | <ul><li>Format: <code>local-part@domain</code>.</li><li><strong>Local-part</strong>: letters/digits plus <code>+</code>, <code>_</code>, <code>.</code>, <code>-</code>; cannot start or end with a special character.</li><li><strong>Domain</strong>: one or more labels separated by dots.</li><li>Each label starts and ends with an alphanumeric character.</li><li>Within a label, only letters/digits and hyphens (<code>-</code>) are allowed.</li><li>Final label (TLD) must be at least <strong>2 characters</strong> long.</li></ul> |
+| `p/`  | `PHONE`       | Phone number (no formatting required).            | Minimum of 3 digits. |
+| `c/`  | `CATEGORY`    | Tag for grouping (e.g., `emergency`, `election`). | Alphanumeric, no spaces, 1–20 chars. |
+
 
   </tab>
   <tab header="📅 **Interview**">
   <h3>Interview Parameters</h3>
 
-| Symbol | Parameter | Constraints                                                                        |
-|:------:|:---------:|------------------------------------------------------------------------------------|
-|   `h/`   | `HEADER`  | <ul><li>Non-empty string.</li></ul>                                                |
-|   `d/`   | `DATE`    | <ul><li>Format: <code>yyyy-MM-dd</code> (e.g., <code>2025-10-15</code>).</li></ul> |
-|   `t/`   | `TIME`    | <ul><li>Format: 24-hour <code>HH:mm</code> (e.g., <code>18:30</code>).</li></ul>   |
-|   `l/`   | `LOCATION`| <ul><li>Non-empty string.</li></ul>                                                |
+| Symbol | Parameter | Description                                        | Constraints |
+|:-----:|:----------|:---------------------------------------------------|:------------|
+| `h/`  | `HEADER`  | Short title for the interview (topic/company/etc.).| Non-empty string. |
+| `d/`  | `DATE`    | Interview date.                                     | `yyyy-MM-dd` (e.g., `2025-10-15`). |
+| `t/`  | `TIME`    | Interview start time (24-hour).                     | `HH:mm` (e.g., `18:30`). |
+| `l/`  | `LOCATION`| Where it will happen (address, link, or note).      | Non-empty string. |
+
 
   </tab>
 
@@ -320,27 +480,14 @@ The **goal of PressPal** is to:
 
 ## Features
 
-<panel header=":information_source: Notes about the command format:" type="info" expanded>
-
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-
-* Items in square brackets are optional.<br>
-  e.g `n/NAME [c/CATEGORY]` can be used as `n/John Doe c/friend` or as `n/John Doe`.
-
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[c/CATEGORY]…​` can be used as ` ` (i.e. 0 times), `c/friend`, `c/friend c/family` etc.
-
-* Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
-
-* If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
-
-</panel>
-<br/><br/>
+<details class="caution" open>
+  <summary>⚠️ CAUTION: Be careful when copy/pasting while using PDF!</summary>
+  <div class="caution-body">
+    If you are using a PDF version of this document, be careful when copying and pasting commands
+    that span multiple lines — space characters surrounding line-breaks may be omitted when pasted
+    into the application.
+  </div>
+</details>
 
 ### Viewing help : `help`
 Shows a message explaining how to access the help page.
@@ -412,7 +559,6 @@ Deletes the specified person from the contact book.
 > ```
 
 * Deletes the person at the specified `PERSON_INDEX`.
-* The index refers to the index number shown in the displayed person list.
 
 Examples:
 * `list` followed by `delete i/2` deletes the 2nd person in the contact book.
@@ -428,8 +574,7 @@ Edits an existing person in the contact book.
 > edit i/PERSON_INDEX [n/NAME] [p/PHONE] [e/EMAIL] [o/ORGANISATION] [r/ROLE]
 > ```
 
-* Edits the person at the specified `PERSON_INDEX`. 
-* The index refers to the index number shown in the displayed person list.
+* Edits the person at the specified `PERSON_INDEX`.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 
@@ -479,16 +624,11 @@ Adds an interview to a contact in the contact book.
 > addInterview i/PERSON_INDEX h/HEADER d/DATE t/TIME l/LOCATION
 > ```
 
-* Adds an interview to the contact at the specified `PERSON_INDEX`. 
-* The index refers to the index number shown in the displayed person list.
-* The `DATE` must be in the format `YYYY-MM-DD`. e.g. `2025-10-10`.
-  * When adding an interview, the `DATE` can be in the past.
-* The `TIME` must be in the format `HH:MM`. e.g. `14:30`. 
-  * Each contact cannot have more than one interview at the same time. However, different contacts can have interviews at the same time.
-* The `LOCATION` can be any text describing where the interview will take place. 
-  * Different interviews can take place at the same `LOCATION`.
-* The `HEADER` can be any text describing the interview (e.g company name, role, etc.). 
-  * Different interviews can have the same `HEADER`.
+* Adds an interview to the contact at the specified `PERSON_INDEX`.
+* When adding an interview, the `DATE` can be in the past.
+* Each contact cannot have more than one interview at the same time. However, different contacts can have interviews at the same time.
+* Different interviews can take place at the same `LOCATION`.
+* Different interviews can have the same `HEADER`.
 
 Examples:
 * `addInterview i/1 h/Interview with ABC Corp d/2024-10-10 t/14:00 l/123, Business St, #02-25` adds an interview with header `Interview with ABC Corp`, date `2024-10-10`, time `14:00` and location `123, Business St, #02-25` to the 1st contact in the contact book.
@@ -503,7 +643,7 @@ Deletes an interview from a contact in the contact book.
 > deleteInterview i/PERSON_INDEX v/INTERVIEW_INDEX
 > ```
 
-* Deletes the interview at the specified `INTERVIEW_INDEX` from the contact at the specified `PERSON_INDEX`. The indices refer to the index numbers shown in the displayed person list and interview list respectively. The indices **must be positive integers** 1, 2, 3, …​
+* Deletes the interview at the specified `INTERVIEW_INDEX` from the contact at the specified `PERSON_INDEX`.
 
 Examples:
 * `deleteInterview i/1 v/2` Deletes the 2nd interview from the 1st contact in the contact book.
@@ -518,8 +658,7 @@ Lists all interviews of a contact in the contact book.
 > listInterview i/PERSON_INDEX
 > ```
 
-* Lists all interviews of the contact at the specified `PERSON_INDEX`. 
-* The index refers to the index number shown in the displayed person list.
+* Lists all interviews of the contact at the specified `PERSON_INDEX`.
 * If the contact has no interviews, a message indicating so will be shown instead.
 
 ![empty interview](images/emptyInterviewExample.png)
@@ -538,7 +677,7 @@ Displays the next scheduled interview that occurs at or after the current date a
 > ```
 
 Examples:
-* `nextInterview` Displays the most upcoming scheduled interview "[Meta Interview] on 15 Oct 2050 2:30PM at Meta HQ."
+* `nextInterview` Displays the most upcoming scheduled interview for example, "[Meta Interview] on 15 Oct 2050 2:30PM at Meta HQ."
 <br/><br/>
 
 ### Add category(s) to a person : `addCat`
@@ -710,7 +849,7 @@ If several interviews have the same time, we show the **first one in your curren
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Command summary
+## Command Summary
 
 Action | Format, Examples
 --------|------------------
