@@ -55,6 +55,110 @@ details table { margin-top: .5rem; }
 }
 </style>
 
+<script>
+(function () {
+  const idToTab = {
+    'general-parameters': 'General',
+    'contact-parameters': 'Contact',
+    'interview-parameters': 'Interview'
+  };
+
+  function activateTabFor(id) {
+    const wanted = idToTab[id];
+    if (!wanted) return;
+    const tabs = Array.from(document.querySelectorAll('.nav-tabs .nav-link'));
+    const target = tabs.find(a => a.textContent.trim().toLowerCase().includes(wanted.toLowerCase()));
+    if (target && !target.classList.contains('active')) target.click();
+  }
+
+  function handleHash() {
+    const id = (location.hash || '').slice(1);
+    if (id) activateTabFor(id);
+  }
+
+  // Switch on TOC click (instant) and on hashchange (fallback)
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    const id = a.getAttribute('href').slice(1);
+    activateTabFor(id);
+  });
+
+  window.addEventListener('hashchange', handleHash);
+  document.addEventListener('DOMContentLoaded', handleHash);
+})();
+</script>
+
+
+<style>
+  .visually-hidden-anchor {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  border: 0;
+}
+
+html { scroll-behavior: smooth; }
+
+#general-parameters,
+#contact-parameters,
+#interview-parameters {
+  scroll-margin-top: 80px;
+}
+</style>
+
+<style>
+/* Roadmap grid + cards */
+.roadmap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: .9rem;
+  margin-top: .75rem;
+}
+.roadmap-card {
+  background: #fffdf5;
+  border: 1px solid #ffe082;
+  border-radius: .75rem;
+  padding: 1rem;
+  box-shadow: 0 1px 0 rgba(0,0,0,.03);
+}
+.roadmap-card h4 {
+  display: flex; align-items: center; gap: .5rem;
+  margin: 0 0 .4rem 0;
+  font-size: 1.05rem;
+}
+.roadmap-meta {
+  display: flex; flex-wrap: wrap; gap: .5rem; margin: .4rem 0 .6rem 0;
+  font-size: .85rem; color: #4b5563;
+}
+.chip {
+  display: inline-block;
+  padding: .15rem .5rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: .75rem;
+  border: 1px solid;
+}
+.chip.planned    { color:#8a6d00; background:#fff7cc; border-color:#ffe082; }
+.chip.proposed  { color:#1f2937; background:#e5e7eb; border-color:#e5e7eb; }
+
+.why, .you-can {
+  margin: .5rem 0 0 0; padding-left: 1.1rem;
+}
+.roadmap-actions {
+  margin-top: .7rem; display:flex; gap:.5rem; flex-wrap:wrap;
+}
+.btn-ghost {
+  border:1px dashed #ffcb3b; color:#7c5b00; background:#fffaf0;
+  padding:.3rem .6rem; border-radius:.6rem; font-size:.85rem; text-decoration:none;
+}
+</style>
+
 ![PressPalAbout](images/PressPalAbout.png)
 
 ## About
@@ -68,12 +172,38 @@ The **goal of PressPal** is to:
   Ultimately, PressPal aims to reduce cognitive load for reporters, allowing them to focus on storytelling while ensuring no lead, contact, or follow-up is lost.
 
 ## Table of Contents
-- [About](#about)
-- [Quick Start](#quick-start)
-- [Features](#features)
-- [FAQ](#faq)
-- [Known Issues](#known-issues)
-- [Commands](#command-summary)
+1. [Quick Start](#quick-start)
+2. [Input Parameters](#input-parameters)
+    - [General Parameters](#general-parameters)
+    - [Contact Parameters](#contact-parameters)
+    - [Interview Parameters](#interview-parameters)
+3. [Features](#features)
+    - **General Commands**
+      - [Viewing help : `help`](#viewing-help-help)
+      - [Clearing all entries : `clear`](#clearing-all-entries-clear)
+      - [Exiting the program : `exit`](#exiting-the-program-exit)
+    - **Contact Management Commands**
+      - [Adding a person: `add`](#adding-a-person-add)
+      - [Deleting a person : `delete`](#deleting-a-person-delete)
+      - [Editing a person : `edit`](#editing-a-person-edit)
+      - [Listing all persons : `list`](#listing-all-persons-list)
+      - [Locating persons by name, organisation, role, or categories : `find`](#locating-persons-by-name-organisation-role-or-categories-find)
+    - **Interview Management Commands**
+      - [Adding an interview to a contact : `addInterview`](#adding-an-interview-to-a-contact-addinterview)
+      - [Deleting an interview from a contact : `deleteInterview`](#deleting-an-interview-from-a-contact-deleteinterview)
+      - [Listing all interviews of a contact : `listInterview`](#listing-all-interviews-of-a-contact-listinterview)
+      - [Display the upcoming interview : `nextInterview`](#display-the-upcoming-interview-nextinterview)
+    - **Category Management Commands**
+      - [Add category(s) to a person : `addCat`](#add-categorys-to-a-person-addcat)
+      - [Delete category(s) from a person : `deleteCat`](#delete-categorys-from-a-person-deletecat)
+      - [Saving the data](#saving-the-data)
+4. [Frequently Asked Questions (FAQ)](#frequently-asked-questions-faq)
+    - [General Q&A](#faq-general-qa)
+    - [Common Problems & Fixes](#faq-common-problems)
+    - [Troubleshooting](#faq-troubleshooting)
+    - [Feature Rationale](#faq-feature-rationale)
+7. [Future Iteration Plans](#future-iteration-plans)
+8. [Command summary](#command-summary)
 
 ### User Profiles
 - Users with basic familiarity with Windows/macOS/Linux file navigation and opening a terminal.
@@ -140,7 +270,11 @@ The **goal of PressPal** is to:
     - `1` is the parameter.
 
 </panel>
-<br/><br/>
+
+<h3 id="general-parameters" class="visually-hidden-anchor">General Parameters</h3>
+<h3 id="contact-parameters" class="visually-hidden-anchor">Contact Parameters</h3>
+<h3 id="interview-parameters" class="visually-hidden-anchor">Interview Parameters</h3>
+
 <tabs>
 
   <tab header="🧭 **General**" active>
@@ -237,7 +371,7 @@ Exits the program.
 > exit
 > ```
 
-### Adding a person: `add`
+### Adding a person : `add`
 
 Adds a person to the contact book.
 * You must provide at least one of `PHONE` and `EMAIL`.
@@ -422,53 +556,138 @@ ContactBook data are saved in the hard disk automatically after any command that
 
 ## Frequently Asked Questions (FAQ)
 
-**Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous ContactBook home folder.
+<tabs>
 
---------------------------------------------------------------------------------------------------------------------
+  <tab header="🧠 General Q&A" active>
+  <h3 id="faq-general-qa">General Q&A</h3>
 
-### Common Problems and Fixes
+**Q:** <u>How do I move my data to another computer?</u>  
+**A:** Install the app on the new computer, then replace its empty data file with the one from your old PressPal home folder.
 
-1. **App opens off-screen after disconnecting a monitor**
-    - **Why it happens:** The app remembers its last position — even if that screen is gone.
-    - **Fix:** Delete the `preferences.json` file before reopening the app.
+**Q:** <u>Do I need to save my work?</u>  
+**A:** Nope. Changes save automatically after each command.
 
-### Troubleshooting
+**Q:** <u>How do I update the app?</u>  
+**A:** Download the latest `.jar` from [here](https://github.com/AY2526S1-CS2103T-W08-1/tp/releases/latest) and replace your old one. Your data file stays intact.
 
-**Q**: I’ve found a bug. How can I report it?<br>
-**A**: You can report it to any one of the developers. Their emails can be found in the [AboutUs page](AboutUs.md).
+**Q:** <u>Why didn’t a command work?</u>  
+**A:** Check the format and parameter symbols (like `n/`, `e/`, `o/`). See the “Input Parameters” section/tabs above for the exact rules.
 
-**Q**: I have an idea for a new feature. Where should I suggest it?<br>
-**A**: You can give your suggestions to any one of the developers. Their emails can be found in the [AboutUs page](AboutUs.md).
+**Q:** <u>Can I use PressPal offline?</u>  
+**A:** Yes. Everything runs locally; no internet is needed after download.
 
+**Q:** <u>Is my data private?</u>  
+**A:** Your data stays on your computer. We don’t sync it anywhere.
+</tab>
 
-### Features
+  <tab header="🛠️ Common Problems & Fixes">
+  <h3 id="faq-common-problems">Common Problems and Fixes</h3>
 
-**Q**: Why does `addInterview` allow past interview dates?<br>
-**A**: This is to allow the user to archive past interviews to keep as reference.
+1. **App opens off-screen after unplugging a monitor**  
+   – **Why:** The app remembers the last screen position, even if that screen isn’t there anymore.  
+   – **Fix:** Delete `preferences.json`, then reopen the app.
 
-**Q**: Why can I schedule two interviews at the same date and time?<br>
-**A**: We understand that there might be a chance that multiple people can join in for the same interview, hence we allowed for duplicate interview times for different people.
+2. **Help window won’t reappear after minimizing**  
+   – **Why:** The original Help window is still minimized.  
+   – **Fix:** Restore the minimized window manually.
+   </tab>
 
-2. **Help window doesn’t reopen after being minimized**
-    - **Why it happens:** The app keeps the original Help Window minimized.
-    - **Fix:** Manually restore the minimized window.
+  <tab header="🧩 Troubleshooting">
+  <h3 id="faq-troubleshooting">Troubleshooting</h3>
+
+**Q:** <u>I found a bug, how do I report it?</u>  
+**A:** Tell any developer, their emails are listed [here](AboutUs.md).
+
+**Q:** <u>I have an idea, where do I suggest it?</u>  
+**A:** Share it with any developer, contacts are found [here](AboutUs.md).
+</tab>
+
+  <tab header="💡 Feature Rationale">
+  <h3 id="faq-feature-rationale">Feature Rationale</h3>
+
+**Q:** <u>Why does `addInterview` allow past dates?</u>  
+**A:** So you can record past interviews for reference.
+
+**Q:** <u>Why can I schedule two interviews at the same time?</u>  
+**A:** Different people may attend the same session, so overlaps across contacts are allowed.
+
+**Q:** <u>Why does `nextInterview` show only one person even if a few interviews share the same time?</u>  
+**A:** To keep things fast and clear. `nextInterview` gives you one “next up” so you can act right away.  
+If several interviews have the same time, we show the **first one in your current list**. The others are still there and you view them as usual (e.g., `listInterview i/…`).
+</tab>
+
+</tabs>
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Future Iteration Plans
 
-In future iterations, these are the features we plan to implement:
-1. Archive of contact and interviews
+<panel header="🚧 Roadmap (what’s coming next)" type="warning" expanded>
 
-After a certain period, there are contacts that may no longer be relevant to the journalist. An archiving feature would allow users to move such contacts to an archive section, keeping the main contact list uncluttered while still retaining access to past contacts if needed.
+<div class="roadmap-grid">
 
-2. Enforcement of uniqueness on phone and email
+  <div class="roadmap-card">
+    <h4>🗄️ Archive contacts & interviews <span class="chip planned">Planned</span></h4>
+    <div class="roadmap-meta">
+      <span>Goal: keep the main list clutter-free</span>
+    </div>
+    <strong>Why it matters</strong>
+    <ul class="why">
+      <li>Old sources pile up and hide the ones you’re working with now.<br/><br/></li>
+    </ul>
+    <strong>You’ll be able to:</strong>
+    <ul class="you-can">
+      <li>Move contacts/interviews to an <em>Archive</em> with one command.</li>
+      <li>Search and restore archived items anytime.</li>
+    </ul>
+    <div class="roadmap-actions">
+      <a class="btn-ghost" href="##locating-persons-by-name-organisation-role-or-categories-find">Related: search (`find`)</a>
+    </div>
+  </div>
 
-Currently, the application allows multiple contacts to share the same phone number or email address. Implementing uniqueness constraints would help prevent duplicate entries and ensure that each contact is distinct, cohering with real-world scenarios where phone numbers and email addresses are unique identifiers.
+  <div class="roadmap-card">
+    <h4>📵 Enforce unique phone & email <span class="chip proposed">Proposed</span></h4>
+    <div class="roadmap-meta">
+      <span>Goal: reduce accidental duplicates</span>
+    </div>
+    <strong>Why it matters</strong>
+    <ul class="why">
+      <li>Duplicate entries waste time and cause mistakes during outreach.<br/><br/></li>
+    </ul>
+    <strong>You’ll be able to:</strong>
+    <ul class="you-can">
+      <li>Get a clear prompt when a number/email already exists.</li>
+      <li>Choose to open the existing contact or continue (if intentional).</li>
+    </ul>
+    <div class="roadmap-actions">
+      <a class="btn-ghost" href="#adding-a-person-add">Related: add (`add`)</a>
+      <a class="btn-ghost" href="#editing-a-person-edit">Related: edit (`edit`)</a>
+    </div>
+  </div>
 
-3. Interview notes
+  <div class="roadmap-card">
+    <h4>📝 Interview notes <span class="chip planned">Planned</span></h4>
+    <div class="roadmap-meta">
+      <span>Goal: keep prep & takeaways beside the interview</span>
+    </div>
+    <strong>Why it matters</strong>
+    <ul class="why">
+      <li>No more jumping between apps to find context and follow-ups.<br/><br/></li>
+    </ul>
+    <strong>You’ll be able to:</strong>
+    <ul class="you-can">
+      <li>Add bullet points, links, and quick tags to each interview.</li>
+      <li>See notes when listing or opening interviews.</li>
+    </ul>
+    <div class="roadmap-actions">
+      <a class="btn-ghost" href="#listing-all-interviews-of-a-contact-listinterview">Related: listInterview</a>
+      <a class="btn-ghost" href="#adding-an-interview-to-a-contact-addinterview">Related: addInterview</a>
+    </div>
+  </div>
 
-Adding a feature to attach notes to interviews would be beneficial for journalists to jot down important points, observations, or follow-up questions related to each interview. This would allow journalist to use PressPal as the only tool needed to manage both contacts and interview details comprehensively.
+</div>
+
+</panel>
 
 --------------------------------------------------------------------------------------------------------------------
 
