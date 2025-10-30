@@ -39,6 +39,9 @@ public class AddInterviewCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() throws ParseException {
+
+        // EP: valid input, all required prefixes present with valid values
+
         Interview expectedInterview = new InterviewBuilder()
                 .withHeader("Sample Interview A")
                 .withLocation("Sample Location A")
@@ -58,35 +61,35 @@ public class AddInterviewCommandParserTest {
     public void parse_compulsoryFieldMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddInterviewCommand.MESSAGE_USAGE);
 
-        // missing index
+        // EP: invalid, missing index
         String missingIndex = INTERVIEW_HEADER_DESC_A
                 + " " + PREFIX_DATE + "2024-10-10"
                 + " " + PREFIX_TIME + "14:00"
                 + INTERVIEW_LOCATION_DESC_A;
         assertParseFailure(parser, missingIndex, expectedMessage);
 
-        // missing header
+        // EP: invalid, missing header
         String missingHeader = " " + PREFIX_INDEX + "1"
                 + " " + PREFIX_DATE + "2024-10-10"
                 + " " + PREFIX_TIME + "14:00"
                 + INTERVIEW_LOCATION_DESC_A;
         assertParseFailure(parser, missingHeader, expectedMessage);
 
-        // missing date
+        // EP: invalid, missing date
         String missingDate = " " + PREFIX_INDEX + "1"
                 + INTERVIEW_HEADER_DESC_A
                 + " " + PREFIX_TIME + "14:00"
                 + INTERVIEW_LOCATION_DESC_A;
         assertParseFailure(parser, missingDate, expectedMessage);
 
-        // missing time
+        // EP: invalid, missing time
         String missingTime = " " + PREFIX_INDEX + "1"
                 + INTERVIEW_HEADER_DESC_A
                 + " " + PREFIX_DATE + "2024-10-10"
                 + INTERVIEW_LOCATION_DESC_A;
         assertParseFailure(parser, missingTime, expectedMessage);
 
-        // missing location
+        // EP: invalid, missing location
         String missingLocation = " " + PREFIX_INDEX + "1"
                 + INTERVIEW_HEADER_DESC_A
                 + " " + PREFIX_DATE + "2024-10-10"
@@ -96,7 +99,7 @@ public class AddInterviewCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        // invalid header
+        // EP: invalid, header value violates constraints
         String invalidHeader = " " + PREFIX_INDEX + "1"
                 + INVALID_INTERVIEW_HEADER_DESC
                 + " " + PREFIX_DATE + "2024-10-10"
@@ -104,7 +107,7 @@ public class AddInterviewCommandParserTest {
                 + INTERVIEW_LOCATION_DESC_A;
         assertParseFailure(parser, invalidHeader, presspal.contact.model.interview.Header.MESSAGE_CONSTRAINTS);
 
-        // invalid location
+        // EP: invalid, location value violates constraints
         String invalidLocation = " " + PREFIX_INDEX + "1"
                 + INTERVIEW_HEADER_DESC_A
                 + " " + PREFIX_DATE + "2024-10-10"
@@ -112,7 +115,7 @@ public class AddInterviewCommandParserTest {
                 + INVALID_INTERVIEW_LOCATION_DESC;
         assertParseFailure(parser, invalidLocation, presspal.contact.model.interview.Location.MESSAGE_CONSTRAINTS);
 
-        // invalid date format
+        // EP: invalid, date format is wrong
         String invalidDate = " " + PREFIX_INDEX + "1"
                 + INTERVIEW_HEADER_DESC_A
                 + " " + PREFIX_DATE + "10-10-2024"
@@ -120,7 +123,7 @@ public class AddInterviewCommandParserTest {
                 + INTERVIEW_LOCATION_DESC_A;
         assertParseFailure(parser, invalidDate, "Date is not in the correct format! Please use yyyy-MM-dd");
 
-        // invalid time format
+        // EP: invalid, time format is wrong
         String invalidTime = " " + PREFIX_INDEX + "1"
                 + INTERVIEW_HEADER_DESC_A
                 + " " + PREFIX_DATE + "2024-10-10"
@@ -131,6 +134,7 @@ public class AddInterviewCommandParserTest {
 
     @Test
     public void parse_nonEmptyPreamble_failure() {
+        // EP: non-empty preamble not allowed
         String userInput = "NonEmptyPreamble " + " " + PREFIX_INDEX + "1"
                 + INTERVIEW_HEADER_DESC_A
                 + " " + PREFIX_DATE + "2024-10-10"
@@ -143,6 +147,7 @@ public class AddInterviewCommandParserTest {
 
     @Test
     public void parse_duplicatePrefixes_failure() {
+        // EP: invalid, duplicate INDEX
         String duplicateIndex = " " + PREFIX_INDEX + "1"
                 + " " + PREFIX_INDEX + "2"
                 + INTERVIEW_HEADER_DESC_A
@@ -152,6 +157,7 @@ public class AddInterviewCommandParserTest {
 
         assertParseFailure(parser, duplicateIndex, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_INDEX));
 
+        // EP: invalid, duplicate HEADER
         String duplicateHeader = " " + PREFIX_INDEX + "1"
                 + INTERVIEW_HEADER_DESC_A
                 + INTERVIEW_HEADER_DESC_B
@@ -161,6 +167,7 @@ public class AddInterviewCommandParserTest {
 
         assertParseFailure(parser, duplicateHeader, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_HEADER));
 
+        // EP: invalid, duplicate DATE
         String duplicateDate = " " + PREFIX_INDEX + "1"
                 + INTERVIEW_HEADER_DESC_A
                 + " " + PREFIX_DATE + "2024-10-10"
@@ -170,6 +177,7 @@ public class AddInterviewCommandParserTest {
 
         assertParseFailure(parser, duplicateDate, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_DATE));
 
+        // EP: invalid, duplicate TIME
         String duplicateTime = " " + PREFIX_INDEX + "1"
                 + INTERVIEW_HEADER_DESC_A
                 + " " + PREFIX_DATE + "2024-10-10"
@@ -179,6 +187,7 @@ public class AddInterviewCommandParserTest {
 
         assertParseFailure(parser, duplicateTime, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_TIME));
 
+        // EP: invalid, duplicate LOCATION
         String duplicateLocation = " " + PREFIX_INDEX + "1"
                 + INTERVIEW_HEADER_DESC_A
                 + " " + PREFIX_DATE + "2024-10-10"
@@ -191,9 +200,11 @@ public class AddInterviewCommandParserTest {
 
     @Test
     public void parse_invalidPrefixes_failure() {
+        // EP: invalid, unexpected/forbidden prefixes present
         String errorMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 AddInterviewCommand.MESSAGE_USAGE);
 
+        // Representative of “extra unrelated prefix appended at end”.
         String categoryPrefix = " " + PREFIX_INDEX + "1"
                 + INTERVIEW_HEADER_DESC_A
                 + " " + PREFIX_DATE + "2024-10-10"
@@ -203,6 +214,7 @@ public class AddInterviewCommandParserTest {
 
         assertParseFailure(parser, categoryPrefix, errorMessage);
 
+        // Representative of “extra unrelated prefix injected in middle”.
         String emailPrefix = " " + PREFIX_INDEX + "1"
                 + INTERVIEW_HEADER_DESC_A
                 + EMAIL_DESC_AMY
@@ -212,6 +224,7 @@ public class AddInterviewCommandParserTest {
 
         assertParseFailure(parser, emailPrefix, errorMessage);
 
+        // Representative of “unexpected prefix adjacent to required ones”.
         String namePrefix = " " + PREFIX_INDEX + "1"
                 + INTERVIEW_HEADER_DESC_A
                 + " " + PREFIX_DATE + "2024-10-10"
@@ -230,6 +243,7 @@ public class AddInterviewCommandParserTest {
 
         assertParseFailure(parser, organisationPrefix, errorMessage);
 
+        // Representative of “unexpected prefix before first required one”.
         String phonePrefix = " " + PHONE_DESC_AMY
                 + PREFIX_INDEX + "1"
                 + INTERVIEW_HEADER_DESC_A
@@ -239,6 +253,7 @@ public class AddInterviewCommandParserTest {
 
         assertParseFailure(parser, phonePrefix, errorMessage);
 
+        // Representative of “unexpected prefix appended at end”.
         String rolePrefix = " " + PREFIX_INDEX + "1"
                 + INTERVIEW_HEADER_DESC_A
                 + " " + PREFIX_DATE + "2024-10-10"
