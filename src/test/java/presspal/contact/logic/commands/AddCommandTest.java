@@ -33,6 +33,56 @@ public class AddCommandTest {
     }
 
     @Test
+    public void person_format_message() {
+        // all parameters present
+        Person person = new PersonBuilder().build();
+        final StringBuilder builder1 = new StringBuilder();
+        builder1.append(person.getName())
+                .append("; Phone: ")
+                .append(person.getPhone())
+                .append("; Email: ")
+                .append(person.getEmail())
+                .append("; Organisation: ")
+                .append(person.getOrganisation())
+                .append("; Role: ")
+                .append(person.getRole())
+                .append("; Categories: ");
+        person.getCategories().forEach(builder1::append);
+
+        assertEquals(Messages.format(person), builder1.toString());
+
+        // email missing
+        Person personWithNoEmail = new PersonBuilder().withEmail(null).build();
+        final StringBuilder builder2 = new StringBuilder();
+        builder2.append(personWithNoEmail.getName())
+                .append("; Phone: ")
+                .append(personWithNoEmail.getPhone())
+                .append("; Organisation: ")
+                .append(personWithNoEmail.getOrganisation())
+                .append("; Role: ")
+                .append(personWithNoEmail.getRole())
+                .append("; Categories: ");
+        personWithNoEmail.getCategories().forEach(builder2::append);
+
+        assertEquals(Messages.format(personWithNoEmail), builder2.toString());
+
+        // no phone
+        Person personWithNoPhone = new PersonBuilder().withPhone(null).build();
+        final StringBuilder builder3 = new StringBuilder();
+        builder3.append(personWithNoPhone.getName())
+                .append("; Email: ")
+                .append(personWithNoPhone.getEmail())
+                .append("; Organisation: ")
+                .append(personWithNoPhone.getOrganisation())
+                .append("; Role: ")
+                .append(personWithNoPhone.getRole())
+                .append("; Categories: ");
+        personWithNoPhone.getCategories().forEach(builder3::append);
+
+        assertEquals(Messages.format(personWithNoPhone), builder3.toString());
+    }
+
+    @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         Person validPerson = new PersonBuilder().build();
