@@ -1,7 +1,6 @@
 package presspal.contact.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static presspal.contact.logic.parser.CliSyntax.PREFIX_INDEX;
 
 import java.util.List;
 
