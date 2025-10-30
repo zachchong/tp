@@ -4,6 +4,18 @@ title: User Guide
 pageNav: 3
 ---
 
+![PressPalAbout](images/PressPalAbout.png)
+
+## About
+
+PressPal is designed to streamline contact and interview management for breaking news reporters. Traditional address books and note-taking tools are not optimized for the high-speed, high-pressure environment of news reporting, where reporters must manage hundreds of contacts across multiple sources (phones, emails, notebooks).
+
+The **goal of PressPal** is to:
+- Provide reporters with a single command-driven system for organizing and retrieving contacts quickly.
+- Enable fast entry and retrieval of context (interview history, organization, role, notes) while working on multiple stories simultaneously.
+- Support the entire lifecycle of a contact — from initial outreach, to active follow-up, to archiving once a story concludes.
+  Ultimately, PressPal aims to reduce cognitive load for reporters, allowing them to focus on storytelling while ensuring no lead, contact, or follow-up is lost.
+
 ## Table of Contents
 - [About](#about)
 - [Quick Start](#quick-start)
@@ -11,15 +23,6 @@ pageNav: 3
 - [FAQ](#faq)
 - [Known Issues](#known-issues)
 - [Commands](#command-summary)
-
-## About
-
-PressPal is designed to streamline contact and interview management for breaking news reporters. Traditional address books and note-taking tools are not optimized for the high-speed, high-pressure environment of news reporting, where reporters must manage hundreds of contacts across multiple sources (phones, emails, notebooks).
-The goal of PressPal is to:
-- Provide reporters with a single command-driven system for organizing and retrieving contacts quickly.
-- Enable fast entry and retrieval of context (interview history, organization, role, notes) while working on multiple stories simultaneously.
-- Support the entire lifecycle of a contact — from initial outreach, to active follow-up, to archiving once a story concludes.
-  Ultimately, PressPal aims to reduce cognitive load for reporters, allowing them to focus on storytelling while ensuring no lead, contact, or follow-up is lost.
 
 ### User Profiles
 - Users with basic familiarity with Windows/macOS/Linux file navigation and opening a terminal.
@@ -35,18 +38,33 @@ The goal of PressPal is to:
 ## Quick start
 
 1. Ensure you have Java `17` or above installed in your Computer.<br>
-   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+   * **Windows & Linux Users:** Download and install Java from [Oracle JDK 17 Archive Downloads](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html).
+     * **Windows Users:** Follow the instructions [here](https://se-education.org/guides/tutorials/javaInstallationWindows.html).
+   * **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).<br/>
 
-1. Download the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103T-W08-1/tp/releases/tag/v1.3).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your ContactBook.
+2. **Download our App:**
+   * Install the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103T-W08-1/tp/releases/tag/v1.5).<br/>
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar presspal.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
-   Some example commands you can try:
+3. **Prepare A Folder:**
+   * Copy the file to the folder you want to use as the _home folder_ for PressPal.<br/>
+
+
+4. **Launch the App:** 
+   * Open a command terminal
+   * Navigate to the folder where you copied the `.jar` file to. 
+        * For **Windows Users**:
+          * Open the Command Prompt and type `cd` followed by the folder path, then press Enter.
+        * For **macOS/Linux Users**:
+          * Open the Terminal and type `cd` followed by the folder path, then press Enter.
+   * Launch the app by entering the following command:<br/>
+     `java -jar PressPal.jar`
+   * A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+     ![Ui](images/Ui.png)
+
+5. **Using the App:** Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+   Here are some example commands you can try:
 
    * `list` : Lists all contacts.
 
@@ -58,7 +76,43 @@ The goal of PressPal is to:
 
    * `exit` : Exits the app.
 
-1. Refer to the [Features](#features) below for details of each command.
+6. **Learning more about the App:**
+   * Refer to the [Features](#features) below for more details about the capabilities of PressPal.
+
+--------------------------------------------------------------------------------------------------------------------
+
+## Input Parameters
+
+> **Notes about parameters:**
+> - All parameters will be in the form of `p/PARAMETER` where p is the symbol designated for that parameter.
+>   - For Example, the command `listInterview i/1`
+>     - `i/` is the parameter symbol.
+>     - `1` is the parameter.
+
+### General Parameters
+| Symbol |     Parameter     | Constraints                                                                                                      |
+|:------:|:-----------------:|------------------------------------------------------------------------------------------------------------------|
+|   i    |  `PERSON_INDEX`   | <ul><li><strong>Positive integer</strong> (1, 2, …).</li><li>Must exist in the current displayed list.</li></ul> |
+|   v    | `INTERVIEW_INDEX` | <ul><li><strong>Positive integer</strong> (1, 2, …).</li><li>Must exist in the current displayed list.</li></ul> |
+|   NA   | `KEYWORD` | <ul><li>Non-empty string.</li></ul>                                                                              |
+
+### Contact Parameters
+| Symbol |   Parameter    | Constraints                                                                                                                                                                                                                                                                                                           |
+|:------:|:--------------:|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|   n/   |     `NAME`     | <ul><li>Non-empty string.</li></ul>                                                                                                                                                                                                                                                                                   |
+|   o/   | `ORGANISATION` | <ul><li>Non-empty string, alphanumeric characters with a character limit of 50.</li></ul>                                                                                                                                                                                                                             |
+|   r/   |     `ROLE`     | <ul><li>Non-empty string, alphanumeric characters with a character limit of 50.</li></ul>                                                                                                                                                                                                                             |
+| `e/`  | `EMAIL`   | <ul><li>Format: <code>local-part@domain</code>.</li><li><strong>Local-part</strong>: letters/digits plus <code>+</code>, <code>_</code>, <code>.</code>, <code>-</code>; cannot start or end with a special character.</li><li><strong>Domain</strong>: one or more labels separated by dots.</li><li>Each label starts and ends with an alphanumeric character.</li><li>Within a label, only letters/digits and hyphens (<code>-</code>) are allowed.</li><li>Final label (TLD) must be at least <strong>2 characters</strong> long.</li></ul> |
+|   p/   |    `PHONE`     | <ul><li>Minimum of 3 digits.</li></ul>                                                                                                                                                                                                                                                                                |
+|   c/   |   `CATEGORY`   | <ul><li>Non-empty string, alphanumeric characters with a character limit of 20.</li></ul>                                                                                                                                                                                                                             |
+
+### Interview Parameters
+| Symbol | Parameter | Constraints                                                                        |
+|:-----:|:---------:|------------------------------------------------------------------------------------|
+| `h/`  | `HEADER`  | <ul><li>Non-empty string.</li></ul>                                                |
+| `d/`  | `DATE`    | <ul><li>Format: <code>yyyy-MM-dd</code> (e.g., <code>2025-10-15</code>).</li></ul> |
+| `t/`  | `TIME`    | <ul><li>Format: 24-hour <code>HH:mm</code> (e.g., <code>18:30</code>).</li></ul>   |
+| `l/`  | `LOCATION`| <ul><li>Non-empty string.</li></ul>                                                |
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -85,8 +139,6 @@ The goal of PressPal is to:
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
-
-### <u>GENERAL COMMANDS</u>
 
 ### Viewing help : `help`
 Shows a message explaining how to access the help page.
@@ -117,8 +169,6 @@ Exits the program.
 > ```
 > exit
 > ```
-
-### <u>CONTACT MANAGEMENT</u>
 
 ### Adding a person: `add`
 
@@ -205,8 +255,6 @@ Examples:
   ![result for 'find bernice charlotte'](images/findBerniceCharlotteResult.png)
 * `find NUS colleagues` Returns all persons whose details match the keyword of `NUS` or `colleagues`.
 
-### <u>INTERVIEW MANAGEMENT</u>
-
 ### Adding an interview to a contact : `addInterview`
 
 Adds an interview to a contact in the contact book.
@@ -273,8 +321,6 @@ Format: `nextInterview`
 Examples:
 * `nextInterview` Displays the most upcoming scheduled interview "[Meta Interview] on 15 Oct 2050 2:30PM at Meta HQ."
 
-### <u>CATEGORY MANAGEMENT</u>
-
 ### Add category(s) to a person : `addCat`
 
 Add category(s) to a person identified by the index number used in the displayed person list.
@@ -316,11 +362,12 @@ ContactBook data are saved in the hard disk automatically after any command that
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Common Problems and Fixes
+### Common Problems and Fixes
 
 1. **App opens off-screen after disconnecting a monitor**
     - **Why it happens:** The app remembers its last position — even if that screen is gone.
     - **Fix:** Delete the `preferences.json` file before reopening the app.
+
 ### Troubleshooting
 
 **Q**: I’ve found a bug. How can I report it?<br>
