@@ -725,6 +725,56 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
+### Add category(s) to a person
+
+**Command**: `addCat`
+
+**Prerequisites**: Ensure at least one person exists in the contact book.
+1. Adding a <u>valid category</u> to a person
+   * Test case: `addCat i/1 c/friend`
+   * Expected: Confirmation message shown that category 'friend' is added to the person at index 1. 
+
+2. Adding <u>valid categories</u> to a person
+   * Test case: `addCat i/1 c/friend c/work`
+   * Expected: Confirmation message shown that categories 'friend' and 'work' are added to the person at index 1.
+
+3. Adding an <u>invalid category</u> to a person
+    * Test case: `addCat i/1 c/!`
+    * Expected: Error message shown indicating invalid category name.
+
+4. Adding an <u>empty category</u> to a person
+   * Test case: `addCat i/1 c/`
+   * Expected: Error message shown indicating invalid category name.
+
+5. Adding a category to a <u>non-existent person</u>
+    * Test case: `addCat i/999 c/family`
+    * Expected: Error message shown indicating person not found.
+
+### Delete category(s) from a person
+
+**Command**: `deleteCat`
+
+**Prerequisites**: Ensure at least one person exists in the contact book.
+1. Deleting a <u>valid category</u> from a person
+  * Test case: `deleteCat i/1 c/friend`
+  * Expected: Success message shown that category 'friend' is deleted from the person at index 1.
+
+2. Deleting <u>valid categories</u> from a person
+  * Test case: `deleteCat i/1 c/friend c/work`
+  * Expected: Success message shown that categories 'friend' and 'work' are deleted from the person at index 1.
+
+3. Deleting an <u>invalid category</u> from a person
+  * Test case: `deleteCat i/1 c/!`
+  * Expected: Error message shown indicating invalid category name.
+
+4. Deleting an <u>empty category</u> from a person
+  * Test case: `deleteCat i/1 c/`
+  * Expected: Error message shown indicating invalid category name.
+
+5. Deleting a category from a <u>non-existent person</u>
+  * Test case: `deleteCat i/999 c/family`
+  * Expected: Error message shown indicating person not found.
+
 ### Saving data
 
 1. Dealing with missing/corrupted data files
