@@ -32,7 +32,7 @@ public class DeleteCategoryCommand extends EditCategoryCommand {
             + "by the index number used in the displayed person list. \n"
             + "Parameters: " + PREFIX_INDEX + "INDEX "
             + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "Example: " + COMMAND_WORD + PREFIX_INDEX + "1 "
             + PREFIX_CATEGORY + "friends";
 
     public static final String MESSAGE_DELETECAT_SUCCESS = "Category(s) successfully deleted from %1$s:\n%2$s";
