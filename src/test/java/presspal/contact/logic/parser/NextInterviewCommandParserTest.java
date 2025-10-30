@@ -1,8 +1,6 @@
 package presspal.contact.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static presspal.contact.logic.commands.NextInterviewCommand.COMMAND_WORD;
 
 import org.junit.jupiter.api.Test;
 
