@@ -31,9 +31,9 @@ public class AddCategoryCommand extends EditCategoryCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds the categories of the person identified "
             + "by the index number used in the displayed person list. \n"
-            + "Parameters: " + PREFIX_INDEX + "INDEX "
+            + "Parameters: " + PREFIX_INDEX + "PERSON_INDEX "
             + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_INDEX + " 1 "
+            + "Example: " + COMMAND_WORD + " " + PREFIX_INDEX + "1 "
             + PREFIX_CATEGORY + "friends";
 
     public static final String MESSAGE_ADDCAT_SUCCESS = "Category(s) successfully added to %1$s:\n%2$s";
