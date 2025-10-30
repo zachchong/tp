@@ -60,14 +60,21 @@ details table { margin-top: .5rem; }
   const idToTab = {
     'general-parameters': 'General',
     'contact-parameters': 'Contact',
-    'interview-parameters': 'Interview'
+    'interview-parameters': 'Interview',   // <-- missing comma fixed
+    'faq-general-qa': 'General Q&A',
+    'faq-common-problems': 'Common Problems & Fixes',
+    'faq-troubleshooting': 'Troubleshooting',
+    'faq-feature-rationale': 'Feature Rationale'
   };
+
+  // make matching resilient to emojis/extra spaces
+  const norm = s => (s || '').toLowerCase().replace(/[^a-z0-9]+/g, '');
 
   function activateTabFor(id) {
     const wanted = idToTab[id];
     if (!wanted) return;
     const tabs = Array.from(document.querySelectorAll('.nav-tabs .nav-link'));
-    const target = tabs.find(a => a.textContent.trim().toLowerCase().includes(wanted.toLowerCase()));
+    const target = tabs.find(a => norm(a.textContent).includes(norm(wanted)));
     if (target && !target.classList.contains('active')) target.click();
   }
 
@@ -88,7 +95,6 @@ details table { margin-top: .5rem; }
   document.addEventListener('DOMContentLoaded', handleHash);
 })();
 </script>
-
 
 <style>
   .visually-hidden-anchor {
@@ -222,6 +228,7 @@ details.caution .caution-body {
 </style>
 
 <style>
+/* Make all H2 big & dark */
 h2 {
   color: #0C3878 !important;
   font-size: 3rem !important;
@@ -229,12 +236,6 @@ h2 {
   line-height: 1.2;
   margin-top: 2rem;
   margin-bottom: .9rem;
-}
-
-details summary h2 {
-  color: inherit !important;
-  font-size: 1rem !important;
-  font-weight: 600 !important;
 }
 </style>
 
@@ -714,10 +715,14 @@ Examples:
 
 ## Frequently Asked Questions (FAQ)
 
+<h3 id="faq-general-qa" class="visually-hidden-anchor">General Q&A</h3>
+<h3 id="faq-common-problems" class="visually-hidden-anchor">Common Problems and Fixes</h3>
+<h3 id="faq-troubleshooting" class="visually-hidden-anchor">Troubleshooting</h3>
+<h3 id="faq-feature-rationale" class="visually-hidden-anchor">Feature Rationale</h3>
+
 <tabs>
 
   <tab header="🧠 General Q&A" active>
-  <h3 id="faq-general-qa">General Q&A</h3>
 
 **Q:** <u>How do I move my data to another computer?</u>  
 **A:** Install the app on the new computer, then replace its empty data file with the one from your old PressPal home folder.
@@ -739,7 +744,6 @@ Examples:
 </tab>
 
   <tab header="🛠️ Common Problems & Fixes">
-  <h3 id="faq-common-problems">Common Problems and Fixes</h3>
 
 1. **App opens off-screen after unplugging a monitor**  
    – **Why:** The app remembers the last screen position, even if that screen isn’t there anymore.  
@@ -751,7 +755,6 @@ Examples:
    </tab>
 
   <tab header="🧩 Troubleshooting">
-  <h3 id="faq-troubleshooting">Troubleshooting</h3>
 
 **Q:** <u>I found a bug, how do I report it?</u>  
 **A:** Tell any developer, their emails are listed [here](AboutUs.md).
@@ -761,7 +764,6 @@ Examples:
 </tab>
 
   <tab header="💡 Feature Rationale">
-  <h3 id="faq-feature-rationale">Feature Rationale</h3>
 
 **Q:** <u>Why does `addInterview` allow past dates?</u>  
 **A:** So you can record past interviews for reference.
