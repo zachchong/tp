@@ -65,7 +65,7 @@ The goal of PressPal is to:
 
 <div markdown="block" class="alert alert-info">
 
-**ℹ️ Notes about the command format:**<br>:
+**:information_source: Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
@@ -85,14 +85,39 @@ The goal of PressPal is to:
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
 
-### Viewing help : `help`
+### <u>GENERAL COMMANDS</u>
 
+### Viewing help : `help`
 Shows a message explaining how to access the help page.
 
 ![help message](images/helpMessage.png)
 
-Format: `help`
+> **Format**
+> ```
+> help
+> ```
 
+### Clearing all entries : `clear`
+
+Clears all entries from the contact book.
+
+** :warning: Caution:** This action is destructive and cannot be undone.
+
+> **Format**
+> ```
+> clear
+> ```
+
+### Exiting the program : `exit`
+
+Exits the program.
+
+> **Format**
+> ```
+> exit
+> ```
+
+### <u>CONTACT MANAGEMENT</u>
 
 ### Adding a person: `add`
 
@@ -105,14 +130,39 @@ Adds a person to the contact book.
 > add n/NAME p/PHONE_NUMBER e/EMAIL o/ORGANISATION r/ROLE [c/CATEGORY]
 > ```
 
-
-💡 **Tip:**
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A person can have any number of categories (including 0).
-
+</div>
 
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com o/NUS r/Student c/friends c/owesMoney`
 * `add n/Betsy Crowe p/12345678 e/betsycrowe@example.com o/Reuters r/Reporter`
+
+### Editing a person : `edit`
+
+Edits an existing person in the contact book.
+
+> **Format**
+> ```
+> edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [o/ORGANISATION] [r/ROLE]
+> ```
+
+### Deleting a person : `delete`
+
+Deletes the specified person from the contact book.
+
+> **Format**
+> ```
+> delete INDEX
+> ```
+
+* Deletes the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+* `list` followed by `delete 2` deletes the 2nd person in the contact book.
+* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
 ### Listing all persons : `list`
 
@@ -123,14 +173,6 @@ Shows a list of all persons in the contact book.
 > list
 > ```
 
-### Editing a person : `edit`
-
-Edits an existing person in the contact book.
-
-> **Format**
-> ```
-> edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [o/ORGANISATION] [r/ROLE]
-> ```
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -161,22 +203,7 @@ Examples:
   ![result for 'find bernice charlotte'](images/findBerniceCharlotteResult.png)
 * `find NUS colleagues` Returns all persons whose details match the keyword of `NUS` or `colleagues`.
 
-### Deleting a person : `delete`
-
-Deletes the specified person from the contact book.
-
-> **Format**
-> ```
-> delete INDEX
-> ```
-
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
-
-Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the contact book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+### <u>INTERVIEW MANAGEMENT</u>
 
 ### Adding an interview to a contact : `addInterview`
 
@@ -229,6 +256,20 @@ Lists all interviews of a contact in the contact book.
 ![empty interview](images/emptyInterviewExample.png)
 ![filled interview](images/filledInterviewExample.png)
 
+### Display the upcoming interview : `nextInterview`
+
+Displays the next scheduled interview that occurs at or after the current date and time, excluding any interviews already in the past.
+* If the next scheduled interview occurs for more than one contact, they will all be displayed.
+
+> **Format**
+> ```
+> nextInterview
+> ```
+
+Examples:
+* `nextInterview` Displays the most upcoming scheduled interview "[Meta Interview] on 15 Oct 2050 2:30PM at Meta HQ."
+
+### <u>CATEGORY MANAGEMENT</u>
 ### Add category(s) to a person : `addCat`
 
 Add category(s) to a person identified by the index number used in the displayed person list.
@@ -257,39 +298,6 @@ Examples:
 * `deleteCat i/1 c/emergency` Deletes the category `emergency` from the person with index 1.
 * `deleteCat i/2 c/emergency c/singapore` Deletes the categories `emergency` and `singapore` from the person with index 2.
 
-### Display the upcoming interview : `nextInterview`
-
-Displays the next scheduled interview that occurs at or after the current date and time, excluding any interviews already in the past.
-* If the next scheduled interview occurs for more than one contact, they will all be displayed.
-
-> **Format** 
-> ```
-> nextInterview
-> ```
-
-Examples:
-* `nextInterview` Displays the most upcoming scheduled interview "[Meta Interview] on 15 Oct 2050 2:30PM at Meta HQ."
-
-### Clearing all entries : `clear`
-
-Clears all entries from the contact book.
-
-**⚠️ Caution:** This action is destructive and cannot be undone.
-
-> **Format** 
-> ```
-> clear
-> ```
-
-### Exiting the program : `exit`
-
-Exits the program.
-
-> **Format**
-> ```
-> exit
-> ```
-
 ### Saving the data
 
 ContactBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
@@ -312,6 +320,22 @@ ContactBook data are saved in the hard disk automatically after any command that
 2. **Help window doesn’t reopen after being minimized**
     - **Why it happens:** The app keeps the original Help Window minimized.
     - **Fix:** Manually restore the minimized window.
+--------------------------------------------------------------------------------------------------------------------
+
+## Future Iteration Plans
+
+In future iterations, these are the features we plan to implement:
+1. Archive of contact and interviews
+
+After a certain period, there are contacts that may no longer be relevant to the journalist. An archiving feature would allow users to move such contacts to an archive section, keeping the main contact list uncluttered while still retaining access to past contacts if needed.
+2. Enforcement of uniqueness on phone and email
+
+Currently, the application allows multiple contacts to share the same phone number or email address. Implementing uniqueness constraints would help prevent duplicate entries and ensure that each contact is distinct, cohering with real-world scenarios where phone numbers and email addresses are unique identifiers.
+
+3. Interview notes
+
+Adding a feature to attach notes to interviews would be beneficial for journalists to jot down important points, observations, or follow-up questions related to each interview. This would allow journalist to use PressPal as the only tool needed to manage both contacts and interview details comprehensively.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command summary
