@@ -1,8 +1,6 @@
 package presspal.contact.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static presspal.contact.logic.commands.NextInterviewCommand.COMMAND_WORD;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,17 +22,8 @@ public class NextInterviewCommandParserTest {
     }
 
     @Test
-    public void parse_withArguments_throwsParseException() {
-        ParseException thrown = assertThrows(ParseException.class, () -> parser.parse("1"));
-        assertEquals(
-                "The command '" + COMMAND_WORD + "' does not take any arguments.",
-                thrown.getMessage()
-        );
-
-        thrown = assertThrows(ParseException.class, () -> parser.parse("extra text"));
-        assertEquals(
-                "The command '" + COMMAND_WORD + "' does not take any arguments.",
-                thrown.getMessage()
-        );
+    public void parse_withArguments_success() throws ParseException {
+        NextInterviewCommand command = parser.parse("123");
+        assertEquals(NextInterviewCommand.class, command.getClass());
     }
 }

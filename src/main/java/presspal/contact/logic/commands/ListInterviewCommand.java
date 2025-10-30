@@ -20,9 +20,9 @@ public class ListInterviewCommand extends Command {
     public static final String COMMAND_WORD = "listInterview";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Shows all the interviews of the person in the contact book. "
+            + ": Shows all the interviews of the person in the contact book.\n"
             + "Parameters: "
-            + PREFIX_INDEX + "i/PERSON_INDEX "
+            + PREFIX_INDEX + "PERSON_INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_INDEX + "1 ";
 

@@ -14,15 +14,6 @@ public class NextInterviewCommandParser implements Parser<NextInterviewCommand> 
      * @throws ParseException if the user input is not empty
      */
     public NextInterviewCommand parse(String args) throws ParseException {
-        String trimmedArgs = args.trim();
-        if (!trimmedArgs.isEmpty()) {
-            throw new ParseException(
-                    "The command '" + NextInterviewCommand.COMMAND_WORD + "' does not take any arguments."
-            );
-        }
         return new NextInterviewCommand();
     }
-
 }
-
-

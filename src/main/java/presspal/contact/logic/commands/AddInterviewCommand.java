@@ -28,7 +28,7 @@ public class AddInterviewCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an interview. "
             + "Parameters: "
-            + PREFIX_INDEX + "INDEX "
+            + PREFIX_INDEX + "PERSON_INDEX "
             + PREFIX_HEADER + "HEADER "
             + PREFIX_DATE + "DATE "
             + PREFIX_TIME + "TIME "
