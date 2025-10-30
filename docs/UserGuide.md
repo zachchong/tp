@@ -1,6 +1,7 @@
 ---
-layout: page
+layout: default.md
 title: User Guide
+pageNav: 3
 ---
 
 ## Table of Contents
