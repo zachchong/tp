@@ -3,6 +3,7 @@ package presspal.contact.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static presspal.contact.commons.core.Config.DISPLAY_DATE_TIME_FORMATTER;
 import static presspal.contact.logic.commands.CommandTestUtil.assertCommandFailure;
 import static presspal.contact.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static presspal.contact.testutil.TypicalPersons.getTypicalContactBook;
@@ -29,24 +30,30 @@ public class AddInterviewCommandTest {
 
     @Test
     public void execute_addInterviewSuccessful() {
+
+        // EP: valid command for existing person
         InterviewBuilder builder = new InterviewBuilder().withHeader("Sample Interview A");
         AddInterviewCommand cmd = new AddInterviewCommand(builder.build(), INDEX_FIRST_PERSON);
 
         Person target = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Model expectedModel = new ModelManager(model.getContactBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalContactBook(), new UserPrefs());
 
         try {
             CommandResult result = cmd.execute(expectedModel);
+
+            // EP: Success message formatting correctness
             String expectedMessage = String.format(AddInterviewCommand.MESSAGE_ADD_INTERVIEW_SUCCESS,
                     target.getName(), builder.build().getDisplayString());
             assertEquals(expectedMessage, result.getFeedbackToUser());
 
+            // EP: Post-conditions, state mutation on success
             // now delete the interview we just added (it should be the last interview)
             Person targetAfterAdd = expectedModel.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
             int lastIndex = targetAfterAdd.getInterviews().getInterviews().size();
 
             Interview toDelete = targetAfterAdd.getInterviews().getInterviews().get(lastIndex - 1);
 
+            // Cleanup path also verifies the delete success partition.
             DeleteInterviewCommand deleteCmd = new DeleteInterviewCommand(
                 INDEX_FIRST_PERSON, Index.fromOneBased(lastIndex));
             CommandResult deleteResult = deleteCmd.execute(expectedModel);
@@ -62,6 +69,7 @@ public class AddInterviewCommandTest {
 
     @Test
     public void execute_duplicateInterview_throwsCommandException() {
+        // EP: invalid, duplicate-by-equality (same header/location/datetime) for same person
         // build an interview equal to an existing one on the first typical person
         Person p = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         // assume sample data has at least one interview; pick first
@@ -73,6 +81,7 @@ public class AddInterviewCommandTest {
 
     @Test
     public void execute_invalidPersonIndex_throwsCommandException() {
+        // EP: Invalid index
         Index outOfBound = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         AddInterviewCommand cmd = new AddInterviewCommand(new InterviewBuilder().build(), outOfBound);
 
@@ -81,6 +90,7 @@ public class AddInterviewCommandTest {
 
     @Test
     public void equals() {
+        // EP: Equality semantics of command objects
         InterviewBuilder builder = new InterviewBuilder().withHeader("X");
         AddInterviewCommand a = new AddInterviewCommand(builder.build(), INDEX_FIRST_PERSON);
         AddInterviewCommand b = new AddInterviewCommand(builder.build(), INDEX_FIRST_PERSON);
@@ -101,6 +111,7 @@ public class AddInterviewCommandTest {
 
     @Test
     public void toStringMethod() {
+        // EP: String representation contains canonical prefix
         AddInterviewCommand cmd = new AddInterviewCommand(
             new InterviewBuilder().withHeader("Z").build(), INDEX_FIRST_PERSON);
         String expected = AddInterviewCommand.class.getCanonicalName() + "{toAdd=" + cmd.toString().split("\\{", 2)[1];
@@ -109,4 +120,113 @@ public class AddInterviewCommandTest {
         assertEquals(cmd.toString(), cmd.toString());
     }
 
+    @Test
+    public void execute_duplicateDateTimeSamePerson_failure() {
+        // EP: invalid, duplicate-by-datetime only (different header/location) on same person
+        Person p = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Interview existing = p.getInterviews().getInterviews().get(0);
+
+        Interview clash = new InterviewBuilder()
+                .withHeader("Different Topic")
+                .withLocation("Different Place")
+                .withDate(existing.getDateTime())
+                .build();
+
+        AddInterviewCommand cmd = new AddInterviewCommand(clash, INDEX_FIRST_PERSON);
+
+        // EP: Error message formatting (date/time rendering) uses Config formatter.
+        // build expected message with the SAME formatter as the command:
+        String when = existing.getDateTime().format(DISPLAY_DATE_TIME_FORMATTER);
+        String expected = String.format(AddInterviewCommand.MESSAGE_DUPLICATE_DATETIME,
+                p.getName(), when);
+
+        assertCommandFailure(cmd, model, expected);
+    }
+
+    @Test
+    public void execute_sameDateTimeDifferentPerson_success() throws Exception {
+        Model working = new ModelManager(getTypicalContactBook(), new UserPrefs());
+
+        // setup person 1 and person 2 from working model
+        Person p1w = working.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Index second = Index.fromOneBased(2); // assumes TypicalPersons has >= 2
+        Person p2w = working.getFilteredPersonList().get(second.getZeroBased());
+
+        // build sets of existing datetimes
+        java.util.Set<java.time.LocalDateTime> p1Times = p1w.getInterviews().getInterviews()
+                .stream().map(Interview::getDateTime).collect(java.util.stream.Collectors.toSet());
+        java.util.Set<java.time.LocalDateTime> p2Times = p2w.getInterviews().getInterviews()
+                .stream().map(Interview::getDateTime).collect(java.util.stream.Collectors.toSet());
+
+        // find a datetime that P1 already has and P2 does not
+        java.time.LocalDateTime base = p1Times.stream()
+                .filter(dt -> !p2Times.contains(dt))
+                .findFirst()
+                .orElse(null);
+
+        // if all P1 times clash with P2, create a fresh datetime and add it to P1 first
+        if (base == null) {
+            java.time.LocalDateTime candidate = p1w.getInterviews().getInterviews().get(0).getDateTime();
+            while (p2Times.contains(candidate) || p1Times.contains(candidate)) {
+                candidate = candidate.plusMinutes(1);
+            }
+            Interview p1New = new InterviewBuilder()
+                    .withHeader("Seeding P1")
+                    .withLocation("Room 101")
+                    .withDate(candidate)
+                    .build();
+            new AddInterviewCommand(p1New, INDEX_FIRST_PERSON).execute(working);
+            base = candidate;
+        }
+
+        // add the SAME datetime to Person 2
+        Interview forP2 = new InterviewBuilder()
+                .withHeader("Parallel Slot")
+                .withLocation("Cafe")
+                .withDate(base)
+                .build();
+
+        CommandResult result = new AddInterviewCommand(forP2, second).execute(working);
+
+        String expected = String.format(AddInterviewCommand.MESSAGE_ADD_INTERVIEW_SUCCESS,
+                p2w.getName(), forP2.getDisplayString());
+        assertEquals(expected, result.getFeedbackToUser());
+    }
+
+    @Test
+    public void execute_duplicateDateTimeWithMultipleExisting_failure() throws Exception {
+        Model model = new ModelManager(getTypicalContactBook(), new UserPrefs());
+        Index idx = INDEX_FIRST_PERSON;
+        Person person = model.getFilteredPersonList().get(idx.getZeroBased());
+
+        // first interview at T
+        java.time.LocalDateTime t = java.time.LocalDateTime.parse("2050-12-12T09:00");
+        Interview atT = new InterviewBuilder()
+                .withHeader("Morning Briefing")
+                .withLocation("Room A")
+                .withDate(t)
+                .build();
+        new AddInterviewCommand(atT, idx).execute(model);
+
+        // different interview at T+1h
+        Interview atTplus = new InterviewBuilder()
+                .withHeader("Follow-up")
+                .withLocation("Room B")
+                .withDate(t.plusHours(1))
+                .build();
+        new AddInterviewCommand(atTplus, idx).execute(model);
+
+        // try to add another different interview that clashes at exactly T
+        Interview clash = new InterviewBuilder()
+                .withHeader("Clashing Topic")
+                .withLocation("Room C")
+                .withDate(t) // same datetime as first
+                .build();
+
+        String when = t.format(DISPLAY_DATE_TIME_FORMATTER);
+        String expected = String.format(AddInterviewCommand.MESSAGE_DUPLICATE_DATETIME,
+                person.getName(), when);
+
+        assertCommandFailure(new AddInterviewCommand(clash, idx), model, expected);
+    }
 }
