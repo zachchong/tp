@@ -8,6 +8,7 @@ import static presspal.contact.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static presspal.contact.logic.commands.CommandTestUtil.ORGANISATION_DESC_AMY;
 import static presspal.contact.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static presspal.contact.logic.commands.CommandTestUtil.ROLE_DESC_AMY;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_INDEX;
 import static presspal.contact.testutil.Assert.assertThrows;
 import static presspal.contact.testutil.TypicalPersons.AMY;
 
@@ -61,7 +62,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
+        String deleteCommand = "delete" + " " + PREFIX_INDEX + "9";
         assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 

@@ -1,6 +1,7 @@
 package presspal.contact.logic.parser;
 
 import static presspal.contact.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static presspal.contact.logic.parser.CliSyntax.PREFIX_INDEX;
 import static presspal.contact.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static presspal.contact.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static presspal.contact.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -22,7 +23,8 @@ public class DeleteCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-        assertParseSuccess(parser, "1", new DeleteCommand(INDEX_FIRST_PERSON));
+        String userInput = " " + PREFIX_INDEX + "1";
+        assertParseSuccess(parser, userInput, new DeleteCommand(INDEX_FIRST_PERSON));
     }
 
     @Test
