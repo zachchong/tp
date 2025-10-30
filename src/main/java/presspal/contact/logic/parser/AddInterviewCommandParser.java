@@ -35,7 +35,6 @@ public class AddInterviewCommandParser implements Parser<AddInterviewCommand> {
     public AddInterviewCommand parse(String args) throws ParseException {
         ArgumentMultimap map = ArgumentTokenizer.tokenize(args, CliSyntax.ALL_PREFIXES);
 
-<<<<<<< Updated upstream
         if (!map.getPreamble().isEmpty()) {
             throw formatError();
         }
@@ -44,14 +43,6 @@ public class AddInterviewCommandParser implements Parser<AddInterviewCommand> {
         }
         if (hasUnexpected(map, REQUIRED, CliSyntax.ALL_PREFIXES)) {
             throw formatError();
-=======
-        if (!arePrefixesPresent(argMultimap, PREFIX_INDEX, PREFIX_HEADER, PREFIX_DATE, PREFIX_TIME, PREFIX_LOCATION)
-                || argMultimap.getPreamble().isEmpty()
-                || isPrefixPresent(argMultimap,
-                PREFIX_CATEGORY, PREFIX_EMAIL, PREFIX_NAME, PREFIX_ORGANISATION, PREFIX_PHONE, PREFIX_ROLE)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddInterviewCommand.MESSAGE_USAGE));
->>>>>>> Stashed changes
         }
 
         map.verifyNoDuplicatePrefixesFor(REQUIRED.toArray(new Prefix[0]));
