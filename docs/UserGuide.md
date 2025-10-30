@@ -177,8 +177,9 @@ The **goal of PressPal** is to:
     - [General Parameters](#general-parameters)
     - [Contact Parameters](#contact-parameters)
     - [Interview Parameters](#interview-parameters)
+    - [Saving the data](#saving-the-data)
 3. [Features](#features)
-    - **General Commands**
+    - **General**
       - [Viewing help : `help`](#viewing-help-help)
       - [Clearing all entries : `clear`](#clearing-all-entries-clear)
       - [Exiting the program : `exit`](#exiting-the-program-exit)
@@ -196,7 +197,6 @@ The **goal of PressPal** is to:
     - **Category Management Commands**
       - [Add category(s) to a person : `addCat`](#add-categorys-to-a-person-addcat)
       - [Delete category(s) from a person : `deleteCat`](#delete-categorys-from-a-person-deletecat)
-      - [Saving the data](#saving-the-data)
 4. [Frequently Asked Questions (FAQ)](#frequently-asked-questions-faq)
     - [General Q&A](#faq-general-qa)
     - [Common Problems & Fixes](#faq-common-problems)
@@ -340,6 +340,7 @@ The **goal of PressPal** is to:
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 
 </panel>
+<br/><br/>
 
 ### Viewing help : `help`
 Shows a message explaining how to access the help page.
@@ -350,6 +351,7 @@ Shows a message explaining how to access the help page.
 > ```
 > help
 > ```
+<br/><br/>
 
 ### Clearing all entries : `clear`
 
@@ -361,6 +363,7 @@ Clears all entries from the contact book.
 > ```
 > clear
 > ```
+<br/><br/>
 
 ### Exiting the program : `exit`
 
@@ -370,6 +373,12 @@ Exits the program.
 > ```
 > exit
 > ```
+<br/><br/>
+
+### Saving the data
+
+PressPal data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+<br/><br/>
 
 ### Adding a person : `add`
 
@@ -391,6 +400,7 @@ A person can have any number of categories (including 0).
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com o/NUS r/Student c/friends c/owesMoney`
 * `add n/Betsy Crowe p/12345678 e/betsycrowe@example.com o/Reuters r/Reporter`
+<br/><br/>
 
 ### Deleting a person : `delete`
 
@@ -408,6 +418,7 @@ Deletes the specified person from the contact book.
 Examples:
 * `list` followed by `delete i/2` deletes the 2nd person in the contact book.
 * `find Betsy` followed by `delete i/1` deletes the 1st person in the results of the `find` command.
+<br/><br/>
 
 ### Editing a person : `edit`
 
@@ -424,6 +435,7 @@ Edits an existing person in the contact book.
 
 Examples:
 *  `edit i/1 p/91234567 e/johndoe@example.com` Edits the phone number and email of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+<br/><br/>
 
 ### Listing all persons : `list`
 
@@ -433,6 +445,7 @@ Shows a list of all persons in the contact book.
 > ```
 > list
 > ```
+<br/><br/>
 
 ### Locating persons by name, organisation, role, or categories : `find`
 
@@ -455,6 +468,7 @@ Examples:
 * `find bernice charlotte` returns `Bernice Yu`, `Charlotte Oliveiro`.<br>
   ![result for 'find bernice charlotte'](images/findBerniceCharlotteResult.png)
 * `find NUS colleagues` Returns all persons whose details match the keyword of `NUS` or `colleagues`.
+<br/><br/>
 
 ### Adding an interview to a contact : `addInterview`
 
@@ -477,6 +491,7 @@ Adds an interview to a contact in the contact book.
 
 Examples:
 * `addInterview i/1 h/Interview with ABC Corp d/2024-10-10 t/14:00 l/123, Business St, #02-25` adds an interview with header `Interview with ABC Corp`, date `2024-10-10`, time `14:00` and location `123, Business St, #02-25` to the 1st contact in the contact book.
+<br/><br/>
 
 ### Deleting an interview from a contact : `deleteInterview`
 
@@ -491,6 +506,7 @@ Deletes an interview from a contact in the contact book.
 
 Examples:
 * `deleteInterview i/1 v/2` Deletes the 2nd interview from the 1st contact in the contact book.
+<br/><br/>
 
 ### Listing all interviews of a contact : `listInterview`
 
@@ -507,6 +523,8 @@ Lists all interviews of a contact in the contact book.
 ![empty interview](images/emptyInterviewExample.png)
 ![filled interview](images/filledInterviewExample.png)
 
+<br/><br/>
+
 ### Display the upcoming interview : `nextInterview`
 
 Displays the next scheduled interview that occurs at or after the current date and time, excluding any interviews already in the past.
@@ -519,6 +537,7 @@ Displays the next scheduled interview that occurs at or after the current date a
 
 Examples:
 * `nextInterview` Displays the most upcoming scheduled interview "[Meta Interview] on 15 Oct 2050 2:30PM at Meta HQ."
+<br/><br/>
 
 ### Add category(s) to a person : `addCat`
 
@@ -534,6 +553,7 @@ Add category(s) to a person identified by the index number used in the displayed
 Examples:
 * `addCat i/1 c/emergency` Adds the category `emergency` to the person with index 1.
 * `addCat i/2 c/emergency c/singapore` Adds the categories `emergency` and `singapore` to the person with index 2.
+<br/><br/>
 
 ### Delete category(s) from a person : `deleteCat`
 
@@ -547,10 +567,7 @@ Delete category(s) from a person identified by the index number used in the disp
 Examples:
 * `deleteCat i/1 c/emergency` Deletes the category `emergency` from the person with index 1.
 * `deleteCat i/2 c/emergency c/singapore` Deletes the categories `emergency` and `singapore` from the person with index 2.
-
-### Saving the data
-
-ContactBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+<br/><br/>
 
 --------------------------------------------------------------------------------------------------------------------
 
