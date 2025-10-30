@@ -26,7 +26,6 @@ public class PersonBuilder {
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ORGANISATION = "NUS";
     public static final String DEFAULT_ROLE = "student";
-    public static final InterviewList DEFAULT_INTERVIEWS = new InterviewList(null);
 
     private Name name;
     private Phone phone;
@@ -46,7 +45,7 @@ public class PersonBuilder {
         organisation = new Organisation(DEFAULT_ORGANISATION);
         role = new Role(DEFAULT_ROLE);
         categories = new HashSet<>();
-        interviews = DEFAULT_INTERVIEWS;
+        interviews = new InterviewList(null);
     }
 
     /**
@@ -59,7 +58,9 @@ public class PersonBuilder {
         organisation = personToCopy.getOrganisation();
         role = personToCopy.getRole();
         categories = new HashSet<>(personToCopy.getCategories());
-        interviews = personToCopy.getInterviews();
+        interviews = new InterviewList(
+                new java.util.ArrayList<>(personToCopy.getInterviews().getInterviews())
+        );
     }
 
     /**

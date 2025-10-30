@@ -88,7 +88,7 @@ public class TypicalPersons {
     public static ContactBook getTypicalContactBook() {
         ContactBook cb = new ContactBook();
         for (Person person : getTypicalPersons()) {
-            cb.addPerson(person);
+            cb.addPerson(new PersonBuilder(person).build()); // deep copy
         }
         return cb;
     }
