@@ -37,9 +37,11 @@
   * [Setting Up]({{ baseUrl }}/DeveloperGuide.html#setting-up-getting-started)
   * [Design]({{ baseUrl }}/DeveloperGuide.html#design)
   * [Implementation]({{ baseUrl }}/DeveloperGuide.html#implementation)
-  * [Documentation, logging, testing, configuration, dev-ops]({{ baseUrl }}/DeveloperGuide.html#documentation-logging-testing-configuration-dev-ops)
+  * [Documentation, logging, testing, configuration, dev-ops]({{ baseUrl }}/DeveloperGuide.
+html#documentation-logging-testing-configuration-dev-ops)
   * [Appendix: Requirements]({{ baseUrl }}/DeveloperGuide.html#appendix-requirements)
-  * [Appendix: Instructions for manual testing]({{ baseUrl }}/DeveloperGuide.html#appendix-instructions-for-manual-testing)
+  * [Appendix: Instructions for manual testing]({{ baseUrl }}/DeveloperGuide.
+html#appendix-instructions-for-manual-testing)
 * [About Us]({{ baseUrl }}/AboutUs.html)
       </site-nav>
     </div>
@@ -58,6 +60,7 @@
 <footer>
   <!-- Support MarkBind by including a link to us on your landing page! -->
   <div class="text-center">
-    <small>[<md>**Powered by**</md> <img src="https://markbind.org/favicon.ico" width="30"> {{MarkBind}}, generated on {{timestamp}}]</small>
+    <small>[<md>**Powered by**</md> 
+<img src="https://markbind.org/favicon.ico" width="30"> {{MarkBind}}, generated on {{timestamp}}]</small>
   </div>
 </footer>
