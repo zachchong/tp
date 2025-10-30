@@ -1,7 +1,6 @@
 package presspal.contact.testutil;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -59,7 +58,9 @@ public class PersonBuilder {
         organisation = personToCopy.getOrganisation();
         role = personToCopy.getRole();
         categories = new HashSet<>(personToCopy.getCategories());
-        interviews = new InterviewList(new ArrayList<>(personToCopy.getInterviews().getInterviews()));
+        interviews = new InterviewList(
+                new java.util.ArrayList<>(personToCopy.getInterviews().getInterviews())
+        );
     }
 
     /**

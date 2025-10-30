@@ -32,7 +32,7 @@ public class DeleteCategoryCommand extends EditCategoryCommand {
             + "by the index number used in the displayed person list. \n"
             + "Parameters: " + PREFIX_INDEX + "INDEX "
             + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "Example: " + COMMAND_WORD + PREFIX_INDEX + "1 "
             + PREFIX_CATEGORY + "friends";
 
     public static final String MESSAGE_DELETECAT_SUCCESS = "Category(s) successfully deleted from %1$s:\n%2$s";
@@ -59,7 +59,7 @@ public class DeleteCategoryCommand extends EditCategoryCommand {
 
         Person personToDeleteCat = lastShownList.get(index.getZeroBased());
 
-        Set<Category> categoryNotFound = isCategoriesPresent(personToDeleteCat, editCategoryDescriptor);
+        Set<Category> categoryNotFound = categoriesToDelete(personToDeleteCat, editCategoryDescriptor);
         if (!categoryNotFound.isEmpty()) {
             StringBuilder notFoundList = new StringBuilder();
             int i = 1;
@@ -80,7 +80,7 @@ public class DeleteCategoryCommand extends EditCategoryCommand {
                 editCategoryDescriptor.getCategoriesAsString()));
     }
 
-    private Set<Category> isCategoriesPresent(Person personToDeleteCat, EditCategoryDescriptor editCategoryDescriptor) {
+    private Set<Category> categoriesToDelete(Person personToDeleteCat, EditCategoryDescriptor editCategoryDescriptor) {
         Set<Category> updatedCategories = new HashSet<>(personToDeleteCat.getCategories());
         Set<Category> categoriesToDelete = editCategoryDescriptor.getCategories();
         Set<Category> notFoundCategories = new HashSet<>();
