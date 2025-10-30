@@ -9,7 +9,8 @@ import static presspal.contact.commons.util.AppUtil.checkArgument;
  */
 public class Category {
 
-    public static final String MESSAGE_CONSTRAINTS = "Categories names should be alphanumeric";
+    public static final String MESSAGE_CONSTRAINTS = "Categories names should be alphanumeric. "
+            + "It should not contain spaces and it should have at most 20 characters.";
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
     public final String categoryName;
@@ -29,7 +30,7 @@ public class Category {
      * Returns true if a given string is a valid category name.
      */
     public static boolean isValidCategoryName(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.length() <= 20 && test.matches(VALIDATION_REGEX);
     }
 
     @Override
