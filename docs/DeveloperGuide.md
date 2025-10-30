@@ -643,6 +643,279 @@ testers are expected to do more *exploratory* testing.
        
    * Expected: The most recent window size and location is retained.
 
+
+### Adding a person
+
+**Command**: `add`
+
+1. Adding a person with <u>all valid fields</u>
+    * **Test Case:** `add n/John Doe p/12345678 e/johnd@example.com o/NUS r/TA c/Student`
+    * **Expected:** Person is added to the contact book. Details of the new person is shown in the status message.
+      <br><br>
+2. Adding a person with missing <u>mandatory fields<u>
+    * **Test Case:** `add p/12345678 e/johnd@example.com o/NUS r/TA c/Student`
+    * **Expected:** Person is not added. Error details shown in the status message.
+      <br><br>
+3. Adding a person with invalid <u>Organisation format<u>
+    * **Test Case:** `add n/John Doe p/12345678 e/johnd@example.com o/NUS-C r/TA`
+    * **Expected:** Person is not added. Error details shown in the status message.
+
+
+### Editing a person
+
+**Command:** `edit`
+
+1. Editing an existing contact.
+  * **Prerequisite:** Ensure at least one contact exists in the list. If not, add a contact using the `add` command. E.g `add n/John Doe p/98765432 e/johnd@gmail.com o/NUS r/Student c/friends`.
+  * **Test case:** `edit i/1 n/Jason Doe p/88888888`
+  * **Expected:** Index 1 contact's name is changed to "Jason Doe" and phone to "88888888". Details of the edited contact shown in the status message.
+  <br><br>
+2. Editing a contact when the contact book is empty.
+  * **Prerequisite:** Ensure the contact book is empty. Run `clear` to clear the contact book.
+  * **Test case:** `edit i/1 n/John Doe`
+  * **Expected:** No contact is edited. Error details shown in the status message.
+  <br><br>
+3. Editing a contact with invalid email.
+  * **Prerequisite:** Ensure at least one contact exists in the list. If not, add a contact using the `add` command. E.g `add n/John Doe p/98765432 e/johnd@gmail.com o/NUS r/Student c/friends`.
+  * **Test case:** `edit i/1 n/John Doe e/johndoe.com`
+  * **Expected:** No contact is edited. Error details shown in the status message.
+  <br><br>
+4. Editing a contact with invalid index.
+  * **Prerequisite:** Ensure at least one contact exists in the list. If not, add a contact using the `add` command. E.g `add n/John Doe p/98765432 e/johnd@gmail.com o/NUS r/Student c/friends`.
+  * **Test case:** `edit i/0 n/John Doe`
+  * **Expected:** No contact is edited. Error details shown in the status message.
+  <br><br>
+5. Editing a contact without any field.
+  * **Prerequisite:** Ensure at least one contact exists in the list. If not, add a contact using the `add` command. E.g `add n/John Doe p/98765432 e/johnd@gmail.com o/NUS r/Student c/friends`.
+  * **Test case:** `edit i/1`
+  * **Expected:** No contact is edited. Error details shown in the status message.
+
+
+### Deleting a person
+
+**Command**: `delete`
+
+**Prerequisites**: Ensure at least one person exists in the contact book.
+
+1. Deleting a person with a <u>valid index</u>
+    * **Test case:** `delete i/1 `
+    * **Expected:** Confirmation message shown that person at index 1 is deleted from the list.
+
+2. Deleting a person with <u>out of bounds index</u>
+    * **Test case:** `delete i/0`
+    * **Expected:** Error message shown indicating invalid index.
+
+3. Deleting a person <u>without any index</u>
+    * **Test case:** `delete`
+    * **Expected:** Error message shown indicating invalid command format.
+
+4. Deleting a person with a valid index with <u>additional prefixes</u>
+    * **Test case:** `delete i/1 n/John`
+    * **Expected:** Error message shown indicating invalid command format.
+
+
+### Listing All Persons
+
+**Command**: `list`
+
+1. Listing all persons when there are existing contacts
+   * **Prerequisite:** The contact book contains at least one person (e.g., `John Doe`, `Alex Yeoh`).
+   * **Test Case:** `list`
+   * **Expected:** The system displays a list of all persons currently stored in the contact book. Both `John Doe` and `Alex Yeoh` are displayed in the result panel.
+  <br><br>
+2. Listing all persons when the contact book is empty
+   * **Prerequisite:** The contact book contains no persons.
+   * **Test Case:** `list`
+   * **Expected:** The system shows an empty list. `No contact available.` is displayed.
+
+
+### Locating Persons by Name, Organisation, Role, or Categories
+
+**Command**: `find`
+
+1. Finding persons by keyword name
+    * **Prerequisite:** The contact book contains at least one person with the name `John Doe`.
+    * **Test Case:** `find John`
+    * **Expected:** The system lists all persons whose `name` contains the full word `John`. Example: `John Doe` is displayed. Status bar shows `1 person listed!`.
+
+2. Finding persons by multiple keywords
+    * **Prerequisite:** The contact book contains persons `Bernice Yu` and `Charlotte Oliveira`.
+    * **Test Case:** `find bernice charlotte`
+    * **Expected:** The system lists both `Bernice Yu` and `Charlotte Oliveira`. Status bar shows `2 persons listed!`. The search behaves as an OR search.
+
+3. Case-insensitive search
+    * **Prerequisite:**  
+      The contact book contains `Alex Yeoh`.
+    * **Test Case:**  
+      `find AlEx`
+    * **Expected:**  
+      The system lists `Alex Yeoh`. The search is case-insensitive.
+
+4. Order of keywords does not matter
+    * **Prerequisite:**  
+      The contact book contains `Hans Gruber`.
+    * **Test Case:**  
+      `find Gruber Hans`
+    * **Expected:**  
+      The system lists `Hans Gruber`. The order of keywords does not affect search results.
+
+5. Partial word should not match
+    * **Prerequisite:**  
+      The contact book contains `Hans Gruber` and `Han Solo`.
+    * **Test Case:**  
+      `find Han`
+    * **Expected:**  
+      `Hans Gruber` is **not** listed since `Han` is only part of the name.  
+      `Han Solo` is listed since `Han` is a full word in that name.
+
+6. Finding persons by keyword organisation
+    * **Prerequisite:**  
+      The contact book contains `Alice Tan` with organisation `Google`.
+    * **Test Case:**  
+      `find Google`
+    * **Expected:**  
+      `Alice Tan` is listed because her organisation contains the keyword `Google`.
+
+7. Finding persons by keyword role
+    * **Prerequisite:**  
+      The contact book contains `David Li` with the role `Manager`.
+    * **Test Case:**  
+      `find manager`
+    * **Expected:**  
+      `David Li` is listed since his role matches the keyword `manager`.
+
+8. Finding persons by keyword category
+    * **Prerequisite:**  
+      The contact book contains `Alex Yeoh` with category `family`.
+    * **Test Case:**  
+      `find family`
+    * **Expected:**  
+      `Alex Yeoh` is listed because the category `family` matches the keyword.
+
+9. Searching with a non-existent keyword
+    * **Prerequisite:**  
+      No person has any field matching `Kieron`.
+    * **Test Case:**  
+      `find Kieron`
+    * **Expected:**  
+      No results displayed. Status bar shows `0 persons listed!`.
+
+10. Handling extra spaces in input
+    * **Prerequisite:**  
+      The contact book contains `David Li`.
+    * **Test Case:**  
+      `find   david    `
+    * **Expected:**  
+      `David Li` is listed normally. Leading or trailing spaces are ignored.
+
+11. Empty input
+    * **Prerequisite:**  
+      Any state of the contact book.
+    * **Test Case:**  
+      `find`
+    * **Expected:**  
+      Error message shown indicating invalid command format.  
+      Usage message displayed: `find KEYWORD [MORE_KEYWORDS]`.
+
+
+### Add interview(s) to a person
+
+**Command**: `addInterview`
+
+**Prerequisites**: Ensure at least one person exists in the contact book.
+1. Adding a <u>valid interview</u> to a person
+    * **Test case:** `addInterview i/1 h/Interview with ABC Corp d/2024-10-10 t/14:00 l/123, Business St, #02-25`
+    * **Expected:** Confirmation message shown that the interview has been added to the person at index 1.
+
+2. Adding interview with <u>invalid index</u>
+    * **Test case:** `addInterview i/-1 h/Interview with ABC Corp d/2024-10-10 t/14:00 l/123, Business St, #02-25`
+    * **Expected:** Error message shown indicating invalid command format.
+
+3. Adding interview with <u>empty header</u> to a person
+    * **Test case:** `addInterview i/1 h/ d/2024-10-10 t/14:00 l/123, Business St, #02-25`
+    * **Expected:** Error message shown indicating header cannot be blank.
+
+4. Adding interview with <u>invalid date</u> to a person
+    * **Test case:** `addInterview i/1 h/Interview with ABC Corp d/24-10-10 t/14:00 l/123, Business St, #02-25`
+    * **Expected:** Error message shown indicating invalid date.
+
+5. Adding interview with <u>invalid time</u> to a person
+    * **Test case:** `addInterview i/1 h/Interview with ABC Corp d/2024-10-10 t/1400 l/123, Business St, #02-25`
+    * **Expected:** Error message shown indicating invalid time.
+
+6. Adding interview with <u>empty location</u> to a person
+    * **Test case:** `addInterview i/1 h/Interview with ABC Corp d/2024-10-10 t/14:00 l/`
+    * **Expected:** Error message shown indicating location cannot be blank.
+
+7. Adding interview with <u>missing parameters</u> to a person
+    * **Test case:** `addInterview i/1 h/Interview with ABC Corp d/2024-10-10 t/14:00`
+    * **Expected:** Error message shown indicating invalid command format.
+
+8. Adding interview with <u>additional parameters</u> to a person
+    * **Test case:** `addInterview i/1 h/Interview with ABC Corp d/2024-10-10 t/14:00 l/123, Business St, #02-25 c/formal`
+    * **Expected:** Error message shown indicating invalid command format.
+
+### Delete interview(s) to a person
+
+**Command**: `deleteInterview`
+
+**Prerequisites**: Ensure at least one person exists in the contact book.
+
+1. Deleting a <u>valid interview</u> from a person
+    * **Test case:** `deleteInterview i/1 v/2`
+    * **Expected:** Confirmation message shown that the interview has been deleted from the person at 1.
+
+2. Deleting an interview with a <u>invalid person index</u>
+    * **Test case:** `deleteInterview i/0 v/2`
+    * **Expected:** Error message shown indicating invalid index.
+
+3. Deleting an interview with a <u>invalid interview index</u>
+    * **Test case:** `deleteInterview i/1 v/-2`
+    * **Expected:** Error message shown indicating invalid index.
+
+4. Deleting an interview with a <u>missing parameters</u>
+    * **Test case:** `deleteInterview i/1`
+    * **Expected:** Error message shown indicating invalid command format.
+
+5. Deleting an interview with a <u>additional parameters</u>
+    * **Test case:** `deleteInterview i/1 v/1 h/Interview with ABC Corps`
+    * **Expected:** Error message shown indicating invalid command format.
+
+
+### Display the list of interview(s) for a person
+
+**Command**: `listInterview`
+
+1. Displaying a person's interview(s)
+    * **Prerequisites:**
+        * Ensure the person at index `1` exists in the contact book with at least one interview.
+    * **Test Case:** `listInterview i/1`
+    * **Expected:** Success message showing the person's list of interview(s).
+      <br><br>
+2. Displaying <u>an empty list of</u> interview(s) for a person
+    * **Prerequisites:**
+        * Ensure that the person at index `1` has no interview(s).
+    * **Test Case:** `listInterview i/1`
+    * **Expected:** Error message shown indicating the person has no interview(s) scheduled.
+
+
+### Display the upcoming interview
+
+**Command**: `nextInterview`
+
+1. Displaying the next upcoming interview in the contact book
+    * **Prerequisites:**
+        * Ensure at least one person exists in the contact book with an interview date of later than present time.
+    * **Test Case:** `nextInterview`
+    * **Expected:** Success message showing the next upcoming interview.
+      <br><br>
+2. Displaying the next upcoming interview for an empty contact book
+    * **Prerequisites:**
+        * Ensure that the contact book is empty by using `clear` command.
+    * **Test Case:** `nextInterview`
+    * **Expected:** Error message shown indicating the contact book is empty.
+
+
 ### Add category(s) to a person
 
 **Command**: `addCat`
@@ -650,28 +923,24 @@ testers are expected to do more *exploratory* testing.
 **Prerequisites**: Ensure at least one person exists in the contact book.
 
 1. Adding a <u>valid category</u> to a person
-   * Test case: `addCat i/1 c/friend`
-   * Expected: Confirmation message shown that category 'friend' is added to the person at index 1.
-   
-
+   * **Test case:** `addCat i/1 c/friend`
+   * **Expected:** Confirmation message shown that category 'friend' is added to the person at index 1.
+     <br><br>
 2. Adding <u>valid categories</u> to a person
-   * Test case: `addCat i/1 c/friend c/work`
-   * Expected: Confirmation message shown that categories 'friend' and 'work' are added to the person at index 1.
-
-
+   * **Test case:** `addCat i/1 c/friend c/work`
+   * **Expected:** Confirmation message shown that categories 'friend' and 'work' are added to the person at index 1.
+     <br><br>
 3. Adding an <u>invalid category</u> to a person
-    * Test case: `addCat i/1 c/!`
-    * Expected: Error message shown indicating invalid category name.
-
-
+    * **Test case:** `addCat i/1 c/!`
+    * **Expected:** Error message shown indicating invalid category name.
+      <br><br>
 4. Adding an <u>empty category</u> to a person
-   * Test case: `addCat i/1 c/`
-   * Expected: Error message shown indicating invalid category name.
-
-
+   * **Test case:** `addCat i/1 c/`
+   * **Expected:** Error message shown indicating invalid category name.
+     <br><br>
 5. Adding a category to a <u>non-existent person</u>
-    * Test case: `addCat i/999 c/family`
-    * Expected: Error message shown indicating person not found.
+    * **Test case:** `addCat i/999 c/family`
+    * **Expected:** Error message shown indicating person not found.
 
 
 ### Delete category(s) from a person
@@ -681,25 +950,35 @@ testers are expected to do more *exploratory* testing.
 **Prerequisites**: Ensure at least one person exists in the contact book.
 
 1. Deleting a <u>valid category</u> from a person
-  * Test case: `deleteCat i/1 c/friend`
-  * Expected: Success message shown that category 'friend' is deleted from the person at index 1.
-
-
+    * **Test case:** `deleteCat i/1 c/friend`
+    * **Expected:** Success message shown that category 'friend' is deleted from the person at index 1.
+      <br><br>
 2. Deleting <u>valid categories</u> from a person
-  * Test case: `deleteCat i/1 c/friend c/work`
-  * Expected: Success message shown that categories 'friend' and 'work' are deleted from the person at index 1.
-
-
+    * **Test case:** `deleteCat i/1 c/friend c/work`
+    * **Expected:** Success message shown that categories 'friend' and 'work' are deleted from the person at index 1.
+      <br><br>
 3. Deleting an <u>invalid category</u> from a person
-  * Test case: `deleteCat i/1 c/!`
-  * Expected: Error message shown indicating invalid category name.
-
-
+    * **Test case:** `deleteCat i/1 c/!`
+    * **Expected:** Error message shown indicating invalid category name.
+      <br><br>
 4. Deleting an <u>empty category</u> from a person
-  * Test case: `deleteCat i/1 c/`
-  * Expected: Error message shown indicating invalid category name.
-
-
+    * **Test case:** `deleteCat i/1 c/`
+    * **Expected:** Error message shown indicating invalid category name.
+      <br><br>
 5. Deleting a category from a <u>non-existent person</u>
-  * Test case: `deleteCat i/999 c/family`
-  * Expected: Error message shown indicating person not found.
+    * **Test case:** `deleteCat i/999 c/family`
+    * **Expected:** Error message shown indicating person not found.
+
+
+
+
+
+
+
+
+
+
+
+
+
+

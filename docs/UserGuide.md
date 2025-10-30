@@ -154,17 +154,12 @@ Shows a message explaining how to access the help page.
 
 Clears all entries from the contact book.
 
-** :warning: Caution:** This action is destructive and cannot be undone.
+**:warning: Caution:** This action is destructive and cannot be undone.
 
 > **Format**
 > ```
 > clear
 > ```
-### Clearing all entries : `clear`
-
-Clears all entries from the contact book.
-
-Format: `clear`
 
 ### Exiting the program : `exit`
 
@@ -174,7 +169,6 @@ Exits the program.
 > ```
 > exit
 > ```
-Format: `exit`
 
 ### Adding a person: `add`
 
@@ -187,7 +181,9 @@ Adds a person to the contact book.
 > add n/NAME p/PHONE_NUMBER e/EMAIL o/ORGANISATION r/ROLE [c/CATEGORY]
 > ```
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+<div markdown="span" class="alert alert-primary">
+
+:bulb: Tip:
 A person can have any number of categories (including 0).
 </div>
 
@@ -195,22 +191,13 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com o/NUS r/Student c/friends c/owesMoney`
 * `add n/Betsy Crowe p/12345678 e/betsycrowe@example.com o/Reuters r/Reporter`
 
-### Editing a person : `edit`
-
-Edits an existing person in the contact book.
-
-> **Format**
-> ```
-> edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [o/ORGANISATION] [r/ROLE]
-> ```
-
 ### Deleting a person : `delete`
 
 Deletes the specified person from the contact book.
 
 > **Format**
 > ```
-> delete INDEX
+> delete i/INDEX
 > ```
 
 * Deletes the person at the specified `INDEX`.
@@ -218,8 +205,20 @@ Deletes the specified person from the contact book.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the contact book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+* `list` followed by `delete i/2` deletes the 2nd person in the contact book.
+* `find Betsy` followed by `delete i/1` deletes the 1st person in the results of the `find` command.
+
+### Editing a person : `edit`
+
+Edits an existing person in the contact book.
+
+> **Format**
+> ```
+> edit i/INDEX [n/NAME] [p/PHONE] [e/EMAIL] [o/ORGANISATION] [r/ROLE]
+> ```
+
+Examples:
+*  `edit i/1 p/91234567 e/johndoe@example.com` Edits the phone number and email of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 
 ### Listing all persons : `list`
 
@@ -233,29 +232,6 @@ Shows a list of all persons in the contact book.
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-
-Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-
-### Deleting a person : `delete`
-
-Deletes the specified person from the contact book.
-
-Format: `delete INDEX`
-
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
-
-Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the contact book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
-
-### Listing all persons : `list`
-
-Shows a list of all persons in the contact book.
-
-Format: `list`
 
 ### Locating persons by name, organisation, role, or categories : `find`
 
@@ -420,6 +396,7 @@ In future iterations, these are the features we plan to implement:
 1. Archive of contact and interviews
 
 After a certain period, there are contacts that may no longer be relevant to the journalist. An archiving feature would allow users to move such contacts to an archive section, keeping the main contact list uncluttered while still retaining access to past contacts if needed.
+
 2. Enforcement of uniqueness on phone and email
 
 Currently, the application allows multiple contacts to share the same phone number or email address. Implementing uniqueness constraints would help prevent duplicate entries and ensure that each contact is distinct, cohering with real-world scenarios where phone numbers and email addresses are unique identifiers.
@@ -436,8 +413,8 @@ Action | Format, Examples
 --------|------------------
 **Add** | `add n/NAME p/PHONE e/EMAIL o/ORGANISATION r/ROLE [c/CATEGORY]…​` <br> e.g., `add n/John Doe p/98765432 e/johnd@example.com o/NUS r/Student c/friends c/owesMoney`
 **Clear** | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [o/ORGANISATION] [r/ROLE]​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Delete** | `delete i/INDEX`<br> e.g., `delete 3`
+**Edit** | `edit i/INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [o/ORGANISATION] [r/ROLE]​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James NUS Student`
 **List** | `list`
 **AddInterview** | `addInterview i/INDEX h/HEADER d/DATE t/TIME l/LOCATION` <br> e.g., `addInterview i/1 h/Interview with ABC Corp d/2024-10-10 t/14:00 l/123, Business St, #02-25`
