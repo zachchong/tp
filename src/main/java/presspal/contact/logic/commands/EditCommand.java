@@ -51,7 +51,16 @@ public class EditCommand extends Command {
             + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "Invalid command format! \nedit: Edits the details of the person identified by the index number used in the displayed person list. Existing values will be overwritten by the input values.\nParameters: i/PERSON_INDEX (must be a positive integer) [n/NAME] [p/PHONE] [e/EMAIL] [o/ORGANISATION] [r/ROLE]\nExample: edit i/1 p/91234567 e/johndoe@example.com";
+    public static final String MESSAGE_NOT_EDITED = "Invalid command format! \n"
+            + "edit: Edits the details of the person identified by the index number used in the displayed person list. "
+            + "Existing values will be overwritten by the input values.\n"
+            + "Parameters: i/PERSON_INDEX (must be a positive integer) "
+            + "[n/NAME] "
+            + "[p/PHONE] "
+            + "[e/EMAIL] "
+            + "[o/ORGANISATION] "
+            + "[r/ROLE]\n"
+            + "Example: edit i/1 p/91234567 e/johndoe@example.com";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the contact book.";
 
     private final Index index;
