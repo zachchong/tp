@@ -6,10 +6,15 @@ title: Developer Guide
 {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
+<img src="images/presspal-icon.png" width="280" />
+
+# **PressPal Developer Guide**
+
+--------------------------------------------------------------------------------------------------------------------
 
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+This project is based on the AddressBook-Level 3 project created by the School of Computing, National University of Singapore.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -126,13 +131,6 @@ The `Model` component,
 * stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Category` list in the `ContactBook`, which `Person` references. This allows `ContactBook` to only require one `Category` object per unique category, instead of each `Person` needing their own `Category` objects.<br>
-
-<img src="images/BetterModelClassDiagram.png" width="450" />
-
-</div>
-
 
 ### Storage component
 
@@ -280,22 +278,27 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …         | I can …                                                                                 | So that I can…                                                            |
-| -------- | -------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| `* * *`  | user           | create new contacts with the add contact functions (name, phone, email, organisation, role) | retrieve the contact easily when I need them                              |
-| `* * *`  | user           | create a new category                                                                       | group all related contacts and interactions for easy reference.           |
-| `* * *`  | user           | add existing contacts to categories                                                         | group related contacts for easy reference                                 |
-| `* * *`  | user           | log interview dates in the contact                                                          | easily track and know my interview schedule                               |
-| `* * *`  | user           | delete old contacts                                                                         | keep my contact book organised                                            |
-| `* * *`  | user           | remove existing contacts from categories                                                    | keep my contact book organised                                            |
-| `* * *`  | user           | delete interview dates in the contact                                                       | keep my schedule up to date and avoid confusion from outdated information |
-| `* * *`  | user           | search contacts by their names                                                              | quickly find the specific person I’m looking for                          |
-| `* *`    | user           | search contacts by their organisation                                                       | find a person from a specific organisation                                |
-| `* *`    | user           | search contacts by their roles                                                              | find a person with related role                                           |
-| `*`      | long-time user | archive contacts once a story wraps up                                                      | keep my dashboard uncluttered                                             |
-| `*`      | long-time user | view a timeline of interview minutes for a story                                            | quickly see the sequence of events and conversations                      |
-
-*{More to be added}*
+| Priority | As a …                              | I can …                                                                                     | So that I can…                                                            |
+|-------|-------------------------------------|---------------------------------------------------------------------------------------------|---------------------------------------------------------------------------|
+| `* * *` | basic user                          | create new contacts with the add contact functions (name, phone, email, organisation, role) | retrieve the contact easily when I need them                              |
+| `* * *` | basic user                          | add category(s) to a contact                                                                | search the contact with the category(s) for easy reference                |
+| `* * *` | basic user                          | add an interview to a contact with details (date, time, location, header)                   | easily track and know my interview schedule with a specific person        |
+| `* * *` | basic user                          | delete contacts from the contact book                                                       | keep my contact book organised                                            |
+| `* * *` | basic user                          | delete category(s) from a contact                                                           | keep my contact book organised                                            |
+| `* * *` | basic user                          | delete an interview from a contact                                                          | keep my schedule up to date and avoid confusion from outdated information |
+| `* * *` | basic user                          | search contacts by their names                                                              | quickly find the specific person I’m looking for                          |
+| `* * *` | basic user                          | see a list of all persons in the contact book                                               | check all my contacts in the contact book at once                         |
+| `* * *` | basic user                          | see a list of all interviews of a contact                                                   | check all my interviews with a specific person                            |
+| `* * *` | advanced user/ fast typer           | utilise fast-typing shortcuts during data entry                                             | enter information quickly and reduce wait times                           |
+| `* *` | beginner, basic user, advanced user | work with an intuitive user interface                                                       | can work more efficiently                                                 |
+| `* *` | basic user, beginner                | have error-prevention features built into the data entry process                            | record the contact correctly the first time                               |
+| `* *` | beginner                            | view the user guide easily                                                                  | learn more about the product                                              |
+| `* *` | basic user                          | see my next upcoming interview across all scheduled interviews                              | quickly know when and with whome my next interview is happening           |
+| `* *` | basic user                          | edits an existing person in the contact book (name, phone, email, organisation, role)       | keep my contacts updated in the contact book                              |
+| `* *` | basic user                          | search contacts by their organisation                                                       | find a person from a specific organisation                                |
+| `* *` | basic user                          | search contacts by their roles                                                              | find a person with related role                                           |
+| `* *` | basic user                          | search contacts by their categories                                                         | find a person with related categories                                     |
+| `*`   | long-time user                      | archive contacts once a story wraps up                                                      | keep my dashboard uncluttered                                             |
 
 ## **Use cases**
 
