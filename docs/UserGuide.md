@@ -60,7 +60,7 @@ details table { margin-top: .5rem; }
   const idToTab = {
     'general-parameters': 'General',
     'contact-parameters': 'Contact',
-    'interview-parameters': 'Interview',   // <-- missing comma fixed
+    'interview-parameters': 'Interview',
     'faq-general-qa': 'General Q&A',
     'faq-common-problems': 'Common Problems & Fixes',
     'faq-troubleshooting': 'Troubleshooting',
