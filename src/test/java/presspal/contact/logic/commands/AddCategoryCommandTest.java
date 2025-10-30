@@ -76,6 +76,29 @@ public class AddCategoryCommandTest {
     }
 
     @Test
+    public void execute_multipleCategoriesWithDuplicates_success() {
+        // person currently at index 0 in the list
+        Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+
+        EditCategoryDescriptor descriptor = new EditCategoryDescriptorBuilder()
+                .withCategories(VALID_CATEGORY_HUSBAND, "friends").build();
+        AddCategoryCommand addCategoryCommand = new AddCategoryCommand(INDEX_FIRST_PERSON, descriptor);
+
+        // build a target person with new category added
+        Person editedPerson = AddCategoryCommand.createNewPerson(personToEdit, descriptor);
+
+        EditCategoryDescriptor expectedDescriptor = new EditCategoryDescriptorBuilder()
+                .withCategories(VALID_CATEGORY_HUSBAND).build();
+        String expectedMessage = String.format(AddCategoryCommand.MESSAGE_ADDCAT_SUCCESS, editedPerson.getName(),
+                expectedDescriptor.getCategoriesAsString());
+
+        Model expectedModel = new ModelManager(model.getContactBook(), new UserPrefs());
+        expectedModel.setPerson(personToEdit, editedPerson);
+
+        assertCommandSuccess(addCategoryCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
     public void execute_filteredList_success() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 

@@ -9,14 +9,15 @@ import static presspal.contact.commons.util.AppUtil.checkArgument;
  */
 public class Role {
 
-    public static final String MESSAGE_CONSTRAINTS = "Roles can take any values, and it should not be blank. "
-            + "It should have at most 50 characters.";
+    public static final String MESSAGE_CONSTRAINTS = "Role must be 1 to 50 characters, using only letters and digits"
+            + ", with single spaces between words (no leading/trailing or multiple spaces).";
 
     /*
      * The first character of the role must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
+     * [A-Za-z0-9] allowed chars, {1,50} length
      */
-    public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String VALIDATION_REGEX = "^(?=.{1,50}$)[A-Za-z0-9]+(?: [A-Za-z0-9]+)*$";
 
     public final String value;
 
@@ -35,7 +36,7 @@ public class Role {
      * Returns true if a given string is a valid role.
      */
     public static boolean isValidRole(String test) {
-        return test.length() <= 50 && test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX);
     }
 
     @Override

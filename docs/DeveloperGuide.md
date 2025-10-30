@@ -123,7 +123,7 @@ How the parsing works:
 ### Model component
 **API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
 
-<img src="images/ModelClassDiagram.png" width="450" />
+<img src="images/ModelClassDiagram.png" width="800" />
 
 
 The `Model` component,
@@ -303,7 +303,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ## **Use cases**
 
-(For all use cases below, the **System** is the `PressPal` and the **Actor** is the `Reporter`, unless specified otherwise)
+The use cases below are not exhaustive. (For all use cases below, the **System** is the `PressPal` and the **Actor** is the `Reporter`, unless specified otherwise)
 
 ### UC1 – Add a contact
 
@@ -317,315 +317,284 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 1a. Reporter includes only some fields.
-  * 1a1. PressPal requests the missing fields.
-  * 1a2. Reporter provides them.
-    Use case resumes at step 2.
+* 1a. Reporter omits one or more required fields (name, phone OR email, organisation, role).
+  * 1a1. PressPal shows an invalid command error message.  
+    Use case resumes at step 1.
 
 * 2a. PressPal detects an invalid field (e.g., name/phone/email format).
-  * 2a1. PressPal requests the corrected value and explains the issue.
-  * 2a2. Reporter enters a corrected value.
-    Steps 2a1–2a2 repeat until all values are valid.
-    Use case resumes at step 2.
+  * 2a1. PressPal shows an invalid parameters error message.  
+    Use case resumes at step 1.
 
-* 2b. PressPal detects that the phone or email already exists.
-  * 2b1. PressPal informs that a duplicate contact exists.
-  * 2b2. Reporter chooses to cancel.
-    Use case ends.
+* 2b. PressPal detects that the contact name already exists.
+  * 2b1. PressPal shows a duplicate contact error message.  
+    Use case resumes at step 1.
 
-* 2c. PressPal detects missing mode of contact.
-  * 2c1. PressPal requests at least one mode of contact (phone or email).
-  * 2c2. Reporter provides one.
-    Use case resumes at step 2.
+* 2c. PressPal detects a repeated parameter (e.g., two phone fields).
+  * 2c1. PressPal shows a repeated parameter error message.  
+    Use case resumes at step 1.
 
-* 2d. PressPal detects a repeated parameter.
-  * 2d1. PressPal requests a single value for the repeated parameter.
-  * 2d2. Reporter provides the single value.
-    Use case resumes at step 2.
-
-* *a. At any time, Reporter chooses to cancel.
-  * *a1. PressPal requests to confirm the cancellation.
-  * *a2. Reporter confirms the cancellation.
-    Use case ends.
-
-
-### UC2 – Create a category
+### UC2 – Add category to contact
 
 **MSS**
 
-1. Reporter requests to create a category with a name.
-2. PressPal validates the category name.
-3. PressPal creates the category and confirms.
+1. Reporter requests to add one or more categories to a contact, specifying the contact’s index.
+2. PressPal validates the contact index and each category name.
+3. PressPal checks if each category already exists for that contact.
+4. PressPal adds all valid, non-duplicate categories to the contact and confirms.
 
    Use case ends.
 
 **Extensions**
 
-* 1a. Reporter omits the category name.
-  * 1a1. PressPal requests the category name.
-  * 1a2. Reporter provides it.
-    Use case resumes at step 2.
+* 1a. Reporter omits the contact index or category name(s).
+  * 1a1. PressPal shows an invalid command error message.  
+    Use case resumes at step 1.
 
-* 2a. PressPal detects an invalid name (e.g., empty or only symbols).
-  * 2a1. PressPal requests a valid name and explains the issue.
-  * 2a2. Reporter enters a valid name.
-    Steps 2a1–2a2 repeat until valid.
-    Use case resumes at step 2.
+* 2a. PressPal detects an invalid contact index (e.g., out of range or non-integer).
+  * 2a1. PressPal shows an invalid parameters error message.  
+    Use case resumes at step 1.
 
-* 2b. PressPal detects that the category already exists (case-insensitive).
-  * 2b1. PressPal informs that the category already exists.
+* 2b. PressPal detects an invalid category name (e.g., empty, non-alphabetic, or exceeds 20 characters).
+  * 2b1. PressPal shows an invalid parameters error message.  
+    Use case resumes at step 1.
+
+* 3a. One or more categories already exist for the contact.
+  * 3a1. PressPal informs the Reporter that duplicate categories cannot be added.
     Use case ends.
 
-* *a. At any time, Reporter chooses to cancel.
-  * *a1. PressPal requests to confirm the cancellation.
-  * *a2. Reporter confirms the cancellation.
+* 3b. All specified categories already exist.
+  * 3b1. PressPal informs the Reporter that duplicate categories cannot be added.
+  * 3b2. No new categories were added.  
     Use case ends.
 
-
-### UC3 – Add contact to category
+### UC3 – Add interview to contact
 
 **MSS**
 
-1. Reporter requests to add a contact to a category.
-2. PressPal validates that the contact and category exist.
-3. PressPal links the contact to the category and confirms.
+1. Reporter requests to add an interview to a contact by specifying the contact index, interview header, date, time, and location.
+2. PressPal validates all input fields (index, header, date, time, and location).
+3. PressPal checks if the contact already has an interview at the same date and time.
+4. PressPal adds the interview and confirms the addition.  
 
    Use case ends.
 
 **Extensions**
 
-* 1a. Reporter provides only one of the required items (contact or category).
-  * 1a1. PressPal requests the missing item.
-  * 1a2. Reporter provides it.
-    Use case resumes at step 2.
+* 1a. Reporter omits one or more required fields (index, header, date, time, or location).
+  * 1a1. PressPal shows an invalid command error message.  
+    Use case resumes at step 1.
 
-* 2a. Category not found.
-  * 2a1. PressPal informs that the category does not exist and requests a valid one.
-  * 2a2. Reporter provides it.
-    Use case resumes at step 2.
+* 2a. PressPal detects an invalid field format (e.g., invalid date/time format, out of range or non-integer index).
+  * 2a1. PressPal shows an invalid parameters error message.  
+    Use case resumes at step 1.
 
-* 2b. Contact not found.
-  * 2b1. PressPal informs that the contact does not exist and requests a valid one.
-  * 2b2. Reporter provides it.
-    Use case resumes at step 2.
+* 3a. The contact already has an interview scheduled at the same date and time.
+  * 3a1. PressPal shows an error message that an interview conflict exists. 
+    Use case resumes at step 1.
 
-* 2c. Multiple contacts match the name.
-  * 2c1. PressPal lists matches and requests disambiguation.
-  * 2c2. Reporter selects one.
-    Use case resumes at step 2.
+* 3b. The specified contact index does not exist.
+  * 3b1. PressPal informs the Reporter that the index is invalid.  
+    Use case resumes at step 1.
 
-* 2d. Contact is already in the category.
-  * 2d1. PressPal informs that the link already exists.
-    Use case ends.
-
-* *a. At any time, Reporter chooses to cancel.
-  * *a1. PressPal requests to confirm the cancellation.
-  * *a2. Reporter confirms the cancellation.
-    Use case ends.
-
-
-### UC4 – Add interview to contact
+### UC4 – Delete a contact
 
 **MSS**
 
-1. Reporter requests to add an interview to a contact with header, date, and time.
-2. PressPal validates the contact, header, and timestamp.
-3. PressPal records the interview on the contact’s timeline and confirms.
+1. Reporter requests to delete a person from the contact book by specifying the contact index.
+2. PressPal validates the contact index.
+3. PressPal deletes the corresponding person from the contact book and confirms the deletion.
 
    Use case ends.
 
 **Extensions**
 
-* 1a. Reporter includes only some fields.
-  * 1a1. PressPal requests the missing fields.
-  * 1a2. Reporter provides them.
-    Use case resumes at step 2.
+* 1a. Reporter omits the index.
+  * 1a1. PressPal shows an invalid command error message.  
+    Use case resumes at step 1.
 
-* 2a. Invalid date/time format or nonsensical timestamp.
-  * 2a1. PressPal explains required formats and requests correction.
-  * 2a2. Reporter provides corrected values.
-    Repeat until valid.
-    Use case resumes at step 2.
-
-* 2b. Contact not found.
-  * 2b1. PressPal informs that no such contact exists and requests a valid one.
-  * 2b2. Reporter provides it.
-    Use case resumes at step 2.
-
-* 2c. Multiple contacts match the name.
-  * 2c1. PressPal lists matches and requests disambiguation.
-  * 2c2. Reporter selects one.
-    Use case resumes at step 2.
-
-* 2d. Duplicate timestamp detected.
-  * 2d1. PressPal warns and requests a decision.
-  * 2d2. Reporter chooses to proceed → Use case resumes at step 3.
-  * 2d3. Reporter cancels → Use case ends.
-
-* *a. At any time, Reporter chooses to cancel.
-  * *a1. PressPal requests to confirm the cancellation.
-  * *a2. Reporter confirms the cancellation.
-    Use case ends.
-
-
-### UC5 – Delete a contact
-
-**MSS**
-
-1. Reporter requests to delete a contact.
-2. PressPal validates the specified contact.
-3. PressPal deletes the contact and confirms.
-
-   Use case ends.
-
-**Extensions**
-
-* 1a. Reporter does not specify the contact.
-  * 1a1. PressPal requests the contact.
-  * 1a2. Reporter provides it.
-    Use case resumes at step 2.
-
-* 2a. Invalid name format or contact not found.
-  * 2a1. PressPal explains the issue and requests a valid contact.
-  * 2a2. Reporter provides one.
-    Use case resumes at step 2.
-
-* 2b. Multiple contacts match the name.
-  * 2b1. PressPal lists matches and requests disambiguation.
-  * 2b2. Reporter selects one.
-    Use case resumes at step 2.
+* 2a. PressPal detects an invalid index (e.g., non-integer or out of range).
+  * 2a1. PressPal shows an invalid parameters error message.  
+    Use case resumes at step 1.
 
 * 3a. Storage error occurs during deletion.
-  * 3a1. PressPal reports the failure and retains the contact.
+  * 3a1. PressPal shows an error message indicating that the deletion failed and the contact is retained.  
     Use case ends.
 
-* *a. At any time, Reporter chooses to cancel.
-  * *a1. PressPal requests to confirm the cancellation.
-  * *a2. Reporter confirms the cancellation.
-    Use case ends.
-
-
-### UC6 – Remove contact from category
+### UC5 – Delete category from contact
 
 **MSS**
 
-1. Reporter requests to remove a contact from a category.
-2. PressPal validates the contact, category, and that a link exists.
-3. PressPal removes the link and confirms.
+1. Reporter requests to delete one or more categories from a person by specifying the person’s index and category name(s).
+2. PressPal validates the contact index and each category name.
+3. PressPal checks whether the specified categories exist for that person.
+4. PressPal deletes all existing categories and confirms the deletion.
 
    Use case ends.
 
 **Extensions**
 
-* 1a. Reporter provides only one of the required items.
-  * 1a1. PressPal requests the missing item.
-  * 1a2. Reporter provides it.
-    Use case resumes at step 2.
+* 1a. Reporter omits the index or category name(s).
+  * 1a1. PressPal shows an invalid command error message.  
+    Use case resumes at step 1.
 
-* 2a. Category not found.
-  * 2a1. PressPal informs and requests a valid one.
-  * 2a2. Reporter provides it.
-    Use case resumes at step 2.
+* 2a. PressPal detects an invalid index (e.g., non-integer or out of range).
+  * 2a1. PressPal shows an invalid parameters error message.  
+    Use case resumes at step 1.
 
-* 2b. Contact not found.
-  * 2b1. PressPal informs and requests a valid one.
-  * 2b2. Reporter provides it.
-    Use case resumes at step 2.
+* 2b. PressPal detects an invalid category name (e.g., non-alphabetic, or exceeds 20 characters).
+  * 2b1. PressPal shows an invalid parameters error message.  
+    Use case resumes at step 1.
 
-* 2c. Multiple contacts match the name.
-  * 2c1. PressPal lists matches and requests disambiguation.
-  * 2c2. Reporter selects one.
-    Use case resumes at step 2.
-
-* 2d. Contact is not in the specified category.
-  * 2d1. PressPal informs that no link exists.
+* 3a. One or more specified categories do not exist for that person.
+  * 3a1. PressPal informs the Reporter that the category(s) was not found.
+  * 3a2. PressPal failed to delete the category(s).  
     Use case ends.
 
-* *a. At any time, Reporter chooses to cancel.
-  * *a1. PressPal requests to confirm the cancellation.
-  * *a2. Reporter confirms the cancellation.
+* 3b. None of the specified categories exist.
+  * 3b1. PressPal informs the Reporter that no matching categories were found.  
     Use case ends.
 
-
-### UC7 – Delete interview from contact
+### UC6 – Delete interview from contact
 
 **MSS**
 
-1. Reporter requests to delete an interview from a contact using date and time.
-2. PressPal validates the contact and the timestamp.
-3. PressPal deletes the interview entry and confirms.
+1. Reporter requests to delete an interview from a contact by specifying both the person index and the interview index.
+2. PressPal validates the person index and interview index.
+3. PressPal deletes the specified interview and confirms the deletion.
 
    Use case ends.
 
 **Extensions**
 
-* 1a. Reporter omits required details (contact or date/time).
-  * 1a1. PressPal requests missing details.
-  * 1a2. Reporter provides them.
-    Use case resumes at step 2.
+* 1a. Reporter omits the person index or interview index.
+  * 1a1. PressPal shows an invalid command error message.  
+    Use case resumes at step 1.
 
-* 2a. Invalid date/time format.
-  * 2a1. PressPal explains required formats and requests correction.
-  * 2a2. Reporter provides corrected values.
-    Repeat until valid.
-    Use case resumes at step 2.
+* 2a. PressPal detects an invalid person index (e.g., non-integer or out of range).
+  * 2a1. PressPal shows an invalid parameters error message.  
+    Use case resumes at step 1.
 
-* 2b. Contact not found.
-  * 2b1. PressPal informs and requests a valid one.
-  * 2b2. Reporter provides it.
-    Use case resumes at step 2.
+* 2b. PressPal detects an invalid interview index (e.g., non-integer or out of range).
+  * 2b1. PressPal shows an invalid parameters error message.  
+    Use case resumes at step 1.
 
-* 2c. Multiple contacts match the name.
-  * 2c1. PressPal lists matches and requests disambiguation.
-  * 2c2. Reporter selects one.
-    Use case resumes at step 2.
-
-* 2d. Interview at given timestamp not found.
-  * 2d1. PressPal informs that no such interview exists.
+* 3a. The specified contact has no interviews or the specified interview does not exist.
+  * 3a1. PressPal informs the Reporter that the interview cannot be found.  
     Use case ends.
 
-* 3a. Storage error during deletion.
-  * 3a1. PressPal reports the failure and retains the interview.
-    Use case ends.
-
-* *a. At any time, Reporter chooses to cancel.
-  * *a1. PressPal requests to confirm the cancellation.
-  * *a2. Reporter confirms the cancellation.
-    Use case ends.
-
-
-### UC8 – Search contacts
+### UC7 – Find Persons by Name, Organisation, Role, or Categories
 
 **MSS**
 
-1. Reporter requests to search contacts by name.
-2. PressPal validates the query.
-3. PressPal displays the matching contacts.
+1. Reporter requests to find persons by providing one or more keywords.
+2. PressPal searches the contact book for matches in the name, organisation, role, or categories fields.
+3. PressPal displays a list of all persons that match at least one keyword (case-insensitive).
 
    Use case ends.
 
 **Extensions**
 
-* 1a. Reporter omits the search query.
-  * 1a1. PressPal requests a query.
-  * 1a2. Reporter provides it.
-    Use case resumes at step 2.
+* 1a. Reporter omits the keyword(s).
+  * 1a1. PressPal shows an invalid command error message.  
+    Use case resumes at step 1.
 
-* 2a. Query contains invalid characters or is empty after normalization.
-  * 2a1. PressPal requests a valid query and explains the issue.
-  * 2a2. Reporter provides one.
-    Repeat until valid.
-    Use case resumes at step 2.
-
-* 3a. No results found.
-  * 3a1. PressPal informs that no contacts match.
+* 2a. No persons match the provided keyword(s).
+  * 2a1. PressPal informs the Reporter that no matching results were found.  
     Use case ends.
 
-* *a. At any time, Reporter chooses to cancel.
-  * *a1. PressPal requests to confirm the cancellation.
-  * *a2. Reporter confirms the cancellation.
+### UC8 – List all interviews of a contact
+
+**MSS**
+
+1. Reporter requests to view all interviews of a contact by specifying the contact index.
+2. PressPal validates the contact index.
+3. PressPal retrieves and displays all interviews associated with the contact.  
+   
+   Use case ends.
+
+**Extensions**
+
+* 1a. Reporter omits the contact index.
+  * 1a1. PressPal shows an invalid command error message.  
+    Use case resumes at step 1.
+
+* 2a. PressPal detects an invalid index (e.g., non-integer or out of range).
+  * 2a1. PressPal shows an invalid parameters error message.  
+    Use case resumes at step 1.
+
+* 3a. The specified contact has no interviews.
+  * 3a1. PressPal displays a message indicating that there are no interviews scheduled.  
     Use case ends.
 
+### UC9 – List all persons
+
+**MSS**
+
+1. Reporter requests to view all persons in the contact book.
+2. PressPal retrieves and displays the full list of persons stored in the contact book.  
+ 
+   Use case ends.
+
+**Extensions**
+
+* 1a. The contact book is empty.
+  * 1a1. PressPal informs the Reporter that there are no persons in the contact book.  
+    Use case ends.
+
+### UC10 – Edit a person
+
+**MSS**
+
+1. Reporter requests to edit an existing person by specifying the contact index and one or more fields to update.
+2. PressPal validates the contact index and the provided field values.
+3. PressPal updates the person’s details with the new information.
+4. PressPal confirms that the person has been successfully updated.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. Reporter omits the contact index.
+  * 1a1. PressPal shows an invalid command error message.  
+    Use case resumes at step 1.
+
+* 1b. Reporter omits all optional fields.
+  * 1b1. PressPal shows an invalid command error message.  
+    Use case resumes at step 1.
+
+* 2a. PressPal detects an invalid index (e.g., non-integer or out of range).
+  * 2a1. PressPal shows an invalid parameters error message.  
+    Use case resumes at step 1.
+
+* 2b. PressPal detects invalid field formats (e.g., invalid email, phone number, or role/organisation exceeding character limits).
+  * 2b1. PressPal shows an invalid parameters error message.  
+    Use case resumes at step 1.
+
+### UC11 – Display the upcoming interview
+
+**MSS**
+
+1. Reporter requests to view the next upcoming interview.
+2. PressPal retrieves all scheduled interviews and filters out those that have already occurred (i.e., past interviews).
+3. PressPal identifies the interview that is scheduled to occur next (closest future date and time).
+4. PressPal displays the details of the next upcoming interview to the Reporter.  
+   Use case ends.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. The contact book contains no interviews.
+  * 1a1. PressPal informs the Reporter that there are no scheduled interviews.  
+    Use case ends.
+
+* 2a. All interviews in the contact book have already occurred.
+  * 2a1. PressPal displays a message indicating that there are no upcoming interviews.  
+    Use case ends.
+
+* 3a. Multiple upcoming interviews are scheduled at the same date and time.
+  * 3a1. PressPal displays any one of them as the next interview, following priority of the person index.  
+    Use case ends.
 
 ## Non-Functional Requirements
 
@@ -633,54 +602,21 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-*{More to be added}*
-
 ## Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Private contact detail**: A contact detail that is not meant to be shared with others
   This glossary defines key terms used within **PressPal**, a platform designed for breaking news journalists to manage and organize their contact information efficiently.
-
----
-
-### A
-**Account**:
-
-A user profile in PressPal that stores a journalist’s credentials, preferences, and contact database.
-
-### C
-**Category**:
-
-A label or grouping used to organize contacts (e.g., “Politics,” “Health,” “Technology”).
-
-**Contact**:
-
-An individual or organization entry stored in PressPal, including name, role, and at least one mode of contact (e.g., phone or email).
-
-### D
-**Duplicate contact**:
-
-A contact that shares the same phone number or email as an existing contact in PressPal.
-
-### M
-**Mode of contact**:
-
-A way to reach a contact, such as a phone number or email organisation.
-
-### R
-**Reporter**:
-
-The primary user of PressPal who manages contacts, categories, and interview notes.
-
-**Role**:
-
-The position or job title of a contact within their organisation.
-
-### O
-**Organisation**:
-
-The company, agency, or institution a contact belongs to.
-
+* **Account**: A user profile in PressPal that stores a journalist’s credentials, preferences, and contact database.
+* **Category**: A label or grouping used to organize contacts (e.g., “Politics,” “Health,” “Technology”).
+* **Contact**: An individual or organization entry stored in PressPal, including name, role, and at least one mode of contact (e.g., phone or email).
+* **Duplicate contact**: A contact that shares the same phone number or email as an existing contact in PressPal.
+* **Mode of contact**: A way to reach a contact, such as a phone number or email organisation.
+* **Reporter**: The primary user of PressPal who manages contacts, categories, and interview notes.
+* **Role**: The position or job title of a contact within their organisation.
+* **Organisation**: The company, agency, or institution a contact belongs to.
+* **MSS (Main Success Scenario)**: The sequence of steps that lead to a successful execution of a use case.
+* **JAR**:  A Java Archive file that contains the compiled Java classes and resources for the application.
 
 ## **Appendix: Instructions for manual testing**
 
@@ -695,43 +631,80 @@ testers are expected to do more *exploratory* testing.
 
 1. Initial launch
 
-   1. Download the jar file and copy into an empty folder
+   1a. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1b. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
-1. Saving window preferences
+2. Saving window preferences
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+   2a. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
+   2b. Re-launch the app by double-clicking the jar file.<br>
+       
+   * Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
 
-### Deleting a person
+### Add category(s) to a person
 
-1. Deleting a person while all persons are being shown
+**Command**: `addCat`
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+**Prerequisites**: Ensure at least one person exists in the contact book.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+1. Adding a <u>valid category</u> to a person
+   * Test case: `addCat i/1 c/friend`
+   * Expected: Confirmation message shown that category 'friend' is added to the person at index 1.
+   
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+2. Adding <u>valid categories</u> to a person
+   * Test case: `addCat i/1 c/friend c/work`
+   * Expected: Confirmation message shown that categories 'friend' and 'work' are added to the person at index 1.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+3. Adding an <u>invalid category</u> to a person
+    * Test case: `addCat i/1 c/!`
+    * Expected: Error message shown indicating invalid category name.
 
-### Saving data
 
-1. Dealing with missing/corrupted data files
+4. Adding an <u>empty category</u> to a person
+   * Test case: `addCat i/1 c/`
+   * Expected: Error message shown indicating invalid category name.
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
-1. _{ more test cases …​ }_
+5. Adding a category to a <u>non-existent person</u>
+    * Test case: `addCat i/999 c/family`
+    * Expected: Error message shown indicating person not found.
+
+
+### Delete category(s) from a person
+
+**Command**: `deleteCat`
+
+**Prerequisites**: Ensure at least one person exists in the contact book.
+
+1. Deleting a <u>valid category</u> from a person
+  * Test case: `deleteCat i/1 c/friend`
+  * Expected: Success message shown that category 'friend' is deleted from the person at index 1.
+
+
+2. Deleting <u>valid categories</u> from a person
+  * Test case: `deleteCat i/1 c/friend c/work`
+  * Expected: Success message shown that categories 'friend' and 'work' are deleted from the person at index 1.
+
+
+3. Deleting an <u>invalid category</u> from a person
+  * Test case: `deleteCat i/1 c/!`
+  * Expected: Error message shown indicating invalid category name.
+
+
+4. Deleting an <u>empty category</u> from a person
+  * Test case: `deleteCat i/1 c/`
+  * Expected: Error message shown indicating invalid category name.
+
+
+5. Deleting a category from a <u>non-existent person</u>
+  * Test case: `deleteCat i/999 c/family`
+  * Expected: Error message shown indicating person not found.
+
 
 ### Locating Persons by Name, Organisation, Role, or Categories
 
@@ -745,7 +718,7 @@ testers are expected to do more *exploratory* testing.
     Example: `John Doe` is displayed. Status bar shows `1 person listed!`.
 
 
-1. Finding persons by multiple keywords
+2. Finding persons by multiple keywords
   - **Prerequisite:**
     - The contact book contains persons `Bernice Yu` and `Charlotte Oliveira`.
   - **Test Case:** `find bernice charlotte`
@@ -753,21 +726,21 @@ testers are expected to do more *exploratory* testing.
     Status bar shows `2 persons listed!`. The search behaves as an OR search.
 
 
-1. Case-insensitive search
+3. Case-insensitive search
   - **Prerequisite:**
     - The contact book contains `Alex Yeoh`.
   - **Test Case:** `find AlEx`
   - **Expected:** The system lists `Alex Yeoh`. The search is case-insensitive.
 
 
-1. Order of keywords does not matter
+4. Order of keywords does not matter
   - **Prerequisite:**
     - The contact book contains `Hans Gruber`.
   - **Test Case:** `find Gruber Hans`
   - **Expected:** The system lists `Hans Gruber`. The order of keywords does not affect search results.
 
 
-1. Partial word should not match
+5. Partial word should not match
   - **Prerequisite:**
     - The contact book contains `Hans Gruber` and `Han Solo`.
   - **Test Case:** `find Han`
@@ -775,42 +748,42 @@ testers are expected to do more *exploratory* testing.
     `Han Solo` is listed since `Han` is a full word in that name.
 
 
-1. Finding persons by keyword organisation
+6. Finding persons by keyword organisation
   - **Prerequisite:**
     - The contact book contains `Alice Tan` with organisation `Google`.
   - **Test Case:** `find Google`
   - **Expected:** `Alice Tan` is listed because her organisation contains the keyword `Google`.
 
 
-1. Finding persons by keyword role
+7. Finding persons by keyword role
   - **Prerequisite:**
     - The contact book contains `David Li` with the role `Manager`.
   - **Test Case:** `find manager`
   - **Expected:** `David Li` is listed since his role matches the keyword `manager`.
 
 
-1. Finding persons by keyword category
+8. Finding persons by keyword category
   - **Prerequisite:**
     - The contact book contains `Alex Yeoh` with category `family`.
   - **Test Case:** `find family`
   - **Expected:** `Alex Yeoh` is listed because the category `family` matches the keyword.
 
 
-1. Searching with a non-existent keyword
+9. Searching with a non-existent keyword
   - **Prerequisite:**
     - No person has any field matching `Kieron`.
   - **Test Case:** `find Kieron`
   - **Expected:** No results displayed. Status bar shows `0 persons listed!`.
 
 
-1. Handling extra spaces in input
+10. Handling extra spaces in input
   - **Prerequisite:**
     - The contact book contains `David Li`.
   - **Test Case:** `find   david    `
   - **Expected:** `David Li` is listed normally. Leading or trailing spaces are ignored.
 
 
-1. Empty input
+11. Empty input
   - **Prerequisite:**
     - Any state of the contact book.
   - **Test Case:** `find`
@@ -829,11 +802,21 @@ testers are expected to do more *exploratory* testing.
   - **Expected:** The system displays a list of all persons currently stored in the contact book. Both `John Doe` and `Alex Yeoh` are displayed in the result panel.
 
 
-1. Listing all persons when the contact book is empty
+2. Listing all persons when the contact book is empty
   - **Prerequisite:**
     - The contact book contains no persons.
   - **Test Case:** `list`
   - **Expected:** The system shows an empty list. `No contact available.` is displayed.
+
+### Editing a contact
+
+**Command:** `edit`
+
+1. Editing an existing contact (e.g., the first contact).
+
+* **Prerequisite**: Ensure at least one contact exists in the list. If not, add a contact using the `add` command. E.g `add n/John Doe p/98765432 e/johnd@gmail.com o/NUS r/Student c/friends`
+
+* **Test case**: `edit i/1 n/John Doe`
 
 
 

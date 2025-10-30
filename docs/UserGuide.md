@@ -262,13 +262,13 @@ Deletes an interview from a contact in the contact book.
 
 > **Format** 
 > ```
-> deleteInterview i/PERSON_INDEX i/INTERVIEW_INDEX
+> deleteInterview i/PERSON_INDEX v/INTERVIEW_INDEX
 > ```
 
 * Deletes the interview at the specified `INTERVIEW_INDEX` from the contact at the specified `PERSON_INDEX`. The indices refer to the index numbers shown in the displayed person list and interview list respectively. The indices **must be positive integers** 1, 2, 3, …​
 
 Examples:
-* `deleteInterview i/1 i/2` Deletes the 2nd interview from the 1st contact in the contact book.
+* `deleteInterview i/1 v/2` Deletes the 2nd interview from the 1st contact in the contact book.
 
 ### Listing all interviews of a contact : `listInterview`
 

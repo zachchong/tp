@@ -15,40 +15,54 @@ public class OrganisationTest {
 
     @Test
     public void constructor_invalidOrganisation_throwsIllegalArgumentException() {
-        String invalidOrganisation = "";
-        assertThrows(IllegalArgumentException.class, () -> new Organisation(invalidOrganisation));
+        // Keep just representative cases to avoid duplicating EP coverage
+        assertThrows(IllegalArgumentException.class, () -> new Organisation("")); // empty
+        assertThrows(IllegalArgumentException.class, () -> new Organisation(" NUS")); // leading space
     }
 
     @Test
     public void isValidOrganisation() {
-        // null organisation
+        // EP (null): invalid
         assertThrows(NullPointerException.class, () -> Organisation.isValidOrganisation(null));
 
-        // invalid organisations
-        assertFalse(Organisation.isValidOrganisation("")); // empty string
-        assertFalse(Organisation.isValidOrganisation(" ")); // spaces only
+        // EP (invalid): empty / whitespace-only
+        assertFalse(Organisation.isValidOrganisation(""));
+        assertFalse(Organisation.isValidOrganisation(" "));
 
-        // valid organisations
+        // EP (invalid): non-alphanumeric or bad spacing
+        assertFalse(Organisation.isValidOrganisation("Alice & Peter")); // ampersand
+        assertFalse(Organisation.isValidOrganisation("Alice-Peter")); // hyphen
+        assertFalse(Organisation.isValidOrganisation("Alice_Peter")); // underscore
+        assertFalse(Organisation.isValidOrganisation("National  University")); // double space
+        assertFalse(Organisation.isValidOrganisation(" NUS")); // leading space
+        assertFalse(Organisation.isValidOrganisation("NUS ")); // trailing space
+        assertFalse(Organisation.isValidOrganisation("東京大学")); // non-ASCII
+
+        // EP (valid): single alphanumeric word
         assertTrue(Organisation.isValidOrganisation("CAPT"));
-        assertTrue(Organisation.isValidOrganisation("A")); // one character
-        assertTrue(Organisation.isValidOrganisation("College of Alice & Peter Tan")); // long organisation
+        assertTrue(Organisation.isValidOrganisation("A")); // minimal length
+
+        // EP (valid): multiple words separated by single spaces; digits allowed
+        assertTrue(Organisation.isValidOrganisation("National University"));
+        assertTrue(Organisation.isValidOrganisation("Channel 8 News"));
+        assertTrue(Organisation.isValidOrganisation("Team 2 Alpha"));
     }
 
     @Test
-    public void isValidOrganisationName_lengthLimits() {
-        // EP: less than 50 characters -> valid
+    public void isValidOrganisation_lengthLimits() {
+        // EP/BVA (valid): < 50 characters
         String valid49 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"; // 49 a's
         assertTrue(Organisation.isValidOrganisation(valid49));
 
-        // EP: exactly 50 characters -> valid
+        // BVA (valid): exactly 50 characters
         String valid50 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"; // 50 a's
         assertTrue(Organisation.isValidOrganisation(valid50));
 
-        // EP: 51 characters (too long) -> invalid
+        // BVA (invalid): 51 characters
         String invalid51 = valid50 + "a";
         assertFalse(Organisation.isValidOrganisation(invalid51));
 
-        // constructor should reject too-long organisation names
+        // Constructor should reject too-long organisation names
         assertThrows(IllegalArgumentException.class, () -> new Organisation(invalid51));
     }
 

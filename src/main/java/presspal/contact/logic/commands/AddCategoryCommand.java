@@ -61,17 +61,31 @@ public class AddCategoryCommand extends EditCategoryCommand {
         Person personToAddCat = lastShownList.get(index.getZeroBased());
         Person editedPerson = createNewPerson(personToAddCat, editCategoryDescriptor);
 
-        if (personToAddCat.getCategories().equals(editedPerson.getCategories())) {
+        Set<Category> categoriesToAdd = getCategoriesToAdd(personToAddCat, editCategoryDescriptor);
+        if (categoriesToAdd.isEmpty()) {
             throw new CommandException(MESSAGE_DUPLICATE_CAT);
         }
 
         model.setPerson(personToAddCat, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-
+        editCategoryDescriptor.setCategories(categoriesToAdd);
         return new CommandResult(String.format(MESSAGE_ADDCAT_SUCCESS, editedPerson.getName(),
                 editCategoryDescriptor.getCategoriesAsString()));
     }
 
+    private Set<Category> getCategoriesToAdd(Person personToAddCat, EditCategoryDescriptor editCategoryDescriptor) {
+        Set<Category> updatedCategories = new HashSet<>(personToAddCat.getCategories());
+        Set<Category> categoriesToAdd = editCategoryDescriptor.getCategories();
+        Set<Category> notFoundCategories = new HashSet<>();
+
+        for (Category category : categoriesToAdd) {
+            if (!updatedCategories.contains(category)) {
+                notFoundCategories.add(category);
+            }
+        }
+
+        return notFoundCategories;
+    }
     /**
      * Creates and returns a {@code Person} with the details of {@code personToAddCat}
      * edited with {@code editCategoryDescriptor}.
