@@ -76,12 +76,10 @@ public class AddInterviewCommand extends Command {
 
         // check for duplicate date time for same person
         if (interviewList.hasInterviewAt(toAdd.getDateTime())) {
-            if (interviewList.hasInterviewAt(toAdd.getDateTime())) {
-                String when = toAdd.getDateTime().format(DISPLAY_DATE_TIME_FORMATTER);
-                throw new CommandException(String.format(MESSAGE_DUPLICATE_DATETIME,
-                        targetPerson.getName(),
-                        when));
-            }
+            String when = toAdd.getDateTime().format(DISPLAY_DATE_TIME_FORMATTER);
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_DATETIME,
+                    targetPerson.getName(),
+                    when));
         }
 
         interviewList.add(toAdd);
