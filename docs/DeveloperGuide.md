@@ -652,44 +652,44 @@ testers are expected to do more *exploratory* testing.
     * **Test Case:** `add n/John Doe p/12345678 e/johnd@example.com o/NUS r/TA c/Student`
     * **Expected:** Person is added to the contact book. Details of the new person is shown in the status message.
       <br><br>
-2. Adding a person with missing <u>mandatory fields<u>
+2. Adding a person with missing <u>mandatory fields</u>
     * **Test Case:** `add p/12345678 e/johnd@example.com o/NUS r/TA c/Student`
     * **Expected:** Person is not added. Error details shown in the status message.
       <br><br>
-3. Adding a person with invalid <u>Organisation format<u>
+3. Adding a person with invalid <u>Organisation format</u>
     * **Test Case:** `add n/John Doe p/12345678 e/johnd@example.com o/NUS-C r/TA`
     * **Expected:** Person is not added. Error details shown in the status message.
-
+      <br><br>
 
 ### Editing a person
 
 **Command:** `edit`
 
-1. Editing an existing contact.
-  * **Prerequisite:** Ensure at least one contact exists in the list. If not, add a contact using the `add` command. E.g `add n/John Doe p/98765432 e/johnd@gmail.com o/NUS r/Student c/friends`.
-  * **Test case:** `edit i/1 n/Jason Doe p/88888888`
-  * **Expected:** Index 1 contact's name is changed to "Jason Doe" and phone to "88888888". Details of the edited contact shown in the status message.
-  <br><br>
-2. Editing a contact when the contact book is empty.
-  * **Prerequisite:** Ensure the contact book is empty. Run `clear` to clear the contact book.
-  * **Test case:** `edit i/1 n/John Doe`
-  * **Expected:** No contact is edited. Error details shown in the status message.
-  <br><br>
-3. Editing a contact with invalid email.
-  * **Prerequisite:** Ensure at least one contact exists in the list. If not, add a contact using the `add` command. E.g `add n/John Doe p/98765432 e/johnd@gmail.com o/NUS r/Student c/friends`.
-  * **Test case:** `edit i/1 n/John Doe e/johndoe.com`
-  * **Expected:** No contact is edited. Error details shown in the status message.
-  <br><br>
-4. Editing a contact with invalid index.
-  * **Prerequisite:** Ensure at least one contact exists in the list. If not, add a contact using the `add` command. E.g `add n/John Doe p/98765432 e/johnd@gmail.com o/NUS r/Student c/friends`.
-  * **Test case:** `edit i/0 n/John Doe`
-  * **Expected:** No contact is edited. Error details shown in the status message.
-  <br><br>
-5. Editing a contact without any field.
-  * **Prerequisite:** Ensure at least one contact exists in the list. If not, add a contact using the `add` command. E.g `add n/John Doe p/98765432 e/johnd@gmail.com o/NUS r/Student c/friends`.
-  * **Test case:** `edit i/1`
-  * **Expected:** No contact is edited. Error details shown in the status message.
-
+1. Editing an <u>existing contact</u>
+    * **Prerequisite:** Ensure at least one contact exists in the list. If not, add a contact using the `add` command. E.g `add n/John Doe p/98765432 e/johnd@gmail.com o/NUS r/Student c/friends`.
+    * **Test case:** `edit i/1 n/Jason Doe p/88888888`
+    * **Expected:** Index 1 contact's name is changed to "Jason Doe" and phone to "88888888". Details of the edited contact shown in the status message.
+    <br><br>
+2. Editing a contact when the contact book is <u>empty</u>
+    * **Prerequisite:** Ensure the contact book is empty. Run `clear` to clear the contact book.
+    * **Test case:** `edit i/1 n/John Doe`
+    * **Expected:** No contact is edited. Error details shown in the status message.
+    <br><br>
+3. Editing a contact with <u>invalid email</u>
+    * **Prerequisite:** Ensure at least one contact exists in the list. If not, add a contact using the `add` command. E.g `add n/John Doe p/98765432 e/johnd@gmail.com o/NUS r/Student c/friends`.
+    * **Test case:** `edit i/1 n/John Doe e/johndoe.com`
+    * **Expected:** No contact is edited. Error details shown in the status message.
+    <br><br>
+4. Editing a contact with <u>invalid index</u>
+    * **Prerequisite:** Ensure at least one contact exists in the list. If not, add a contact using the `add` command. E.g `add n/John Doe p/98765432 e/johnd@gmail.com o/NUS r/Student c/friends`.
+    * **Test case:** `edit i/0 n/John Doe`
+    * **Expected:** No contact is edited. Error details shown in the status message.
+    <br><br>
+5. Editing a contact <u>without any field</u>
+    * **Prerequisite:** Ensure at least one contact exists in the list. If not, add a contact using the `add` command. E.g `add n/John Doe p/98765432 e/johnd@gmail.com o/NUS r/Student c/friends`.
+    * **Test case:** `edit i/1`
+    * **Expected:** No contact is edited. Error details shown in the status message.
+    <br><br>
 
 ### Deleting a person
 
@@ -700,123 +700,94 @@ testers are expected to do more *exploratory* testing.
 1. Deleting a person with a <u>valid index</u>
     * **Test case:** `delete i/1 `
     * **Expected:** Confirmation message shown that person at index 1 is deleted from the list.
-
+      <br><br>
 2. Deleting a person with <u>out of bounds index</u>
     * **Test case:** `delete i/0`
     * **Expected:** Error message shown indicating invalid index.
-
+      <br><br>
 3. Deleting a person <u>without any index</u>
     * **Test case:** `delete`
     * **Expected:** Error message shown indicating invalid command format.
-
+      <br><br>
 4. Deleting a person with a valid index with <u>additional prefixes</u>
     * **Test case:** `delete i/1 n/John`
     * **Expected:** Error message shown indicating invalid command format.
-
+      <br><br>
 
 ### Listing All Persons
 
 **Command**: `list`
 
-1. Listing all persons when there are existing contacts
+1. Listing all persons when there are <u>existing contacts</u>
    * **Prerequisite:** The contact book contains at least one person (e.g., `John Doe`, `Alex Yeoh`).
    * **Test Case:** `list`
    * **Expected:** The system displays a list of all persons currently stored in the contact book. Both `John Doe` and `Alex Yeoh` are displayed in the result panel.
-  <br><br>
-2. Listing all persons when the contact book is empty
+     <br><br>
+2. Listing all persons when the contact book is <u>empty</u>
    * **Prerequisite:** The contact book contains no persons.
    * **Test Case:** `list`
    * **Expected:** The system shows an empty list. `No contact available.` is displayed.
-
+     <br><br>
 
 ### Locating Persons by Name, Organisation, Role, or Categories
 
 **Command**: `find`
 
-1. Finding persons by keyword name
+1. Finding persons by keyword <u>name</u>
     * **Prerequisite:** The contact book contains at least one person with the name `John Doe`.
     * **Test Case:** `find John`
     * **Expected:** The system lists all persons whose `name` contains the full word `John`. Example: `John Doe` is displayed. Status bar shows `1 person listed!`.
-
-2. Finding persons by multiple keywords
+      <br><br>
+2. Finding persons by <u>multiple keywords</u>
     * **Prerequisite:** The contact book contains persons `Bernice Yu` and `Charlotte Oliveira`.
     * **Test Case:** `find bernice charlotte`
     * **Expected:** The system lists both `Bernice Yu` and `Charlotte Oliveira`. Status bar shows `2 persons listed!`. The search behaves as an OR search.
-
-3. Case-insensitive search
-    * **Prerequisite:**  
-      The contact book contains `Alex Yeoh`.
-    * **Test Case:**  
-      `find AlEx`
-    * **Expected:**  
-      The system lists `Alex Yeoh`. The search is case-insensitive.
-
-4. Order of keywords does not matter
-    * **Prerequisite:**  
-      The contact book contains `Hans Gruber`.
-    * **Test Case:**  
-      `find Gruber Hans`
-    * **Expected:**  
-      The system lists `Hans Gruber`. The order of keywords does not affect search results.
-
-5. Partial word should not match
-    * **Prerequisite:**  
-      The contact book contains `Hans Gruber` and `Han Solo`.
-    * **Test Case:**  
-      `find Han`
-    * **Expected:**  
-      `Hans Gruber` is **not** listed since `Han` is only part of the name.  
-      `Han Solo` is listed since `Han` is a full word in that name.
-
-6. Finding persons by keyword organisation
-    * **Prerequisite:**  
-      The contact book contains `Alice Tan` with organisation `Google`.
-    * **Test Case:**  
-      `find Google`
-    * **Expected:**  
-      `Alice Tan` is listed because her organisation contains the keyword `Google`.
-
-7. Finding persons by keyword role
-    * **Prerequisite:**  
-      The contact book contains `David Li` with the role `Manager`.
-    * **Test Case:**  
-      `find manager`
-    * **Expected:**  
-      `David Li` is listed since his role matches the keyword `manager`.
-
-8. Finding persons by keyword category
-    * **Prerequisite:**  
-      The contact book contains `Alex Yeoh` with category `family`.
-    * **Test Case:**  
-      `find family`
-    * **Expected:**  
-      `Alex Yeoh` is listed because the category `family` matches the keyword.
-
-9. Searching with a non-existent keyword
-    * **Prerequisite:**  
-      No person has any field matching `Kieron`.
-    * **Test Case:**  
-      `find Kieron`
-    * **Expected:**  
-      No results displayed. Status bar shows `0 persons listed!`.
-
-10. Handling extra spaces in input
-    * **Prerequisite:**  
-      The contact book contains `David Li`.
-    * **Test Case:**  
-      `find   david    `
-    * **Expected:**  
-      `David Li` is listed normally. Leading or trailing spaces are ignored.
-
-11. Empty input
-    * **Prerequisite:**  
-      Any state of the contact book.
-    * **Test Case:**  
-      `find`
-    * **Expected:**  
-      Error message shown indicating invalid command format.  
-      Usage message displayed: `find KEYWORD [MORE_KEYWORDS]`.
-
+      <br><br>
+3. <u>Case-insensitive</u> search
+    * **Prerequisite:** The contact book contains `Alex Yeoh`.
+    * **Test Case:** `find AlEx`
+    * **Expected:** The system lists `Alex Yeoh`. The search is case-insensitive.
+      <br><br>
+4. <u>Order</u> of keywords does not matter
+    * **Prerequisite:** The contact book contains `Hans Gruber`.
+    * **Test Case:** `find Gruber Hans`
+    * **Expected:** The system lists `Hans Gruber`. The order of keywords does not affect search results.
+      <br><br>
+5. <u>Partial word</u> should not match
+    * **Prerequisite:** The contact book contains `Hans Gruber` and `Han Solo`.
+    * **Test Case:** `find Han`
+    * **Expected:** `Hans Gruber` is **not** listed since `Han` is only part of the name. `Han Solo` is listed since `Han` is a full word in that name.
+      <br><br>
+6. Finding persons by keyword <u>organisation</u>
+    * **Prerequisite:** The contact book contains `Alice Tan` with organisation `Google`.
+    * **Test Case:** `find Google`
+    * **Expected:** `Alice Tan` is listed because her organisation contains the keyword `Google`.
+      <br><br>
+7. Finding persons by keyword <u>role</u>
+    * **Prerequisite:** The contact book contains `David Li` with the role `Manager`.
+    * **Test Case:** `find manager`
+    * **Expected:** `David Li` is listed since his role matches the keyword `manager`.
+      <br><br>
+8. Finding persons by keyword <u>category</u>
+    * **Prerequisite:** The contact book contains `Alex Yeoh` with category `family`.
+    * **Test Case:** `find family`
+    * **Expected:** `Alex Yeoh` is listed because the category `family` matches the keyword.
+      <br><br>
+9. Searching with a <u>non-existent keyword</u>
+    * **Prerequisite:** No person has any field matching `Kieron`.
+    * **Test Case:** `find Kieron`
+    * **Expected:** No results displayed. Status bar shows `0 persons listed!`.
+      <br><br>
+10. Handling <u>extra spaces</u> in input
+    * **Prerequisite:** The contact book contains `David Li`.
+    * **Test Case:** `find   david    `
+    * **Expected:** `David Li` is listed normally. Leading or trailing spaces are ignored.
+      <br><br>
+11. <u>Empty</u> input
+    * **Prerequisite:** Any state of the contact book.
+    * **Test Case:** `find`
+    * **Expected:** Error message shown indicating invalid command format.
+      <br><br>
 
 ### Add interview(s) to a person
 
@@ -826,34 +797,35 @@ testers are expected to do more *exploratory* testing.
 1. Adding a <u>valid interview</u> to a person
     * **Test case:** `addInterview i/1 h/Interview with ABC Corp d/2024-10-10 t/14:00 l/123, Business St, #02-25`
     * **Expected:** Confirmation message shown that the interview has been added to the person at index 1.
-
+      <br><br>
 2. Adding interview with <u>invalid index</u>
     * **Test case:** `addInterview i/-1 h/Interview with ABC Corp d/2024-10-10 t/14:00 l/123, Business St, #02-25`
     * **Expected:** Error message shown indicating invalid command format.
-
+      <br><br>
 3. Adding interview with <u>empty header</u> to a person
     * **Test case:** `addInterview i/1 h/ d/2024-10-10 t/14:00 l/123, Business St, #02-25`
     * **Expected:** Error message shown indicating header cannot be blank.
-
+      <br><br>
 4. Adding interview with <u>invalid date</u> to a person
     * **Test case:** `addInterview i/1 h/Interview with ABC Corp d/24-10-10 t/14:00 l/123, Business St, #02-25`
     * **Expected:** Error message shown indicating invalid date.
-
+      <br><br>
 5. Adding interview with <u>invalid time</u> to a person
     * **Test case:** `addInterview i/1 h/Interview with ABC Corp d/2024-10-10 t/1400 l/123, Business St, #02-25`
     * **Expected:** Error message shown indicating invalid time.
-
+      <br><br>
 6. Adding interview with <u>empty location</u> to a person
     * **Test case:** `addInterview i/1 h/Interview with ABC Corp d/2024-10-10 t/14:00 l/`
     * **Expected:** Error message shown indicating location cannot be blank.
-
+      <br><br>
 7. Adding interview with <u>missing parameters</u> to a person
     * **Test case:** `addInterview i/1 h/Interview with ABC Corp d/2024-10-10 t/14:00`
     * **Expected:** Error message shown indicating invalid command format.
-
+      <br><br>
 8. Adding interview with <u>additional parameters</u> to a person
     * **Test case:** `addInterview i/1 h/Interview with ABC Corp d/2024-10-10 t/14:00 l/123, Business St, #02-25 c/formal`
     * **Expected:** Error message shown indicating invalid command format.
+      <br><br>
 
 ### Delete interview(s) to a person
 
@@ -864,57 +836,53 @@ testers are expected to do more *exploratory* testing.
 1. Deleting a <u>valid interview</u> from a person
     * **Test case:** `deleteInterview i/1 v/2`
     * **Expected:** Confirmation message shown that the interview has been deleted from the person at 1.
-
+      <br><br>
 2. Deleting an interview with a <u>invalid person index</u>
     * **Test case:** `deleteInterview i/0 v/2`
     * **Expected:** Error message shown indicating invalid index.
-
+      <br><br>
 3. Deleting an interview with a <u>invalid interview index</u>
     * **Test case:** `deleteInterview i/1 v/-2`
     * **Expected:** Error message shown indicating invalid index.
-
+      <br><br>
 4. Deleting an interview with a <u>missing parameters</u>
     * **Test case:** `deleteInterview i/1`
     * **Expected:** Error message shown indicating invalid command format.
-
+      <br><br>
 5. Deleting an interview with a <u>additional parameters</u>
     * **Test case:** `deleteInterview i/1 v/1 h/Interview with ABC Corps`
     * **Expected:** Error message shown indicating invalid command format.
-
+      <br><br>
 
 ### Display the list of interview(s) for a person
 
 **Command**: `listInterview`
 
 1. Displaying a person's interview(s)
-    * **Prerequisites:**
-        * Ensure the person at index `1` exists in the contact book with at least one interview.
+    * **Prerequisites:** Ensure the person at index `1` exists in the contact book with at least one interview.
     * **Test Case:** `listInterview i/1`
     * **Expected:** Success message showing the person's list of interview(s).
       <br><br>
 2. Displaying <u>an empty list of</u> interview(s) for a person
-    * **Prerequisites:**
-        * Ensure that the person at index `1` has no interview(s).
+    * **Prerequisites:** Ensure that the person at index `1` has no interview(s).
     * **Test Case:** `listInterview i/1`
     * **Expected:** Error message shown indicating the person has no interview(s) scheduled.
-
+      <br><br>
 
 ### Display the upcoming interview
 
 **Command**: `nextInterview`
 
 1. Displaying the next upcoming interview in the contact book
-    * **Prerequisites:**
-        * Ensure at least one person exists in the contact book with an interview date of later than present time.
+    * **Prerequisites:** Ensure at least one person exists in the contact book with an interview date of later than present time.
     * **Test Case:** `nextInterview`
     * **Expected:** Success message showing the next upcoming interview.
       <br><br>
 2. Displaying the next upcoming interview for an empty contact book
-    * **Prerequisites:**
-        * Ensure that the contact book is empty by using `clear` command.
+    * **Prerequisites:** Ensure that the contact book is empty by using `clear` command.
     * **Test Case:** `nextInterview`
     * **Expected:** Error message shown indicating the contact book is empty.
-
+      <br><br>
 
 ### Add category(s) to a person
 
@@ -941,7 +909,7 @@ testers are expected to do more *exploratory* testing.
 5. Adding a category to a <u>non-existent person</u>
     * **Test case:** `addCat i/999 c/family`
     * **Expected:** Error message shown indicating person not found.
-
+      <br><br>
 
 ### Delete category(s) from a person
 
