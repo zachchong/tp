@@ -3,11 +3,30 @@ layout: default.md
 title: Developer Guide
 pageNav: 3
 ---
-* Table of Contents
-{:toc}
+<style>
+/* Make all H2 big & dark */
+h2 {
+  color: #0C3878 !important;
+  font-size: 3rem !important;
+  font-weight: 800 !important;
+  line-height: 1.2;
+  margin-top: 2rem;
+  margin-bottom: .9rem;
+}
+</style>
 
---------------------------------------------------------------------------------------------------------------------
-<img src="images/presspal-icon.png" width="280" />
+<style>
+h1 {
+  color: #E84C23 !important;
+  font-size: 4rem !important;
+  font-weight: 800 !important;
+  line-height: 1.2;
+  margin-top: 2rem;
+  margin-bottom: .9rem;
+}
+</style>
+
+![PressPalAbout](images/PressPalAbout.png)
 
 # **PressPal Developer Guide**
 
