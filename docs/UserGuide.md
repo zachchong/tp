@@ -687,10 +687,12 @@ Add category(s) to a person identified by the index number used in the displayed
 
 > **Format** 
 > ```
-> addCat i/PERSON_INDEX [c/CATEGORY]...
+> addCat i/PERSON_INDEX c/CATEGORY
 > ```
 
-* If category A is already added to a person, any attempt to add category A again to the person will be rejected with an error message.
+* If a category is already added to a person, any attempt to add that category again to the person will be ignored.
+  * E.g If `friend` is already a category added to person at index 1, running `addCat i/1 c/friend` will throw an error message. In a case with multiple categories (e.g `addCat i/1 c/friend c/work`), no error message is thrown but only `work` is added to person at index 1.
+* At least one category must be specified, but you may choose to add more categories by repeating the use of `c/`.
 
 Examples:
 * `addCat i/1 c/emergency` Adds the category `emergency` to the person with index 1.
@@ -864,7 +866,7 @@ Action | Format, Examples
 **AddInterview** | `addInterview i/PERSON_INDEX h/HEADER d/DATE t/TIME l/LOCATION` <br> e.g., `addInterview i/1 h/Interview with ABC Corp d/2024-10-10 t/14:00 l/123, Business St, #02-25`
 **DeleteInterview** | `deleteInterview i/PERSON_INDEX v/INTERVIEW_INDEX` <br> e.g., `deleteInterview i/1 v/2`
 **ListInterview** | `listInterview i/PERSON_INDEX` <br> e.g., `listInterview i/1`
-**AddCat** | `addCat i/PERSON_INDEX [c/CATEGORY]...`<br>e.g., `addCat i/1 c/emergency`
+**AddCat** | `addCat i/PERSON_INDEX c/CATEGORY`<br>e.g., `addCat i/1 c/emergency`
 **DeleteCat** | `deleteCat i/PERSON_INDEX [c/CATEGORY]...`<br>e.g., `deleteCat i/1 c/emergency`
 **NextInterview** | `nextInterview`
 **Exit** | `exit`
