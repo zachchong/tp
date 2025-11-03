@@ -260,7 +260,7 @@ PressPal is designed to streamline contact and interview management for breaking
 
 The **goal of PressPal** is to:
 - Provide reporters with a single command-driven system for organizing and retrieving contacts quickly.
-- Enable fast entry and retrieval of context (interview history, organization, role, notes) while working on multiple stories simultaneously.
+- Enable fast entry and retrieval of context (interview history, organisation, role, notes) while working on multiple stories simultaneously.
 - Support the entire lifecycle of a contact — from initial outreach, to active follow-up, to archiving once a story concludes.
   Ultimately, PressPal aims to reduce cognitive load for reporters, allowing them to focus on storytelling while ensuring no lead, contact, or follow-up is lost.
 
@@ -341,7 +341,7 @@ The **goal of PressPal** is to:
 
    * `add n/John Doe p/98765432 e/johnd@example.com r/Student o/NUS c/friends c/owesMoney` : Adds a contact named `John Doe` to the Contact Book.
 
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
+   * `delete i/3` : Deletes the 3rd contact shown in the current list.
 
    * `clear` : Deletes all contacts.
 
@@ -353,7 +353,7 @@ The **goal of PressPal** is to:
 --------------------------------------------------------------------------------------------------------------------
 
 <details open>
-  <summary><h2>Input Parameters</h2></summary>
+  <summary><h2>Input Format & Parameters</h2></summary>
 
 <panel header=":information_source: Notes about parameters" type="info" expanded>
 
@@ -387,14 +387,13 @@ The **goal of PressPal** is to:
   </details>
 
   <details>
-    <summary><span class="caret">▶</span> Items with <code>…</code> can repeat (including zero times)</summary>
+    <summary><span class="caret">▶</span> The only parameter symbol that can be repeated is <code>CATEGORY</code> (<code>/c</code>) in <code>addCat</code> and <code>deleteCat</code>. </summary>
     <div class="rule-body">
-      Repeat the same flag as needed.
+      You may add as many parameters that you want to add or delete, but there should be at least one specified parameter.
       <div class="example">
         <button class="copybtn" data-copy="c/friend c/family">Copy</button>
         <strong>Examples</strong><br/>
         <code>[c/CATEGORY]…</code><br/>
-        → <code>(zero times)</code><br/>
         → <code>c/friend</code><br/>
         → <code>c/friend c/family</code>
       </div>
@@ -433,6 +432,13 @@ The **goal of PressPal** is to:
 <h3 id="contact-parameters" class="visually-hidden-anchor">Contact Parameters</h3>
 <h3 id="interview-parameters" class="visually-hidden-anchor">Interview Parameters</h3>
 
+<details class="caution" open>
+  <summary>⚠️ NOTE: Please carefully go through the table below! </summary>
+  <div class="caution-body">
+    The table below will detail the acceptable format of each parameter and it applies to all command types.
+  </div>
+</details>
+
 <tabs>
 
   <tab header="🧭 **General**" active>
@@ -449,14 +455,14 @@ The **goal of PressPal** is to:
   <tab header="👤 **Contact**">
   <h3>Contact Parameters</h3>
 
-| Symbol | Parameter     | Description                                       | Constraints |
-|:-----:|:--------------|:--------------------------------------------------|:------------|
-| `n/`  | `NAME`        | Person’s full name as you’d like it displayed.    | Non-empty string. |
-| `o/`  | `ORGANISATION`| Company, school, outlet, etc.                     | Alphanumeric words with single spaces, 1–50 chars. |
-| `r/`  | `ROLE`        | Job title or position (e.g., Reporter, Lawyer).   | Alphanumeric words with single spaces, 1–50 chars. |
-| `e/`  | `EMAIL`       | Email address used for contacting the person.     | <ul><li>Format: <code>local-part@domain</code>.</li><li><strong>Local-part</strong>: letters/digits plus <code>+</code>, <code>_</code>, <code>.</code>, <code>-</code>; cannot start or end with a special character.</li><li><strong>Domain</strong>: one or more labels separated by dots.</li><li>Each label starts and ends with an alphanumeric character.</li><li>Within a label, only letters/digits and hyphens (<code>-</code>) are allowed.</li><li>Final label (TLD) must be at least <strong>2 characters</strong> long.</li></ul> |
-| `p/`  | `PHONE`       | Phone number (no formatting required).            | Minimum of 3 digits. |
-| `c/`  | `CATEGORY`    | Tag for grouping (e.g., `emergency`, `election`). | Alphanumeric, no spaces, 1–20 chars. |
+| Symbol | Parameter     | Description                                       | Constraints                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+|:-----:|:--------------|:--------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `n/`  | `NAME`        | Person’s full name as you’d like it displayed.    | Non-empty string.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `o/`  | `ORGANISATION`| Company, school, outlet, etc.                     | Alphanumeric words with single spaces, 1–50 chars.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `r/`  | `ROLE`        | Job title or position (e.g., Reporter, Lawyer).   | Alphanumeric words with single spaces, 1–50 chars.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `e/`  | `EMAIL`       | Email address used for contacting the person.     | <ul><li>Format: <code>local-part@domain</code>.</li><li><strong>Local-part</strong>: letters/digits plus <code>+</code>, <code>_</code>, <code>.</code>, <code>-</code>; cannot start or end with a special character; cannot be left empty.</li><li><strong>Domain</strong>: one or more labels separated by dots; must be minimally 2 characters in length.</li><li>Each label starts and ends with an alphanumeric character.</li><li>Within a label, only letters/digits and hyphens (<code>-</code>) are allowed.</li><li>Final label (TLD) must be at least <strong>2 characters</strong> long.</li></ul> |
+| `p/`  | `PHONE`       | Phone number (no formatting required).            | Minimum of 3 digits.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `c/`  | `CATEGORY`    | Tag for grouping (e.g., `emergency`, `election`). | Alphanumeric, no spaces, 1–20 chars.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 
 
   </tab>
@@ -595,7 +601,7 @@ Shows a list of all persons in the contact book.
 
 ### Locating persons by name, organisation, role, or categories : `find`
 
-Finds persons whose name, organisation, role or categories contain any of the given keywords.
+Finds person(s) whose name, organisation, role or categories matches exactly with at least one of the given keywords.
 
 > **Format** 
 > ```
@@ -605,7 +611,7 @@ Finds persons whose name, organisation, role or categories contain any of the gi
 * The search is case-insensitive. e.g `hans` will match `Hans`.
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 * Only the name, organisation, role and categories are searched. Other fields such as phone or email are not included.
-* Only full words will be matched e.g. `Han` will not match `Hans`.
+* The entered `KEYWORD` must match exactly with the intended search e.g. `Han` will not match `Hans`.
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`.
 
@@ -738,6 +744,9 @@ Examples:
 **Q:** <u>Why didn’t a command work?</u>  
 **A:** Check the format and parameter symbols (like `n/`, `e/`, `o/`). See the “Input Parameters” section/tabs above for the exact rules.
 
+**Q:** <u>Why can't I see the full line of text when it gets too long?</u>  
+**A:** The text extends beyond the visible area. Scroll horizontally (drag the scroll bar to the right) to view the rest of the line.
+
 **Q:** <u>Can I use PressPal offline?</u>  
 **A:** Yes. Everything runs locally; no internet is needed after download.
 
@@ -776,6 +785,10 @@ Examples:
 **Q:** <u>Why does `nextInterview` show only one person even if a few interviews share the same time?</u>  
 **A:** To keep things fast and clear. `nextInterview` gives you one “next up” so you can act right away.  
 If several interviews have the same time, we show the **first one in your current list**. The others are still there and you view them as usual (e.g., `listInterview i/…`).
+
+**Q:** <u>Why are non-alphanumeric characters (e.g special symbols) disallowed for name, organisation, role & categories? For instance, I would not be able to save 'Ben & Jerry's. </u>  
+**A:** Currently, we do not accept non-alphanumerical symbols for a more streamlined search process. We understand that this may not fully capture real world's dynamic and aim to support greater range of inputs in the future. For now, you could try workarounds. For instance, using 'Ben and Jerry' as a substitute.
+
 </tab>
 
 </tabs>
@@ -857,17 +870,17 @@ If several interviews have the same time, we show the **first one in your curren
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE e/EMAIL o/ORGANISATION r/ROLE [c/CATEGORY]…​` <br> e.g., `add n/John Doe p/98765432 e/johnd@example.com o/NUS r/Student c/friends c/owesMoney`
-**Clear** | `clear`
-**Delete** | `delete i/PERSON_INDEX`<br> e.g., `delete i/3`
-**Edit** | `edit i/PERSON_INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [o/ORGANISATION] [r/ROLE]​`<br> e.g.,`edit i/2 n/James Lee e/jameslee@example.com`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James NUS Student`
-**List** | `list`
-**AddInterview** | `addInterview i/PERSON_INDEX h/HEADER d/DATE t/TIME l/LOCATION` <br> e.g., `addInterview i/1 h/Interview with ABC Corp d/2024-10-10 t/14:00 l/123, Business St, #02-25`
-**DeleteInterview** | `deleteInterview i/PERSON_INDEX v/INTERVIEW_INDEX` <br> e.g., `deleteInterview i/1 v/2`
-**ListInterview** | `listInterview i/PERSON_INDEX` <br> e.g., `listInterview i/1`
-**AddCat** | `addCat i/PERSON_INDEX c/CATEGORY`<br>e.g., `addCat i/1 c/emergency`
-**DeleteCat** | `deleteCat i/PERSON_INDEX [c/CATEGORY]...`<br>e.g., `deleteCat i/1 c/emergency`
-**NextInterview** | `nextInterview`
-**Exit** | `exit`
-**Help** | `help`
+**add** | `add n/NAME p/PHONE e/EMAIL o/ORGANISATION r/ROLE [c/CATEGORY]…​` <br> e.g., `add n/John Doe p/98765432 e/johnd@example.com o/NUS r/Student c/friends c/owesMoney`
+**clear** | `clear`
+**delete** | `delete i/PERSON_INDEX`<br> e.g., `delete i/3`
+**edit** | `edit i/PERSON_INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [o/ORGANISATION] [r/ROLE]​`<br> e.g.,`edit i/2 n/James Lee e/jameslee@example.com`
+**find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James NUS Student`
+**list** | `list`
+**addInterview** | `addInterview i/PERSON_INDEX h/HEADER d/DATE t/TIME l/LOCATION` <br> e.g., `addInterview i/1 h/Interview with ABC Corp d/2024-10-10 t/14:00 l/123, Business St, #02-25`
+**deleteInterview** | `deleteInterview i/PERSON_INDEX v/INTERVIEW_INDEX` <br> e.g., `deleteInterview i/1 v/2`
+**listInterview** | `listInterview i/PERSON_INDEX` <br> e.g., `listInterview i/1`
+**addCat** | `addCat i/PERSON_INDEX c/CATEGORY [c/CATEGORY]`<br>e.g., `addCat i/1 c/emergency`
+**deleteCat** | `deleteCat i/PERSON_INDEX c/CATEGORY [c/CATEGORY]`<br>e.g., `deleteCat i/1 c/emergency`
+**nextInterview** | `nextInterview`
+**exit** | `exit`
+**help** | `help`
