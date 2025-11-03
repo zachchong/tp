@@ -101,9 +101,12 @@ public class Person {
         if (otherPerson == this) {
             return true;
         }
+        if (otherPerson == null) {
+            return false;
+        }
         boolean phoneMatches = this.phone != null && otherPerson.phone != null && this.phone.equals(otherPerson.phone);
         boolean emailMatches = this.email != null && otherPerson.email != null && this.email.equals(otherPerson.email);
-        return otherPerson != null && phoneMatches || emailMatches;
+        return phoneMatches || emailMatches;
     }
 
     /**

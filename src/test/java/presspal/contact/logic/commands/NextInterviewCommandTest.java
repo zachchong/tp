@@ -75,7 +75,8 @@ public class NextInterviewCommandTest {
     @Test
     public void execute_noUpcomingInterviews_returnsNoUpcomingMessage() throws Exception {
         // Replace all persons with no interviews
-        Person person1 = new PersonBuilder().withName("Charlie").build();
+        Person person1 = new PersonBuilder().withName("Charlie")
+                .withPhone("99887766").withEmail("test@gmail.com").build();
         Person person2 = new PersonBuilder().withName("David").build();
         model.setPerson(model.getFilteredPersonList().get(0), person1);
         model.setPerson(model.getFilteredPersonList().get(1), person2);

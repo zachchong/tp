@@ -43,7 +43,7 @@ public class DeleteCategoryCommandTest {
         Person editedPerson = DeleteCategoryCommand.createNewPerson(personToEdit, descriptor);
 
         String expectedMessage = String.format(DeleteCategoryCommand.MESSAGE_DELETECAT_SUCCESS,
-                editedPerson.getName(), descriptor.getCategoriesAsString());
+                editedPerson.getName(), descriptor.getCategoriesAsString(), "");
 
         Model expectedModel = new ModelManager(model.getContactBook(), new UserPrefs());
         expectedModel.setPerson(personToEdit, editedPerson);
@@ -65,7 +65,7 @@ public class DeleteCategoryCommandTest {
         Person editedPerson = DeleteCategoryCommand.createNewPerson(personInFilteredList, descriptor);
 
         String expectedMessage = String.format(DeleteCategoryCommand.MESSAGE_DELETECAT_SUCCESS,
-                editedPerson.getName(), descriptor.getCategoriesAsString());
+                editedPerson.getName(), descriptor.getCategoriesAsString(), "");
 
         Model expectedModel = new ModelManager(new ContactBook(model.getContactBook()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
