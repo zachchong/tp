@@ -281,7 +281,7 @@ The **goal of PressPal** is to:
 2. [User Interface Overview](#user-interface-overview)
     - [Layout](#layout)
     - [A Closer Look](#a-closer-look)
-      - [Command Line & Output Box](#command-line--output-box)
+      - [Command Line & Output Box](#command-line-output-box)
       - [Contact List Panel](#contact-list-panel)
 3. [Input Parameters](#input-parameters)
     - [General Parameters](#general-parameters)
