@@ -314,7 +314,7 @@ The **goal of PressPal** is to:
 1. Download and install `Java 17` on your computer.<br>
    - **Windows & Linux Users:** Download and install Java from [Oracle JDK 17 Archive Downloads](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html).
      - **Windows Users:** Follow the instructions [here](https://se-education.org/guides/tutorials/javaInstallationWindows.html) to set up and verify.
-   - **Mac users:** Follow the instructions [here](https://se-education.org/guides/tutorials/javaInstallationMac.html) to set up and verify.<br/><br/>
+   - **Mac users:** Follow the instructions [here](https://se-education.org/guides/tutorials/javaInstallationMac.html) to set up and verify.<br/>
 
 <panel header=":bulb: Tip: To verify Java 17 installation" type="info" expanded>
 
