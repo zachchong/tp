@@ -260,7 +260,7 @@ PressPal is designed to streamline contact and interview management for breaking
 
 The **goal of PressPal** is to:
 - Provide reporters with a single command-driven system for organizing and retrieving contacts quickly.
-- Enable fast entry and retrieval of context (interview history, organization, role, notes) while working on multiple stories simultaneously.
+- Enable fast entry and retrieval of context (interview history, organisation, role, notes) while working on multiple stories simultaneously.
 - Support the entire lifecycle of a contact — from initial outreach, to active follow-up, to archiving once a story concludes.
   Ultimately, PressPal aims to reduce cognitive load for reporters, allowing them to focus on storytelling while ensuring no lead, contact, or follow-up is lost.
 
@@ -341,7 +341,7 @@ The **goal of PressPal** is to:
 
    * `add n/John Doe p/98765432 e/johnd@example.com r/Student o/NUS c/friends c/owesMoney` : Adds a contact named `John Doe` to the Contact Book.
 
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
+   * `delete i/3` : Deletes the 3rd contact shown in the current list.
 
    * `clear` : Deletes all contacts.
 
@@ -595,7 +595,7 @@ Shows a list of all persons in the contact book.
 
 ### Locating persons by name, organisation, role, or categories : `find`
 
-Finds persons whose name, organisation, role or categories contain any of the given keywords.
+Finds person(s) whose name, organisation, role or categories matches exactly with at least one of the given keywords.
 
 > **Format** 
 > ```
@@ -605,7 +605,7 @@ Finds persons whose name, organisation, role or categories contain any of the gi
 * The search is case-insensitive. e.g `hans` will match `Hans`.
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 * Only the name, organisation, role and categories are searched. Other fields such as phone or email are not included.
-* Only full words will be matched e.g. `Han` will not match `Hans`.
+* The entered `KEYWORD` must match exactly with the intended search e.g. `Han` will not match `Hans`.
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`.
 
@@ -687,10 +687,12 @@ Add category(s) to a person identified by the index number used in the displayed
 
 > **Format** 
 > ```
-> addCat i/PERSON_INDEX [c/CATEGORY]...
+> addCat i/PERSON_INDEX c/CATEGORY
 > ```
 
-* If category A is already added to a person, any attempt to add category A again to the person will be rejected with an error message.
+* If a category is already added to a person, any attempt to add that category again to the person will be ignored.
+  * E.g If `friend` is already a category added to person at index 1, running `addCat i/1 c/friend` will throw an error message. In a case with multiple categories (e.g `addCat i/1 c/friend c/work`), no error message is thrown but only `work` is added to person at index 1.
+* At least one category must be specified, but you may choose to add more categories by repeating the use of `c/`.
 
 Examples:
 * `addCat i/1 c/emergency` Adds the category `emergency` to the person with index 1.
@@ -774,6 +776,10 @@ Examples:
 **Q:** <u>Why does `nextInterview` show only one person even if a few interviews share the same time?</u>  
 **A:** To keep things fast and clear. `nextInterview` gives you one “next up” so you can act right away.  
 If several interviews have the same time, we show the **first one in your current list**. The others are still there and you view them as usual (e.g., `listInterview i/…`).
+
+**Q:** <u>Why are non-alphanumeric characters (e.g special symbols) disallowed for name, organisation, role & categories? For instance, I would not be able to save 'Ben & Jerry's. </u>  
+**A:** Currently, we do not accept non-alphanumerical symbols for a more streamlined search process. We understand that this may not fully capture real world's dynamic and aim to support greater range of inputs in the future. For now, you could try workarounds. For instance, using 'Ben and Jerry' as a substitute.
+
 </tab>
 
 </tabs>
@@ -855,17 +861,17 @@ If several interviews have the same time, we show the **first one in your curren
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE e/EMAIL o/ORGANISATION r/ROLE [c/CATEGORY]…​` <br> e.g., `add n/John Doe p/98765432 e/johnd@example.com o/NUS r/Student c/friends c/owesMoney`
-**Clear** | `clear`
-**Delete** | `delete i/PERSON_INDEX`<br> e.g., `delete i/3`
-**Edit** | `edit i/PERSON_INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [o/ORGANISATION] [r/ROLE]​`<br> e.g.,`edit i/2 n/James Lee e/jameslee@example.com`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James NUS Student`
-**List** | `list`
-**AddInterview** | `addInterview i/PERSON_INDEX h/HEADER d/DATE t/TIME l/LOCATION` <br> e.g., `addInterview i/1 h/Interview with ABC Corp d/2024-10-10 t/14:00 l/123, Business St, #02-25`
-**DeleteInterview** | `deleteInterview i/PERSON_INDEX v/INTERVIEW_INDEX` <br> e.g., `deleteInterview i/1 v/2`
-**ListInterview** | `listInterview i/PERSON_INDEX` <br> e.g., `listInterview i/1`
-**AddCat** | `addCat i/PERSON_INDEX [c/CATEGORY]...`<br>e.g., `addCat i/1 c/emergency`
-**DeleteCat** | `deleteCat i/PERSON_INDEX [c/CATEGORY]...`<br>e.g., `deleteCat i/1 c/emergency`
-**NextInterview** | `nextInterview`
-**Exit** | `exit`
-**Help** | `help`
+**add** | `add n/NAME p/PHONE e/EMAIL o/ORGANISATION r/ROLE [c/CATEGORY]…​` <br> e.g., `add n/John Doe p/98765432 e/johnd@example.com o/NUS r/Student c/friends c/owesMoney`
+**clear** | `clear`
+**delete** | `delete i/PERSON_INDEX`<br> e.g., `delete i/3`
+**edit** | `edit i/PERSON_INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [o/ORGANISATION] [r/ROLE]​`<br> e.g.,`edit i/2 n/James Lee e/jameslee@example.com`
+**find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James NUS Student`
+**list** | `list`
+**addInterview** | `addInterview i/PERSON_INDEX h/HEADER d/DATE t/TIME l/LOCATION` <br> e.g., `addInterview i/1 h/Interview with ABC Corp d/2024-10-10 t/14:00 l/123, Business St, #02-25`
+**deleteInterview** | `deleteInterview i/PERSON_INDEX v/INTERVIEW_INDEX` <br> e.g., `deleteInterview i/1 v/2`
+**listInterview** | `listInterview i/PERSON_INDEX` <br> e.g., `listInterview i/1`
+**addCat** | `addCat i/PERSON_INDEX c/CATEGORY`<br>e.g., `addCat i/1 c/emergency`
+**deleteCat** | `deleteCat i/PERSON_INDEX [c/CATEGORY]...`<br>e.g., `deleteCat i/1 c/emergency`
+**nextInterview** | `nextInterview`
+**exit** | `exit`
+**help** | `help`
