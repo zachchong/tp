@@ -10,7 +10,7 @@ import static presspal.contact.commons.util.AppUtil.checkArgument;
 public class Role {
 
     public static final String MESSAGE_CONSTRAINTS = "Role must be 1 to 50 characters, using only letters and digits"
-            + ", with single spaces between words (no leading/trailing or multiple spaces).";
+            + ", with single spaces between words (no multiple spaces).";
 
     /*
      * The first character of the role must not be a whitespace,
