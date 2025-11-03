@@ -752,11 +752,11 @@ Lists all interviews of a contact in the contact book.
 * If the contact has no interviews, a message indicating so will be shown instead.
 * When a contact has multiple interviews, they are listed in descending order of datetime, meaning the interview scheduled furthest in the future appears first, while the one closest to the present (or most recent past) appears last.
 
+Output for a contact without any scheduled interviews: <br>
 ![empty interview](images/emptyInterviewExample.png)
-Output for a contact without any scheduled interviews.
 
+Output for a contact with scheduled interviews: <br>
 ![filled interview](images/filledInterviewExample.png)
-Output for a contact with scheduled interviews.
 <br/><br/>
 
 ### Display the upcoming interview : `nextInterview`
