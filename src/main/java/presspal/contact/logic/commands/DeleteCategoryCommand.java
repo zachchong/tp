@@ -37,7 +37,7 @@ public class DeleteCategoryCommand extends EditCategoryCommand {
 
     public static final String MESSAGE_DELETECAT_SUCCESS = "Category(s) successfully deleted from %1$s:\n%2$s\n\n%3$s";
     public static final String MESSAGE_CAT_NOTFOUND_SUCCESS = "However, these category(s) were not found:\n%1$s";
-    public static final String MESSAGE_CAT_NOT_FOUND = "Failed to delete category(s) from %1$s:\n%2$s";
+    public static final String MESSAGE_CAT_NOT_FOUND = "These category(s) does not exist in %1$s:\n%2$s";
 
     /**
      * @param index of the person in the filtered person list to edit
