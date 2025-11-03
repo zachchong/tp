@@ -311,16 +311,29 @@ The **goal of PressPal** is to:
 
 ## Quick start
 
-1. Ensure you have `Java 17` or above installed on your computer.<br>
+1. Download and install `Java 17` on your computer.<br>
    - **Windows & Linux Users:** Download and install Java from [Oracle JDK 17 Archive Downloads](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html).
-     - **Windows Users:** Follow the instructions [here](https://se-education.org/guides/tutorials/javaInstallationWindows.html).
-   - **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).<br/><br/>
+     - **Windows Users:** Follow the instructions [here](https://se-education.org/guides/tutorials/javaInstallationWindows.html) to set up and verify.
+   - **Mac users:** Follow the instructions [here](https://se-education.org/guides/tutorials/javaInstallationMac.html) to set up and verify.<br/><br/>
 
-<div markdown="span" class="alert alert-primary">
+<panel header=":bulb: Tip: To verify Java 17 installation" type="info" expanded>
 
-:bulb: **Tip**:
-You can verify the installation of `Java 17` by running `java -version` command in your terminal (e.g. Command Prompt, PowerShell).
-</div>
+**Windows:** Open **Command Prompt** or **PowerShell**.  
+**macOS:** Open **Terminal**.  
+**Linux:** Open your **terminal**.
+
+Then run: `java -version`
+
+**You should see a version that starts with `17`.**  
+Examples:
+- `openjdk version "17.0.x" ...`
+- `java version "17.0.x" ...`
+- `Eclipse Temurin 17.0.x`
+
+If it doesn’t start with `17` (e.g., `1.8`, `11`) or says `command not found`, Java 17 isn’t active.  
+Please refer to the instructions in **Step 1 (Quick Start)** to set it up correctly.
+
+</panel>
 
 2. **Download our app:**
    - Install the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103T-W08-1/tp/releases/latest).<br/><br/>
