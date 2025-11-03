@@ -444,7 +444,7 @@ Please refer to the instructions in **Step 1 (Quick Start)** to set it up correc
         <button class="copybtn" data-copy="addCat i/1 c/Elections c/ProtestA">Copy</button>
         <strong>Example 1 (<code>addCat</code> command):</strong><br/>
         <code>addCat i/1 c/Elections c/ProtestA</code><br/>
-        → Add "Elections" and "ProtestA" categories (if they exist) to the person at index 1 of the currently displayed list.
+        → Add "Elections" and "ProtestA" categories to the person at index 1 of the currently displayed list.
       </div>
      <div class="example">
         <button class="copybtn" data-copy="deleteCat i/1 c/Friends c/Elections">Copy</button>
