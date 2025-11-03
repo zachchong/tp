@@ -361,6 +361,13 @@ You can verify the installation of `Java 17` by running `java -version` command 
 <details open>
   <summary><h2>Input Format & Parameters</h2></summary>
 
+<details class="caution" open>
+  <summary>⚠️ CAUTION: For users using the PDF version of the user guide, please read! </summary>
+  <div class="caution-body">
+    Since the PDF automatically expands all the tabs, the "click to collapse" feature will not work!
+  </div>
+</details>
+
 <panel header=":information_source: Notes about parameters" type="info" expanded>
 
 - All parameters will be in the form of `p/PARAMETER` where `p/` is the symbol designated for that parameter.
@@ -441,7 +448,7 @@ You can verify the installation of `Java 17` by running `java -version` command 
 <details class="caution" open>
   <summary>⚠️ NOTE: Please carefully go through the table below! </summary>
   <div class="caution-body">
-    The table below will detail the acceptable format of each parameter and it applies to all command types.
+    The table below will detail the acceptable format of each parameter, which applies to all command types.
   </div>
 </details>
 
