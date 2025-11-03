@@ -670,7 +670,7 @@ PressPal data are saved in the hard disk automatically after any command that ch
 
 Adds a person to the contact book.
 * You must provide at least one of `PHONE` and `EMAIL`.
-* `PHONE` and `EMAIL` are unique identifiers are a person.
+* `PHONE` and `EMAIL` are unique identifiers for a person.
 * You cannot provide a `PHONE` or `EMAIL` that is already used by another person in the contact book.
 
 > **Format**
