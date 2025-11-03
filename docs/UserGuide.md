@@ -353,7 +353,7 @@ The **goal of PressPal** is to:
 --------------------------------------------------------------------------------------------------------------------
 
 <details open>
-  <summary><h2>Input Parameters</h2></summary>
+  <summary><h2>Input Format & Parameters</h2></summary>
 
 <panel header=":information_source: Notes about parameters" type="info" expanded>
 
