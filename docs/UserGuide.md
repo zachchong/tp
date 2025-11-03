@@ -172,10 +172,10 @@ html { scroll-behavior: smooth; }
 .rule-accordion details:first-of-type { border-top:none; }
 .rule-accordion summary {
   list-style:none; cursor:pointer; padding:.8rem 1rem; font-weight:700; color:#7c5b00;
-  display:flex; align-items:center; gap:.6rem;
+  display:flex; align-items:center; gap:.6rem; flex-wrap: wrap;
 }
 .rule-accordion summary::-webkit-details-marker { display:none; }
-.rule-accordion summary .caret { transition:transform .2s ease; }
+.rule-accordion summary .caret { transition:transform .2s ease; flex: 0 0 auto; }
 .rule-accordion details[open] summary .caret { transform:rotate(90deg); }
 .rule-accordion .rule-body { padding:.8rem 1rem 1rem 2.2rem; color:#374151; }
 
@@ -247,6 +247,20 @@ h1 {
   line-height: 1.2;
   margin-top: 2rem;
   margin-bottom: .9rem;
+}
+</style>
+
+<style>
+details summary code {
+  display: inline;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  margin: 0;
+  padding: .05em .25em;
+  background: rgba(0,0,0,.03);
+  border-radius: .25em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
 }
 </style>
 
@@ -403,50 +417,72 @@ Please refer to the instructions in **Step 1 (Quick Start)** to set it up correc
     <div class="rule-body">
       Use optional flags when you need them.
       <div class="example">
-        <button class="copybtn" data-copy="n/John Doe c/friend">Copy</button>
-        <strong>Examples</strong><br/>
-        <code>n/NAME [c/CATEGORY]</code><br/>
-        → <code>n/John Doe c/friend</code><br/>
-        → <code>n/John Doe</code>
+        <button class="copybtn" data-copy="add n/Bobby Boon o/NUS r/Student p/12345678">Copy</button>
+        <strong>Example 1A (<code>add</code> command):</strong><br/>
+        <code>add n/Bobby Boon o/NUS r/Student p/12345678</code><br/>
+        → <code>CATEGORY</code> (<code>c/</code>) can be omitted here because it is <strong>optional</strong>.
       </div>
-    </div>
-  </details>
-
-  <details>
-    <summary><span class="caret">▶</span> The only parameter symbol that can be repeated is <code>CATEGORY</code> (<code>/c</code>) in <code>addCat</code> and <code>deleteCat</code>. </summary>
-    <div class="rule-body">
-      You may add as many parameters that you want to add or delete, but there should be at least one specified parameter.
       <div class="example">
-        <button class="copybtn" data-copy="c/friend c/family">Copy</button>
-        <strong>Examples</strong><br/>
-        <code>[c/CATEGORY]…</code><br/>
-        → <code>c/friend</code><br/>
-        → <code>c/friend c/family</code>
+        <button class="copybtn" data-copy="add n/Bobby Boon o/NUS r/Student p/12345678 c/friends">Copy</button>
+        <strong>Example 1B (<code>add</code> command):</strong><br/>
+        <code>add n/Bobby Boon o/NUS r/Student p/12345678 c/friends</code><br/>
+        → The category "friends" is added with the contact here, even though it can be omitted too.
       </div>
     </div>
   </details>
 
   <details>
-    <summary><span class="caret">▶</span> Parameters can be in any order</summary>
+  <summary>
+    <span class="caret">▶</span>
+    <span class="summary-text">
+      The only parameter symbol that can be repeated is <code>CATEGORY</code> (<code>/c</code>).
+    </span>
+  </summary>
+    <div class="rule-body">
+      You may add as many parameters of <code>CATEGORY</code> (<code>/c</code>), but there should be minimally one parameter specified.
+      <div class="example">
+        <button class="copybtn" data-copy="addCat i/1 c/Elections c/ProtestA">Copy</button>
+        <strong>Example 1 (<code>addCat</code> command):</strong><br/>
+        <code>addCat i/1 c/Elections c/ProtestA</code><br/>
+        → Add "Elections" and "ProtestA" categories (if they exist) to the person at index 1 of the currently displayed list.
+      </div>
+     <div class="example">
+        <button class="copybtn" data-copy="deleteCat i/1 c/Friends c/Elections">Copy</button>
+        <strong>Example 2 (<code>deleteCat</code> command):</strong><br/>
+        <code>deleteCat i/1 c/Friends c/Elections</code><br/>
+        → Remove "Friends" and "Elections" categories (if they exist) from the person at index 1 of the currently displayed list.
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="caret">▶</span> Parameters can be in any order.</summary>
     <div class="rule-body">
       Order doesn’t matter unless stated otherwise.
       <div class="example">
-        <button class="copybtn" data-copy="p/91234567 n/John Doe">Copy</button>
-        <strong>Examples</strong><br/>
-        <code>n/NAME p/PHONE_NUMBER</code><br/>
-        ↔ <code>p/PHONE_NUMBER n/NAME</code>
+        <button class="copybtn" data-copy="add p/12345678 n/Bobby Boon o/NUS r/Student">Copy</button>
+        <strong>Example 1A (<code>add</code> command):</strong><br/>
+        <code>add p/12345678 n/Bobby Boon o/NUS r/Student</code><br/>
+        ↔ Is <strong>identical</strong> to Example 1B.
+      </div>
+      <div class="example">
+        <button class="copybtn" data-copy="add r/Student o/NUS n/Bobby Boon p/12345678">Copy</button>
+        <strong>Example 1B (<code>add</code> command):</strong><br/>
+        <code>add r/Student o/NUS n/Bobby Boon p/12345678</code><br/>
+        ↔ Is <strong>identical</strong> to Example 1A.
       </div>
     </div>
   </details>
 
   <details>
-    <summary><span class="caret">▶</span> Extra parameters on no-arg commands are ignored</summary>
+    <summary><span class="caret">▶</span> Extra parameters on commands that don't take arguments are ignored.</summary>
     <div class="rule-body">
       Commands like <code>help</code>, <code>list</code>, <code>exit</code>, <code>clear</code> ignore extras.
       <div class="example">
-        <button class="copybtn" data-copy="help">Copy</button>
-        <strong>Example</strong><br/>
-        <code>help 123</code> is treated as <code>help</code>.
+        <button class="copybtn" data-copy="help 123">Copy</button>
+        <strong>Example:</strong><br/>
+        <code>help 123</code><br/>
+        ↔ Is <strong>treated the same</strong> as <code>help</code>.
       </div>
     </div>
   </details>
