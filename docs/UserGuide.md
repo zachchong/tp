@@ -737,6 +737,9 @@ Examples:
 **Q:** <u>Why didn’t a command work?</u>  
 **A:** Check the format and parameter symbols (like `n/`, `e/`, `o/`). See the “Input Parameters” section/tabs above for the exact rules.
 
+**Q:** <u>Why can't I see the full line of text when it gets too long?</u>  
+**A:** The text extends beyond the visible area. Scroll horizontally (drag the scroll bar to the right) to view the rest of the line.
+
 **Q:** <u>Can I use PressPal offline?</u>  
 **A:** Yes. Everything runs locally; no internet is needed after download.
 
