@@ -41,7 +41,8 @@ public class ListInterviewCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         ListInterviewCommand listInterviewCommand = new ListInterviewCommand(outOfBoundIndex);
 
-        assertCommandFailure(listInterviewCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(listInterviewCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX
+                + " " + model.getValidPersonIndexRange());
     }
 
     @Test
@@ -54,7 +55,8 @@ public class ListInterviewCommandTest {
 
         ListInterviewCommand listInterviewCommand = new ListInterviewCommand(outOfBoundIndex);
 
-        assertCommandFailure(listInterviewCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(listInterviewCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX
+                + " " + model.getValidPersonIndexRange());
     }
 
     @Test

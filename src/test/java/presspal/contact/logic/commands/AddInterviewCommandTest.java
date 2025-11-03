@@ -85,7 +85,8 @@ public class AddInterviewCommandTest {
         Index outOfBound = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         AddInterviewCommand cmd = new AddInterviewCommand(new InterviewBuilder().build(), outOfBound);
 
-        assertCommandFailure(cmd, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(cmd, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX + " "
+                + model.getValidPersonIndexRange());
     }
 
     @Test

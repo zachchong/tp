@@ -55,7 +55,8 @@ public class AddCategoryCommand extends EditCategoryCommand {
         EditCategoryDescriptor editCategoryDescriptor = getEditCategoryDescriptor();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX + " "
+                    + model.getValidPersonIndexRange());
         }
 
         Person personToAddCat = lastShownList.get(index.getZeroBased());
