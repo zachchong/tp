@@ -43,7 +43,33 @@ public class DeleteCategoryCommandTest {
         Person editedPerson = DeleteCategoryCommand.createNewPerson(personToEdit, descriptor);
 
         String expectedMessage = String.format(DeleteCategoryCommand.MESSAGE_DELETECAT_SUCCESS,
-                editedPerson.getName(), descriptor.getCategoriesAsString());
+                editedPerson.getName(), descriptor.getCategoriesAsString(), "");
+
+        Model expectedModel = new ModelManager(model.getContactBook(), new UserPrefs());
+        expectedModel.setPerson(personToEdit, editedPerson);
+
+        assertCommandSuccess(deleteCategoryCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_unfilteredListWithInvalidCat_success() {
+        // person currently at index 0 in the list
+        Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+
+        EditCategoryDescriptor descriptor = new EditCategoryDescriptorBuilder()
+                .withCategories("friends", "wrongCategory").build();
+        DeleteCategoryCommand deleteCategoryCommand = new DeleteCategoryCommand(INDEX_FIRST_PERSON, descriptor);
+
+        // build a target person with new category added
+        Person editedPerson = DeleteCategoryCommand.createNewPerson(personToEdit, descriptor);
+        EditCategoryDescriptor invalidCatDescriptor = new EditCategoryDescriptorBuilder()
+                .withCategories("wrongCategory").build();
+        String notFoundCatMessage = String.format(DeleteCategoryCommand.MESSAGE_CAT_NOTFOUND_SUCCESS,
+                invalidCatDescriptor.getCategoriesAsString());
+        EditCategoryDescriptor validCatDescriptor = new EditCategoryDescriptorBuilder()
+                .withCategories("friends").build();
+        String expectedMessage = String.format(DeleteCategoryCommand.MESSAGE_DELETECAT_SUCCESS,
+                editedPerson.getName(), validCatDescriptor.getCategoriesAsString(), notFoundCatMessage);
 
         Model expectedModel = new ModelManager(model.getContactBook(), new UserPrefs());
         expectedModel.setPerson(personToEdit, editedPerson);
@@ -65,7 +91,7 @@ public class DeleteCategoryCommandTest {
         Person editedPerson = DeleteCategoryCommand.createNewPerson(personInFilteredList, descriptor);
 
         String expectedMessage = String.format(DeleteCategoryCommand.MESSAGE_DELETECAT_SUCCESS,
-                editedPerson.getName(), descriptor.getCategoriesAsString());
+                editedPerson.getName(), descriptor.getCategoriesAsString(), "");
 
         Model expectedModel = new ModelManager(new ContactBook(model.getContactBook()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);

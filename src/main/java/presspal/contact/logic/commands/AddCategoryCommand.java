@@ -32,11 +32,12 @@ public class AddCategoryCommand extends EditCategoryCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds the categories of the person identified "
             + "by the index number used in the displayed person list. \n"
             + "Parameters: " + PREFIX_INDEX + "PERSON_INDEX "
-            + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
+            + PREFIX_CATEGORY + "CATEGORY...\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_INDEX + "1 "
             + PREFIX_CATEGORY + "friends";
 
-    public static final String MESSAGE_ADDCAT_SUCCESS = "Category(s) successfully added to %1$s:\n%2$s";
+    public static final String MESSAGE_ADDCAT_SUCCESS = "Category(s) successfully added to %1$s:\n%2$s\n\n%3$s";
+    public static final String MESSAGE_ADDCAT_DUP_SUCCESS = "However, these category(s) were already added:\n%1$s";
     public static final String MESSAGE_DUPLICATE_CAT = "This person already has this category";
 
     /**
@@ -62,15 +63,24 @@ public class AddCategoryCommand extends EditCategoryCommand {
         Person editedPerson = createNewPerson(personToAddCat, editCategoryDescriptor);
 
         Set<Category> categoriesToAdd = getCategoriesToAdd(personToAddCat, editCategoryDescriptor);
+        Set<Category> categoriesNotAdded = getCategoriesAlreadyPresent(personToAddCat, editCategoryDescriptor);
         if (categoriesToAdd.isEmpty()) {
             throw new CommandException(MESSAGE_DUPLICATE_CAT);
+        }
+
+        String duplicateCatMessage = "";
+        if (!categoriesNotAdded.isEmpty()) {
+            EditCategoryDescriptor duplicateCatDescriptor = new EditCategoryDescriptor();
+            duplicateCatDescriptor.setCategories(categoriesNotAdded);
+            duplicateCatMessage = String.format(MESSAGE_ADDCAT_DUP_SUCCESS,
+                    duplicateCatDescriptor.getCategoriesAsString());
         }
 
         model.setPerson(personToAddCat, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         editCategoryDescriptor.setCategories(categoriesToAdd);
         return new CommandResult(String.format(MESSAGE_ADDCAT_SUCCESS, editedPerson.getName(),
-                editCategoryDescriptor.getCategoriesAsString()));
+                editCategoryDescriptor.getCategoriesAsString(), duplicateCatMessage));
     }
 
     private Set<Category> getCategoriesToAdd(Person personToAddCat, EditCategoryDescriptor editCategoryDescriptor) {
@@ -85,6 +95,19 @@ public class AddCategoryCommand extends EditCategoryCommand {
         }
 
         return notFoundCategories;
+    }
+
+    private Set<Category> getCategoriesAlreadyPresent(Person personToAddCat,
+                                                      EditCategoryDescriptor editCategoryDescriptor) {
+        Set<Category> updatedCategories = new HashSet<>(personToAddCat.getCategories());
+        Set<Category> categoriesToAdd = editCategoryDescriptor.getCategories();
+        Set<Category> presentCategories = new HashSet<>();
+        for (Category category : categoriesToAdd) {
+            if (updatedCategories.contains(category)) {
+                presentCategories.add(category);
+            }
+        }
+        return presentCategories;
     }
     /**
      * Creates and returns a {@code Person} with the details of {@code personToAddCat}

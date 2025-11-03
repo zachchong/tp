@@ -121,7 +121,10 @@ public class AddInterviewCommandParserTest {
                 + " " + PREFIX_DATE + "10-10-2024"
                 + " " + PREFIX_TIME + "14:00"
                 + INTERVIEW_LOCATION_DESC_A;
-        assertParseFailure(parser, invalidDate, "Date is not in the correct format! Please use yyyy-MM-dd");
+
+        String expectedMessage = "Invalid date input detected, it is either:\n"
+                + "1. Incorrect format, use yyyy-MM-dd instead.\n2. Illegal date.";
+        assertParseFailure(parser, invalidDate, expectedMessage);
 
         // EP: invalid, time format is wrong
         String invalidTime = " " + PREFIX_INDEX + "1"
@@ -129,7 +132,9 @@ public class AddInterviewCommandParserTest {
                 + " " + PREFIX_DATE + "2024-10-10"
                 + " " + PREFIX_TIME + "2pm"
                 + INTERVIEW_LOCATION_DESC_A;
-        assertParseFailure(parser, invalidTime, "Time is not in the correct format! Please use HH:mm");
+        expectedMessage = "Invalid time input detected, it is either:\n"
+                + "1. Incorrect format, use HH:mm instead.\n2. Illegal time.";
+        assertParseFailure(parser, invalidTime, expectedMessage);
     }
 
     @Test

@@ -63,10 +63,12 @@ public class ParserUtil {
         String trimmedDate = date.trim();
         String trimmedTime = time.trim();
         if (!StringUtil.isValidDate(trimmedDate)) {
-            throw new ParseException("Date is not in the correct format! Please use yyyy-MM-dd");
+            throw new ParseException("Invalid date input detected, it is either:\n"
+                    + "1. Incorrect format, use yyyy-MM-dd instead.\n2. Illegal date.");
         }
         if (!StringUtil.isValidTime(trimmedTime)) {
-            throw new ParseException("Time is not in the correct format! Please use HH:mm");
+            throw new ParseException("Invalid time input detected, it is either:\n"
+                    + "1. Incorrect format, use HH:mm instead.\n2. Illegal time.");
         }
         return LocalDateTime.parse(trimmedDate + "T" + trimmedTime);
     }
