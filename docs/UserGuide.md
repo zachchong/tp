@@ -231,7 +231,7 @@ details.caution .caution-body {
 /* Make all H2 big & dark */
 h2 {
   color: #0C3878 !important;
-  font-size: 3rem !important;
+  font-size: 2.4rem !important;
   font-weight: 800 !important;
   line-height: 1.2;
   margin-top: 2rem;
@@ -242,7 +242,7 @@ h2 {
 <style>
 h1 {
   color: #E84C23 !important;
-  font-size: 4rem !important;
+  font-size: 3.2rem !important;
   font-weight: 800 !important;
   line-height: 1.2;
   margin-top: 2rem;
