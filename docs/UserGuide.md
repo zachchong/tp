@@ -387,14 +387,13 @@ The **goal of PressPal** is to:
   </details>
 
   <details>
-    <summary><span class="caret">▶</span> Items with <code>…</code> can repeat (including zero times)</summary>
+    <summary><span class="caret">▶</span> The only parameter symbol that can be repeated is <code>CATEGORY</code> (<code>/c</code>) in <code>addCat</code> and <code>deleteCat</code>. </summary>
     <div class="rule-body">
-      Repeat the same flag as needed.
+      You may add as many parameters that you want to add or delete, but there should be at least one specified parameter.
       <div class="example">
         <button class="copybtn" data-copy="c/friend c/family">Copy</button>
         <strong>Examples</strong><br/>
         <code>[c/CATEGORY]…</code><br/>
-        → <code>(zero times)</code><br/>
         → <code>c/friend</code><br/>
         → <code>c/friend c/family</code>
       </div>
@@ -870,8 +869,8 @@ Action | Format, Examples
 **addInterview** | `addInterview i/PERSON_INDEX h/HEADER d/DATE t/TIME l/LOCATION` <br> e.g., `addInterview i/1 h/Interview with ABC Corp d/2024-10-10 t/14:00 l/123, Business St, #02-25`
 **deleteInterview** | `deleteInterview i/PERSON_INDEX v/INTERVIEW_INDEX` <br> e.g., `deleteInterview i/1 v/2`
 **listInterview** | `listInterview i/PERSON_INDEX` <br> e.g., `listInterview i/1`
-**addCat** | `addCat i/PERSON_INDEX c/CATEGORY`<br>e.g., `addCat i/1 c/emergency`
-**deleteCat** | `deleteCat i/PERSON_INDEX [c/CATEGORY]...`<br>e.g., `deleteCat i/1 c/emergency`
+**addCat** | `addCat i/PERSON_INDEX c/CATEGORY [c/CATEGORY]`<br>e.g., `addCat i/1 c/emergency`
+**deleteCat** | `deleteCat i/PERSON_INDEX c/CATEGORY [c/CATEGORY]`<br>e.g., `deleteCat i/1 c/emergency`
 **nextInterview** | `nextInterview`
 **exit** | `exit`
 **help** | `help`
