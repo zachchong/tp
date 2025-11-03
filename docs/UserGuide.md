@@ -250,6 +250,18 @@ h1 {
 }
 </style>
 
+<style>
+  .ui-cmd    { color:#3b82f6; font-weight:700; }   /* blue */
+  .ui-output { color:#22c55e; font-weight:700; }   /* green */
+  .ui-list   { color:#f59e0b; font-weight:700; }   /* yellow */
+  .ui-success { color: green; font-weight:700; } /* green */
+  .ui-failure { color: red; font-weight:700; } /* red */
+  .ui-category { color: #008080; font-weight: 700;} /*teal*/
+  .ui-organisation { color: #10b981; font-weight: 700;} /*emerald*/
+  .ui-role { color: #8b5cf6; font-weight: 700;} /*violet*/
+  .ui-nextInterview { color: #FF69B4; font-weight: 700;} /*lavender*/
+</style>
+
 ![PressPalAbout](images/PressPalAbout.png)
 
 # User Guide
@@ -266,12 +278,17 @@ The **goal of PressPal** is to:
 
 ## Table of Contents
 1. [Quick Start](#quick-start)
-2. [Input Parameters](#input-parameters)
+2. [User Interface Overview](#user-interface-overview)
+    - [Layout](#layout)
+    - [A Closer Look](#a-closer-look)
+      - [Command Line & Output Box](#command-line--output-box)
+      - [Contact List Panel](#contact-list-panel)
+3. [Input Parameters](#input-parameters)
     - [General Parameters](#general-parameters)
     - [Contact Parameters](#contact-parameters)
     - [Interview Parameters](#interview-parameters)
     - [Saving the data](#saving-the-data)
-3. [Features](#features)
+4. [Features](#features)
     - **General**
       - [Viewing help : `help`](#viewing-help-help)
       - [Clearing all entries : `clear`](#clearing-all-entries-clear)
@@ -290,13 +307,13 @@ The **goal of PressPal** is to:
     - **Category Management Commands**
       - [Add category(s) to a person : `addCat`](#add-categorys-to-a-person-addcat)
       - [Delete category(s) from a person : `deleteCat`](#delete-categorys-from-a-person-deletecat)
-4. [Frequently Asked Questions (FAQ)](#frequently-asked-questions-faq)
+5. [Frequently Asked Questions (FAQ)](#frequently-asked-questions-faq)
     - [General Q&A](#faq-general-qa)
     - [Common Problems & Fixes](#faq-common-problems)
     - [Troubleshooting](#faq-troubleshooting)
     - [Feature Rationale](#faq-feature-rationale)
-7. [Future Iteration Plans](#future-iteration-plans)
-8. [Command summary](#command-summary)
+6. [Future Iteration Plans](#future-iteration-plans)
+7. [Command summary](#command-summary)
 
 ### User Profiles
 - Users with basic familiarity with Windows/macOS/Linux file navigation and opening a terminal.
@@ -349,6 +366,59 @@ The **goal of PressPal** is to:
 
 6. **Learning more about the App:**
    * Refer to the [Features](#features) below for more details about the capabilities of PressPal.<br/><br/>
+
+--------------------------------------------------------------------------------------------------------------------
+
+
+<h2>User Interface Overview</h2>
+
+<h3> Layout </h3>
+
+![UI whole screen](images/uiWholeScreen.png)
+<ul>
+  <li>The <span class="ui-cmd">command line</span>: Type in commands here.</li>
+  <li>The <span class="ui-output">command output box</span>: Displays the result of your command.</li>
+  <li>The <span class="ui-list">contact list panel</span>: Displays a list of contacts.</li>
+</ul>
+
+<h3> A Closer Look </h3>
+<h4> Command Line & Output Box </h4>
+
+![UI command line and output box](images/uiCliOutput.png)
+<ul>
+    <li><b>Using the command line</b>: Type in commands following the formats provided below
+      <ul>
+        <li>For a summary of all commands, click <a href="#command-summary">here</a>.</li>
+        <li>For a detailed description for each command, click <a href="#features">here</a>.</li>
+      </ul>
+    </li>
+    <li><b>Interpreting the command output box</b>: The command output box will provide feedback after each command is run:
+      <ul>
+        <li><span class="ui-success">Success</span> message indicating the command was executed successfully and any supporting details.</li>
+        <li><span class="ui-failure">Error</span> message indicating the command failed to execute and guiding messages to help you fix the problem.</li>
+      </ul>
+    </li>
+</ul>
+
+<h4> Contact List Panel </h4>
+
+The contact list is composed of all the contacts stored in PressPal. Each contact is displayed as a card containing their details.
+
+![Contact List Panel](images/uiPersonCard.png)
+<ul>
+<li><b>Interpreting each contact</b>: Each contact card has the following details (in order of appearance):
+      <ul>
+        <li><b>Name</b>: Represents the name of the contact.</li>
+        <li><b>Number</b>: Represents the phone number of the contact.</li>
+        <li><b>Email</b>: Represents the email address of the contact.</li>
+        <li><span class="ui-category">Category(s)</span>: Represents the categories assigned to the contact by the user.</li>
+        <li><span class="ui-organisation">Organisation</span>: Represents the organisation that the contact belongs to.</li>
+        <li><span class="ui-role">Role</span>: Represents the role of the contact in that organisation.</li>
+        <li><span class="ui-nextInterview">Next Interview</span>: Represents the next upcoming interview. If there are no upcoming interviews, the card would display 'No upcoming interviews'.</li>
+      </ul>
+    </li>
+</ul>
+
 
 --------------------------------------------------------------------------------------------------------------------
 
