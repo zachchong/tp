@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import presspal.contact.logic.commands.AddCategoryCommand;
 import presspal.contact.logic.commands.DeleteCategoryCommand;
 import presspal.contact.logic.commands.EditCategoryCommand;
-import presspal.contact.model.category.Category;
 import presspal.contact.testutil.EditCategoryDescriptorBuilder;
 
 public class DeleteCategoryCommandParserTest {
