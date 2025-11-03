@@ -31,12 +31,13 @@ public class DeleteCategoryCommand extends EditCategoryCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Delete category(s) from a Person identified "
             + "by the index number used in the displayed person list. \n"
             + "Parameters: " + PREFIX_INDEX + "PERSON_INDEX "
-            + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
+            + PREFIX_CATEGORY + "CATEGORY...\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_INDEX + "1 "
             + PREFIX_CATEGORY + "friends";
 
-    public static final String MESSAGE_DELETECAT_SUCCESS = "Category(s) successfully deleted from %1$s:\n%2$s";
-    public static final String MESSAGE_CAT_NOT_FOUND = "Failed to delete category(s) from %1$s:\n%2$s";
+    public static final String MESSAGE_DELETECAT_SUCCESS = "Category(s) successfully deleted from %1$s:\n%2$s\n\n%3$s";
+    public static final String MESSAGE_CAT_NOTFOUND_SUCCESS = "However, these category(s) were not found:\n%1$s";
+    public static final String MESSAGE_CAT_NOT_FOUND = "These category(s) does not exist in %1$s:\n%2$s";
 
     /**
      * @param index of the person in the filtered person list to edit
@@ -60,24 +61,24 @@ public class DeleteCategoryCommand extends EditCategoryCommand {
         Person personToDeleteCat = lastShownList.get(index.getZeroBased());
 
         Set<Category> categoryNotFound = categoriesToDelete(personToDeleteCat, editCategoryDescriptor);
-        if (!categoryNotFound.isEmpty()) {
-            StringBuilder notFoundList = new StringBuilder();
-            int i = 1;
-            for (Category c : categoryNotFound) {
-                notFoundList.append(i++).append(". ").append(c).append("\n");
-            }
-            if (!notFoundList.isEmpty()) {
-                notFoundList.setLength(notFoundList.length() - 1);
-            }
-            throw new CommandException(String.format(MESSAGE_CAT_NOT_FOUND, personToDeleteCat.getName(), notFoundList));
+        Set<Category> categoriesToDelete = getCategoriesPresent(personToDeleteCat, editCategoryDescriptor);
+        if (categoriesToDelete.isEmpty()) {
+            throw new CommandException(String.format(MESSAGE_CAT_NOT_FOUND, personToDeleteCat.getName(),
+                    editCategoryDescriptor.getCategoriesAsString()));
         }
-
+        String resultMessage = "";
+        if (!categoryNotFound.isEmpty()) {
+            EditCategoryDescriptor duplicateCatDescriptor = new EditCategoryDescriptor();
+            duplicateCatDescriptor.setCategories(categoryNotFound);
+            resultMessage = String.format(MESSAGE_CAT_NOTFOUND_SUCCESS, duplicateCatDescriptor.getCategoriesAsString());
+        }
         Person editedPerson = createNewPerson(personToDeleteCat, editCategoryDescriptor);
 
         model.setPerson(personToDeleteCat, editedPerson);
         model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
+        editCategoryDescriptor.setCategories(categoriesToDelete);
         return new CommandResult(String.format(MESSAGE_DELETECAT_SUCCESS, editedPerson.getName(),
-                editCategoryDescriptor.getCategoriesAsString()));
+                editCategoryDescriptor.getCategoriesAsString(), resultMessage));
     }
 
     private Set<Category> categoriesToDelete(Person personToDeleteCat, EditCategoryDescriptor editCategoryDescriptor) {
@@ -92,6 +93,18 @@ public class DeleteCategoryCommand extends EditCategoryCommand {
         }
 
         return notFoundCategories;
+    }
+
+    private Set<Category> getCategoriesPresent(Person personToAddCat, EditCategoryDescriptor editCategoryDescriptor) {
+        Set<Category> updatedCategories = new HashSet<>(personToAddCat.getCategories());
+        Set<Category> categoriesToAdd = editCategoryDescriptor.getCategories();
+        Set<Category> presentCategories = new HashSet<>();
+        for (Category category : categoriesToAdd) {
+            if (updatedCategories.contains(category)) {
+                presentCategories.add(category);
+            }
+        }
+        return presentCategories;
     }
 
     /**
