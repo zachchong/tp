@@ -615,6 +615,13 @@ Finds person(s) whose name, organisation, role or categories matches exactly wit
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`.
 
+<details class="caution" open>
+  <summary>⚠️ Displayed results may differ in indexing compared to the full contact list </summary>
+  <div class="caution-body">
+    <code>find</code> will filter through the contact book to display person(s) who matches exactly with at least one of the given keywords. Hence, contacts may be re-ordered to display only the relevant results.
+  </div>
+</details>
+
 Examples:
 * `find John` returns `john` and `John Doe`.
 * `find bernice charlotte` returns `Bernice Yu`, `Charlotte Oliveiro`.<br>
@@ -670,8 +677,10 @@ Lists all interviews of a contact in the contact book.
 * When a contact has multiple interviews, they are listed in descending order of datetime, meaning the interview scheduled furthest in the future appears first, while the one closest to the present (or most recent past) appears last.
 
 ![empty interview](images/emptyInterviewExample.png)
-![filled interview](images/filledInterviewExample.png)
+Output for a contact without any scheduled interviews.
 
+![filled interview](images/filledInterviewExample.png)
+Output for a contact with scheduled interviews.
 <br/><br/>
 
 ### Display the upcoming interview : `nextInterview`
@@ -747,6 +756,9 @@ Examples:
 
 **Q:** <u>Why can't I see the full line of text when it gets too long?</u>  
 **A:** The text extends beyond the visible area. Scroll horizontally (drag the scroll bar to the right) to view the rest of the line.
+
+**Q:** <u>The terms "Person" and "Contact" is used interchangeably in the user guide, do they refer to the same thing?</u>  
+**A:** Yes, they are referring to the same entity. The choice of term depends on the context to make instructions sound more natural and clear.
 
 **Q:** <u>Can I use PressPal offline?</u>  
 **A:** Yes. Everything runs locally; no internet is needed after download.
