@@ -172,10 +172,10 @@ html { scroll-behavior: smooth; }
 .rule-accordion details:first-of-type { border-top:none; }
 .rule-accordion summary {
   list-style:none; cursor:pointer; padding:.8rem 1rem; font-weight:700; color:#7c5b00;
-  display:flex; align-items:center; gap:.6rem;
+  display:flex; align-items:center; gap:.6rem; flex-wrap: wrap;
 }
 .rule-accordion summary::-webkit-details-marker { display:none; }
-.rule-accordion summary .caret { transition:transform .2s ease; }
+.rule-accordion summary .caret { transition:transform .2s ease; flex: 0 0 auto; }
 .rule-accordion details[open] summary .caret { transform:rotate(90deg); }
 .rule-accordion .rule-body { padding:.8rem 1rem 1rem 2.2rem; color:#374151; }
 
@@ -231,7 +231,7 @@ details.caution .caution-body {
 /* Make all H2 big & dark */
 h2 {
   color: #0C3878 !important;
-  font-size: 3rem !important;
+  font-size: 2.4rem !important;
   font-weight: 800 !important;
   line-height: 1.2;
   margin-top: 2rem;
@@ -242,12 +242,38 @@ h2 {
 <style>
 h1 {
   color: #E84C23 !important;
-  font-size: 4rem !important;
+  font-size: 3.2rem !important;
   font-weight: 800 !important;
   line-height: 1.2;
   margin-top: 2rem;
   margin-bottom: .9rem;
 }
+</style>
+
+<style>
+details summary code {
+  display: inline;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  margin: 0;
+  padding: .05em .25em;
+  background: rgba(0,0,0,.03);
+  border-radius: .25em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
+</style>
+
+<style>
+  .ui-cmd    { color:#3b82f6; font-weight:700; }   /* blue */
+  .ui-output { color:#22c55e; font-weight:700; }   /* green */
+  .ui-list   { color:#f59e0b; font-weight:700; }   /* yellow */
+  .ui-success { color: green; font-weight:700; } /* green */
+  .ui-failure { color: red; font-weight:700; } /* red */
+  .ui-category { color: #008080; font-weight: 700;} /*teal*/
+  .ui-organisation { color: #10b981; font-weight: 700;} /*emerald*/
+  .ui-role { color: #8b5cf6; font-weight: 700;} /*violet*/
+  .ui-nextInterview { color: #FF69B4; font-weight: 700;} /*lavender*/
 </style>
 
 ![PressPalAbout](images/PressPalAbout.png)
@@ -260,18 +286,23 @@ PressPal is designed to streamline contact and interview management for breaking
 
 The **goal of PressPal** is to:
 - Provide reporters with a single command-driven system for organizing and retrieving contacts quickly.
-- Enable fast entry and retrieval of context (interview history, organization, role, notes) while working on multiple stories simultaneously.
+- Enable fast entry and retrieval of context (interview history, organisation, role, notes) while working on multiple stories simultaneously.
 - Support the entire lifecycle of a contact — from initial outreach, to active follow-up, to archiving once a story concludes.
   Ultimately, PressPal aims to reduce cognitive load for reporters, allowing them to focus on storytelling while ensuring no lead, contact, or follow-up is lost.
 
 ## Table of Contents
 1. [Quick Start](#quick-start)
-2. [Input Parameters](#input-parameters)
+2. [User Interface Overview](#user-interface-overview)
+    - [Layout](#layout)
+    - [A Closer Look](#a-closer-look)
+      - [Command Line & Output Box](#command-line-output-box)
+      - [Contact List Panel](#contact-list-panel)
+3. [Input Parameters](#input-parameters)
     - [General Parameters](#general-parameters)
     - [Contact Parameters](#contact-parameters)
     - [Interview Parameters](#interview-parameters)
     - [Saving the data](#saving-the-data)
-3. [Features](#features)
+4. [Features](#features)
     - **General**
       - [Viewing help : `help`](#viewing-help-help)
       - [Clearing all entries : `clear`](#clearing-all-entries-clear)
@@ -290,13 +321,13 @@ The **goal of PressPal** is to:
     - **Category Management Commands**
       - [Add category(s) to a person : `addCat`](#add-categorys-to-a-person-addcat)
       - [Delete category(s) from a person : `deleteCat`](#delete-categorys-from-a-person-deletecat)
-4. [Frequently Asked Questions (FAQ)](#frequently-asked-questions-faq)
+5. [Frequently Asked Questions (FAQ)](#frequently-asked-questions-faq)
     - [General Q&A](#faq-general-qa)
     - [Common Problems & Fixes](#faq-common-problems)
     - [Troubleshooting](#faq-troubleshooting)
     - [Feature Rationale](#faq-feature-rationale)
-7. [Future Iteration Plans](#future-iteration-plans)
-8. [Command summary](#command-summary)
+6. [Future Iteration Plans](#future-iteration-plans)
+7. [Command summary](#command-summary)
 
 ### User Profiles
 - Users with basic familiarity with Windows/macOS/Linux file navigation and opening a terminal.
@@ -311,10 +342,29 @@ The **goal of PressPal** is to:
 
 ## Quick start
 
-1. Ensure you have Java `17` or above installed on your computer.<br>
+1. Download and install `Java 17` on your computer.<br>
    - **Windows & Linux Users:** Download and install Java from [Oracle JDK 17 Archive Downloads](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html).
-     - **Windows Users:** Follow the instructions [here](https://se-education.org/guides/tutorials/javaInstallationWindows.html).
-   - **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).<br/><br/>
+     - **Windows Users:** Follow the instructions [here](https://se-education.org/guides/tutorials/javaInstallationWindows.html) to set up and verify.
+   - **Mac users:** Follow the instructions [here](https://se-education.org/guides/tutorials/javaInstallationMac.html) to set up and verify.<br/>
+
+<panel header=":bulb: Tip: To verify Java 17 installation" type="info" expanded>
+
+**Windows:** Open **Command Prompt** or **PowerShell**.  
+**macOS:** Open **Terminal**.  
+**Linux:** Open your **terminal**.
+
+Then run: `java -version`
+
+**You should see a version that starts with `17`.**  
+Examples:
+- `openjdk version "17.0.x" ...`
+- `java version "17.0.x" ...`
+- `Eclipse Temurin 17.0.x`
+
+If it doesn’t start with `17` (e.g., `1.8`, `11`) or says `command not found`, Java 17 isn’t active.  
+Please refer to the instructions in **Step 1 (Quick Start)** to set it up correctly.
+
+</panel>
 
 2. **Download our app:**
    - Install the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103T-W08-1/tp/releases/latest).<br/><br/>
@@ -341,7 +391,7 @@ The **goal of PressPal** is to:
 
    * `add n/John Doe p/98765432 e/johnd@example.com r/Student o/NUS c/friends c/owesMoney` : Adds a contact named `John Doe` to the Contact Book.
 
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
+   * `delete i/3` : Deletes the 3rd contact shown in the current list.
 
    * `clear` : Deletes all contacts.
 
@@ -352,8 +402,69 @@ The **goal of PressPal** is to:
 
 --------------------------------------------------------------------------------------------------------------------
 
+
+<h2>User Interface Overview</h2>
+
+<h3> Layout </h3>
+
+![UI whole screen](images/uiWholeScreen.png)
+<ul>
+  <li>The <span class="ui-cmd">command line</span>: Type in commands here.</li>
+  <li>The <span class="ui-output">command output box</span>: Displays the result of your command.</li>
+  <li>The <span class="ui-list">contact list panel</span>: Displays a list of contacts.</li>
+</ul>
+
+<h3> A Closer Look </h3>
+<h4> Command Line & Output Box </h4>
+
+![UI command line and output box](images/uiCliOutput.png)
+<ul>
+    <li><b>Using the command line</b>: Type in commands following the formats provided below
+      <ul>
+        <li>For a summary of all commands, click <a href="#command-summary">here</a>.</li>
+        <li>For a detailed description for each command, click <a href="#features">here</a>.</li>
+      </ul>
+    </li>
+    <li><b>Interpreting the command output box</b>: The command output box will provide feedback after each command is run:
+      <ul>
+        <li><span class="ui-success">Success</span> message indicating the command was executed successfully and any supporting details.</li>
+        <li><span class="ui-failure">Error</span> message indicating the command failed to execute and guiding messages to help you fix the problem.</li>
+      </ul>
+    </li>
+</ul>
+
+<h4> Contact List Panel </h4>
+
+The contact list is composed of all the contacts stored in PressPal. Each contact is displayed as a card containing their details.
+
+![Contact List Panel](images/uiPersonCard.png)
+<ul>
+<li><b>Interpreting each contact</b>: Each contact card has the following details (in order of appearance):
+      <ul>
+        <li><b>Name</b>: Represents the name of the contact.</li>
+        <li><b>Number</b>: Represents the phone number of the contact.</li>
+        <li><b>Email</b>: Represents the email address of the contact.</li>
+        <li><span class="ui-category">Category(s)</span>: Represents the categories assigned to the contact by the user.</li>
+        <li><span class="ui-organisation">Organisation</span>: Represents the organisation that the contact belongs to.</li>
+        <li><span class="ui-role">Role</span>: Represents the role of the contact in that organisation.</li>
+        <li><span class="ui-nextInterview">Next Interview</span>: Represents the next upcoming interview. If there are no upcoming interviews, the card would display 'No upcoming interviews'.</li>
+      </ul>
+    </li>
+</ul>
+
+
+--------------------------------------------------------------------------------------------------------------------
+
 <details open>
-  <summary><h2>Input Parameters</h2></summary>
+  <summary><h2>Input Format & Parameters</h2></summary>
+
+<details class="caution" open>
+  <summary>⚠️ CAUTION: For <u>users using the PDF version</u> of the user guide, please read! </summary>
+  <div class="caution-body">
+    - Since the PDF automatically expands all the tabs, the <strong>"click to collapse" feature will not work!</strong><br/>
+    - <strong>Copy buttons will not work</strong> on the PDF version!
+  </div>
+</details>
 
 <panel header=":information_source: Notes about parameters" type="info" expanded>
 
@@ -371,57 +482,77 @@ The **goal of PressPal** is to:
 <panel header=":memo: Notes about the command format" type="info" expanded>
 
 <div class="rule-accordion">
-
   <details>
     <summary><span class="caret">▶</span> Items in square brackets are optional</summary>
     <div class="rule-body">
       Use optional flags when you need them.
       <div class="example">
-        <button class="copybtn" data-copy="n/John Doe c/friend">Copy</button>
-        <strong>Examples</strong><br/>
-        <code>n/NAME [c/CATEGORY]</code><br/>
-        → <code>n/John Doe c/friend</code><br/>
-        → <code>n/John Doe</code>
+        <button class="copybtn" data-copy="add n/Bobby Boon o/NUS r/Student p/12345678">Copy</button>
+        <strong>Example 1A (<code>add</code> command):</strong><br/>
+        <code>add n/Bobby Boon o/NUS r/Student p/12345678</code><br/>
+        → <code>CATEGORY</code> (<code>c/</code>) can be omitted here because it is <strong>optional</strong>.
       </div>
-    </div>
-  </details>
-
-  <details>
-    <summary><span class="caret">▶</span> Items with <code>…</code> can repeat (including zero times)</summary>
-    <div class="rule-body">
-      Repeat the same flag as needed.
       <div class="example">
-        <button class="copybtn" data-copy="c/friend c/family">Copy</button>
-        <strong>Examples</strong><br/>
-        <code>[c/CATEGORY]…</code><br/>
-        → <code>(zero times)</code><br/>
-        → <code>c/friend</code><br/>
-        → <code>c/friend c/family</code>
+        <button class="copybtn" data-copy="add n/Bobby Boon o/NUS r/Student p/12345678 c/friends">Copy</button>
+        <strong>Example 1B (<code>add</code> command):</strong><br/>
+        <code>add n/Bobby Boon o/NUS r/Student p/12345678 c/friends</code><br/>
+        → The category "friends" is added with the contact here, even though it can be omitted too.
       </div>
     </div>
   </details>
 
   <details>
-    <summary><span class="caret">▶</span> Parameters can be in any order</summary>
+  <summary>
+    <span class="caret">▶</span>
+    <span class="summary-text">
+      The only parameter symbol that can be repeated is <code>CATEGORY</code> (<code>/c</code>).
+    </span>
+  </summary>
+    <div class="rule-body">
+      You may add as many parameters of <code>CATEGORY</code> (<code>/c</code>), but there should be minimally one parameter specified.
+      <div class="example">
+        <button class="copybtn" data-copy="addCat i/1 c/Elections c/ProtestA">Copy</button>
+        <strong>Example 1 (<code>addCat</code> command):</strong><br/>
+        <code>addCat i/1 c/Elections c/ProtestA</code><br/>
+        → Add "Elections" and "ProtestA" categories to the person at index 1 of the currently displayed list.
+      </div>
+     <div class="example">
+        <button class="copybtn" data-copy="deleteCat i/1 c/Friends c/Elections">Copy</button>
+        <strong>Example 2 (<code>deleteCat</code> command):</strong><br/>
+        <code>deleteCat i/1 c/Friends c/Elections</code><br/>
+        → Remove "Friends" and "Elections" categories (if they exist) from the person at index 1 of the currently displayed list.
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="caret">▶</span> Parameters can be in any order.</summary>
     <div class="rule-body">
       Order doesn’t matter unless stated otherwise.
       <div class="example">
-        <button class="copybtn" data-copy="p/91234567 n/John Doe">Copy</button>
-        <strong>Examples</strong><br/>
-        <code>n/NAME p/PHONE_NUMBER</code><br/>
-        ↔ <code>p/PHONE_NUMBER n/NAME</code>
+        <button class="copybtn" data-copy="add p/12345678 n/Bobby Boon o/NUS r/Student">Copy</button>
+        <strong>Example 1A (<code>add</code> command):</strong><br/>
+        <code>add p/12345678 n/Bobby Boon o/NUS r/Student</code><br/>
+        ↔ Is <strong>identical</strong> to Example 1B.
+      </div>
+      <div class="example">
+        <button class="copybtn" data-copy="add r/Student o/NUS n/Bobby Boon p/12345678">Copy</button>
+        <strong>Example 1B (<code>add</code> command):</strong><br/>
+        <code>add r/Student o/NUS n/Bobby Boon p/12345678</code><br/>
+        ↔ Is <strong>identical</strong> to Example 1A.
       </div>
     </div>
   </details>
 
   <details>
-    <summary><span class="caret">▶</span> Extra parameters on no-arg commands are ignored</summary>
+    <summary><span class="caret">▶</span> Extra parameters on commands that don't take arguments are ignored.</summary>
     <div class="rule-body">
       Commands like <code>help</code>, <code>list</code>, <code>exit</code>, <code>clear</code> ignore extras.
       <div class="example">
-        <button class="copybtn" data-copy="help">Copy</button>
-        <strong>Example</strong><br/>
-        <code>help 123</code> is treated as <code>help</code>.
+        <button class="copybtn" data-copy="help 123">Copy</button>
+        <strong>Example:</strong><br/>
+        <code>help 123</code><br/>
+        ↔ Is <strong>treated the same</strong> as <code>help</code>.
       </div>
     </div>
   </details>
@@ -433,42 +564,49 @@ The **goal of PressPal** is to:
 <h3 id="contact-parameters" class="visually-hidden-anchor">Contact Parameters</h3>
 <h3 id="interview-parameters" class="visually-hidden-anchor">Interview Parameters</h3>
 
+<details class="caution" open>
+  <summary>⚠️ NOTE: Please carefully go through the table below! </summary>
+  <div class="caution-body">
+    The table below will detail the acceptable format of each parameter, which applies to all command types.
+  </div>
+</details>
+
 <tabs>
 
   <tab header="🧭 **General**" active>
   <h3>General Parameters</h3>
 
-| Symbol | Parameter        | Description                                   | Constraints |
-|:------:|:-----------------|:----------------------------------------------|:------------|
-|  `i/`  | `PERSON_INDEX`   | Index of a person in the **current** list.    | **Positive integer** (1, 2, …); must exist in the current displayed list. |
-|  `v/`  | `INTERVIEW_INDEX`| Index of an interview for the selected person.| **Positive integer** (1, 2, …); must exist in the current displayed list. |
-|   NA   | `KEYWORD`        | One or more words used for searching.         | Non-empty string. |
+| Symbol | Parameter        | Description                                   | Constraints                                                                                                                                                                                                                                                                                                                                                                                                             |
+|:------:|:-----------------|:----------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|  `i/`  | `PERSON_INDEX`   | Index of a person in the **current** list.    | **Positive integer** (1, 2, …); must exist in the current displayed list.<br/><br/> ✅ **Valid** (when list has ≥2 contacts):<br/>- `i/1`<br/>- `i/ 02` (space inside and leading zero)<br/><br/>**❌ Invalid:**<br/>- `i/0` (zero)<br/>- `i/-1` (negative)<br/>- `i/2.5` (decimal)<br/>- `i/abc` (non-numeric)<br/>- `i/999` (out of range, when list has <999 contacts)                                                 |
+|  `v/`  | `INTERVIEW_INDEX` | Index of an interview for the selected person.| **Positive integer** (1, 2, …); must exist in the current displayed list.<br/><br/> ✅ **Valid** (when the person has ≥2 interviews):<br/>- `v/1`<br/>- `i/ 02` (space inside and leading zero)<br/><br/> **❌ Invalid:**<br/>- `v/0` (zero)<br/>- `v/-1` (negative)<br/>- `v/1.5` (decimal)<br/>- `v/abc` (non-numeric)<br/>- `v/999` (out of range for that person)<br/>- `v/1` (when the person has **no interviews**) |
+|   NA   | `KEYWORD`        | One or more words used for searching.         | Non-empty string.                                                                                                                                                                                                                                                                                                                                                                                                       |
 
 
   </tab>
   <tab header="👤 **Contact**">
   <h3>Contact Parameters</h3>
 
-| Symbol | Parameter     | Description                                       | Constraints |
-|:-----:|:--------------|:--------------------------------------------------|:------------|
-| `n/`  | `NAME`        | Person’s full name as you’d like it displayed.    | Non-empty string. |
-| `o/`  | `ORGANISATION`| Company, school, outlet, etc.                     | Alphanumeric words with single spaces, 1–50 chars. |
-| `r/`  | `ROLE`        | Job title or position (e.g., Reporter, Lawyer).   | Alphanumeric words with single spaces, 1–50 chars. |
-| `e/`  | `EMAIL`       | Email address used for contacting the person.     | <ul><li>Format: <code>local-part@domain</code>.</li><li><strong>Local-part</strong>: letters/digits plus <code>+</code>, <code>_</code>, <code>.</code>, <code>-</code>; cannot start or end with a special character.</li><li><strong>Domain</strong>: one or more labels separated by dots.</li><li>Each label starts and ends with an alphanumeric character.</li><li>Within a label, only letters/digits and hyphens (<code>-</code>) are allowed.</li><li>Final label (TLD) must be at least <strong>2 characters</strong> long.</li></ul> |
-| `p/`  | `PHONE`       | Phone number (no formatting required).            | Minimum of 3 digits. |
-| `c/`  | `CATEGORY`    | Tag for grouping (e.g., `emergency`, `election`). | Alphanumeric, no spaces, 1–20 chars. |
+| Symbol | Parameter      | Description                                       | Constraints                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+|:-----:|:---------------|:--------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `n/`  | `NAME`         | Person’s full name as you’d like it displayed.    | Alphanumeric and spaces; **first character must be alphanumeric**; cannot be blank. Multiple spaces allowed.<br/><br/>✅ **Valid:**<br/>- `n/John Doe` (extra spacing is allowed between words, not shown here)<br/><br/>❌ **Invalid:**<br/>- `n/` (empty string)<br/>- `n/Arun Kumar s/o Ramesh Kumar` (special characters like `&`, `'`, `/` not allowed)<br/>- `n/ஆர்த்தி` (non-english name)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `o/`  | `ORGANISATION` | Company, school, outlet, etc.                     | Alphanumeric words with single spaces, 1–50 chars. Multiple spaces not allowed.<br/><br/>✅ **Valid:**<br/>- `o/Meta`<br/>- `o/New York Times` (single spaces only)<br/><br/>❌ **Invalid:**<br/>- <code>o/New&nbsp;&nbsp;York Times</code> (multiple space not allowed)<br/>- `o/Ben & Jerry` (special characters like `&` not allowed)<br/>- `o/ACME-Asia` (hyphen not allowed)<br/>- `o/` (empty)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `r/`  | `ROLE`         | Job title or position (e.g., Reporter, Lawyer).   | Alphanumeric words with single spaces, 1–50 chars. Multiple spaces not allowed.<br/><br/>✅ **Valid:**<br/>- `r/Reporter`<br/>- `r/Data Analyst` (single spaces only)<br/><br/>❌ **Invalid:**<br/>- <code>r/Senior&nbsp;&nbsp;Reporter</code> (multiple space not allowed)<br/>- `r/Lead-editor` (special characters like `-` not allowed)<br/>- `r/` (empty)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `e/`  | `EMAIL`        | Email address used for contacting the person.     | **Format:** <code>local-part@domain</code><br/><br/><strong>Local-part (before @):</strong><br/>- only letters/digits allowed.<br/>- May use <code>+</code> <code>_</code> <code>.</code> <code>-</code> <em>between</em> letters/digits.<br/>- <strong>Cannot start or end</strong> with a special character.<br/>- <strong>No empty</strong> local-part.<br/><br/><strong>Domain (after @):</strong><br/>- One or more labels separated by dots (e.g., <code>sub.example.com</code>).<br/>- Each label can only contain letters/digits; optional internal hyphens (e.g., <code>news-room</code>).<br/>- A label <strong>cannot start or end</strong> with <code>-</code>.<br/>- <strong>No underscores</strong> in the domain.<br/>- The last part after the final dot (the “ending,” called the top-level domain or TLD, e.g., <code>.com</code>, <code>.sg</code>) must be <strong>at least 2 letters long.</strong><br/><br/><strong>✅ Valid</strong><br/>- <code>e/alice@example.com</code><br/>- <code>e/a.b-c+d@sub.example.co</code><br/>- <code>e/a_b@newsroom.io</code> (underscore allowed in local-part)<br/><br/><strong>❌ Invalid</strong><br/>- <code>e/&#95;alice@example.com</code> (local starts with <code>&#95;</code>)<br/>- <code>e/alice-@example.com</code> (local ends with <code>-</code>)<br/>- <code>e/alice@exa_mple.com</code> (underscore in domain)<br/>- <code>e/alice@example.c</code> (TLD only 1 letter)<br/>- <code>e/alice@-example.com</code> (domain label starts with <code>-</code>) |
+| `p/`  | `PHONE`        | Phone number of a person.                         | **Digits only**, minimum **3** digits.<br/><br/>✅ **Valid:**<br/>- `p/123`<br/>- `p/98765432`<br/><br/>❌ **Invalid:**<br/>- `p/12` (too short, less than 3 digits)<br/>- `p/+651234567` (special characters like `+` not allowed)<br/>- `p/123-4567` (hyphen)<br/>- `p/(123)` (brackets)<br/>- `p/12 34` (extra space between digits)   |
+| `c/`  | `CATEGORY`     | Tag for grouping (e.g., `emergency`, `election`). | **Alphanumeric only**, **no spaces**, **less than or equal to 20 chars**.<br/><br/>✅ **Valid:**<br/>- `c/emergency`<br/>- `c/singapore2025`<br/><br/>❌ **Invalid:**<br/>- `c/urgent-news` (hyphen)<br/>- `c/urgent news` (space)<br/>- `c/veryveryverylongcategory` (24 characters)<br/>- `c/` (empty)  |
 
 
   </tab>
   <tab header="📅 **Interview**">
   <h3>Interview Parameters</h3>
 
-| Symbol | Parameter | Description                                        | Constraints |
-|:-----:|:----------|:---------------------------------------------------|:------------|
-| `h/`  | `HEADER`  | Short title for the interview (topic/company/etc.).| Non-empty string. |
-| `d/`  | `DATE`    | Interview date.                                     | `yyyy-MM-dd` (e.g., `2025-10-15`). |
-| `t/`  | `TIME`    | Interview start time (24-hour).                     | `HH:mm` (e.g., `18:30`). |
-| `l/`  | `LOCATION`| Where it will happen (address, link, or note).      | Non-empty string. |
+| Symbol | Parameter | Description                                        | Constraints                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+|:-----:|:----------|:---------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `h/`  | `HEADER`  | Short title for the interview (topic/company/etc.).| Non-empty string.                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `d/`  | `DATE`    | Interview date.                                     | `yyyy-MM-dd` (4-digit year, 2-digit month/day). <br/><br/>✅ **Valid** (if no other interview timing clash with time):<br/>- `d/2025-10-15` (15 Oct 2025 is valid)<br/>- `d/1999-02-28`<br/><br/>❌ **Invalid:**<br/>- `d/2025/10/15` (slashes)<br/>- `d/2025-2-05` (missing leading zero for month)<br/>- `d/2025-13-01` (month 13 does not exist)<br/>- `d/2025-02-30` (invalid day, 30th Feb does not exist)<br/>- `d/25-10-15` (2-digit year, missing two leading zeros) |
+| `t/`  | `TIME`    | Interview start time (24-hour).                     | `HH:mm` (00 to 23 for hours, 00 to 59 for minutes).<br/><br/>✅ **Valid** (if no other interview timing clash with date):<br/>- `t/00:00`<br/>- `t/09:05`<br/>- `t/23:59`<br/><br/>❌ **Invalid:**<br/>- `t/24:00` (hour out of range)<br/>- `t/12:60` (minute out of range)<br/>- `t/9:5` (missing leading zeros)<br/>- `t/12.30` (dot instead of colon)<br/>- `t/12:3` (single-digit minutes)                                                                              |
+| `l/`  | `LOCATION`| Where it will happen (address, link, or note).      | Non-empty string.                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 
 
   </tab>
@@ -541,7 +679,7 @@ Adds a person to the contact book.
 
 <div markdown="span" class="alert alert-primary">
 
-:bulb: Tip:
+:bulb: **Tip**:
 A person can have any number of categories (including 0).
 </div>
 
@@ -595,7 +733,7 @@ Shows a list of all persons in the contact book.
 
 ### Locating persons by name, organisation, role, or categories : `find`
 
-Finds persons whose name, organisation, role or categories contain any of the given keywords.
+Finds person(s) whose name, organisation, role or categories matches exactly with at least one of the given keywords.
 
 > **Format** 
 > ```
@@ -605,7 +743,7 @@ Finds persons whose name, organisation, role or categories contain any of the gi
 * The search is case-insensitive. e.g `hans` will match `Hans`.
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 * Only the name, organisation, role and categories are searched. Other fields such as phone or email are not included.
-* Only full words will be matched e.g. `Han` will not match `Hans`.
+* The entered `KEYWORD` must match exactly with the intended search e.g. `Han` will not match `Hans`.
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`.
 
@@ -687,10 +825,12 @@ Add category(s) to a person identified by the index number used in the displayed
 
 > **Format** 
 > ```
-> addCat i/PERSON_INDEX [c/CATEGORY]...
+> addCat i/PERSON_INDEX c/CATEGORY
 > ```
 
-* If category A is already added to a person, any attempt to add category A again to the person will be rejected with an error message.
+* If a category is already added to a person, any attempt to add that category again to the person will be ignored.
+  * E.g If `friend` is already a category added to person at index 1, running `addCat i/1 c/friend` will throw an error message. In a case with multiple categories (e.g `addCat i/1 c/friend c/work`), no error message is thrown but only `work` is added to person at index 1.
+* At least one category must be specified, but you may choose to add more categories by repeating the use of `c/`.
 
 Examples:
 * `addCat i/1 c/emergency` Adds the category `emergency` to the person with index 1.
@@ -736,6 +876,9 @@ Examples:
 **Q:** <u>Why didn’t a command work?</u>  
 **A:** Check the format and parameter symbols (like `n/`, `e/`, `o/`). See the “Input Parameters” section/tabs above for the exact rules.
 
+**Q:** <u>Why can't I see the full line of text when it gets too long?</u>  
+**A:** The text extends beyond the visible area. Scroll horizontally (drag the scroll bar to the right) to view the rest of the line.
+
 **Q:** <u>Can I use PressPal offline?</u>  
 **A:** Yes. Everything runs locally; no internet is needed after download.
 
@@ -774,6 +917,10 @@ Examples:
 **Q:** <u>Why does `nextInterview` show only one person even if a few interviews share the same time?</u>  
 **A:** To keep things fast and clear. `nextInterview` gives you one “next up” so you can act right away.  
 If several interviews have the same time, we show the **first one in your current list**. The others are still there and you view them as usual (e.g., `listInterview i/…`).
+
+**Q:** <u>Why are non-alphanumeric characters (e.g special symbols) disallowed for name, organisation, role & categories? For instance, I would not be able to save 'Ben & Jerry's. </u>  
+**A:** Currently, we do not accept non-alphanumerical symbols for a more streamlined search process. We understand that this may not fully capture real world's dynamic and aim to support greater range of inputs in the future. For now, you could try workarounds. For instance, using 'Ben and Jerry' as a substitute.
+
 </tab>
 
 </tabs>
@@ -855,17 +1002,17 @@ If several interviews have the same time, we show the **first one in your curren
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE e/EMAIL o/ORGANISATION r/ROLE [c/CATEGORY]…​` <br> e.g., `add n/John Doe p/98765432 e/johnd@example.com o/NUS r/Student c/friends c/owesMoney`
-**Clear** | `clear`
-**Delete** | `delete i/PERSON_INDEX`<br> e.g., `delete i/3`
-**Edit** | `edit i/PERSON_INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [o/ORGANISATION] [r/ROLE]​`<br> e.g.,`edit i/2 n/James Lee e/jameslee@example.com`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James NUS Student`
-**List** | `list`
-**AddInterview** | `addInterview i/PERSON_INDEX h/HEADER d/DATE t/TIME l/LOCATION` <br> e.g., `addInterview i/1 h/Interview with ABC Corp d/2024-10-10 t/14:00 l/123, Business St, #02-25`
-**DeleteInterview** | `deleteInterview i/PERSON_INDEX v/INTERVIEW_INDEX` <br> e.g., `deleteInterview i/1 v/2`
-**ListInterview** | `listInterview i/PERSON_INDEX` <br> e.g., `listInterview i/1`
-**AddCat** | `addCat i/PERSON_INDEX [c/CATEGORY]...`<br>e.g., `addCat i/1 c/emergency`
-**DeleteCat** | `deleteCat i/PERSON_INDEX [c/CATEGORY]...`<br>e.g., `deleteCat i/1 c/emergency`
-**NextInterview** | `nextInterview`
-**Exit** | `exit`
-**Help** | `help`
+**add** | `add n/NAME p/PHONE e/EMAIL o/ORGANISATION r/ROLE [c/CATEGORY]…​` <br> e.g., `add n/John Doe p/98765432 e/johnd@example.com o/NUS r/Student c/friends c/owesMoney`
+**clear** | `clear`
+**delete** | `delete i/PERSON_INDEX`<br> e.g., `delete i/3`
+**edit** | `edit i/PERSON_INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [o/ORGANISATION] [r/ROLE]​`<br> e.g.,`edit i/2 n/James Lee e/jameslee@example.com`
+**find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James NUS Student`
+**list** | `list`
+**addInterview** | `addInterview i/PERSON_INDEX h/HEADER d/DATE t/TIME l/LOCATION` <br> e.g., `addInterview i/1 h/Interview with ABC Corp d/2024-10-10 t/14:00 l/123, Business St, #02-25`
+**deleteInterview** | `deleteInterview i/PERSON_INDEX v/INTERVIEW_INDEX` <br> e.g., `deleteInterview i/1 v/2`
+**listInterview** | `listInterview i/PERSON_INDEX` <br> e.g., `listInterview i/1`
+**addCat** | `addCat i/PERSON_INDEX c/CATEGORY [c/CATEGORY]`<br>e.g., `addCat i/1 c/emergency`
+**deleteCat** | `deleteCat i/PERSON_INDEX c/CATEGORY [c/CATEGORY]`<br>e.g., `deleteCat i/1 c/emergency`
+**nextInterview** | `nextInterview`
+**exit** | `exit`
+**help** | `help`

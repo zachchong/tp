@@ -11,7 +11,7 @@ public class Organisation {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Organisation must be 1 to 50 characters, using only letters and digits, "
-            + "with single spaces between words (no leading/trailing or multiple spaces).";
+            + "with single spaces between words (no multiple spaces).";
 
     /*
      * The first character of the role must not be a whitespace,

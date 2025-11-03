@@ -46,7 +46,7 @@ public class AddCategoryCommandTest {
         Person editedPerson = AddCategoryCommand.createNewPerson(personToEdit, descriptor);
 
         String expectedMessage = String.format(AddCategoryCommand.MESSAGE_ADDCAT_SUCCESS, editedPerson.getName(),
-                descriptor.getCategoriesAsString());
+                descriptor.getCategoriesAsString(), "");
 
         Model expectedModel = new ModelManager(model.getContactBook(), new UserPrefs());
         expectedModel.setPerson(personToEdit, editedPerson);
@@ -67,7 +67,7 @@ public class AddCategoryCommandTest {
         Person editedPerson = AddCategoryCommand.createNewPerson(personToEdit, descriptor);
 
         String expectedMessage = String.format(AddCategoryCommand.MESSAGE_ADDCAT_SUCCESS, editedPerson.getName(),
-                descriptor.getCategoriesAsString());
+                descriptor.getCategoriesAsString(), "");
 
         Model expectedModel = new ModelManager(model.getContactBook(), new UserPrefs());
         expectedModel.setPerson(personToEdit, editedPerson);
@@ -89,8 +89,12 @@ public class AddCategoryCommandTest {
 
         EditCategoryDescriptor expectedDescriptor = new EditCategoryDescriptorBuilder()
                 .withCategories(VALID_CATEGORY_HUSBAND).build();
+        EditCategoryDescriptor dupDescriptor = new EditCategoryDescriptorBuilder()
+                .withCategories("friends").build();
+        String duplicateCatMessage = String.format(AddCategoryCommand.MESSAGE_ADDCAT_DUP_SUCCESS,
+                dupDescriptor.getCategoriesAsString());
         String expectedMessage = String.format(AddCategoryCommand.MESSAGE_ADDCAT_SUCCESS, editedPerson.getName(),
-                expectedDescriptor.getCategoriesAsString());
+                expectedDescriptor.getCategoriesAsString(), duplicateCatMessage);
 
         Model expectedModel = new ModelManager(model.getContactBook(), new UserPrefs());
         expectedModel.setPerson(personToEdit, editedPerson);
@@ -112,7 +116,7 @@ public class AddCategoryCommandTest {
         Person editedPerson = AddCategoryCommand.createNewPerson(personInFilteredList, descriptor);
 
         String expectedMessage = String.format(AddCategoryCommand.MESSAGE_ADDCAT_SUCCESS, editedPerson.getName(),
-                descriptor.getCategoriesAsString());
+                descriptor.getCategoriesAsString(), "");
 
         Model expectedModel = new ModelManager(new ContactBook(model.getContactBook()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
