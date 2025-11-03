@@ -667,6 +667,7 @@ Lists all interviews of a contact in the contact book.
 
 * Lists all interviews of the contact at the specified `PERSON_INDEX`.
 * If the contact has no interviews, a message indicating so will be shown instead.
+* When a contact has multiple interviews, they are listed in descending order of datetime, meaning the interview scheduled furthest in the future appears first, while the one closest to the present (or most recent past) appears last.
 
 ![empty interview](images/emptyInterviewExample.png)
 ![filled interview](images/filledInterviewExample.png)
