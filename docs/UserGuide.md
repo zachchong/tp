@@ -375,9 +375,10 @@ Please refer to the instructions in **Step 1 (Quick Start)** to set it up correc
   <summary><h2>Input Format & Parameters</h2></summary>
 
 <details class="caution" open>
-  <summary>⚠️ CAUTION: For users using the PDF version of the user guide, please read! </summary>
+  <summary>⚠️ CAUTION: For <u>users using the PDF version</u> of the user guide, please read! </summary>
   <div class="caution-body">
-    Since the PDF automatically expands all the tabs, the "click to collapse" feature will not work!
+    - Since the PDF automatically expands all the tabs, the <strong>"click to collapse" feature will not work!</strong><br/>
+    - <strong>Copy buttons will not work</strong> on the PDF version!
   </div>
 </details>
 
@@ -397,7 +398,6 @@ Please refer to the instructions in **Step 1 (Quick Start)** to set it up correc
 <panel header=":memo: Notes about the command format" type="info" expanded>
 
 <div class="rule-accordion">
-
   <details>
     <summary><span class="caret">▶</span> Items in square brackets are optional</summary>
     <div class="rule-body">
