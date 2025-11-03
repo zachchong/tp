@@ -506,11 +506,11 @@ Please refer to the instructions in **Step 1 (Quick Start)** to set it up correc
   <tab header="🧭 **General**" active>
   <h3>General Parameters</h3>
 
-| Symbol | Parameter        | Description                                   | Constraints |
-|:------:|:-----------------|:----------------------------------------------|:------------|
-|  `i/`  | `PERSON_INDEX`   | Index of a person in the **current** list.    | **Positive integer** (1, 2, …); must exist in the current displayed list. |
-|  `v/`  | `INTERVIEW_INDEX`| Index of an interview for the selected person.| **Positive integer** (1, 2, …); must exist in the current displayed list. |
-|   NA   | `KEYWORD`        | One or more words used for searching.         | Non-empty string. |
+| Symbol | Parameter        | Description                                   | Constraints                                                                                                                                                                                                                                                                                                                                                                                                             |
+|:------:|:-----------------|:----------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|  `i/`  | `PERSON_INDEX`   | Index of a person in the **current** list.    | **Positive integer** (1, 2, …); must exist in the current displayed list.<br/><br/> ✅ **Valid** (when list has ≥2 contacts):<br/>- `i/1`<br/>- `i/ 02` (space inside and leading zero)<br/><br/>**❌ Invalid:**<br/>- `i/0` (zero)<br/>- `i/-1` (negative)<br/>- `i/2.5` (decimal)<br/>- `i/abc` (non-numeric)<br/>- `i/999` (out of range, when list has <999 contacts)                                                 |
+|  `v/`  | `INTERVIEW_INDEX` | Index of an interview for the selected person.| **Positive integer** (1, 2, …); must exist in the current displayed list.<br/><br/> ✅ **Valid** (when the person has ≥2 interviews):<br/>- `v/1`<br/>- `i/ 02` (space inside and leading zero)<br/><br/> **❌ Invalid:**<br/>- `v/0` (zero)<br/>- `v/-1` (negative)<br/>- `v/1.5` (decimal)<br/>- `v/abc` (non-numeric)<br/>- `v/999` (out of range for that person)<br/>- `v/1` (when the person has **no interviews**) |
+|   NA   | `KEYWORD`        | One or more words used for searching.         | Non-empty string.                                                                                                                                                                                                                                                                                                                                                                                                       |
 
 
   </tab>
