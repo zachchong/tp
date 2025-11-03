@@ -42,7 +42,8 @@ public class ListInterviewCommand extends Command {
 
         //check if the index is within the list
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX + " "
+                    + model.getValidPersonIndexRange());
         }
 
         //get the list of person

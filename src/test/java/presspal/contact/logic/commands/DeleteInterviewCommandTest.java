@@ -32,7 +32,8 @@ public class DeleteInterviewCommandTest {
         Index outOfBoundPerson = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         DeleteInterviewCommand cmd = new DeleteInterviewCommand(outOfBoundPerson, Index.fromOneBased(1));
 
-        assertCommandFailure(cmd, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(cmd, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX + " "
+                + model.getValidPersonIndexRange());
     }
 
     @Test
@@ -61,7 +62,8 @@ public class DeleteInterviewCommandTest {
         assertTrue(outOfBoundPerson.getZeroBased() < model.getContactBook().getPersonList().size());
 
         DeleteInterviewCommand cmd = new DeleteInterviewCommand(outOfBoundPerson, Index.fromOneBased(1));
-        assertCommandFailure(cmd, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(cmd, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX + " "
+                + model.getValidPersonIndexRange());
     }
 
     @Test

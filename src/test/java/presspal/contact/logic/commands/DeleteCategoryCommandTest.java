@@ -106,7 +106,8 @@ public class DeleteCategoryCommandTest {
                 .withCategories(VALID_CATEGORY_FRIEND).build();
         DeleteCategoryCommand deleteCategoryCommand = new DeleteCategoryCommand(outOfBoundIndex, descriptor);
 
-        assertCommandFailure(deleteCategoryCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCategoryCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX
+                + " " + model.getValidPersonIndexRange());
     }
 
     /**
@@ -123,7 +124,8 @@ public class DeleteCategoryCommandTest {
         DeleteCategoryCommand deleteCategoryCommand = new DeleteCategoryCommand(outOfBoundIndex,
                 new EditCategoryDescriptorBuilder().withCategories(VALID_CATEGORY_FRIEND).build());
 
-        assertCommandFailure(deleteCategoryCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCategoryCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX
+                + " " + model.getValidPersonIndexRange());
     }
 
     @Test

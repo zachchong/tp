@@ -123,6 +123,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public String getValidPersonIndexRange() {
+        int n = filteredPersons.size();
+        return n == 0 ? "The contact book is empty :(" : String.format("Valid range: 1..%d.", n);
+    }
+
+    @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
