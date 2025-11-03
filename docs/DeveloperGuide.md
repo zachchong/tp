@@ -18,11 +18,15 @@ h2 {
 <style>
 h1 {
   color: #E84C23 !important;
-  font-size: 4rem !important;
+  font-size: 3rem !important;
   font-weight: 800 !important;
   line-height: 1.2;
   margin-top: 2rem;
   margin-bottom: .9rem;
+}
+
+p {
+    font-size: 1rem !important;
 }
 </style>
 
@@ -76,7 +80,7 @@ The bulk of the app's work is done by the following four components:
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete i/1`.
 
 <img src="images/ArchitectureSequenceDiagram.png" width="574" />
 
@@ -116,9 +120,9 @@ Here's a (partial) class diagram of the `Logic` component:
 
 <img src="images/LogicClassDiagram.png" width="550"/>
 
-The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete 1")` API call as an example.
+The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete i/1")` API call as an example.
 
-![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.png)
+![Interactions Inside the Logic Component for the `delete i/1` Command](images/DeleteSequenceDiagram.png)
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
 </div>
@@ -169,101 +173,6 @@ Classes used by multiple components are in the `presspal.contact.commons` packag
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Implementation**
-
-This section describes some noteworthy details on how certain features are implemented.
-
-### \[Proposed\] Undo/redo feature
-
-#### Proposed Implementation
-
-The proposed undo/redo mechanism is facilitated by `VersionedContactBook`. It extends `ContactBook` with an undo/redo history, stored internally as an `contactBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
-
-* `VersionedContactBook#commit()` — Saves the current contact book state in its history.
-* `VersionedContactBook#undo()` — Restores the previous contact book state from its history.
-* `VersionedContactBook#redo()` — Restores a previously undone contact book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitContactBook()`, `Model#undoContactBook()` and `Model#redoContactBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedContactBook` will be initialized with the initial contact book state, and the `currentStatePointer` pointing to that single contact book state.
-
-![UndoRedoState0](images/UndoRedoState0.png)
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the contact book. The `delete` command calls `Model#commitContactBook()`, causing the modified state of the contact book after the `delete 5` command executes to be saved in the `contactBookStateList`, and the `currentStatePointer` is shifted to the newly inserted contact book state.
-
-![UndoRedoState1](images/UndoRedoState1.png)
-
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitContactBook()`, causing another modified contact book state to be saved into the `contactBookStateList`.
-
-![UndoRedoState2](images/UndoRedoState2.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitContactBook()`, so the contact book state will not be saved into the `contactBookStateList`.
-
-</div>
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoContactBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous contact book state, and restores the contact book to that state.
-
-![UndoRedoState3](images/UndoRedoState3.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial ContactBook state, then there are no previous ContactBook states to restore. The `undo` command uses `Model#canUndoContactBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
-
-</div>
-
-The following sequence diagram shows how an undo operation goes through the `Logic` component:
-
-![UndoSequenceDiagram](images/UndoSequenceDiagram-Logic.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</div>
-
-Similarly, how an undo operation goes through the `Model` component is shown below:
-
-![UndoSequenceDiagram](images/UndoSequenceDiagram-Model.png)
-
-The `redo` command does the opposite — it calls `Model#redoContactBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the contact book to that state.
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `contactBookStateList.size() - 1`, pointing to the latest contact book state, then there are no undone ContactBook states to restore. The `redo` command uses `Model#canRedoContactBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-</div>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the contact book, such as `list`, will usually not call `Model#commitContactBook()`, `Model#undoContactBook()` or `Model#redoContactBook()`. Thus, the `contactBookStateList` remains unchanged.
-
-![UndoRedoState4](images/UndoRedoState4.png)
-
-Step 6. The user executes `clear`, which calls `Model#commitContactBook()`. Since the `currentStatePointer` is not pointing at the end of the `contactBookStateList`, all contact book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
-
-![UndoRedoState5](images/UndoRedoState5.png)
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<img src="images/CommitActivityDiagram.png" width="250" />
-
-#### Design considerations:
-
-**Aspect: How undo & redo executes:**
-
-* **Alternative 1 (current choice):** Saves the entire contact book.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
-
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
-
-_{more aspects and alternatives to be added}_
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
-
-
---------------------------------------------------------------------------------------------------------------------
-
 ## **Documentation, logging, testing, configuration, dev-ops**
 
 * [Documentation guide](Documentation.md)
@@ -298,27 +207,27 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …                              | I can …                                                                                     | So that I can…                                                            |
-|-------|-------------------------------------|---------------------------------------------------------------------------------------------|---------------------------------------------------------------------------|
-| `* * *` | basic user                          | create new contacts with the add contact functions (name, phone, email, organisation, role) | retrieve the contact easily when I need them                              |
-| `* * *` | basic user                          | add category(s) to a contact                                                                | search the contact with the category(s) for easy reference                |
-| `* * *` | basic user                          | add an interview to a contact with details (date, time, location, header)                   | easily track and know my interview schedule with a specific person        |
-| `* * *` | basic user                          | delete contacts from the contact book                                                       | keep my contact book organised                                            |
-| `* * *` | basic user                          | delete category(s) from a contact                                                           | keep my contact book organised                                            |
-| `* * *` | basic user                          | delete an interview from a contact                                                          | keep my schedule up to date and avoid confusion from outdated information |
-| `* * *` | basic user                          | search contacts by their names                                                              | quickly find the specific person I’m looking for                          |
-| `* * *` | basic user                          | see a list of all persons in the contact book                                               | check all my contacts in the contact book at once                         |
-| `* * *` | basic user                          | see a list of all interviews of a contact                                                   | check all my interviews with a specific person                            |
-| `* * *` | advanced user/ fast typer           | utilise fast-typing shortcuts during data entry                                             | enter information quickly and reduce wait times                           |
-| `* *` | beginner, basic user, advanced user | work with an intuitive user interface                                                       | can work more efficiently                                                 |
-| `* *` | basic user, beginner                | have error-prevention features built into the data entry process                            | record the contact correctly the first time                               |
-| `* *` | beginner                            | view the user guide easily                                                                  | learn more about the product                                              |
-| `* *` | basic user                          | see my next upcoming interview across all scheduled interviews                              | quickly know when and with whome my next interview is happening           |
-| `* *` | basic user                          | edits an existing person in the contact book (name, phone, email, organisation, role)       | keep my contacts updated in the contact book                              |
-| `* *` | basic user                          | search contacts by their organisation                                                       | find a person from a specific organisation                                |
-| `* *` | basic user                          | search contacts by their roles                                                              | find a person with related role                                           |
-| `* *` | basic user                          | search contacts by their categories                                                         | find a person with related categories                                     |
-| `*`   | long-time user                      | archive contacts once a story wraps up                                                      | keep my dashboard uncluttered                                             |
+| Priority | As a …                              | I can …                                                                                    | So that I can…                                                           |
+|-------|-------------------------------------|--------------------------------------------------------------------------------------------|--------------------------------------------------------------------------|
+| `* * *` | basic user                          | create new contacts with the add contact functions (name, phone, email, organisation, role) | retrieve the contact easily when I need them                             |
+| `* * *` | basic user                          | add category(s) to a contact                                                               | search the contact with the category(s) for easy reference               |
+| `* * *` | basic user                          | add an interview to a contact with details (date, time, location, header)                  | easily track and know my interview schedule with a specific person       |
+| `* * *` | basic user                          | delete contacts from the contact book                                                      | keep my contact book organised                                           |
+| `* * *` | basic user                          | delete category(s) from a contact                                                          | keep my contact book organised                                           |
+| `* * *` | basic user                          | delete an interview from a contact                                                         | keep my schedule up to date and avoid confusion from outdated information |
+| `* * *` | basic user                          | search contacts by their names                                                             | quickly find the specific person I’m looking for                         |
+| `* * *` | basic user                          | see a list of all persons in the contact book                                              | check all my contacts in the contact book at once                        |
+| `* * *` | basic user                          | see a list of all interviews of a contact                                                  | check all my interviews with a specific person                           |
+| `* * *` | advanced user/ fast typer           | utilise fast-typing shortcuts during data entry                                            | enter information quickly and reduce wait times                          |
+| `* *` | beginner, basic user, advanced user | work with an intuitive user interface                                                      | can work more efficiently                                                |
+| `* *` | basic user, beginner                | have error-prevention features built into the data entry process                           | record the contact correctly the first time                              |
+| `* *` | beginner                            | view the user guide easily                                                                 | learn more about the product                                             |
+| `* *` | basic user                          | see my next upcoming interview across all scheduled interviews                             | quickly know when and with whom my next interview is happening           |
+| `* *` | basic user                          | edit an existing person in the contact book (name, phone, email, organisation, role)       | keep my contacts updated in the contact book                             |
+| `* *` | basic user                          | search contacts by their organisation                                                      | find a person from a specific organisation                               |
+| `* *` | basic user                          | search contacts by their roles                                                             | find a person with related role                                          |
+| `* *` | basic user                          | search contacts by their categories                                                        | find a person with related categories                                    |
+| `*`   | long-time user                      | archive contacts once a story wraps up                                                     | keep my dashboard uncluttered                                            |
 
 ## **Use cases**
 
@@ -378,7 +287,7 @@ The use cases below are not exhaustive. (For all use cases below, the **System**
     Use case resumes at step 1.
 
 * 3a. One or more categories already exist for the contact.
-  * 3a1. PressPal informs the Reporter that duplicate categories cannot be added.
+  * 3a1. PressPal informs the Reporter that duplicate categories cannot be added. <br>
     Use case ends.
 
 * 3b. All specified categories already exist.
@@ -594,10 +503,9 @@ The use cases below are not exhaustive. (For all use cases below, the **System**
 **MSS**
 
 1. Reporter requests to view the next upcoming interview.
-2. PressPal retrieves all scheduled interviews and filters out those that have already occurred (i.e., past interviews).
+2. PressPal retrieves all scheduled interviews across the contact book and filters out those that have already occurred (i.e., past interviews).
 3. PressPal identifies the interview that is scheduled to occur next (closest future date and time).
-4. PressPal displays the details of the next upcoming interview to the Reporter.  
-   Use case ends.
+4. PressPal displays the details of the next upcoming interview to the Reporter.
 
    Use case ends.
 
@@ -612,8 +520,8 @@ The use cases below are not exhaustive. (For all use cases below, the **System**
     Use case ends.
 
 * 3a. Multiple upcoming interviews are scheduled at the same date and time.
-  * 3a1. PressPal displays any one of them as the next interview, following priority of the person index.  
-    Use case ends.
+  * 3a1. PressPal will display the one belonging to the contact with the lower index in the contact book 
+  as the next upcoming interview.
 
 ## Non-Functional Requirements
 
@@ -622,10 +530,10 @@ The use cases below are not exhaustive. (For all use cases below, the **System**
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 ## Glossary
+This glossary defines key terms used within **PressPal**, a platform designed for breaking news journalists to manage and organize their contact information efficiently.
 
-* **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
-  This glossary defines key terms used within **PressPal**, a platform designed for breaking news journalists to manage and organize their contact information efficiently.
+* **Mainstream OS**: Windows, Linux, Unix, MacOS.
+* **Private contact detail**: A contact detail that is not meant to be shared with others.
 * **Account**: A user profile in PressPal that stores a journalist’s credentials, preferences, and contact database.
 * **Category**: A label or grouping used to organize contacts (e.g., “Politics,” “Health,” “Technology”).
 * **Contact**: An individual or organization entry stored in PressPal, including name, role, and at least one mode of contact (e.g., phone or email).
