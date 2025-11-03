@@ -311,10 +311,16 @@ The **goal of PressPal** is to:
 
 ## Quick start
 
-1. Ensure you have Java `17` or above installed on your computer.<br>
+1. Ensure you have `Java 17` or above installed on your computer.<br>
    - **Windows & Linux Users:** Download and install Java from [Oracle JDK 17 Archive Downloads](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html).
      - **Windows Users:** Follow the instructions [here](https://se-education.org/guides/tutorials/javaInstallationWindows.html).
    - **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).<br/><br/>
+
+<div markdown="span" class="alert alert-primary">
+
+:bulb: **Tip**:
+You can verify the installation of `Java 17` by running `java -version` command in your terminal (e.g. Command Prompt, PowerShell).
+</div>
 
 2. **Download our app:**
    - Install the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103T-W08-1/tp/releases/latest).<br/><br/>
@@ -547,7 +553,7 @@ Adds a person to the contact book.
 
 <div markdown="span" class="alert alert-primary">
 
-:bulb: Tip:
+:bulb: **Tip**:
 A person can have any number of categories (including 0).
 </div>
 
