@@ -3,6 +3,7 @@ package presspal.contact.logic.parser;
 import static presspal.contact.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static presspal.contact.logic.commands.CommandTestUtil.CATEGORY_DESC_FRIEND;
 import static presspal.contact.logic.commands.CommandTestUtil.INDEX_DESC_A;
+import static presspal.contact.logic.commands.CommandTestUtil.VALID_CATEGORY_FRIEND;
 import static presspal.contact.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static presspal.contact.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static presspal.contact.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import presspal.contact.logic.commands.AddCategoryCommand;
 import presspal.contact.logic.commands.DeleteCategoryCommand;
+import presspal.contact.logic.commands.EditCategoryCommand;
 import presspal.contact.testutil.EditCategoryDescriptorBuilder;
 
 public class DeleteCategoryCommandParserTest {
@@ -70,5 +72,31 @@ public class DeleteCategoryCommandParserTest {
         // triggers non-empty preamble branch
         String userInput = "preamble " + INDEX_DESC_A + CATEGORY_DESC_FRIEND;
         assertParseFailure(parser, userInput, errorMessage);
+    }
+
+    @Test
+    public void parse_caseInsensitiveCategory_success() {
+        String userInput = " i/1 c/FrIeNd";
+        EditCategoryCommand.EditCategoryDescriptor descriptor = new EditCategoryDescriptorBuilder()
+                .withCategories(VALID_CATEGORY_FRIEND)
+                .build();
+        DeleteCategoryCommand expected =
+                new DeleteCategoryCommand(INDEX_FIRST_PERSON, descriptor);
+
+        assertParseSuccess(parser, userInput, expected);
+    }
+
+    @Test
+    public void parse_duplicateCategoriesDifferentCaseDeduped_success() {
+        String userInput = INDEX_DESC_A + " c/FRIEND c/friend";
+
+        EditCategoryCommand.EditCategoryDescriptor descriptor = new EditCategoryDescriptorBuilder()
+                .withCategories(VALID_CATEGORY_FRIEND)
+                .build();
+
+        DeleteCategoryCommand expected =
+                new DeleteCategoryCommand(INDEX_FIRST_PERSON, descriptor);
+
+        assertParseSuccess(parser, userInput, expected);
     }
 }

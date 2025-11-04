@@ -88,4 +88,30 @@ public class AddCategoryCommandParserTest {
         String userInput = "preamble " + INDEX_DESC_A + CATEGORY_DESC_FRIEND;
         assertParseFailure(parser, userInput, errorMessage);
     }
+
+    @Test
+    public void parse_caseInsensitiveCategories_success() {
+        // mixed case inputs should normalize to lowercase via Category constructor
+        String userInput = INDEX_DESC_A + " c/FrIeNd c/HuSbAnD";
+
+        EditCategoryDescriptor descriptor = new EditCategoryDescriptorBuilder()
+                .withCategories(VALID_CATEGORY_FRIEND, VALID_CATEGORY_HUSBAND)
+                .build();
+
+        AddCategoryCommand expectedCommand = new AddCategoryCommand(INDEX_FIRST_PERSON, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_duplicateCategoriesDifferentCaseDeduped_success() {
+        // same category in different cases should dedupe to one
+        String userInput = INDEX_DESC_A + " c/FRIEND c/friend";
+
+        EditCategoryDescriptor descriptor = new EditCategoryDescriptorBuilder()
+                .withCategories(VALID_CATEGORY_FRIEND)
+                .build();
+
+        AddCategoryCommand expectedCommand = new AddCategoryCommand(INDEX_FIRST_PERSON, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
 }

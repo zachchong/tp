@@ -1,5 +1,6 @@
 package presspal.contact.model.category;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static presspal.contact.testutil.Assert.assertThrows;
@@ -17,6 +18,20 @@ public class CategoryTest {
     public void constructor_invalidCategoryName_throwsIllegalArgumentException() {
         String invalidCategoryName = "";
         assertThrows(IllegalArgumentException.class, () -> new Category(invalidCategoryName));
+    }
+
+    @Test
+    public void constructor_normalizesToLowercase() {
+        Category c = new Category("FrIeNd");
+        assertEquals("friend", c.categoryName);
+    }
+
+    @Test
+    public void equals_caseInsensitiveOnConstruction() {
+        Category a = new Category("Friend");
+        Category b = new Category("friend");
+        assertTrue(a.equals(b));
+        assertEquals(a.hashCode(), b.hashCode());
     }
 
     @Test

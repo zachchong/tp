@@ -3,13 +3,15 @@ package presspal.contact.model.category;
 import static java.util.Objects.requireNonNull;
 import static presspal.contact.commons.util.AppUtil.checkArgument;
 
+import java.util.Locale;
+
 /**
  * Represents a Category in the contact book.
  * Guarantees: immutable; name is valid as declared in {@link #isValidCategoryName(String)}
  */
 public class Category {
 
-    public static final String MESSAGE_CONSTRAINTS = "Categories names should be alphanumeric. "
+    public static final String MESSAGE_CONSTRAINTS = "Category names should be alphanumeric. "
             + "It should not contain spaces and it should have at most 20 characters.";
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
@@ -23,7 +25,8 @@ public class Category {
     public Category(String categoryName) {
         requireNonNull(categoryName);
         checkArgument(isValidCategoryName(categoryName), MESSAGE_CONSTRAINTS);
-        this.categoryName = categoryName;
+        // Normalize to lower case so commands work with case-insensitive inputs
+        this.categoryName = categoryName.toLowerCase(Locale.ROOT);
     }
 
     /**
