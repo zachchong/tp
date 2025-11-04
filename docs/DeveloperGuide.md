@@ -554,10 +554,9 @@ This glossary defines key terms used within **PressPal**, a platform designed fo
 
 Given below are instructions to test the app manually.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** These instructions only provide a starting point for testers to work on;
-testers are expected to do more *exploratory* testing.
-
-</div>
+<panel header=":information_source: Note" type="info" expanded>
+These instructions only provide a starting point for testers to work on; testers are expected to do more exploratory testing.
+</panel>
 
 ### Launch and shutdown
 
