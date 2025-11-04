@@ -435,7 +435,7 @@ Please refer to the instructions in **Step 1 (Quick Start)** to set it up correc
 
 <h4> Contact List Panel </h4>
 
-The contact list is composed of all the contacts stored in PressPal. Each contact is displayed as a card containing their details.
+The contact list is composed of all the contacts stored in PressPal. Each contact is displayed as a card containing their details <b>in the order they were added</b>.
 
 ![Contact List Panel](images/uiPersonCard.png)
 <ul>
