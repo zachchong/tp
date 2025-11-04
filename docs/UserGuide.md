@@ -483,7 +483,7 @@ The contact list is composed of all the contacts stored in PressPal. Each contac
 
 <div class="rule-accordion">
   <details>
-    <summary><span class="caret">▶</span> Items in square brackets are optional</summary>
+    <summary><span class="caret">▶</span> Items in square brackets are optional. </summary>
     <div class="rule-body">
       Use optional flags when you need them.
       <div class="example">
@@ -522,6 +522,17 @@ The contact list is composed of all the contacts stored in PressPal. Each contac
         <code>deleteCat i/1 c/friends c/elections</code><br/>
         → Remove "friends" and "elections" categories (if they exist) from the person at index 1 of the currently displayed list.
       </div>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="caret">▶</span> Parameter symbols are case insensitive. </summary>
+    <div class="rule-body">
+        You may use lower and upper case letters interchangeably for parameter symbols.
+        <div class="example">
+        <strong>Example  (<code>deleteCat</code> command):</strong><br/>
+        <code>c/friends</code> is the same as <code> C/friends </code><br/>
+        </div>
     </div>
   </details>
 
