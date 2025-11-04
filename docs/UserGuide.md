@@ -526,12 +526,12 @@ The contact list is composed of all the contacts stored in PressPal. Each contac
   </details>
 
   <details>
-    <summary><span class="caret">▶</span> Parameter symbols are case insensitive. </summary>
+    <summary><span class="caret">▶</span> Parameter symbols are case sensitive. </summary>
     <div class="rule-body">
-        You may use lower and upper case letters interchangeably for parameter symbols.
+        All our parameter symbols are lower case letters. You may not use upper case letters interchangeably.
         <div class="example">
-        <strong>Example  (<code>deleteCat</code> command):</strong><br/>
-        <code>c/friends</code> is the same as <code>C/friends</code>. <br/>
+        <strong>Example (<code>CATEGORY</code> parameter symbol):</strong><br/>
+        <code>C/friends</code> will not work. Please use <code>c/friends</code> instead. <br/>
         </div>
     </div>
   </details>
