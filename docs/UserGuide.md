@@ -701,8 +701,14 @@ Deletes the specified person from the contact book.
 * Deletes the person at the specified `PERSON_INDEX`.
 
 Examples:
-* `list` followed by `delete i/2` deletes the 2nd person in the contact book.
-* `find Betsy` followed by `delete i/1` deletes the 1st person in the results of the `find` command.
+Suppose I run `find Betsy`: <br>
+
+![find Besty](images/findBestyExample.jpg)
+
+Betsy is the person in index 1. 
+* `delete i/1` deletes Betsy from contact book. 
+* `delete i/2` throws invalid index error.
+
 <br/><br/>
 
 ### Editing a person : `edit`
@@ -748,6 +754,13 @@ Finds person(s) whose name, organisation, role or categories matches exactly wit
 * The entered `KEYWORD` must match exactly with the intended search e.g. `Han` will not match `Hans`.
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`.
+
+<details class="caution" open>
+  <summary>⚠️ Displayed results may differ in indexing compared to the full contact list </summary>
+  <div class="caution-body">
+    <code>find</code> will filter through the contact book to display person(s) who matches exactly with at least one of the given keywords. Hence, contacts may be re-ordered to display only the relevant results.
+  </div>
+</details>
 
 Examples:
 * `find John` returns `john` and `John Doe`.
@@ -801,21 +814,26 @@ Lists all interviews of a contact in the contact book.
 
 * Lists all interviews of the contact at the specified `PERSON_INDEX`.
 * If the contact has no interviews, a message indicating so will be shown instead.
+* When a contact has multiple interviews, they are listed in descending order of datetime, meaning the interview scheduled furthest in the future appears first, while the one closest to the present (or most recent past) appears last.
 
+Output for a contact without any scheduled interviews: <br>
 ![empty interview](images/emptyInterviewExample.png)
-![filled interview](images/filledInterviewExample.png)
 
+Output for a contact with scheduled interviews: <br>
+![filled interview](images/filledInterviewExample.png)
 <br/><br/>
 
 ### Display the upcoming interview : `nextInterview`
 
 Displays the next scheduled interview that occurs at or after the current date and time, excluding any interviews already in the past.
-* If the next scheduled interview occurs for more than one contact, they will all be displayed.
 
 > **Format**
 > ```
 > nextInterview
 > ```
+
+* `nextInterview` shows the earliest upcoming interview among all contacts in the contact book.
+* If multiple contacts have interviews scheduled for the same date and time, the contact with the lowest index in the contact book will be displayed.
 
 Examples:
 * `nextInterview` Displays the most upcoming scheduled interview for example, "[Meta Interview] on 15 Oct 2050 2:30PM at Meta HQ."
@@ -883,6 +901,9 @@ Examples:
 **Q:** <u>Why can't I see the full line of text when it gets too long?</u>  
 **A:** The text extends beyond the visible area. Scroll horizontally (drag the scroll bar to the right) to view the rest of the line.
 
+**Q:** <u>The terms "Person" and "Contact" is used interchangeably in the user guide, do they refer to the same thing?</u>  
+**A:** Yes, they are referring to the same entity. The choice of term depends on the context to make instructions sound more natural and clear.
+
 **Q:** <u>Can I use PressPal offline?</u>  
 **A:** Yes. Everything runs locally; no internet is needed after download.
 
@@ -904,10 +925,10 @@ Examples:
   <tab header="🧩 Troubleshooting">
 
 **Q:** <u>I found a bug, how do I report it?</u>  
-**A:** Tell any developer, their emails are listed [here](AboutUs.md).
+**A:** Tell any developer, their emails are listed [here](https://ay2526s1-cs2103t-w08-1.github.io/tp/AboutUs.html).
 
 **Q:** <u>I have an idea, where do I suggest it?</u>  
-**A:** Share it with any developer, contacts are found [here](AboutUs.md).
+**A:** Share it with any developer, contacts are found [here](https://ay2526s1-cs2103t-w08-1.github.io/tp/AboutUs.html).
 </tab>
 
   <tab header="💡 Feature Rationale">
@@ -925,6 +946,8 @@ If several interviews have the same time, we show the **first one in your curren
 **Q:** <u>Why are non-alphanumeric characters (e.g special symbols) disallowed for name, organisation, role & categories? For instance, I would not be able to save 'Ben & Jerry's. </u>  
 **A:** Currently, we do not accept non-alphanumerical symbols for a more streamlined search process. We understand that this may not fully capture real world's dynamic and aim to support greater range of inputs in the future. For now, you could try workarounds. For instance, using 'Ben and Jerry' as a substitute.
 
+**Q:** <u>Why does the `find` command not support partial matches? </u>  
+**A:**  Allowing partial matches would make the search results too broad to be useful. For example, if searching for “Jo” would match “John,” “Joanna,” “Johannsen,” “Jonathan,” and so on, this would return an unnecessarily long list of results and defeat the purpose of finding contacts quickly and precisely. If you are unable to recall the exact name of the person you are searching for, you have the flexibility of entering more details, such as role, organisation and category(s). This would make the `find` feature more meaningful.
 </tab>
 
 </tabs>
