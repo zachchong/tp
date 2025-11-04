@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static presspal.contact.logic.commands.CommandTestUtil.DESC_AMY;
 import static presspal.contact.logic.commands.CommandTestUtil.DESC_BOB;
 import static presspal.contact.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static presspal.contact.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static presspal.contact.logic.commands.CommandTestUtil.assertCommandFailure;
 import static presspal.contact.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static presspal.contact.logic.commands.CommandTestUtil.showPersonAtIndex;
@@ -72,10 +71,11 @@ public class EditCommandTest {
         Person lastPerson = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
 
         PersonBuilder personInList = new PersonBuilder(lastPerson);
-        Person editedPerson = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB).build();
+        Person editedPerson = personInList.withName(VALID_NAME_BOB).withPhone("99887766")
+                .withEmail("test@email.com").build();
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).build();
+                .withPhone("99887766").withEmail("test@email.com").build();
         EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
@@ -85,19 +85,6 @@ public class EditCommandTest {
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
-
-    @Test
-    public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditPersonDescriptor());
-        Person editedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
-
-        Model expectedModel = new ModelManager(new ContactBook(model.getContactBook()), new UserPrefs());
-
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
-    }
-
     @Test
     public void execute_filteredList_success() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);

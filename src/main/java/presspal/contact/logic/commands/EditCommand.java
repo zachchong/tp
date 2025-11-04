@@ -61,8 +61,10 @@ public class EditCommand extends Command {
             + "[o/ORGANISATION] "
             + "[r/ROLE]\n"
             + "Example: edit i/1 p/91234567 e/johndoe@example.com";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the contact book.";
-
+    public static final String MESSAGE_DUPLICATE_PERSON = "Failure to edit this contact.\n"
+            + "Another contact with the same phone number or email already exists in the contact book.\n";
+    public static final String MESSAGE_NO_NEW_FIELDS_PROVIDED = "Failure to edit this contact."
+            + "The fields provided are the same as the existing fields.";
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
 
@@ -89,8 +91,8 @@ public class EditCommand extends Command {
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
-
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
+        if ((personToEdit.getPhone() != editedPerson.getPhone() || personToEdit.getEmail() != editedPerson.getEmail())
+                && model.hasPerson(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
