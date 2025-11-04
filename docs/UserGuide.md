@@ -531,7 +531,7 @@ The contact list is composed of all the contacts stored in PressPal. Each contac
         You may use lower and upper case letters interchangeably for parameter symbols.
         <div class="example">
         <strong>Example  (<code>deleteCat</code> command):</strong><br/>
-        <code>c/friends</code> is the same as <code> C/friends </code><br/>
+        <code>c/friends</code> is the same as <code> C/friends </code>. <br/>
         </div>
     </div>
   </details>
