@@ -32,8 +32,9 @@
   * [User Interface Overview]({{ baseUrl }}/UserGuide.html#user-interface-overview)
   * [Input Format & Parameters]({{ baseUrl }}/UserGuide.html#input-format-parameters)
   * [Features]({{ baseUrl }}/UserGuide.html#features)
-  * [FAQ]({{ baseUrl }}/UserGuide.html#faq)
-  * [Command Summary]({{ baseUrl }}/UserGuide.html#faq)
+  * [FAQ]({{ baseUrl }}/UserGuide.html#frequently-asked-questions-faq)
+  * [Future Iteration Plans]({{ baseUrl }}/UserGuide.html#future-iteration-plans)
+  * [Command Summary]({{ baseUrl }}/UserGuide.html#command-summary)
 * [Developer Guide]({{ baseUrl }}/DeveloperGuide.html) :expanded:
   * [Acknowledgements]({{ baseUrl }}/DeveloperGuide.html#acknowledgements)
   * [Setting Up]({{ baseUrl }}/DeveloperGuide.html#setting-up-getting-started)
