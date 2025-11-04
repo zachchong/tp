@@ -55,7 +55,8 @@ public class DeleteCategoryCommand extends EditCategoryCommand {
         EditCategoryDescriptor editCategoryDescriptor = super.getEditCategoryDescriptor();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX + " "
+                    + model.getValidPersonIndexRange());
         }
 
         Person personToDeleteCat = lastShownList.get(index.getZeroBased());

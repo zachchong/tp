@@ -148,7 +148,8 @@ public class AddCategoryCommandTest {
                 .withCategories(VALID_CATEGORY_FRIEND).build();
         AddCategoryCommand addCategoryCommand = new AddCategoryCommand(outOfBoundIndex, descriptor);
 
-        assertCommandFailure(addCategoryCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(addCategoryCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX
+                + " " + model.getValidPersonIndexRange());
     }
 
     /**
@@ -165,7 +166,8 @@ public class AddCategoryCommandTest {
         AddCategoryCommand addCategoryCommand = new AddCategoryCommand(outOfBoundIndex,
                 new EditCategoryDescriptorBuilder().withCategories(VALID_CATEGORY_FRIEND).build());
 
-        assertCommandFailure(addCategoryCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(addCategoryCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX
+                + " " + model.getValidPersonIndexRange());
     }
 
     @Test
