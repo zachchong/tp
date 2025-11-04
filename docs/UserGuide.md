@@ -695,7 +695,7 @@ Adds a person to the contact book.
 A person can have any number of categories (including 0).
 </div>
 
-Examples:
+Example:
 * `add n/John Doe p/98765432 e/johnd@example.com o/NUS r/Student c/friends c/owesMoney`
 * `add n/Betsy Crowe p/12345678 e/betsycrowe@example.com o/Reuters r/Reporter`
 <br/><br/>
