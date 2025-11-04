@@ -30,7 +30,7 @@
 * [User Guide]({{ baseUrl }}/UserGuide.html) :expanded:
   * [Quick Start]({{ baseUrl }}/UserGuide.html#quick-start)
   * [User Interface Overview]({{ baseUrl }}/UserGuide.html#user-interface-overview)
-  * [Input Format & Parameters]({{ baseUrl }}/UserGuide.html#input-parameters)
+  * [Input Format & Parameters]({{ baseUrl }}/UserGuide.html#input-format-parameters)
   * [Features]({{ baseUrl }}/UserGuide.html#features)
   * [FAQ]({{ baseUrl }}/UserGuide.html#faq)
   * [Command Summary]({{ baseUrl }}/UserGuide.html#faq)

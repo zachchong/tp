@@ -297,7 +297,7 @@ The **goal of PressPal** is to:
     - [A Closer Look](#a-closer-look)
       - [Command Line & Output Box](#command-line-output-box)
       - [Contact List Panel](#contact-list-panel)
-3. [Input Parameters](#input-parameters)
+3. [Input Format & Parameters](#input-format-parameters)
     - [General Parameters](#general-parameters)
     - [Contact Parameters](#contact-parameters)
     - [Interview Parameters](#interview-parameters)
@@ -456,7 +456,7 @@ The contact list is composed of all the contacts stored in PressPal. Each contac
 --------------------------------------------------------------------------------------------------------------------
 
 <details open>
-  <summary><h2>Input Format & Parameters</h2></summary>
+  <summary><h2 id="input-format-parameters">Input Format & Parameters</h2></summary>
 
 <details class="caution" open>
   <summary>⚠️ CAUTION: For <u>users using the PDF version</u> of the user guide, please read! </summary>
